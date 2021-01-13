@@ -50,7 +50,7 @@ public class LoginController{
 	@PostMapping(value = "/login")
     private ResponseEntity login(@RequestBody Map mem) {
         Map result = new HashMap();
-        System.out.println("id : " + mem.get("id") + " pw : " + mem.get("password"));
+        System.out.println("email : " + mem.get("email") + " pw : " + mem.get("password"));
         ResponseEntity entity = null;
         try {
             UserDto member = login.login(mem);

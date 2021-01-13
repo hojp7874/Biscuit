@@ -3,6 +3,9 @@
                   "http://mybatis.org/dtd/mybatis-3-config.dtd" >
 <configuration>
      <typeAliases>
+     		<package name="com.ssafy.a407.dto" />
+     <!-- 
       <typeAlias type="com.ssafy.a407.dto.UserDto"  alias="user"/>
+      -->
    </typeAliases>  
 </configuration>

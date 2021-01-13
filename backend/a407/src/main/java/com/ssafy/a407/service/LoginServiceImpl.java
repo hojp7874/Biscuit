@@ -17,7 +17,7 @@ public class LoginServiceImpl implements LoginService {
 	
 	@Override
 	public UserDto login(Map<String, String> map) throws Exception {
-		System.out.println("service" + map);
+		System.out.println("service : " + map);
 		return dao.login(map);
 	}
 
