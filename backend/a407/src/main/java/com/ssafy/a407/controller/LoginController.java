@@ -79,4 +79,23 @@ public class LoginController{
 	    return entity;
 	}
 
+	
+	//회원가입
+	@PostMapping(value = "/join")
+    private ResponseEntity register(@RequestBody UserDto user) {
+		System.out.println("email : "+user.getEmail()+"/ nickname : "+user.getNickname()+" / password : "+user.getPassword());
+		Map result = new HashMap();
+        ResponseEntity entity = null;
+        try {
+			login.join(user);
+			result.put("success", "success");
+			entity = new ResponseEntity<>("success", HttpStatus.OK);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.put("success", "error"); 
+	        entity = new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
 }
