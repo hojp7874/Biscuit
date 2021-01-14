@@ -89,7 +89,7 @@ public class LoginController{
         try {
 			login.join(user);
 			result.put("success", "success");
-			entity = new ResponseEntity<>("success", HttpStatus.OK);
+			entity = new ResponseEntity<>(result, HttpStatus.OK);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
