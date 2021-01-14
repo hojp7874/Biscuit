@@ -32,8 +32,8 @@ import com.ssafy.a407.service.LoginService;
 public class LoginController{
 
 
-//	@Autowired
-//	private JwtService jwtService;
+	@Autowired
+	private JwtService jwtService;
 	
 	@Autowired
 	private LoginService login;
@@ -59,15 +59,15 @@ public class LoginController{
                 entity = new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
             }
             else {
-//                String token = jwtService.create(member);
-//                System.out.println(token);
-//                logger.trace("token " , token);
-//
-//                result.put("x-access-token", token);
+                String token = jwtService.create(member);
+                System.out.println(token);
+                logger.trace("token " , token);
+
+                result.put("x-access-token", token);
                 result.put("success", "success");                
                 
 
-            entity = new ResponseEntity<>("success", HttpStatus.OK);
+            entity = new ResponseEntity<>(result, HttpStatus.OK);
             
 	        }
 	    } catch (Exception e) {
