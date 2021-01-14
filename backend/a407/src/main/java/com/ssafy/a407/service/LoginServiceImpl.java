@@ -21,4 +21,10 @@ public class LoginServiceImpl implements LoginService {
 		return dao.login(map);
 	}
 
+	@Override
+	public void join(UserDto user) throws Exception {
+		System.out.println("service : " + user);
+		dao.insertUser(user);
+	}
+
 }
