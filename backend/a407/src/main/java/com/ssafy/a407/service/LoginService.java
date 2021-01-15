@@ -9,4 +9,5 @@ public interface LoginService {
 	public int join(UserDto user) throws Exception;
 	public int remove(Map mem) throws Exception;
 	public int update(Map mem) throws Exception;
+	public UserDto profile(String email) throws Exception;
 }

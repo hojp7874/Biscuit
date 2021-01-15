@@ -42,4 +42,9 @@ public class LoginServiceImpl implements LoginService {
 		return dao.updateUser(mem);
 	}
 
+	@Override
+	public UserDto profile(String email) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.profileUser(email);
+	}
 }

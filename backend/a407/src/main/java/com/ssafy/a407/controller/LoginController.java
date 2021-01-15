@@ -138,9 +138,43 @@ public class LoginController{
 		System.out.println("update ========");
 		Map result = new HashMap();
 		try {
-			login.update(mem);
-			result.put("success", "success");
-			entity = new ResponseEntity<>(result, HttpStatus.OK);
+			if (login.update(mem) == 1) {
+				result.put("success", "success");
+				entity = new ResponseEntity<>(result, HttpStatus.OK);
+				
+			}
+			else {
+				result.put("success", "fail");
+				entity = new ResponseEntity<>(result, HttpStatus.OK);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.put("success", "error");
+			entity = new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+			
+		}
+		return entity;
+	}
+	
+	//마이페이지
+	@GetMapping(value = "/profile")
+	private ResponseEntity profile(@RequestParam String email) {
+		ResponseEntity entity = null;
+		System.out.println("profile ========");
+		Map result = new HashMap();
+		try {
+			UserDto member = login.profile(email);
+			if (member != null) {
+				result.put("success", "success");
+				result.put("User", member);
+				entity = new ResponseEntity<>(result, HttpStatus.OK);
+				
+			}
+			else {
+				result.put("success", "fail");
+				entity = new ResponseEntity<>(result, HttpStatus.OK);
+			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();
