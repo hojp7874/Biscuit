@@ -87,9 +87,15 @@ public class LoginController{
 		Map result = new HashMap();
         ResponseEntity entity = null;
         try {
-			login.join(user);
-			result.put("success", "success");
-			entity = new ResponseEntity<>(result, HttpStatus.OK);
+        	if (login.join(user) == 1) {
+        		result.put("success", "success");
+        		entity = new ResponseEntity<>(result, HttpStatus.OK);
+        		
+        	}
+        	else {
+        		result.put("success", "fail");
+				entity = new ResponseEntity<>(result, HttpStatus.OK);
+        	}
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -101,15 +107,41 @@ public class LoginController{
 	
 	//회원탈퇴
 	@DeleteMapping(value = "/delete")
-	private ResponseEntity delete(@RequestHeader String email) {
+	private ResponseEntity delete(@RequestHeader Map mem) {
 		ResponseEntity entity = null;
 		System.out.println("delete =========");
 		Map result = new HashMap();
 		try {
-			login.remove(email);
+			if (login.remove(mem) == 1) {
+				result.put("success", "success");
+				entity = new ResponseEntity<>(result, HttpStatus.OK);
+				
+			}
+			else {
+				result.put("success", "fail");
+				entity = new ResponseEntity<>(result, HttpStatus.OK);
+			}
+				
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.put("success", "error");
+			entity = new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+			
+		}
+		return entity;
+	}
+	
+	//회원정보수정
+	@PutMapping(value = "/update")
+	private ResponseEntity update(@RequestBody Map mem) {
+		ResponseEntity entity = null;
+		System.out.println("update ========");
+		Map result = new HashMap();
+		try {
+			login.update(mem);
 			result.put("success", "success");
 			entity = new ResponseEntity<>(result, HttpStatus.OK);
-				
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			result.put("success", "error");

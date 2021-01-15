@@ -11,7 +11,8 @@ import com.ssafy.a407.dto.UserDto;
 @Mapper
 public interface LoginDao {
 	public UserDto login(Map<String, String> map) throws Exception;
-	public void insertUser(UserDto user) throws Exception;
-	public void removeUser(String email) throws Exception;
+	public int insertUser(UserDto user) throws Exception;
+	public int removeUser(Map mem) throws Exception;
+	public int updateUser(Map mem) throws Exception;
 	
 }
