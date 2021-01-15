@@ -1,4 +1,6 @@
 package com.ssafy.a407.controller;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -53,6 +55,9 @@ public class LoginController{
         System.out.println("email : " + mem.get("email") + " pw : " + mem.get("password"));
         ResponseEntity entity = null;
         try {
+        	String pw = getHashPassword((String)mem.get("password"));
+        	mem.replace("password", pw);
+        	
             UserDto member = login.login(mem);
             if (member == null) {
             	result.put("success", "fail"); 
@@ -87,6 +92,8 @@ public class LoginController{
 		Map result = new HashMap();
         ResponseEntity entity = null;
         try {
+        	user.setPassword(getHashPassword(user.getPassword())); //비밀번호 암호화
+        	System.out.println(user.getPassword());
         	if (login.join(user) == 1) {
         		result.put("success", "success");
         		entity = new ResponseEntity<>(result, HttpStatus.OK);
@@ -150,4 +157,23 @@ public class LoginController{
 		}
 		return entity;
 	}
+	
+	//비밀번호 암호화
+	private String getHashPassword(String str) {
+		String hash = null;
+		try {
+			MessageDigest md = MessageDigest.getInstance("SHA-256");
+			md.update(str.getBytes());
+			byte byteData[] = md.digest();
+			StringBuilder sb = new StringBuilder();
+			for (int i = 0; i < byteData.length; i++)
+				sb.append(Integer.toString((byteData[i] & 0xff) + 0x100, 16).substring(1));
+			hash = sb.toString();
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+			hash = null;
+		}
+		return hash;
+	}
+
 }
