@@ -14,4 +14,5 @@
 	</insert>
 	<delete id="removeUser" parameterType="map">delete from user where email = #{email} and password = #{password}</delete>
 	<update id="updateUser" parameterType="map">update user set password = #{password}, nickname = #{nickname} where email = #{email}</update>
+	<select id="profileUser" parameterType="String" resultType="UserDto">select email, nickname from user where email = #{email}</select>
 </mapper> 
