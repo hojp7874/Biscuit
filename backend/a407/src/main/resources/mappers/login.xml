@@ -12,4 +12,6 @@
 	<insert id="insertUser" parameterType="UserDto">
 		insert into user (email,nickname,password) values (#{email},#{nickname},#{password})
 	</insert>
+	<delete id="removeUser" parameterType="map">delete from user where email = #{email} and password = #{password}</delete>
+	<update id="updateUser" parameterType="map">update user set password = #{password}, nickname = #{nickname} where email = #{email}</update>
 </mapper> 

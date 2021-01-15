@@ -22,9 +22,24 @@ public class LoginServiceImpl implements LoginService {
 	}
 
 	@Override
-	public void join(UserDto user) throws Exception {
+	public int join(UserDto user) throws Exception {
 		System.out.println("service : " + user);
-		dao.insertUser(user);
+		return dao.insertUser(user);
+	}
+
+	@Override
+	public int remove(Map mem) throws Exception {
+		// TODO Auto-generated method stub
+		System.out.println("service : " + mem);
+		return dao.removeUser(mem);
+		
+	}
+
+	@Override
+	public int update(Map mem) throws Exception {
+		// TODO Auto-generated method stub
+		System.out.println("service : " + mem);
+		return dao.updateUser(mem);
 	}
 
 }
