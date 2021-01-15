@@ -3,14 +3,10 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
  <mapper namespace="com.ssafy.a407.dao.LoginDao">
-	<select id="login" parameterType="map" resultType="UserDto">
+<select id="login" parameterType="map" resultType="UserDto">
 		select email, nickname
 		from user
 		where email = #{email} and password = #{password}
 	</select>
 	
-	<insert id="insertUser" parameterType="UserDto">
-		insert into user (email,nickname,password) values (#{email},#{nickname},#{password})
-	</insert>
-	<delete id="removeUser" parameterType="String">delete from user where email = #{email}</delete>
 </mapper> 

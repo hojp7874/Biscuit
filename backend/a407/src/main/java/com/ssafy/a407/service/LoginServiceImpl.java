@@ -27,4 +27,12 @@ public class LoginServiceImpl implements LoginService {
 		dao.insertUser(user);
 	}
 
+	@Override
+	public void remove(String email) throws Exception {
+		// TODO Auto-generated method stub
+		System.out.println("service : " + email);
+		dao.removeUser(email);
+		
+	}
+
 }

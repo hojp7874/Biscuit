@@ -98,4 +98,24 @@ public class LoginController{
 		}
 		return entity;
 	}
+	
+	//회원탈퇴
+	@DeleteMapping(value = "/delete")
+	private ResponseEntity delete(@RequestHeader String email) {
+		ResponseEntity entity = null;
+		System.out.println("delete =========");
+		Map result = new HashMap();
+		try {
+			login.remove(email);
+			result.put("success", "success");
+			entity = new ResponseEntity<>(result, HttpStatus.OK);
+				
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.put("success", "error");
+			entity = new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+			
+		}
+		return entity;
+	}
 }
