@@ -6,6 +6,6 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface GroupDao {
-	public int removeGroup(Map mem) throws Exception;
+	public int removeGroup(int gId) throws Exception;
 	public int updateGroup(Map mem) throws Exception;
 }

@@ -28,12 +28,12 @@ public class GroupController {
 	
 	//그룹 삭제
 	@DeleteMapping(value = "/delete")
-	private ResponseEntity delete(@RequestHeader Map mem) {
+	private ResponseEntity delete(@RequestHeader int gId) {
 		ResponseEntity entity = null;
 		System.out.println("delete =========");
 		Map result = new HashMap();
 		try {
-			if (group.remove(mem) == 1) {
+			if (group.remove(gId) == 1) {
 				result.put("success", "success");
 				entity = new ResponseEntity<>(result, HttpStatus.OK);
 				
