@@ -34,4 +34,15 @@
 		from a407.group
 		where region like CONCAT('%', #{word}, "%")
 	</select>
+	
+	<insert id="insertGroup" parameterType="GroupDto">
+ 		insert into a407.group (email, max, sdate, edate, groupname, groupdesc, category, onoff, region, img)
+ 		values (#{email},#{max},now(),#{edate},#{groupname},#{groupdesc},#{category},#{onoff},#{region},#{img})
+ 	</insert>
+ 	
+ 	<select id="selectMemberList" parameterType="int" resultType="MemberDto">
+ 		select mId, email, gId
+ 		from a407.member
+ 		where gId = #{gId}
+ 	</select>
  </mapper> 

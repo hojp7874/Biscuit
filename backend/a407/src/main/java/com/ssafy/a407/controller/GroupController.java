@@ -135,4 +135,6 @@ public class GroupController {
 		}
 		return entity;
 	}
+	
+	//group 생성할 때 member에도 추가해야됨
 }

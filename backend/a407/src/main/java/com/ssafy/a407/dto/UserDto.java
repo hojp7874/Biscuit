@@ -4,6 +4,7 @@ public class UserDto {
 	private String email;
 	private String password;
 	private String nickname;
+//	private String picture; //나중에 추가
 	
 	public UserDto() {
 		// TODO Auto-generated constructor stub
