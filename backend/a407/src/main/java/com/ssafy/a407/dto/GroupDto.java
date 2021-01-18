@@ -1,17 +1,17 @@
 package com.ssafy.a407.dto;
 
 public class GroupDto {
-	private int gid;
-	private String email;
-	private int max;
-	private String sdate;
-	private String edate;
-	private String groupname;
-	private String groupdesc;
-	private String category;
-	private int onoff;
-	private String region;
-	private String img;
+	private int gid; //그룹 아이디
+	private String email; //그룹장 아이디
+	private int max; //제한 인원
+	private String sdate; //그룹 생성 날짜
+	private String edate; //그룹 모집 완료 날짜
+	private String groupname; //그룹명
+	private String groupdesc; //그룹 설명
+	private String category; // 분류
+	private int onoff; // 온라인or 오프라인  : 0 - 온라인 , 1 - 오프라인 , 2 - 온라인+오프라인
+	private String region; //지역 (시/도)
+	private String img;  //그룹 이미지
 	
 	public GroupDto() {
 		// TODO Auto-generated constructor stub

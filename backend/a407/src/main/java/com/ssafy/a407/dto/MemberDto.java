@@ -1,9 +1,9 @@
 package com.ssafy.a407.dto;
 
 public class MemberDto {
-	private int gmid;
-	private int gid;
-	private String email;
+	private int gmid; //그룹 멤버 아이디
+	private int gid; //그룹 아이디(번호)
+	private String email; //멤버 아이디
 	
 	public MemberDto() {
 		// TODO Auto-generated constructor stub
