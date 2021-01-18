@@ -1,4 +1,4 @@
-CREATE TABLE `imsidb`.`user` (
+CREATE TABLE `a407`.`user` (
   `email` VARCHAR(30) NOT NULL,
   `nickname` VARCHAR(20) NOT NULL,
   `password` VARCHAR(256) NOT NULL,
