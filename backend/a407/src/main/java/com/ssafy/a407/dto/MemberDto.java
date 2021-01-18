@@ -1,8 +1,8 @@
 package com.ssafy.a407.dto;
 
 public class MemberDto {
-	private int gmid; //그룹 멤버 아이디
-	private int gid; //그룹 아이디(번호)
+	private int mId; //그룹 멤버 아이디
+	private int gId; //그룹 아이디(번호)
 	private String email; //멤버 아이디
 	
 	public MemberDto() {
@@ -11,25 +11,25 @@ public class MemberDto {
 
 	public MemberDto(int gmid, int gid, String email) {
 		super();
-		this.gmid = gmid;
-		this.gid = gid;
+		this.mId = gmid;
+		this.gId = gid;
 		this.email = email;
 	}
 
 	public int getGmid() {
-		return gmid;
+		return mId;
 	}
 
 	public void setGmid(int gmid) {
-		this.gmid = gmid;
+		this.mId = gmid;
 	}
 
 	public int getGid() {
-		return gid;
+		return gId;
 	}
 
 	public void setGid(int gid) {
-		this.gid = gid;
+		this.gId = gid;
 	}
 
 	public String getEmail() {
@@ -42,7 +42,7 @@ public class MemberDto {
 
 	@Override
 	public String toString() {
-		return "MemberDto [gmid=" + gmid + ", gid=" + gid + ", email=" + email + "]";
+		return "MemberDto [mId=" + mId + ", gId=" + gId + ", email=" + email + "]";
 	}
 	
 	

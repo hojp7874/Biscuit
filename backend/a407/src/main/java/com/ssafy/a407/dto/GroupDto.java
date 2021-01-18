@@ -1,7 +1,7 @@
 package com.ssafy.a407.dto;
 
 public class GroupDto {
-	private int gid; //그룹 아이디
+	private int gId; //그룹 아이디
 	private String email; //그룹장 아이디
 	private int max; //제한 인원
 	private String sdate; //그룹 생성 날짜
@@ -20,7 +20,7 @@ public class GroupDto {
 	public GroupDto(int gid, String email, int max, String sdate, String edate, String groupname, String groupdesc,
 			String category, int onoff, String region, String img) {
 		super();
-		this.gid = gid;
+		this.gId = gid;
 		this.email = email;
 		this.max = max;
 		this.sdate = sdate;
@@ -34,11 +34,11 @@ public class GroupDto {
 	}
 
 	public int getGid() {
-		return gid;
+		return gId;
 	}
 
 	public void setGid(int gid) {
-		this.gid = gid;
+		this.gId = gid;
 	}
 
 	public String getEmail() {
@@ -123,7 +123,7 @@ public class GroupDto {
 
 	@Override
 	public String toString() {
-		return "GroupDto [gid=" + gid + ", email=" + email + ", max=" + max + ", sdate=" + sdate + ", edate=" + edate
+		return "GroupDto [gId=" + gId + ", email=" + email + ", max=" + max + ", sdate=" + sdate + ", edate=" + edate
 				+ ", groupname=" + groupname + ", groupdesc=" + groupdesc + ", category=" + category + ", onoff="
 				+ onoff + ", region=" + region + ", img=" + img + "]";
 	}
