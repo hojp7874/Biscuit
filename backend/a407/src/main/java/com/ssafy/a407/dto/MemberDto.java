@@ -1,35 +1,35 @@
 package com.ssafy.a407.dto;
 
 public class MemberDto {
-	private int mid; //그룹 멤버 아이디
-	private int gid; //그룹 아이디(번호)
-	private String email; //멤버 아이디
+	private int mId;
+	private int gId;
+	private String email;
 	
 	public MemberDto() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public MemberDto(int gmid, int gid, String email) {
+	public MemberDto(int mId, int gId, String email) {
 		super();
-		this.mid = gmid;
-		this.gid = gid;
+		this.mId = mId;
+		this.gId = gId;
 		this.email = email;
 	}
 
-	public int getGmid() {
-		return mid;
+	public int getmId() {
+		return mId;
 	}
 
-	public void setGmid(int gmid) {
-		this.mid = gmid;
+	public void setmId(int mId) {
+		this.mId = mId;
 	}
 
-	public int getGid() {
-		return gid;
+	public int getgId() {
+		return gId;
 	}
 
-	public void setGid(int gid) {
-		this.gid = gid;
+	public void setgId(int gId) {
+		this.gId = gId;
 	}
 
 	public String getEmail() {
@@ -38,11 +38,6 @@ public class MemberDto {
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	@Override
-	public String toString() {
-		return "MemberDto [gmid=" + mid + ", gid=" + gid + ", email=" + email + "]";
 	}
 	
 	
