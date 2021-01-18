@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.ssafy.a407.dto.GroupDto;
+import com.ssafy.a407.dto.MemberDto;
 
 public interface GroupService {
 
@@ -14,4 +15,7 @@ public interface GroupService {
 	public List<GroupDto> searchGroupDesc(String word) throws Exception;
 	public List<GroupDto> searchCategory(String word) throws Exception;
 	public List<GroupDto> searchRegion(String word) throws Exception;
+	
+	public int createGroup(GroupDto group) throws Exception;
+	public List<MemberDto> getMemberList(int gId) throws Exception; 
 }

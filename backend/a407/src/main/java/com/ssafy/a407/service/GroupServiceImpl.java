@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.ssafy.a407.dao.GroupDao;
 import com.ssafy.a407.dto.GroupDto;
+import com.ssafy.a407.dto.MemberDto;
 
 @Service
 public class GroupServiceImpl implements GroupService{
@@ -55,6 +56,16 @@ public class GroupServiceImpl implements GroupService{
 	public List<GroupDto> searchRegion(String word) throws Exception {
 		// TODO Auto-generated method stub
 		return dao.selectRegion(word);
+	}
+
+	@Override
+	public int createGroup(GroupDto group) throws Exception {
+		return dao.insertGroup(group);
+	}
+
+	@Override
+	public List<MemberDto> getMemberList(int gId) throws Exception {
+		return dao.selectMemberList(gId);
 	}
 	
 }
