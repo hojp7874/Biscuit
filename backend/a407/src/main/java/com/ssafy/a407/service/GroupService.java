@@ -4,6 +4,6 @@ import java.util.Map;
 
 public interface GroupService {
 
-	public int remove(Map mem) throws Exception;
+	public int remove(int gId) throws Exception;
 	public int update(Map mem) throws Exception;
 }

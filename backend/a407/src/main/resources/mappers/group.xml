@@ -3,6 +3,6 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
  <mapper namespace="com.ssafy.a407.dao.GroupDao">
- 	<select id="removeGroup" parameterType="map">delete from user where gid = #{gid}</select>
- 	<select id="updateGroup" parameterType="map">update group set max = #{max}, edate = #{edate}, groupname = #{groupname}, groupDesc = #{groupDesc}, img = #{img}, category = #{category}, region = #{region} where gid = #{gid}</select>
+ 	<delete id="removeGroup" parameterType="int">delete from a407.group where gId = #{gId}</delete>
+ 	<update id="updateGroup" parameterType="map">update a407.group set max = #{max}, edate = #{edate}, groupName = #{groupName}, groupDesc = #{groupDesc}, img = #{img}, category = #{category}, region = #{region} where gId = #{gId}</update>
  </mapper> 

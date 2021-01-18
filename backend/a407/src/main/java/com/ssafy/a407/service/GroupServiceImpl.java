@@ -15,9 +15,9 @@ public class GroupServiceImpl implements GroupService{
 	private GroupDao dao;
 	
 	@Override
-	public int remove(Map mem) throws Exception {
+	public int remove(int gId) throws Exception {
 		// TODO Auto-generated method stub
-		return dao.removeGroup(mem);
+		return dao.removeGroup(gId);
 	}
 
 	@Override
