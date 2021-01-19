@@ -1,20 +1,22 @@
 package com.ssafy.a407.dto;
 
-public class MemberDto {
+public class GroupMemberDto {
 	private int mId;
 	private int gId;
 	private String email;
+	private String groupName;
 	private int permission;
 	
-	public MemberDto() {
+	public GroupMemberDto() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public MemberDto(int mId, int gId, String email, int permission) {
+	public GroupMemberDto(int mId, int gId, String email, String groupName, int permission) {
 		super();
 		this.mId = mId;
 		this.gId = gId;
 		this.email = email;
+		this.groupName = groupName;
 		this.permission = permission;
 	}
 
@@ -42,6 +44,14 @@ public class MemberDto {
 		this.email = email;
 	}
 
+	public String getGroupName() {
+		return groupName;
+	}
+
+	public void setGroupName(String groupName) {
+		this.groupName = groupName;
+	}
+
 	public int getPermission() {
 		return permission;
 	}
@@ -49,12 +59,6 @@ public class MemberDto {
 	public void setPermission(int permission) {
 		this.permission = permission;
 	}
-
-	@Override
-	public String toString() {
-		return "MemberDto [mId=" + mId + ", gId=" + gId + ", email=" + email + ", permission=" + permission + "]";
-	}
-
 	
 	
 }

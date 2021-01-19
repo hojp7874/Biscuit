@@ -190,29 +190,6 @@ public class GroupController {
 		}
 		return entity;
 	}
-	
-	@GetMapping(value = "/member")
-	private ResponseEntity listMember(@RequestParam int gId) {
-		//System.out.println("listMember>>  " +gId);
-		ResponseEntity entity = null;
-		Map result = new HashMap();
-		try {
-			List<MemberDto> list = group.getMemberList(gId);
-			if(list != null) {
-				result.put("list", list);
-				result.put("success", "success");
-				entity = new ResponseEntity(result, HttpStatus.OK);
-			} else {
-	        	result.put("success", "fail");
-	        	entity = new ResponseEntity(result, HttpStatus.OK);
-	        }
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			result.put("success", "error"); 
-	        entity = new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
-		}
-		return entity;
-	}
+
 	
 }
