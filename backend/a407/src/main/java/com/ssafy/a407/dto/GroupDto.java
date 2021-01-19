@@ -12,15 +12,17 @@ public class GroupDto {
 	private int onoff; // 온라인or 오프라인  : 0 - 온라인 , 1 - 오프라인 , 2 - 온라인+오프라인
 	private String region; //지역 (시/도)
 	private String img;  //그룹 이미지
+	private int groupIng; // 그룹 모집중 : 0 - 모집완료, 1 - 모집중
+	private String cycle; // 모임 주기
 	
 	public GroupDto() {
 		// TODO Auto-generated constructor stub
 	}
-	
-	public GroupDto(int gid, String email, int max, String sdate, String edate, String groupname, String groupdesc,
-			String category, int onoff, String region, String img) {
+
+	public GroupDto(int gId, String email, int max, String sdate, String edate, String groupname, String groupdesc,
+			String category, int onoff, String region, String img, int groupIng, String cycle) {
 		super();
-		this.gId = gid;
+		this.gId = gId;
 		this.email = email;
 		this.max = max;
 		this.sdate = sdate;
@@ -31,14 +33,16 @@ public class GroupDto {
 		this.onoff = onoff;
 		this.region = region;
 		this.img = img;
+		this.groupIng = groupIng;
+		this.cycle = cycle;
 	}
 
-	public int getGid() {
+	public int getgId() {
 		return gId;
 	}
 
-	public void setGid(int gid) {
-		this.gId = gid;
+	public void setgId(int gId) {
+		this.gId = gId;
 	}
 
 	public String getEmail() {
@@ -121,11 +125,20 @@ public class GroupDto {
 		this.img = img;
 	}
 
-	@Override
-	public String toString() {
-		return "GroupDto [gid=" + gId + ", email=" + email + ", max=" + max + ", sdate=" + sdate + ", edate=" + edate
-				+ ", groupname=" + groupname + ", groupdesc=" + groupdesc + ", category=" + category + ", onoff="
-				+ onoff + ", region=" + region + ", img=" + img + "]";
+	public int getGroupIng() {
+		return groupIng;
+	}
+
+	public void setGroupIng(int groupIng) {
+		this.groupIng = groupIng;
+	}
+
+	public String getCycle() {
+		return cycle;
+	}
+
+	public void setCycle(String cycle) {
+		this.cycle = cycle;
 	}
 	
 	

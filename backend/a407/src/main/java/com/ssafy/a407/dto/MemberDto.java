@@ -4,16 +4,18 @@ public class MemberDto {
 	private int mId;
 	private int gId;
 	private String email;
+	private String permission;
 	
 	public MemberDto() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public MemberDto(int mId, int gId, String email) {
+	public MemberDto(int mId, int gId, String email, String permission) {
 		super();
 		this.mId = mId;
 		this.gId = gId;
 		this.email = email;
+		this.permission = permission;
 	}
 
 	public int getmId() {
@@ -39,6 +41,15 @@ public class MemberDto {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
+	public String getPermission() {
+		return permission;
+	}
+
+	public void setPermission(String permission) {
+		this.permission = permission;
+	}
+
 	
 	
 }
