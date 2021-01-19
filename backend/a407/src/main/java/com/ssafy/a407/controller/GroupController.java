@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -140,11 +141,36 @@ public class GroupController {
 		return entity;
 	}
 	
+	//회원정보수정
+	@PutMapping(value = "/update")
+	private ResponseEntity update(@RequestBody Map mem) {
+		ResponseEntity entity = null;
+		System.out.println("update ========");
+		Map result = new HashMap();
+		try {
+			if (group.update(mem) == 1) {
+				result.put("success", "success");
+				entity = new ResponseEntity<>(result, HttpStatus.OK);
+				
+			}
+			else {
+				result.put("success", "fail");
+				entity = new ResponseEntity<>(result, HttpStatus.OK);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.put("success", "error");
+			entity = new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+			
+		}
+		return entity;
+	}
+	
 	//group 생성할 때 member에도 추가해야됨
 	@PostMapping(value = "/create")
     private ResponseEntity register(@RequestBody GroupDto groupDto) {
 		System.out.println("controller >> " + groupDto.toString());
-		
 		ResponseEntity entity = null;
 		Map result = new HashMap();
 		
