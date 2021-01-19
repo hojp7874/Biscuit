@@ -88,7 +88,7 @@ public class LoginController{
 	//회원가입
 	@PostMapping(value = "/join")
     private ResponseEntity register(@RequestBody UserDto user) {
-		System.out.println("email : "+user.getEmail()+"/ nickname : "+user.getNickname()+" / password : "+user.getPassword());
+//		System.out.println("email : "+user.getEmail()+"/ nickname : "+user.getNickname()+" / password : "+user.getPassword());
 		Map result = new HashMap();
         ResponseEntity entity = null;
         try {

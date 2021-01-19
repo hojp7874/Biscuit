@@ -50,6 +50,11 @@ public class MemberDto {
 		this.permission = permission;
 	}
 
+	@Override
+	public String toString() {
+		return "MemberDto [mId=" + mId + ", gId=" + gId + ", email=" + email + ", permission=" + permission + "]";
+	}
+
 	
 	
 }

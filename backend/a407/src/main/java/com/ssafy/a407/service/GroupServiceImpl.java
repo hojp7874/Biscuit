@@ -60,12 +60,18 @@ public class GroupServiceImpl implements GroupService{
 
 	@Override
 	public int createGroup(GroupDto group) throws Exception {
+		System.out.println("group create service : "+ group.toString());
 		return dao.insertGroup(group);
 	}
 
 	@Override
 	public List<MemberDto> getMemberList(int gId) throws Exception {
 		return dao.selectMemberList(gId);
+	}
+
+	@Override
+	public int joinMember(MemberDto member) throws Exception {
+		return dao.insertMember(member);
 	}
 	
 }

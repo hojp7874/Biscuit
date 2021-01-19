@@ -36,13 +36,15 @@
 	</select>
 	
 	<insert id="insertGroup" parameterType="GroupDto">
- 		insert into a407.group (email, max, sdate, edate, groupname, groupdesc, category, onoff, region, img)
- 		values (#{email},#{max},now(),#{edate},#{groupname},#{groupdesc},#{category},#{onoff},#{region},#{img})
+ 		insert into a407.group (email, max, sdate, edate, groupName, groupDesc, category, onoff, region, img, groupFlag, cycle)
+ 		values (#{email},#{max},now(),#{edate},#{groupName},#{groupDesc},#{category},#{onoff},#{region},#{img},1,#{cycle})
  	</insert>
  	
  	<select id="selectMemberList" parameterType="int" resultType="MemberDto">
- 		select mId, email, gId
- 		from a407.member
- 		where gId = #{gId}
+ 		select mId, email, gId, permission from a407.member where gId = #{gId}
  	</select>
+ 	
+ 	<insert id="insertMember" parameterType="MemberDto">
+ 		insert into a407.member (gId, email,permission) values (#{gId}, #{email},#{permission})
+ 	</insert>
  </mapper> 
