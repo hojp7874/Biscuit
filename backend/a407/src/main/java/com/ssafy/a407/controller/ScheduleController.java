@@ -31,7 +31,6 @@ public class ScheduleController {
 	
 	public static final Logger logger = LoggerFactory.getLogger(ScheduleController.class);
 	
-	
 	/* * pgFlag - 0 : 개인 일정, 1 : 그룹 일정
 		* email - 그룹 일정 시 null
 		* gId - 개인 일정 시 null 						*/
