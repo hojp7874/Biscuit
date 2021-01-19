@@ -11,6 +11,8 @@ export default {
         USER: {
             LOGIN: 'login',
             JOIN: 'join', 
+            FINDPW: 'findPw',
+            UPDATEUSER: 'updateUser'
         },
         POST: {
             MAIN : "main",

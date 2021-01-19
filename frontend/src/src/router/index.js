@@ -7,6 +7,7 @@ import constants from '../lib/constants'
 import Login from '../page/user/Login.vue'
 import Join from '../page/user/Join.vue'
 import FindPw from '../page/user/FindPw.vue'
+import UpdateUser from '../page/user/UpdateUser.vue'
 
 // 포스트
 import List from '../page/post/List.vue'
@@ -16,6 +17,7 @@ Vue.use(Router)
 export default new Router({
   routes: [   
     // 로그인/가입
+
     { 
       path: '/user/login',
       name: constants.URL_TYPE.USER.LOGIN,
@@ -31,6 +33,13 @@ export default new Router({
       name: constants.URL_TYPE.USER.FINDPW,
       component: FindPw
     },
+
+    {
+      path: '/user/updateUser',
+      name: constants.URL_TYPE.USER.UPDATEUSER,
+      component: UpdateUser
+    },
+
     // 포스트
     { 
       path: '/',

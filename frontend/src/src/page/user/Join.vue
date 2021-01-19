@@ -1,4 +1,5 @@
-#시작 전 npm install --save vueperslides   그리고 index.html에 bootstrap   npm install --save vue-slide-bar
+#시작 전 npm install --save vueperslides 그리고 index.html에 bootstrap npm
+install --save vue-slide-bar
 
 <template>
   <div class="out">
@@ -37,19 +38,24 @@
                   type="text"
                   id="user-id"
                   placeholder="아이디(이메일) 입력"
+                  style="width: 50%"
                 />
-              </div>
-              <div>
+                <button class="btn btn-primary" id="certinum_btn">
+                  인증번호 받기
+                </button>
+                  <br /> 
                 <input
                   type="text"
                   id="certinum"
                   placeholder="인증번호를 입력하세요"
+                  style="width: 50%"
                 />
-                <br />
                 <button class="btn btn-primary" id="certinum_btn">
-                  인증번호 받기
+                  확인
                 </button>
+                <br />
               </div>
+
               <div>
                 <button
                   class="btn btn-primary"
@@ -66,7 +72,6 @@
           </div>
         </template>
       </vueper-slide>
-
 
       <vueper-slide :key="2">
         <template v-slot:content>
@@ -78,18 +83,29 @@
                   비밀번호를 입력해주세요.
                 </p>
               </div>
-              <br><br>
+              <br /><br />
               <div class="inpbx">
-                <input type="password" id="password" placeholder="비밀번호 입력" v-model="password"/>
-                <br><br>
-                 <div style=" font-size :small" id = "english-check">영문포함✓</div>
+                <input
+                  type="password"
+                  id="password"
+                  placeholder="비밀번호 입력"
+                  v-model="password"
+                />
+                <br /><br />
+                <div style=" font-size :small" id="english-check">
+                  영문포함✓
+                </div>
               </div>
-              <br>
+              <br />
               <div>
-                <input type="password" id="certipw" placeholder="비밀번호 확인" />
+                <input
+                  type="password"
+                  id="certipw"
+                  placeholder="비밀번호 확인"
+                />
                 <br />
               </div>
-              <br><br>
+              <br /><br />
               <div>
                 <button
                   class="btn btn-primary"
@@ -107,21 +123,20 @@
         </template>
       </vueper-slide>
 
-
       <vueper-slide :key="3">
         <template v-slot:content>
           <div class="text-center memjoin_cnt">
             <form>
               <div>
                 <p style=" font-size :x-large">
-                   기본 정보를 입력해주세요.
+                  기본 정보를 입력해주세요.
                 </p>
               </div>
-              <br><br>
-              <div class="inpbx" style = "font-size :x-large">
+              <br /><br />
+              <div class="inpbx" style="font-size :x-large">
                 닉네임 : <input type="text" id="user-id" placeholder="닉네임" />
               </div>
-              <br><br><br><br><br><br><br><br>
+              <br /><br /><br /><br /><br /><br /><br /><br />
               <div>
                 <button
                   class="btn btn-primary"
@@ -138,8 +153,6 @@
           </div>
         </template>
       </vueper-slide>
-
-
     </vueper-slides>
   </div>
 </template>
@@ -152,41 +165,41 @@ export default {
   data() {
     return {
       simpleValue: 0,
-      checkPassword: '영문포함✓  &nbsp;&nbsp;&nbsp;숫자포함✓ &nbsp;&nbsp;&nbsp;8~20자 이내✓'
+      checkPassword:
+        '영문포함✓  &nbsp;&nbsp;&nbsp;숫자포함✓ &nbsp;&nbsp;&nbsp;8~20자 이내✓',
     };
   },
   components: { VueperSlides, VueperSlide, VueSlideBar },
   methods: {
-    barProceeding(){
+    barProceeding() {
       this.simpleValue += 33;
-      if(this.simpleValue === 99){
+      if (this.simpleValue === 99) {
         this.simpleValue++;
       }
     },
 
-    setSliderHeight () {
-      return '20px'
+    setSliderHeight() {
+      return '20px';
     },
 
-    chkPwd(str){
-
+    chkPwd(str) {
       var pw = str;
       var num = pw.search(/[0-9]/g);
-      var eng = pw.search(/[a-z]/ig);
+      var eng = pw.search(/[a-z]/gi);
       var spe = pw.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
 
-      if(pw.length < 8 || pw.length > 20){
-        alert("8자리 ~ 20자리 이내로 입력해주세요.");
+      if (pw.length < 8 || pw.length > 20) {
+        alert('8자리 ~ 20자리 이내로 입력해주세요.');
         return false;
       }
-      if(pw.search(/₩s/) != -1){
-        alert("비밀번호는 공백업이 입력해주세요.");
+      if (pw.search(/₩s/) != -1) {
+        alert('비밀번호는 공백업이 입력해주세요.');
         return false;
-      } if(eng < 0){
-        
+      }
+      if (eng < 0) {
       }
       return true;
-    }
+    },
   },
 };
 </script>

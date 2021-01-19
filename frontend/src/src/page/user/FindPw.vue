@@ -26,18 +26,18 @@
  <script>
     import '../../assets/css/user.scss'
     import constants from '../../lib/constants'
-    
+
     export default {
-         el: '#app',
-            data: {
-            },
-           
-            methods: {
-               
-                changePw() {
-                    location.href = 'resetpw.html';
-                }
+        el: '#app',
+        data: {
+        },
+        
+        methods: {
+            
+            changePw() {
+                location.href = 'resetpw.html';
             }
+        }
     }
 
 </script>
@@ -45,7 +45,7 @@
 
  <style>
         .findpw_title {
-            width: 50%;
+            width: 100%;
             margin-bottom: 34px;
             font-weight: 600;
             font-size: 44px;
@@ -101,4 +101,4 @@
             text-align: center;
             margin: 12px 0 10px;
         }
-    </style>
+ </style>
