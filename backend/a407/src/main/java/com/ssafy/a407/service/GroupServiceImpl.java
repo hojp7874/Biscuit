@@ -64,14 +64,5 @@ public class GroupServiceImpl implements GroupService{
 		return dao.insertGroup(group);
 	}
 
-	@Override
-	public List<MemberDto> getMemberList(int gId) throws Exception {
-		return dao.selectMemberList(gId);
-	}
-
-	@Override
-	public int joinMember(MemberDto member) throws Exception {
-		return dao.insertMember(member);
-	}
 	
 }

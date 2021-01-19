@@ -40,11 +40,4 @@
  		values (#{email},#{max},now(),#{edate},#{groupName},#{groupDesc},#{category},#{onoff},#{region},#{img},1,#{cycle})
  	</insert>
  	
- 	<select id="selectMemberList" parameterType="int" resultType="MemberDto">
- 		select mId, email, gId, permission from a407.member where gId = #{gId}
- 	</select>
- 	
- 	<insert id="insertMember" parameterType="MemberDto">
- 		insert into a407.member (gId, email,permission) values (#{gId}, #{email},#{permission})
- 	</insert>
  </mapper> 

@@ -4,20 +4,19 @@ import java.util.List;
 import java.util.Map;
 
 import com.ssafy.a407.dto.GroupDto;
+import com.ssafy.a407.dto.GroupMemberDto;
 import com.ssafy.a407.dto.MemberDto;
+import com.ssafy.a407.dto.UserMemberDto;
 
 public interface MemberService {
 
-	public int remove(int gId) throws Exception;
-	public int update(Map mem) throws Exception;
-	public List<GroupDto> searchList() throws Exception;
-	public List<GroupDto> searchGroupName(String word) throws Exception;
-	public List<GroupDto> searchGroupDesc(String word) throws Exception;
-	public List<GroupDto> searchCategory(String word) throws Exception;
-	public List<GroupDto> searchRegion(String word) throws Exception;
-	
-	public int createGroup(GroupDto group) throws Exception;
-	public List<MemberDto> getMemberList(int gId) throws Exception; 
+	public List<UserMemberDto> getMemberList(int gId) throws Exception; 
+	public List<UserMemberDto> getApplyList(int gId) throws Exception; 
+	public List<GroupMemberDto> getGroupList(String email) throws Exception;
 	
 	public int joinMember(MemberDto member) throws Exception;
+	
+	public int updateMemberPermission(Map map) throws Exception;
+
+	public int cancelApply(int mId) throws Exception;
 }
