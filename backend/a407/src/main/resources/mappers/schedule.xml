@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+ <mapper namespace="com.ssafy.a407.dao.ScheduleDao">
+ 	<insert id="insertSchedule" parameterType="ScheduleDto">
+ 		insert into schedule (pgFlag,email,gId,sdate,edate,title,contents) 
+ 		values (#{pgFlag},#{email},#{gId},#{sdate},#{edate},#{title},#{contents})
+ 	</insert>
+
+ </mapper> 
