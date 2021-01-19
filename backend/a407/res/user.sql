@@ -1,10 +1,10 @@
-CREATE TABLE `a407`.`user` (
-  `email` VARCHAR(30) NOT NULL,
-  `nickname` VARCHAR(20) NOT NULL,
-  `password` VARCHAR(256) NOT NULL,
+CREATE TABLE `user` (
+  `email` varchar(30) NOT NULL,
+  `nickname` varchar(20) NOT NULL,
+  `password` varchar(256) NOT NULL,
+  `picture` varchar(256) DEFAULT NULL,
+  `phone` varchar(20) DEFAULT NULL,
+  `region` varchar(30) DEFAULT NULL,
   PRIMARY KEY (`email`),
-  UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE,
-  UNIQUE INDEX `nickname_UNIQUE` (`nickname` ASC) VISIBLE)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8
-COMMENT = 'user db';
+  UNIQUE KEY `email_UNIQUE` (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='    ';

@@ -11,14 +11,17 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.a407.dto.GroupDto;
+import com.ssafy.a407.dto.MemberDto;
+import com.ssafy.a407.dto.UserDto;
 import com.ssafy.a407.service.GroupService;
 
 
@@ -165,4 +168,51 @@ public class GroupController {
 	}
 	
 	//group 생성할 때 member에도 추가해야됨
+	@PostMapping(value = "/create")
+    private ResponseEntity register(@RequestBody GroupDto groupDto) {
+		System.out.println("controller >> " + groupDto.toString());
+		ResponseEntity entity = null;
+		Map result = new HashMap();
+		
+		try {
+			if( group.createGroup(groupDto)==1) {
+				result.put("success", "success");
+				entity = new ResponseEntity(result, HttpStatus.OK);
+			}else {
+	        	result.put("success", "fail");
+	        	entity = new ResponseEntity(result, HttpStatus.OK);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			result.put("success", "error"); 
+	        entity = new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
+	
+	@GetMapping(value = "/member")
+	private ResponseEntity listMember(@RequestParam int gId) {
+		//System.out.println("listMember>>  " +gId);
+		ResponseEntity entity = null;
+		Map result = new HashMap();
+		try {
+			List<MemberDto> list = group.getMemberList(gId);
+			if(list != null) {
+				result.put("list", list);
+				result.put("success", "success");
+				entity = new ResponseEntity(result, HttpStatus.OK);
+			} else {
+	        	result.put("success", "fail");
+	        	entity = new ResponseEntity(result, HttpStatus.OK);
+	        }
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			result.put("success", "error"); 
+	        entity = new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
+	
 }

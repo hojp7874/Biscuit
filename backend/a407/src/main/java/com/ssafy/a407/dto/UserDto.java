@@ -72,6 +72,13 @@ public class UserDto {
 	public void setRegion(String region) {
 		this.region = region;
 	}
+
+
+	@Override
+	public String toString() {
+		return "UserDto [email=" + email + ", password=" + password + ", nickname=" + nickname + ", picture=" + picture
+				+ ", phone=" + phone + ", region=" + region + "]";
+	}
 	
 	
 	

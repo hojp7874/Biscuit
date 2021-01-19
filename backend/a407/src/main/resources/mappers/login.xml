@@ -10,7 +10,7 @@
 	</select>
 	
 	<insert id="insertUser" parameterType="UserDto">
-		insert into user (email,nickname,password) values (#{email},#{nickname},#{password})
+		insert into user (email,nickname,password,picture,phone, region) values (#{email},#{nickname},#{password},#{picture},#{phone}, #{region})
 	</insert>
 	<delete id="removeUser" parameterType="map">delete from user where email = #{email} and password = #{password}</delete>
 	<update id="updateUser" parameterType="map">update user set nickname = #{nickname}, picture = #{picture}, phone = #{phone}, region = #{region} where email = #{email}</update>
