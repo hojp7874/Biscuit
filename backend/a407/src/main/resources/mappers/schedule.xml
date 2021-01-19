@@ -7,5 +7,11 @@
  		insert into schedule (pgFlag,email,gId,sdate,edate,title,contents) 
  		values (#{pgFlag},#{email},#{gId},#{sdate},#{edate},#{title},#{contents})
  	</insert>
+ 	
+ 	<select id="selectSchedule" parameterType="int" resultType="ScheduleDto">
+ 		select sId, pgFlag, email, gId, sdate, edate, title, contents 
+ 		from a407.schedule 
+ 		where sId = #{sId}
+ 	</select>
 
  </mapper> 

@@ -16,7 +16,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 	
 	@Override
 	public int createSchedule(ScheduleDto schedule) throws Exception {
-		System.out.println("[Service] Schedule create >> "+schedule.toString());
+//		System.out.println("[Service] Schedule create >> "+schedule.toString());
 		return dao.insertSchedule(schedule);
 	}
 
@@ -32,6 +32,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 
 	@Override
 	public ScheduleDto searchDetail(int sId) throws Exception {
+//		System.out.println("[Service] Schedule detail >> "+sId);
 		return dao.selectSchedule(sId);
 	}
 

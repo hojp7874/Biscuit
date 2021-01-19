@@ -8,9 +8,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.a407.dto.ScheduleDto;
@@ -31,7 +33,7 @@ public class ScheduleController {
 		* gId - 개인 일정 시 null 						*/
 	@PostMapping(value = "/create")
     private ResponseEntity register(@RequestBody ScheduleDto schedule) {
-		System.out.println("[controller] Schedule create >> "+ schedule.toString());
+//		System.out.println("[controller] Schedule create >> "+ schedule.toString());
 		ResponseEntity entity = null;
 		Map result = new HashMap();
 		
@@ -51,5 +53,32 @@ public class ScheduleController {
 		}		
 		return entity;
 	}
-
+	
+	@GetMapping(value = "/detail")
+	private ResponseEntity scheduleDetail(@RequestParam int sId) {
+//		System.out.println("[controller] Schedule detail sId >> "+ sId);
+		ResponseEntity entity = null;
+		Map result = new HashMap();
+		
+		try {
+			ScheduleDto schedule = service.searchDetail(sId);
+			if(schedule != null) {
+//				System.out.println("return schedule >> " + schedule.toString());
+				result.put("Schedule", schedule);
+				result.put("success", "success");
+				entity = new ResponseEntity<>(result, HttpStatus.OK);	
+			}else {
+	        	result.put("success", "fail");
+	        	entity = new ResponseEntity(result, HttpStatus.OK);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			result.put("success", "error"); 
+	        entity = new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+		}		
+		//System.out.println(entity.getBody().toString());
+		return entity;
+	}
+	
 }
