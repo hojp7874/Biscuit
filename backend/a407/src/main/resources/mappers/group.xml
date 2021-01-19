@@ -41,8 +41,10 @@
  	</insert>
  	
  	<select id="selectMemberList" parameterType="int" resultType="MemberDto">
- 		select mId, email, gId
- 		from a407.member
- 		where gId = #{gId}
+ 		select mId, email, gId from a407.member where gId = #{gId}
  	</select>
+ 	
+ 	<insert id="insertMember" parameterType="MemberDto">
+ 		insert into a407.member (gId, email) values (#{gId}, #{email})
+ 	</insert>
  </mapper> 

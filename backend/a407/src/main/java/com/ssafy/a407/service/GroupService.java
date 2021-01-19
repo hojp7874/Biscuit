@@ -18,4 +18,6 @@ public interface GroupService {
 	
 	public int createGroup(GroupDto group) throws Exception;
 	public List<MemberDto> getMemberList(int gId) throws Exception; 
+	
+	public int joinMember(MemberDto member) throws Exception;
 }
