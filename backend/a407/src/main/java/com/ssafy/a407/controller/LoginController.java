@@ -1,4 +1,5 @@
 package com.ssafy.a407.controller;
+import java.io.Console;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
@@ -155,6 +156,34 @@ public class LoginController{
 				entity = new ResponseEntity<>(result, HttpStatus.OK);
 			}
 			
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.put("success", "error");
+			entity = new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+			
+		}
+		return entity;
+	}
+	
+	//비밀번호변경
+	@PutMapping(value = "/pwupdate")
+	private ResponseEntity pwupdate(@RequestBody Map mem) {
+		ResponseEntity entity = null;
+		System.out.println("update ========");
+		Map result = new HashMap();
+		try {
+			String pw = getHashPassword((String) mem.get("password"));
+        	mem.replace("password", pw);
+			String newpw = getHashPassword((String) mem.get("newpassword"));
+			mem.replace("newpassword", newpw);
+			if (login.pwupdate(mem) == 1) {
+				result.put("success", "success");
+				entity = new ResponseEntity<>(result, HttpStatus.OK);
+			}
+			else {
+				result.put("success", "fail");
+				entity = new ResponseEntity<>(result, HttpStatus.OK);			
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			result.put("success", "error");

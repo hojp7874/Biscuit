@@ -13,6 +13,7 @@
 		insert into user (email,nickname,password) values (#{email},#{nickname},#{password})
 	</insert>
 	<delete id="removeUser" parameterType="map">delete from user where email = #{email} and password = #{password}</delete>
-	<update id="updateUser" parameterType="map">update user set password = #{password}, nickname = #{nickname} where email = #{email}</update>
+	<update id="updateUser" parameterType="map">update user set nickname = #{nickname} where email = #{email}</update>
+	<update id="pwupdateUser" parameterType="map">update user set password = #{newpassword} where email = #{email} and password = #{password}</update>
 	<select id="profileUser" parameterType="String" resultType="UserDto">select email, nickname from user where email = #{email}</select>
 </mapper> 
