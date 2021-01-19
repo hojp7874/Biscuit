@@ -21,7 +21,4 @@ public interface GroupDao {
 	public List<GroupDto> selectRegion(String word) throws Exception;
 	
 	 public int insertGroup(GroupDto group) throws Exception;
-	 public List<MemberDto> selectMemberList(int gId) throws Exception;
-	
-	 public int insertMember(MemberDto member) throws Exception;
 }

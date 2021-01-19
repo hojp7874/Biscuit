@@ -7,71 +7,47 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ssafy.a407.dao.GroupDao;
+import com.ssafy.a407.dao.MemberDao;
 import com.ssafy.a407.dto.GroupDto;
+import com.ssafy.a407.dto.GroupMemberDto;
 import com.ssafy.a407.dto.MemberDto;
+import com.ssafy.a407.dto.UserMemberDto;
 
 @Service
 public class MemberServiceImpl implements MemberService{
-	
 	@Autowired
-	GroupDao dao;
+	MemberDao dao;
 	
 	@Override
-	public int remove(int gId) throws Exception {
-		// TODO Auto-generated method stub
-		return dao.removeGroup(gId);
-	}
-
-	@Override
-	public int update(Map mem) throws Exception {
-		// TODO Auto-generated method stub
-		return dao.updateGroup(mem);
-	}
-	
-	@Override
-	public List<GroupDto> searchList() throws Exception {
-		System.out.println("service : searchList()");
-		return dao.selectList();
-	}
-
-	@Override
-	public List<GroupDto> searchGroupName(String word) throws Exception {
-		// TODO Auto-generated method stub
-		return dao.selectGroupName(word);
-	}
-
-	@Override
-	public List<GroupDto> searchGroupDesc(String word) throws Exception {
-		// TODO Auto-generated method stub
-		return dao.selectGroupDesc(word);
-	}
-
-	@Override
-	public List<GroupDto> searchCategory(String word) throws Exception {
-		// TODO Auto-generated method stub
-		return dao.selectCategory(word);
-	}
-
-	@Override
-	public List<GroupDto> searchRegion(String word) throws Exception {
-		// TODO Auto-generated method stub
-		return dao.selectRegion(word);
-	}
-
-	@Override
-	public int createGroup(GroupDto group) throws Exception {
-		System.out.println("group create service : "+ group.toString());
-		return dao.insertGroup(group);
-	}
-
-	@Override
-	public List<MemberDto> getMemberList(int gId) throws Exception {
+	public List<UserMemberDto> getMemberList(int gId) throws Exception {
 		return dao.selectMemberList(gId);
 	}
 
 	@Override
+	public List<UserMemberDto> getApplyList(int gId) throws Exception {
+		return dao.selectApplyList(gId);
+	}
+
+	@Override
+	public List<GroupMemberDto> getGroupList(String email) throws Exception {
+		System.out.println("service. getGroupList : " + email);
+		return dao.selectGroupList(email);
+	}
+	
+
+	@Override
 	public int joinMember(MemberDto member) throws Exception {
 		return dao.insertMember(member);
+	}
+
+	@Override
+	public int updateMemberPermission(Map input) throws Exception {
+		return dao.updateMemberPermission(input);
+	}
+
+	@Override
+	public int cancelApply(int mId) throws Exception {
+		return dao.deleteMemberApply(mId);
 	}
 	
 }
