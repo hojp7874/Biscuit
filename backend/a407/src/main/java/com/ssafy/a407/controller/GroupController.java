@@ -196,7 +196,6 @@ public class GroupController {
 		//System.out.println("listMember>>  " +gId);
 		ResponseEntity entity = null;
 		Map result = new HashMap();
-		
 		try {
 			List<MemberDto> list = group.getMemberList(gId);
 			if(list != null) {
