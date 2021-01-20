@@ -60,6 +60,7 @@ public class BoardController {
 		Map result = new HashMap();
 		try {
 			System.out.println("controller. type : " + type + " word : " + word);
+			currentPage = currentPage * 10;
 			//전체 조회
 			if(type.equals("")) {
 				List<BoardDto> list = board.searchAll(currentPage, category);
