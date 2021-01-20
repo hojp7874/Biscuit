@@ -4,52 +4,46 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ssafy.a407.dto.BoardDto;
 import com.ssafy.a407.dto.GroupDto;
-import com.ssafy.a407.dto.MemberDto;
-import com.ssafy.a407.dto.UserDto;
-import com.ssafy.a407.service.GroupService;
-
+import com.ssafy.a407.service.BoardService;
 
 @RestController
-@RequestMapping("/group")
-public class GroupController {
-	
+@RequestMapping("/board")
+public class BoardController {
 	
 	@Autowired
-	private GroupService group;
+	private BoardService board;
 	
-	//그룹 삭제
-	@DeleteMapping(value = "/delete")
-	private ResponseEntity delete(@RequestHeader int gId) {
+	//게시글 작성
+	@PostMapping(value = "/create")
+	private ResponseEntity create(@RequestBody BoardDto boardDto) {
+		System.out.println("create ========");
 		ResponseEntity entity = null;
-		System.out.println("delete =========");
 		Map result = new HashMap();
+		System.out.println(boardDto);
 		try {
-			if (group.remove(gId) == 1) {
+			if(board.createBoard(boardDto) == 1) {
 				result.put("success", "success");
-				entity = new ResponseEntity<>(result, HttpStatus.OK);
-				
-			}
-			else {
+			} else {
 				result.put("success", "fail");
-				entity = new ResponseEntity<>(result, HttpStatus.OK);
 			}
-				
+			entity = new ResponseEntity(result, HttpStatus.OK);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			result.put("success", "error");
@@ -58,23 +52,17 @@ public class GroupController {
 		return entity;
 	}
 	
-
-	public static final Logger logger = LoggerFactory.getLogger(LoginController.class);
-	
-	@GetMapping(value = "/test")
-	private String test() {
-		return "test";
-	}
-	
-	@GetMapping(value = "/list")
-	private ResponseEntity list(@RequestParam String type, @RequestParam String word) {
-		//type을 어레이로 받으면 여러개로 받을 수 있을까요?
+	//게시글 보기
+	@GetMapping(value = "/read")
+	private ResponseEntity read(@RequestParam String type, @RequestParam String word) {
+		System.out.println("read==========");
 		ResponseEntity entity = null;
 		Map result = new HashMap();
 		try {
 			System.out.println("controller. type : " + type + " word : " + word);
+			//전체 조회
 			if(type.equals("")) {
-				List<GroupDto> list = group.searchList();
+				List<BoardDto> list = board.searchAll();
 		        System.out.println(list);
 		        if(list != null) {
 		            result.put("list", list);
@@ -85,8 +73,9 @@ public class GroupController {
 		        	entity = new ResponseEntity(result, HttpStatus.OK);
 		        }
 			}
-			else if(type.equals("groupName")) {
-				List<GroupDto> list = group.searchGroupName(word);
+			//bId로 검색
+			else if(type.equals("bId")) {
+				List<BoardDto> list = board.searchBId(word);
 				System.out.println(list);
 				if(list != null) {
 					result.put("list", list);
@@ -97,8 +86,9 @@ public class GroupController {
 		        	entity = new ResponseEntity(result, HttpStatus.OK);
 		        }
 			}
-			else if(type.equals("groupDesc")) {
-				List<GroupDto> list = group.searchGroupDesc(word);
+			//title로 검색
+			else if(type.equals("title")) {
+				List<BoardDto> list = board.searchTitle(word);
 				System.out.println(list);
 				if(list != null) {
 					result.put("list", list);
@@ -109,8 +99,9 @@ public class GroupController {
 		        	entity = new ResponseEntity(result, HttpStatus.OK);
 		        }
 			}
-			if(type.equals("category")) {
-				List<GroupDto> list = group.searchCategory(word);
+			//email(작성자)로 검색
+			else if(type.equals("email")) {
+				List<BoardDto> list = board.searchEmail(word);
 				System.out.println(list);
 				if(list != null) {
 					result.put("list", list);
@@ -121,8 +112,9 @@ public class GroupController {
 		        	entity = new ResponseEntity(result, HttpStatus.OK);
 		        }
 			}
-			if(type.equals("region")) {
-				List<GroupDto> list = group.searchRegion(word);
+			//내용으로 검색
+			else if(type.equals("contents")) {
+				List<BoardDto> list = board.searchContents(word);
 				System.out.println(list);
 				if(list != null) {
 					result.put("list", list);
@@ -137,18 +129,20 @@ public class GroupController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			result.put("success", "error");
+			entity = new ResponseEntity(result, HttpStatus.OK);
 		}
 		return entity;
 	}
 	
-	//그룹정보수정
+	//게시글 수정
 	@PutMapping(value = "/update")
 	private ResponseEntity update(@RequestBody Map mem) {
 		ResponseEntity entity = null;
 		System.out.println("update ========");
 		Map result = new HashMap();
 		try {
-			if (group.update(mem) == 1) {
+			System.out.println(mem);
+			if (board.update(mem) == 1) {
 				result.put("success", "success");
 				entity = new ResponseEntity<>(result, HttpStatus.OK);
 				
@@ -167,29 +161,28 @@ public class GroupController {
 		return entity;
 	}
 	
-	//group 생성할 때 member에도 추가해야됨
-	@PostMapping(value = "/create")
-    private ResponseEntity register(@RequestBody GroupDto groupDto) {
-		System.out.println("controller >> " + groupDto.toString());
+	//게시글 삭제
+	@DeleteMapping(value = "/delete")
+	private ResponseEntity delete(@RequestHeader int bId) {
 		ResponseEntity entity = null;
+		System.out.println("delete =========");
 		Map result = new HashMap();
-		
 		try {
-			if( group.createGroup(groupDto)==1) {
+			if (board.delete(bId) == 1) {
 				result.put("success", "success");
-				entity = new ResponseEntity(result, HttpStatus.OK);
-			}else {
-	        	result.put("success", "fail");
-	        	entity = new ResponseEntity(result, HttpStatus.OK);
+				entity = new ResponseEntity<>(result, HttpStatus.OK);
+				
 			}
+			else {
+				result.put("success", "fail");
+				entity = new ResponseEntity<>(result, HttpStatus.OK);
+			}
+				
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-			result.put("success", "error"); 
-	        entity = new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+			result.put("success", "error");
+			entity = new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
 		}
 		return entity;
 	}
-
-	
 }
