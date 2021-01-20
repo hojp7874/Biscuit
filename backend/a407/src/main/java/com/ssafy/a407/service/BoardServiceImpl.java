@@ -22,9 +22,9 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public List<BoardDto> searchAll() throws Exception {
+	public List<BoardDto> searchAll(int currentPage, int category) throws Exception {
 		// TODO Auto-generated method stub
-		return dao.searchAll();
+		return dao.searchAll(currentPage, category);
 	}
 
 	@Override
@@ -34,21 +34,21 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public List<BoardDto> searchTitle(String word) throws Exception {
+	public List<BoardDto> searchTitle(String word, int currentPage, int category) throws Exception {
 		// TODO Auto-generated method stub
-		return dao.searchTitle(word);
+		return dao.searchTitle(word, currentPage, category);
 	}
 
 	@Override
-	public List<BoardDto> searchEmail(String word) throws Exception {
+	public List<BoardDto> searchEmail(String word, int currentPage, int category) throws Exception {
 		// TODO Auto-generated method stub
-		return dao.searchEmail(word);
+		return dao.searchEmail(word, currentPage, category);
 	}
 
 	@Override
-	public List<BoardDto> searchContents(String word) throws Exception {
+	public List<BoardDto> searchContents(String word, int currentPage, int category) throws Exception {
 		// TODO Auto-generated method stub
-		return dao.searchContents(word);
+		return dao.searchContents(word, currentPage, category);
 	}
 
 	@Override

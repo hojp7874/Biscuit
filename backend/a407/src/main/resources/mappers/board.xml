@@ -9,31 +9,36 @@
 	
 	<select id="searchAll" resultType="BoardDto">
 		select *
-		from a407.board;
+		from a407.board
+		where category = #{category}
+		limit #{currentPage}, 10
 	</select>
 	
 	<select id="searchBId" parameterType="String" resultType="BoardDto">
 		select *
 		from a407.board
-		where groupName like CONCAT('%', #{word}, "%")
+		where bId = #{word}
 	</select>
 	
 	<select id="searchTitle" parameterType="String" resultType="BoardDto">
 		select *
 		from a407.board
-		where groupDesc like CONCAT('%', #{word}, "%")
+		where title like CONCAT('%', #{word}, "%") and category = #{category}
+		limit #{currentPage}, 10
 	</select>
 	
 	<select id="searchEmail" parameterType="String" resultType="BoardDto">
 		select *
 		from a407.board
-		where category like CONCAT('%', #{word}, "%")
+		where email like CONCAT('%', #{word}, "%") and category = #{category}
+		limit #{currentPage}, 10
 	</select>
 	
 	<select id="searchContents" parameterType="String" resultType="BoardDto">
 		select *
 		from a407.board
-		where region like CONCAT('%', #{word}, "%")
+		where contents like CONCAT('%', #{word}, "%") and category = #{category}
+		limit #{currentPage}, 10
 	</select>
 	
 	<update id="updateBoard" parameterType="map">update a407.board set title = #{title}, contents = #{contents}, noticeFlag = #{noticeFlag}, category= #{category} where bId = #{bId} and email = #{email}</update>
