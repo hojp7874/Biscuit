@@ -54,15 +54,16 @@ public class BoardController {
 	
 	//게시글 보기
 	@GetMapping(value = "/read")
-	private ResponseEntity read(@RequestParam String type, @RequestParam String word) {
+	private ResponseEntity read(@RequestParam String type, @RequestParam String word, @RequestParam(defaultValue="0") int currentPage, @RequestParam(defaultValue="0") int category) {
 		System.out.println("read==========");
 		ResponseEntity entity = null;
 		Map result = new HashMap();
 		try {
 			System.out.println("controller. type : " + type + " word : " + word);
+			currentPage = currentPage * 10;
 			//전체 조회
 			if(type.equals("")) {
-				List<BoardDto> list = board.searchAll();
+				List<BoardDto> list = board.searchAll(currentPage, category);
 		        System.out.println(list);
 		        if(list != null) {
 		            result.put("list", list);
@@ -75,6 +76,7 @@ public class BoardController {
 			}
 			//bId로 검색
 			else if(type.equals("bId")) {
+				System.out.println("tetetetetete");
 				List<BoardDto> list = board.searchBId(word);
 				System.out.println(list);
 				if(list != null) {
@@ -88,7 +90,7 @@ public class BoardController {
 			}
 			//title로 검색
 			else if(type.equals("title")) {
-				List<BoardDto> list = board.searchTitle(word);
+				List<BoardDto> list = board.searchTitle(word, currentPage, category);
 				System.out.println(list);
 				if(list != null) {
 					result.put("list", list);
@@ -101,7 +103,7 @@ public class BoardController {
 			}
 			//email(작성자)로 검색
 			else if(type.equals("email")) {
-				List<BoardDto> list = board.searchEmail(word);
+				List<BoardDto> list = board.searchEmail(word, currentPage, category);
 				System.out.println(list);
 				if(list != null) {
 					result.put("list", list);
@@ -114,7 +116,7 @@ public class BoardController {
 			}
 			//내용으로 검색
 			else if(type.equals("contents")) {
-				List<BoardDto> list = board.searchContents(word);
+				List<BoardDto> list = board.searchContents(word, currentPage, category);
 				System.out.println(list);
 				if(list != null) {
 					result.put("list", list);
