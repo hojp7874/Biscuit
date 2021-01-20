@@ -1,20 +1,29 @@
 <template>
   <div>
-    <h2>게시판 리스트</h2>
+    <h2>자유 게시판</h2>
 
     <div class="searchWrap">
+      <b-select name="type" v-model="type" style="width:80px">
+        <b-select-option value="" selected="selected" disabled hidden
+          >전체</b-select-option
+        >
+        <b-select-option value="id">작성자</b-select-option>
+        <b-select-option value="title">제목</b-select-option>
+        <b-select-option value="word">내용</b-select-option>
+      </b-select>
       <input type="text" v-model="keyword" @keyup.enter="fnSearch" />
-            <b-button @click="fnSearch" class="btnSearch m-1">검색</b-button>
+      <b-button @click="fnSearch" class="btnSearch m-1">검색</b-button>
     </div>
 
     <div class="listWrap">
-      <table class="tbList">
+      <table class="tbList" width="100%">
         <colgroup>
           <col width="6%" />
           <col width="*" />
           <col width="10%" />
           <col width="15%" />
         </colgroup>
+
         <tr>
           <th>no</th>
           <th>제목</th>
@@ -22,33 +31,47 @@
           <th>날짜</th>
         </tr>
         <tr v-for="(row, idx) in list" :key="idx">
-          <td>{{ no - idx }}</td>
-          <td class="txt_left">
-            <a href="javascript:;">{{ row.subject }}</a>
-          </td>
+          <td>{{ row.bid }}</td>
+          <td class="txt_left" @click="detail(notice)">{{ row.title }}</td>
           <td>{{ row.id }}</td>
-          <td>{{ row.regdate.substring(0, 10) }}</td>
+          <td>{{ row.date }}</td>
         </tr>
         <tr v-if="list.length == 0">
-          <td colspan="4">데이터가 없습니다.</td>
+          <td colspan="4">등록된 게시 글이 없습니다.</td>
         </tr>
       </table>
     </div>
 
-   <div class="pagination" v-if="paging.totalCount > 0">
-			<a href="javascript:;" @click="fnPage(1)" class="first">&lt;&lt;</a>
-			<a href="javascript:;" v-if="paging.start_page > 10" @click="fnPage(`${paging.start_page-1}`)"  class="prev">&lt;</a>
-			<template v-for=" (n,index) in paginavigation()">
-				<template v-if="paging.page==n">
-					<strong :key="index">{{n}}</strong>
-				</template>
-				<template v-else>
-					<a href="javascript:;" @click="fnPage(`${n}`)" :key="index">{{n}}</a>
-				</template>
-			</template>
-			<a href="javascript:;" v-if="paging.total_page > paging.end_page" @click="fnPage(`${paging.end_page+1}`)"  class="next">&gt;</a>
-			<a href="javascript:;" @click="fnPage(`${paging.total_page}`)" class="last">&gt;&gt;</a>
-		</div>
+    <div class="pagination" v-if="paging.totalCount > 0">
+      <a href="javascript:;" @click="fnPage(1)" class="first">&lt;&lt;</a>
+      <a
+        href="javascript:;"
+        v-if="paging.start_page > 10"
+        @click="fnPage(`${paging.start_page - 1}`)"
+        class="prev"
+        >&lt;</a>
+      <template v-for="(n, index) in paginavigation()">
+        <template v-if="paging.page == n">
+          <strong :key="index">{{ n }}</strong>
+        </template>
+        <template v-else>
+          <a href="javascript:;" @click="fnPage(`${n}`)" :key="index">
+            {{ n }}</a>
+        </template>
+      </template>
+      <a
+        href="javascript:;"
+        v-if="paging.total_page > paging.end_page"
+        @click="fnPage(`${paging.end_page + 1}`)"
+        class="next"
+        >&gt;</a>
+      <a
+        href="javascript:;"
+        @click="fnPage(`${paging.total_page}`)"
+        class="last"
+        >&gt;&gt;</a
+      >
+    </div>
 
     <div class="btnRightWrap">
       <b-button @click="fnAdd" class="btnAdd m-1">등록</b-button>
@@ -57,6 +80,9 @@
 </template>
 
 <script>
+import axios from 'axios';
+const SERVER_URL = process.env.VUE_APP_SERVER_URL;
+console.log(SERVER_URL);
 export default {
   data() {
     //변수생성
@@ -85,28 +111,43 @@ export default {
   },
   methods: {
     fnGetList() {
-      //데이터 가져오기 함수
-      this.body = {
-        // 데이터 전송
-        board_code: this.board_code,
-        keyword: this.keyword,
-        page: this.page,
-      };
-      this.$axios
-        .get('http://localhost:3000/api/board', { params: this.body })
-        .then((res) => {
-          if (res.data.success) {
-            this.list = res.data.list;
-            this.paging = res.data.paging;
-            this.no =
-              this.paging.totalCount - (this.paging.page - 1) * this.paging.ipp;
-          } else {
-            alert('실행중 실패했습니다.\n다시 이용해 주세요.');
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      axios.get(`${SERVER_URL}/notice/count`).then((response) => {
+        console.log(response.data.count);
+        this.totalpage = response.data.count;
+        if (this.totalpage == 0) {
+          this.haslist = false;
+        } else {
+          console.log(this.totalpage);
+          this.totalpage = this.totalpage / 5 + 1;
+          this.haslist = true;
+        }
+      });
+      if (this.haslist) {
+        this.pageno = this.$route.query.pageno;
+        axios
+          .get(`${SERVER_URL}/notice/list`, {
+            params: {
+              nowPage: this.pageno,
+              type: this.type,
+              word: this.word,
+            },
+          })
+          .then((response) => {
+            if (response.data.success === 'fail') {
+              this.haslist = false;
+            } else {
+              this.haslist = true;
+              this.noticelist = response.data.list;
+              console.log(response.data.list);
+              for (let notice of this.noticelist) {
+                console.log(notice.date);
+              }
+            }
+          })
+          .catch(function(error) {
+            console.log(error);
+          });
+      }
     },
     fnAdd() {
       this.$router.push('./BoardWrite');

@@ -14,12 +14,12 @@
             <th>제목</th>
             <td>
               <!-- v-model 양뱡향데이터전송으로 상세 데이터 넣어준다 -->
-              <input type="text" v-model="subject" ref="subject" />
+              <input type="text" v-model="title" ref="title" />
             </td>
           </tr>
           <tr>
             <th>내용</th>
-            <td><textarea v-model="cont" ref="cont"></textarea></td>
+            <td><textarea v-model="contents" ref="contents"></textarea></td>
           </tr>
         </table>
       </form>
@@ -45,8 +45,8 @@ export default {
 
     return {
       board_code: 'news',
-      subject: '',
-      cont: '',
+      title: '',
+      contents: '',
       id: 'admin',
       body: this.$route.query,
       form: '', //form 전송 데이터
@@ -73,8 +73,8 @@ export default {
         })
         .then((res) => {
           this.view = res.data.view[0];
-          this.subject = this.view.subject;
-          this.cont = this.view.cont;
+          this.title = this.view.title;
+          this.contents = this.view.contents;
         })
         .catch((err) => {
           console.log(err);
@@ -84,16 +84,16 @@ export default {
       this.$router.push({ path: './view', query: this.body });
     },
     fnAddProc() {
-      if (!this.subject) {
+      if (!this.title) {
         alert('제목을 입력해 주세요');
-        this.$refs.subject.focus(); //방식으로 선택자를 찾는다.
+        this.$refs.title.focus(); //방식으로 선택자를 찾는다.
         return;
       }
 
       this.form = {
         board_code: this.board_code,
-        subject: this.subject,
-        cont: this.cont,
+        title: this.title,
+        contents: this.contents,
         id: this.id,
       };
 
@@ -112,16 +112,16 @@ export default {
         });
     },
     fnModProc() {
-      if (!this.subject) {
+      if (!this.title) {
         alert('제목을 입력해 주세요');
-        this.$refs.subject.focus(); //방식으로 선택자를 찾는다.
+        this.$refs.title.focus(); //방식으로 선택자를 찾는다.
         return;
       }
 
       this.form = {
         board_code: this.board_code,
-        subject: this.subject,
-        cont: this.cont,
+        title: this.title,
+        contents: this.contents,
         id: this.id,
         num: this.num,
       };
