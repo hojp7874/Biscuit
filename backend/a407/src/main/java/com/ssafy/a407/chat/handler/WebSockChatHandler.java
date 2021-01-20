@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 public class WebSockChatHandler extends TextWebSocketHandler{
 	
+	//git 에러 테스트를 위한 주석
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception
 	{
