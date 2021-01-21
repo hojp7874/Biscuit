@@ -24,9 +24,14 @@ import com.ssafy.a407.dto.MemberDto;
 import com.ssafy.a407.dto.UserDto;
 import com.ssafy.a407.service.GroupService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+
 
 @RestController
 @RequestMapping("/group")
+@Api("GroupController")
 public class GroupController {
 	
 	
@@ -143,7 +148,7 @@ public class GroupController {
 	
 	//그룹정보수정
 	@PutMapping(value = "/update")
-	private ResponseEntity update(@RequestBody Map mem) {
+	private ResponseEntity update(@ApiParam(value = "필요한 정보 : email, max, ...", required = true) @RequestBody Map mem) {
 		ResponseEntity entity = null;
 		System.out.println("update ========");
 		Map result = new HashMap();
@@ -166,7 +171,12 @@ public class GroupController {
 		}
 		return entity;
 	}
-	
+
+	@ApiOperation(httpMethod = "POST"
+			,value = "그룹 생성"
+			,notes = "그룹 생성하는 API"
+			,response = ResponseEntity.class
+			,responseContainer = "ResponseEntity")
 	//group 생성할 때 member에도 추가해야됨
 	@PostMapping(value = "/create")
     private ResponseEntity register(@RequestBody GroupDto groupDto) {
