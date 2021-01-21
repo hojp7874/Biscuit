@@ -4,6 +4,7 @@ import Home from "../views/Home.vue";
 import BoardList from "../views/BoardList.vue";
 import BoardWrite from "../views/BoardWrite.vue";
 import BoardRead from "../views/BoardRead.vue";
+import GroupCreate from "../views/GroupCreate.vue";
 
 Vue.use(VueRouter);
 
@@ -27,6 +28,11 @@ const routes = [
     path: "/boardread",
     name: "BoardRead",
     component: BoardRead
+  },
+  {
+    path: "/groupcreate",
+    name: "groupCreate",
+    component: GroupCreate
   },
 ];
 
