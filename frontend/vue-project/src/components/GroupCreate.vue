@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-form @submit.prevent="onSubmit">
+    <b-form>
       <b-form-group id="input-group-1" label="스터디 이름:" label-for="input-1">
         <b-form-input
           id="input-1"
