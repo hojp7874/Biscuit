@@ -6,6 +6,7 @@
 				<li><a href="javascript:;">왜이래</a></li>
 				<li><a href="javascript:;">메뉴3</a></li>
 				<li><a href="javascript:;">메뉴4</a></li>
+				<li><router-link to="/groupCreate">Group Create</router-link></li>
 			</ul>
 		</div>
 	</header>
