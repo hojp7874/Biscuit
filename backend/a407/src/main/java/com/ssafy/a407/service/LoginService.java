@@ -11,4 +11,5 @@ public interface LoginService {
 	public int update(Map mem) throws Exception;
 	public int pwupdate(Map mem) throws Exception;
 	public UserDto profile(String email) throws Exception;
+	public int updateAdmin(Map mem) throws Exception;
 }
