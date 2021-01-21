@@ -13,8 +13,8 @@
 </template>
 
 <script>
-import Header from './views/Header'; //import 헤더 추가
-import Footer from './views/Footer'; //import 풋터 추가
+import Header from './components/Header'; //import 헤더 추가
+import Footer from './components/Footer'; //import 풋터 추가
 
 export default {
   name: 'App',
