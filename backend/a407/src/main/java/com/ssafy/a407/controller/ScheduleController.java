@@ -22,8 +22,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ssafy.a407.dto.ScheduleDto;
 import com.ssafy.a407.service.ScheduleService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+
 @RestController
 @RequestMapping("/schedule")
+@Api("ScheduleController")
 public class ScheduleController {
 	
 	@Autowired
@@ -34,8 +39,13 @@ public class ScheduleController {
 	/* * pgFlag - 0 : 개인 일정, 1 : 그룹 일정
 		* email - 그룹 일정 시 null
 		* gId - 개인 일정 시 null 						*/
+	@ApiOperation(httpMethod = "POST"
+	,value = "스케줄 생성"
+	,notes = "스케줄 생성하는 API"
+	,response = Integer.class
+	,responseContainer = "ArrayList")
 	@PostMapping(value = "/create")
-    private ResponseEntity register(@RequestBody ScheduleDto schedule) {
+    private ResponseEntity register(@RequestBody @ApiParam(value = "필요한 정보 : sId빼고 다", required = true) ScheduleDto schedule) {
 //		System.out.println("[controller] Schedule create >> "+ schedule.toString());
 		ResponseEntity entity = null;
 		Map result = new HashMap();
