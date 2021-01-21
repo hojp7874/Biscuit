@@ -32,8 +32,8 @@
         </tr>
         <tr v-for="(row, idx) in list" :key="idx">
           <td>{{ row.bid }}</td>
-          <td class="txt_left" @click="detail(notice)">{{ row.title }}</td>
-          <td>{{ row.id }}</td>
+          <td class="txt_left"><a href="javascript:;" @click="fnView(`${row.bid}`)">{{ row.title }}</a></td>
+          <td>{{ row.nickname }}</td>
           <td>{{ row.date }}</td>
         </tr>
         <tr v-if="list.length == 0">
@@ -55,7 +55,7 @@
           <strong :key="index">{{ n }}</strong>
         </template>
         <template v-else>
-          <a href="javascript:;" @click="fnPage(`${n}`)" :key="index">
+          <a href="javascript:;" @click="fnView(`${n}`)" :key="index">
             {{ n }}</a>
         </template>
       </template>
@@ -81,15 +81,16 @@
 
 <script>
 import axios from 'axios';
-const SERVER_URL = process.env.VUE_APP_SERVER_URL;
-console.log(SERVER_URL);
 export default {
   data() {
     //변수생성
     return {
+      form: '',
+      type:'',
       body: '', //리스트 페이지 데이터전송
       board_code: 'news', //게시판코드
       list: '', //리스트 데이터
+      templist: '',
       no: '', //게시판 숫자처리
       paging: '', //페이징 데이터
       start_page: '', //시작페이지
@@ -111,43 +112,57 @@ export default {
   },
   methods: {
     fnGetList() {
-      axios.get(`${SERVER_URL}/notice/count`).then((response) => {
-        console.log(response.data.count);
-        this.totalpage = response.data.count;
-        if (this.totalpage == 0) {
-          this.haslist = false;
-        } else {
-          console.log(this.totalpage);
-          this.totalpage = this.totalpage / 5 + 1;
-          this.haslist = true;
-        }
-      });
-      if (this.haslist) {
-        this.pageno = this.$route.query.pageno;
-        axios
-          .get(`${SERVER_URL}/notice/list`, {
-            params: {
-              nowPage: this.pageno,
-              type: this.type,
-              word: this.word,
-            },
-          })
-          .then((response) => {
-            if (response.data.success === 'fail') {
-              this.haslist = false;
-            } else {
-              this.haslist = true;
-              this.noticelist = response.data.list;
-              console.log(response.data.list);
-              for (let notice of this.noticelist) {
-                console.log(notice.date);
-              }
-            }
-          })
-          .catch(function(error) {
-            console.log(error);
-          });
-      }
+      this.form = {
+        type: '',
+        word: '',
+        currentPage: '',
+        category: '',
+      };
+
+      axios.get('http://localhost:8877/a407/board/read', {params: this.form}).then(res=>{
+             this.templist =  res.data.list;
+              this.list = this.templist.sort((a,b) =>  a.date - b.date);
+      })
+
+
+      // axios.get('http://localhost:8877/a407/board/read').then((response) => {
+      //   console.log(response.data.count);
+      //   this.totalpage = response.data.count;
+      //   if (this.totalpage == 0) {
+      //     this.haslist = false;
+      //   } else {
+      //     console.log(this.totalpage);
+      //     this.totalpage = this.totalpage / 5 + 1;
+      //     this.haslist = true;
+      //   }
+      // });
+      // if (this.haslist) {
+      //   this.pageno = this.$route.query.pageno;
+      //   axios
+      //     .get('http://localhost:8877/a407/board/read', {
+      //       params: {
+      //         nowPage: this.pageno,
+      //         word: this.word,
+      //         type: '',
+
+      //       },
+      //     })
+      //     .then((response) => {
+      //       if (response.data.success === 'fail') {
+      //         this.haslist = false;
+      //       } else {
+      //         this.haslist = true;
+      //         this.noticelist = response.data.list;
+      //         console.log(response.data.list);
+      //         for (let notice of this.noticelist) {
+      //           console.log(notice.date);
+      //         }
+      //       }
+      //     })
+      //     .catch(function(error) {
+      //       console.log(error);
+      //     });
+      // }
     },
     fnAdd() {
       this.$router.push('./BoardWrite');
@@ -162,6 +177,11 @@ export default {
           console.log(err);
         });
     },
+     fnView(num) {
+      // this.body.num = num;
+      console.log(num);
+			this.$router.push({path:'./BoardRead',query:{bId: num}}); //추가한 상세페이지 라우터
+	},
     fnSearch() {
       //검색
       this.paging.page = 1;

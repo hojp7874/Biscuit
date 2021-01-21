@@ -11,19 +11,24 @@
           </colgroup>
           <tr>
             <th>제목</th>
-            <td>{{ subject }}</td>
+            <td v-bind="title"> {{title}}</td>
           </tr>
           <tr>
             <th>내용</th>
-            <td class="txt_cont" v-html="cont"></td>
+            <td class="txt_cont" v-bind="contents">{{contents}}</td>
           </tr>
         </table>
       </form>
     </div>
+
     <div class="btnWrap">
       <b-button @click="fnList" class="btnList m-1">목록</b-button>
       <b-button v-if="userid" @click="fnUpdate" class="btnUpdate m-1">수정</b-button>
       <b-button v-if="userid" @click="fnDelete" class="btnDelete m-1">삭제</b-button>
+    </div>
+
+    <div class="commentWrap">
+      댓글
     </div>
   </div>
 </template>
@@ -38,8 +43,8 @@ export default {
   data() {
     return {
       body: this.$route.query,
-      subject: '',
-      cont: '',
+      title: '',
+      contents: '',
       view: '',
     //   userid:this.$route.query.userid,
     userid:'hello',
@@ -51,14 +56,21 @@ export default {
   },
   methods: {
     fnGetView() {
+       this.form = {
+        type: 'bId',
+        word: this.$route.query.bId,
+      };
+     console.log(this.$route.query.bId);
       this.$axios
-        .get('http://localhost:3000/api/board/' + this.body.num, {
-          params: this.body,
+        .get('http://localhost:8877/a407/board/read', {
+          params: this.form,
         })
         .then((res) => {
-          this.view = res.data.view[0];
-          this.subject = this.view.subject;
-          this.cont = this.view.cont.replace(/(\n)/g, '<br/>');
+          this.title = res.data.list[0].title;
+          console.log(this.title);
+          this.contents = res.data.list[0].contents;
+          console.log(this.contents);
+
         })
         .catch((err) => {
           console.log(err);

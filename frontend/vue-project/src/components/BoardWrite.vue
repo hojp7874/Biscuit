@@ -34,7 +34,7 @@
 	<div class="btnWrap">
       <b-button @click="fnList" class="btnList m-1">목록</b-button>
       <b-button v-if="num" @click="fnModProc" class="btnReset m-1">수정</b-button>
-      <b-button v-if="!num" @click="fnAddProc" class="btnAdd m-1">등록</b-button>
+      <b-button v-if="!num" @click="fnAddProc" type="submit" class="btnAdd m-1">등록</b-button>
     </div>
   </div>
 </template>
@@ -49,7 +49,10 @@ export default {
       contents: '',
       id: 'admin',
       body: this.$route.query,
-      form: '', //form 전송 데이터
+      form: {
+
+        
+      },
 	  num: this.$route.query.num,
 	};
   },
@@ -84,21 +87,14 @@ export default {
       this.$router.push({ path: './view', query: this.body });
     },
     fnAddProc() {
-      if (!this.title) {
-        alert('제목을 입력해 주세요');
-        this.$refs.title.focus(); //방식으로 선택자를 찾는다.
-        return;
-      }
-
       this.form = {
-        board_code: this.board_code,
+        email: 'ssafy@ssafy.com',
         title: this.title,
         contents: this.contents,
-        id: this.id,
       };
 
       this.$axios
-        .post('http://localhost:3000/api/board', this.form)
+        .post('http://localhost:8877/a407/board/create', this.form)
         .then((res) => {
           if (res.data.success) {
             alert('등록되었습니다.');
