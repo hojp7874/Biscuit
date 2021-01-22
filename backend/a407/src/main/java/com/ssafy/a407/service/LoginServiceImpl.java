@@ -54,4 +54,9 @@ public class LoginServiceImpl implements LoginService {
 		return dao.profileUser(email);
 	}
 
+	@Override
+	public int updateAdmin(Map mem) throws Exception {
+		return dao.updateAdmin(mem);
+	}
+
 }

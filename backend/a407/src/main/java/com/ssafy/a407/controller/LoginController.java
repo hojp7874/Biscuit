@@ -221,6 +221,32 @@ public class LoginController{
 		return entity;
 	}
 	
+	//관리자 권한 변경
+	@PutMapping(value = "/admin")
+	private ResponseEntity updateAdmin(@RequestBody Map user) {
+		ResponseEntity entity = null;
+		
+		Map result = new HashMap();
+		try {
+			if (login.updateAdmin(user) == 1) {
+				result.put("success", "success");
+				entity = new ResponseEntity<>(result, HttpStatus.OK);
+				
+			}
+			else {
+				result.put("success", "fail");
+				entity = new ResponseEntity<>(result, HttpStatus.OK);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.put("success", "error");
+			entity = new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+			
+		}
+		return entity;
+	}
+	
 	//비밀번호 암호화
 	private String getHashPassword(String str) {
 		String hash = null;

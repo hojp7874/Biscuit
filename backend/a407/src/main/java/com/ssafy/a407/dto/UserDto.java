@@ -7,13 +7,12 @@ public class UserDto {
 	private String picture; //나중에 추가
 	private String phone;
 	private String region;
+	private int admin; // 0 : 일반 유저, 1: 관리자
 	
-	public UserDto() {
-		// TODO Auto-generated constructor stub
-	}
+	public UserDto() {}
 
-	
-	public UserDto(String email, String password, String nickname, String picture, String phone, String region) {
+	public UserDto(String email, String password, String nickname, String picture, String phone, String region,
+			int admin) {
 		super();
 		this.email = email;
 		this.password = password;
@@ -21,9 +20,8 @@ public class UserDto {
 		this.picture = picture;
 		this.phone = phone;
 		this.region = region;
+		this.admin = admin;
 	}
-
-
 
 	public String getEmail() {
 		return email;
@@ -73,13 +71,18 @@ public class UserDto {
 		this.region = region;
 	}
 
+	public int getAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(int admin) {
+		this.admin = admin;
+	}
 
 	@Override
 	public String toString() {
 		return "UserDto [email=" + email + ", password=" + password + ", nickname=" + nickname + ", picture=" + picture
-				+ ", phone=" + phone + ", region=" + region + "]";
+				+ ", phone=" + phone + ", region=" + region + ", admin=" + admin + "]";
 	}
-	
-	
 	
 }
