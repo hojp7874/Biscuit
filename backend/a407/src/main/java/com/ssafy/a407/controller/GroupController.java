@@ -115,7 +115,7 @@ public class GroupController {
 		        	entity = new ResponseEntity(result, HttpStatus.OK);
 		        }
 			}
-			if(type.equals("category")) {
+			else if(type.equals("category")) {
 				List<GroupDto> list = group.searchCategory(word);
 				System.out.println(list);
 				if(list != null) {
@@ -127,9 +127,20 @@ public class GroupController {
 		        	entity = new ResponseEntity(result, HttpStatus.OK);
 		        }
 			}
-			if(type.equals("region")) {
+			else if(type.equals("region")) {
 				List<GroupDto> list = group.searchRegion(word);
 				System.out.println(list);
+				if(list != null) {
+					result.put("list", list);
+					result.put("success", "success");
+					entity = new ResponseEntity(result, HttpStatus.OK);
+				} else {
+		        	result.put("success", "fail");
+		        	entity = new ResponseEntity(result, HttpStatus.OK);
+		        }
+			}
+			else if(type.equals("gId")) {
+				List<GroupDto> list = group.searchGId(word);
 				if(list != null) {
 					result.put("list", list);
 					result.put("success", "success");

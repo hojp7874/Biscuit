@@ -17,4 +17,5 @@ public interface GroupService {
 	public List<GroupDto> searchRegion(String word) throws Exception;
 	
 	public int createGroup(GroupDto group) throws Exception;
+	public List<GroupDto> searchGId(String word) throws Exception;
 }
