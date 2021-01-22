@@ -1,9 +1,9 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from "../views/Home.vue";
-import BoardList from "../views/BoardList.vue";
-import BoardWrite from "../views/BoardWrite.vue";
-import BoardRead from "../views/BoardRead.vue";
+import Home from "../components/Home.vue";
+import BoardList from "../components/BoardList.vue";
+import BoardWrite from "../components/BoardWrite.vue";
+import BoardRead from "../components/BoardRead.vue";
 import GroupCreate from "../views/GroupCreate.vue";
 import GroupList from "../views/GroupList.vue";
 
