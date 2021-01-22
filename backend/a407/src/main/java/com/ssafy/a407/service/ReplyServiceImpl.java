@@ -31,8 +31,8 @@ public class ReplyServiceImpl implements ReplyService {
 	}
 
 	@Override
-	public int getReplyListCnt() throws Exception {
-		return dao.getReplyListCnt();
+	public int getReplyListCnt(int bId) throws Exception {
+		return dao.getReplyListCnt(bId);
 	}
 
 	@Override

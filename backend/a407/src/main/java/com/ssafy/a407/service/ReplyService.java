@@ -9,7 +9,7 @@ public interface ReplyService {
 	public int registReply(ReplyDto reply) throws Exception;
 	public int modifyReply(ReplyDto reply) throws Exception;
 	public int removeReply(int rId) throws Exception;
-	public int getReplyListCnt() throws Exception;
+	public int getReplyListCnt(int bId) throws Exception;
 	public List<ReplyDto> getReplyList(Map map) throws Exception;
  
 	

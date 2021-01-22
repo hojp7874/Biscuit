@@ -12,6 +12,6 @@ public interface ReplyDao {
 	public int insertReply(ReplyDto reply) throws Exception;
 	public int updateReply(ReplyDto reply) throws Exception;
 	public int deleteReply(int rId) throws Exception;
-	public int getReplyListCnt() throws Exception;
+	public int getReplyListCnt(int bId) throws Exception;
 	public List<ReplyDto> getReplyList(Map map) throws Exception;
 }

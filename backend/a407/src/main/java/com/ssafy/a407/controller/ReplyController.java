@@ -100,13 +100,13 @@ public class ReplyController {
 	
 	
 	@GetMapping(value = "/list")
-	private ResponseEntity getReplyList(@RequestParam int page) {
+	private ResponseEntity getReplyList(@RequestParam int page, @RequestParam int bId) {
 //		System.out.println("[controller] Reply page >> "+ page);
 		ResponseEntity entity = null;
 		Map result = new HashMap();
 		try {
 			//전체 댓글 갯수
-			int listCnt = service.getReplyListCnt();
+			int listCnt = service.getReplyListCnt(bId);
 			System.out.println("listCnt >> " + listCnt);
 			//페이징 객체 생성
 			Pagination pagination = new Pagination(listCnt,page);
