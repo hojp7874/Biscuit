@@ -59,7 +59,7 @@ public class BoardController {
 		ResponseEntity entity = null;
 		Map result = new HashMap();
 		try {
-			System.out.println("controller. type : " + type + " word : " + word);
+			System.out.println("controller. type : " + type + " word : " + word + "currentPage : " + currentPage + "category: " +category);
 			currentPage = currentPage * 10;
 			//전체 조회
 			if(type.equals("")) {
@@ -187,4 +187,89 @@ public class BoardController {
 		}
 		return entity;
 	}
+	
+	//게시글 총 개수
+	//게시글 보기
+		@GetMapping(value = "/count")
+		private ResponseEntity count(@RequestParam String type, @RequestParam String word, @RequestParam(defaultValue="0") int currentPage, @RequestParam(defaultValue="0") int category) {
+			System.out.println("count==========");
+			ResponseEntity entity = null;
+			Map result = new HashMap();
+			try {
+				System.out.println("controller. type : " + type + " word : " + word + "currentPage : " + currentPage + "category: " +category);
+				currentPage = currentPage * 10;
+				//전체 조회
+				if(type.equals("")) {
+					List<BoardDto> list = board.searchAll(currentPage, category);
+			        System.out.println(list);
+			        if(list != null) {
+			            result.put("list", list);
+			            result.put("success", "success");
+			            entity = new ResponseEntity(result, HttpStatus.OK);
+			        } else {
+			        	result.put("success", "fail");
+			        	entity = new ResponseEntity(result, HttpStatus.OK);
+			        }
+				}
+				//bId로 검색
+				else if(type.equals("bId")) {
+					System.out.println("tetetetetete");
+					List<BoardDto> list = board.searchBId(word);
+					System.out.println(list);
+					if(list != null) {
+						result.put("list", list);
+						result.put("success", "success");
+						entity = new ResponseEntity(result, HttpStatus.OK);
+					} else {
+			        	result.put("success", "fail");
+			        	entity = new ResponseEntity(result, HttpStatus.OK);
+			        }
+				}
+				//title로 검색
+				else if(type.equals("title")) {
+					List<BoardDto> list = board.searchTitle(word, currentPage, category);
+					System.out.println(list);
+					if(list != null) {
+						result.put("list", list);
+						result.put("success", "success");
+						entity = new ResponseEntity(result, HttpStatus.OK);
+					} else {
+			        	result.put("success", "fail");
+			        	entity = new ResponseEntity(result, HttpStatus.OK);
+			        }
+				}
+				//email(작성자)로 검색
+				else if(type.equals("email")) {
+					List<BoardDto> list = board.searchEmail(word, currentPage, category);
+					System.out.println(list);
+					if(list != null) {
+						result.put("list", list);
+						result.put("success", "success");
+						entity = new ResponseEntity(result, HttpStatus.OK);
+					} else {
+			        	result.put("success", "fail");
+			        	entity = new ResponseEntity(result, HttpStatus.OK);
+			        }
+				}
+				//내용으로 검색
+				else if(type.equals("contents")) {
+					List<BoardDto> list = board.searchContents(word, currentPage, category);
+					System.out.println(list);
+					if(list != null) {
+						result.put("list", list);
+						result.put("success", "success");
+						entity = new ResponseEntity(result, HttpStatus.OK);
+					} else {
+			        	result.put("success", "fail");
+			        	entity = new ResponseEntity(result, HttpStatus.OK);
+			        }
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
+				result.put("success", "error");
+				entity = new ResponseEntity(result, HttpStatus.OK);
+			}
+			return entity;
+		}
 }

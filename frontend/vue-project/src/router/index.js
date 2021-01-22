@@ -1,26 +1,15 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-<<<<<<< HEAD
-import Home from "../components/Home.vue";
-import BoardList from "../components/BoardList.vue";
-import BoardWrite from "../components/BoardWrite.vue";
-import BoardRead from "../components/BoardRead.vue";
-=======
-import Home from "../views/Home.vue";
-import BoardList from "../views/BoardList.vue";
-import BoardWrite from "../views/BoardWrite.vue";
-import BoardRead from "../views/BoardRead.vue";
-import GroupCreate from "../views/GroupCreate.vue";
->>>>>>> 0e406f9731f544a478e9d1f5e9590f68bc01e641
-
+import BoardList from "../components/board/BoardList.vue";
+import BoardWrite from "../components/board/BoardWrite.vue";
+import BoardRead from "../components/board/BoardRead.vue";
+import BoardUpdate from "../components/board/BoardUpdate.vue";
+import GroupCreate from "../components/GroupCreate.vue";
+import CommentList from "../components/comment/CommentList.vue";
 Vue.use(VueRouter);
 
 const routes = [
-  {
-    path: "/",
-    name: "Home",
-    component: Home
-  },
+
   {
     path: "/boardlist",
     name: "BoardList",
@@ -37,9 +26,19 @@ const routes = [
     component: BoardRead
   },
   {
+    path: "/boardupdate",
+    name: "BoardUpdate",
+    component: BoardUpdate
+  },
+  {
     path: "/groupcreate",
     name: "groupCreate",
     component: GroupCreate
+  },
+  {
+    path: "/commentList",
+    name: "CommentList",
+    component: CommentList
   },
 ];
 

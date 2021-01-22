@@ -1,14 +1,12 @@
 <template>
   <div>
-    <h1>게시판 {{ num ? '수정' : '등록' }}</h1>
-    <!-- num 값에 따라 제목 변경 -->
-
-    <div class="AddWrap">
+    <h1>게시판 수정</h1>
+    <div class="UpdateWrap">
       <form>
-          <table class="tbAdd" width="100%">
+        <table class="tbAdd" width="100%">
           <colgroup>
-            <col width="20%"/>
-            <col width="80%"/>
+            <col width="20%" />
+            <col width="80%" />
           </colgroup>
           <tr>
             <th>제목</th>
@@ -25,16 +23,9 @@
       </form>
     </div>
 
-    <!-- <div class="btnWrap">
-      <a href="javascript:;" @click="fnList" class="btn">목록</a>
-      <a v-if="!num" href="javascript:;" @click="fnAddProc" class="btnAdd btn">등록</a>
-      <a v-else href="javascript:;" @click="fnModProc" class="btnAdd btn">수정</a>
-    </div> -->
-
-	<div class="btnWrap">
-      <b-button @click="fnList" class="btnList m-1">목록</b-button>
-      <b-button v-if="num" @click="fnModProc" class="btnReset m-1">수정</b-button>
-      <b-button v-if="!num" @click="fnAddProc" type="submit" class="btnAdd m-1">등록</b-button>
+    <div class="btnWrap">
+      <b-button @click="fnList" class="btnList m-1">취소</b-button>
+      <b-button @click="fnModProc" class="btnReset m-1">확인</b-button>
     </div>
   </div>
 </template>
@@ -42,59 +33,57 @@
 <script>
 export default {
   data() {
-
     return {
-      board_code: 'news',
-      title: '',
-      contents: '',
-      id: 'admin',
-      body: this.$route.query,
-      form: {
-
-        
-      },
-	  num: this.$route.query.num,
-	};
+      temptitle: '',
+      bId: this.$route.query.bId,
+      email: this.$route.query.email,
+      title: this.$route.query.title,
+      contents: this.$route.query.contents,
+      noticeFlag: 0,
+      date: this.$route.query.date,
+      category: this.$route.query.category,
+    };
   },
-  
+
   mounted() {
     //최초 로딩 시 실행
     if (this.num) {
-      // num 값이 있으면 상세 데이터 호출한다.
       this.fnGetView();
     }
   },
   methods: {
     fnList() {
-      delete this.body.num;
-      this.$router.push({ path: './BoardList', query: this.body });
+      this.$router.push({ path: './BoardList' });
     },
     fnGetView() {
+      console.log(this.$route.query);
       this.$axios
-        .get('http://localhost:3000/api/board/' + this.body.num, {
-          params: this.body,
-        })
+        .get('http://localhost:8877/a407/board/update')
         .then((res) => {
-          this.view = res.data.view[0];
-          this.title = this.view.title;
-          this.contents = this.view.contents;
+          this.title = res.data.list[0].title;
+          //console.log(this.title);
+          this.contents = res.data.list[0].contents;
+          //console.log(this.contents);
         })
         .catch((err) => {
           console.log(err);
         });
     },
     fnView() {
-      this.$router.push({ path: './view', query: this.body });
+      this.$router.push({ path: './BoardRead', query: { bId: this.bId } }); //추가한 상세페이지 라우터
     },
     fnAddProc() {
       this.form = {
-        email: 'ssafy@ssafy.com',
+        bId: this.bId,
+        email: this.email,
         title: this.title,
         contents: this.contents,
+        noticeFlag: this.noticeFlag,
+        category: this.category,
       };
 
       this.$axios
-        .post('http://localhost:8877/a407/board/create', this.form)
+        .post('http://localhost:8877/a407/board/update', this.form)
         .then((res) => {
           if (res.data.success) {
             alert('등록되었습니다.');
@@ -108,22 +97,29 @@ export default {
         });
     },
     fnModProc() {
-      if (!this.title) {
+      this.temptitle = this.title.replace(/ /g, '');
+      if (!this.temptitle) {
         alert('제목을 입력해 주세요');
         this.$refs.title.focus(); //방식으로 선택자를 찾는다.
         return;
       }
+      if (!this.contents) {
+        alert('제목을 입력해 주세요');
+        this.$refs.contents.focus(); //방식으로 선택자를 찾는다.
+        return;
+      }
 
       this.form = {
-        board_code: this.board_code,
         title: this.title,
         contents: this.contents,
-        id: this.id,
-        num: this.num,
+        noticeFlag: this.noticeFlag,
+        category: this.category,
+        bId: this.bId,
+        email: 'ssafy@ssafy.com',
       };
 
       this.$axios
-        .put('http://localhost:3000/api/board', this.form)
+        .put('http://localhost:8877/a407/board/update', this.form)
         .then((res) => {
           if (res.data.success) {
             alert('수정되었습니다.');

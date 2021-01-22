@@ -28,7 +28,7 @@ export default {
   },
   data() {
     return {
-      name: "르라나",
+      name: "사용자 아이디",
       context: ""
     };
   },

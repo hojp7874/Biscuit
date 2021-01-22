@@ -63,4 +63,9 @@ public class BoardServiceImpl implements BoardService{
 		return dao.deleteBoard(bId);
 	}
 	
+	@Override
+	public int count() throws Exception{
+		return dao.countBoard();
+	}
+	
 }

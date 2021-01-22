@@ -18,5 +18,6 @@ public interface BoardService {
 	public int update(Map mem) throws Exception;
 
 	public int delete(int bId) throws Exception;
+	public int count() throws Exception;
 	
 }

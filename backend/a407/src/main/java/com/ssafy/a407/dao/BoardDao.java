@@ -21,5 +21,6 @@ public interface BoardDao {
 	public int updateBoard(Map mem) throws Exception;
 
 	public int deleteBoard(int bId) throws Exception;
+	public int countBoard() throws Exception;
 
 }
