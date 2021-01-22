@@ -102,7 +102,7 @@ export default {
       axios
         .get('http://localhost:8877/a407/board/read', { params: this.form })
         .then((res) => {
-          this.list = res.data.list;
+          this.list = res.data.list.sort((a,b) => {return b.bid - a.bid});
           console.log(this.list.length);
         });
     },
