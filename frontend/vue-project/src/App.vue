@@ -3,7 +3,7 @@
     <!-- 추가된 헤더 컴포넌트 사용 -->
     <Header />
 
-      <div class="container"> <!-- class 추가 -->
+    <div class="container"> <!-- class 추가 -->
       <router-view />
     </div>
     
