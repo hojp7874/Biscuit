@@ -1,56 +1,46 @@
 <template>
   <div>
-    <b-card-group deck>
-      <b-card title="Title" img-src="https://picsum.photos/300/300/?image=41" img-alt="Image" img-top>
-        <b-card-text>
-          This is a wider card with supporting text below as a natural lead-in to additional content.
-          This content is a little bit longer.
-        </b-card-text>
-        <template #footer>
-          <small class="text-muted">Last updated 3 mins ago</small>
-        </template>
-      </b-card>
-
-      <b-card title="Title" img-src="https://picsum.photos/300/300/?image=41" img-alt="Image" img-top>
-        <b-card-text>
-          This card has supporting text below as a natural lead-in to additional content.
-        </b-card-text>
-        <template #footer>
-          <small class="text-muted">Last updated 3 mins ago</small>
-        </template>
-      </b-card>
-
-      <b-card title="Title" img-src="https://picsum.photos/300/300/?image=41" img-alt="Image" img-top>
-        <b-card-text>
-          This is a wider card with supporting text below as a natural lead-in to additional content.
-          This card has even longer content than the first to show that equal height action.
-        </b-card-text>
-        <template #footer>
-          <small class="text-muted">Last updated 3 mins ago</small>
-        </template>
-      </b-card>
+    <h1>그룹 목록</h1>
+    <b-card-group
+      deck
+      class="d-flex flex-row"
+    >
+      <b-col cols="3"
+        v-for="group in groups"
+        :key="group"
+        :group="group"
+      >
+        <b-card
+          v-bind:title="group.groupName"
+          img-src="https://picsum.photos/300/300/?image=41"
+          img-alt="Image"
+          img-top
+        >
+          <b-card-text>
+            {{group.groupDesc}}
+          </b-card-text>
+          <template #footer>
+            <small class="text-muted">Last updated 3 mins ago</small>
+          </template>
+        </b-card>
+      </b-col>
     </b-card-group>
   </div>
 </template>
 
 <script>
   import axios from 'axios'
+  const SERVER_URL = process.env.VUE_APP_SERVER_URL
+
 
   export default {
     data() {
       return {
-        form: {
-          max: '',
-          edate: '',
-          email: '',
-          groupName: '',
-          groupDesc: '',
-          category: '',
-          region: '',
-          onoff: ''
+        params: {
+          type: '',
+          word: '',
         },
-        region:[{text:'지역을 선택해주세요.',value:null},'온라인','서울','대전','광주','구미'],
-        category:[{text:'카테고리를 선택해주세요.',value:null},'한국사','프로그래머','농부','어부','광부']
+        groups: Object
       }
     },
     methods: {
@@ -75,6 +65,17 @@
             console.log(err)
           })
       }
+    },
+    mounted: function () {
+      console.log(SERVER_URL)
+      axios.get(`http://localhost:8877/a407/group/list/`, {params: this.params})
+        .then(res => {
+          console.log(res.data.list[0])
+          this.groups = res.data.list
+        })
+        .catch(err => {
+          console.log(err)
+        })
     }
   }
 </script>
