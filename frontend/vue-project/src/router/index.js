@@ -1,9 +1,10 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../components/Home.vue";
-import BoardList from "../components/BoardList.vue";
-import BoardWrite from "../components/BoardWrite.vue";
-import BoardRead from "../components/BoardRead.vue";
+import BoardList from "../components/Board/BoardList.vue";
+import BoardWrite from "../components/Board/BoardWrite.vue";
+import BoardRead from "../components/Board/BoardRead.vue";
+import BoardUpdate from "../components/Board/BoardUpdate.vue";
 import GroupCreate from "../components/Group/GroupCreate.vue";
 import GroupList from "../components/Group/GroupList.vue";
 
@@ -34,6 +35,11 @@ const routes = [
     path: "/groupcreate",
     name: "GroupCreate",
     component: GroupCreate
+  },
+  {
+    path: "/boardupdate",
+    name: "BoardUpdate",
+    component: BoardUpdate
   },
   {
     path: "/grouplist",
