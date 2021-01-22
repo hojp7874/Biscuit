@@ -30,9 +30,10 @@
 		limit #{startIndex}, #{pageSize}
 	</select>
 
-	<select id="getReplyListCnt" resultType="int">
+	<select id="getReplyListCnt" parameterType="int" resultType="int">
 		select count(*) as listCnt
 		from a407.reply
+		where bId = #{bId}
 	</select>
 	
  </mapper> 
