@@ -19,6 +19,7 @@ public interface GroupDao {
 	public List<GroupDto> selectGroupDesc(String word) throws Exception;
 	public List<GroupDto> selectCategory(String word) throws Exception;
 	public List<GroupDto> selectRegion(String word) throws Exception;
+	public List<GroupDto> selectGId(String word) throws Exception;
 	
 	 public int insertGroup(GroupDto group) throws Exception;
 }
