@@ -57,6 +57,12 @@ public class GroupServiceImpl implements GroupService{
 		// TODO Auto-generated method stub
 		return dao.selectRegion(word);
 	}
+	
+	@Override
+	public List<GroupDto> searchGId(String word) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.selectGId(word);
+	}
 
 	@Override
 	public int createGroup(GroupDto group) throws Exception {
