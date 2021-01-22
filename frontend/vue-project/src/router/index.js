@@ -1,17 +1,11 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-<<<<<<< HEAD
 import Home from "../components/Home.vue";
 import BoardList from "../components/BoardList.vue";
 import BoardWrite from "../components/BoardWrite.vue";
 import BoardRead from "../components/BoardRead.vue";
-=======
-import Home from "../views/Home.vue";
-import BoardList from "../views/BoardList.vue";
-import BoardWrite from "../views/BoardWrite.vue";
-import BoardRead from "../views/BoardRead.vue";
-import GroupCreate from "../views/GroupCreate.vue";
->>>>>>> 0e406f9731f544a478e9d1f5e9590f68bc01e641
+import GroupCreate from "../components/Group/GroupCreate.vue";
+import GroupList from "../components/Group/GroupList.vue";
 
 Vue.use(VueRouter);
 
@@ -38,8 +32,13 @@ const routes = [
   },
   {
     path: "/groupcreate",
-    name: "groupCreate",
+    name: "GroupCreate",
     component: GroupCreate
+  },
+  {
+    path: "/grouplist",
+    name: "GroupList",
+    component: GroupList
   },
 ];
 

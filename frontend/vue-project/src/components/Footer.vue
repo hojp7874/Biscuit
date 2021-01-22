@@ -1,6 +1,5 @@
 <template>
   <footer>
-    <p>copyRight ssafy.com</p>
   </footer>
 </template>
 
