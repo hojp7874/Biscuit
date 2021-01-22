@@ -1,4 +1,4 @@
-package com.ssafy.a407.chat.config;
+package com.ssafy.a407Chat.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.socket.WebSocketHandler;
