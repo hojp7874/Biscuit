@@ -11,7 +11,6 @@
 		select *
 		from a407.board
 		where category = #{category}
-		limit #{currentPage}, 10
 	</select>
 	
 	<select id="searchBId" parameterType="String" resultType="BoardDto">
@@ -24,21 +23,18 @@
 		select *
 		from a407.board
 		where title like CONCAT('%', #{word}, "%") and category = #{category}
-		limit #{currentPage}, 10
 	</select>
 	
 	<select id="searchEmail" resultType="BoardDto">
 		select *
 		from a407.board
-		where email = #{word}
-		limit #{currentPage}, 10
+		where category = #{category} and email = #{word}
 	</select>
 	
 	<select id="searchContents" resultType="BoardDto">
 		select *
 		from a407.board
 		where contents like CONCAT('%', #{word}, "%") and category = #{category}
-		limit #{currentPage}, 10
 	</select>
 	
 	<update id="updateBoard" parameterType="map">update a407.board set title = #{title}, contents = #{contents}, noticeFlag = #{noticeFlag}, category= #{category} where bId = #{bId} and email = #{email}</update>

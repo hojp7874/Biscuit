@@ -22,5 +22,5 @@
 		where email = #{email}
 	</update>
 	
-	<select id="profileUserName" parameterType="String" resultType="UserDto">select email, nickname from user where nickname like CONCAT('%', #{nickname}, "%")</select>
+	<select id="profileUserName" parameterType="String" resultType="String">select email from user where nickname like CONCAT('%', #{nickname}, "%")</select>
 </mapper> 

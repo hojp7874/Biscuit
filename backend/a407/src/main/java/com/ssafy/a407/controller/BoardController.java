@@ -1,5 +1,6 @@
 package com.ssafy.a407.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -110,12 +111,13 @@ public class BoardController {
 			//작성자로 검색
 			else if(type.equals("name")) {
 				//nickname으로 email 호출하기
-				List<String> user = login.profileName(word);
-				System.out.println(user);
-				String email = user.getEmail();
-				System.out.println(email);
+				List<String> emails = login.profileName(word);
+				System.out.println(emails);
+				List<BoardDto> list = new ArrayList<BoardDto>();
+				for (String email : emails) {
+					list.addAll(board.searchEmail(email, currentPage, category));
+				}
 				
-				List<BoardDto> list = board.searchEmail(word, currentPage, category);
 				System.out.println(list);
 				if(list != null) {
 					result.put("list", list);
