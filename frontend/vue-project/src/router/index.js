@@ -7,6 +7,8 @@ import BoardRead from "../components/Board/BoardRead.vue";
 import BoardUpdate from "../components/Board/BoardUpdate.vue";
 import GroupCreate from "../components/Group/GroupCreate.vue";
 import GroupList from "../components/Group/GroupList.vue";
+import GroupDetail from "../components/Group/GroupDetail.vue";
+import GroupUpdate from "../components/Group/GroupUpdate.vue";
 
 Vue.use(VueRouter);
 
@@ -45,6 +47,16 @@ const routes = [
     path: "/grouplist",
     name: "GroupList",
     component: GroupList
+  },
+  {
+    path: "/groupupdate",
+    name: "GroupUpdate",
+    component: GroupUpdate
+  },
+  {
+    path: "/groupdetail",
+    name: "GroupDetail",
+    component: GroupDetail
   },
 ];
 
