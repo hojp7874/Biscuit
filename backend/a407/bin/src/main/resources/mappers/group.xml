@@ -35,6 +35,12 @@
 		where region like CONCAT('%', #{word}, "%")
 	</select>
 	
+	<select id="selectGId" parameterType="String" resultType="GroupDto">
+		select *
+		from a407.group
+		where gId = #{word}
+	</select>
+	
 	<insert id="insertGroup" parameterType="GroupDto">
  		insert into a407.group (email, max, sdate, edate, groupName, groupDesc, category, onoff, region, img, groupFlag, cycle)
  		values (#{email},#{max},now(),#{edate},#{groupName},#{groupDesc},#{category},#{onoff},#{region},#{img},1,#{cycle})
