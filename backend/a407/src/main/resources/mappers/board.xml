@@ -30,7 +30,7 @@
 	<select id="searchEmail" resultType="BoardDto">
 		select *
 		from a407.board
-		where category = #{category}
+		where email = #{word}
 		limit #{currentPage}, 10
 	</select>
 	
