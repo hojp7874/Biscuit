@@ -9,6 +9,7 @@
         v-for="group in groups"
         :key="group"
         :group="group"
+        @click="goDetail(group)"
       >
         <b-card
           v-bind:title="group.groupName"
@@ -64,9 +65,13 @@
           .catch(err => {
             console.log(err)
           })
+      },
+      goDetail: function(group) {
+        // console.log(group.gId)
+        this.$router.push({path: './GroupDetail', query: {gId: group.gId}})
       }
     },
-    mounted: function () {
+    created: function () {
       console.log(SERVER_URL)
       axios.get(`http://localhost:8877/a407/group/list/`, {params: this.params})
         .then(res => {

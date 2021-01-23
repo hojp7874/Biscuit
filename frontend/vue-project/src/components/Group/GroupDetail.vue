@@ -21,6 +21,9 @@
           <!-- {{ group }} -->
           {{ group.groupDesc }}
         </p>
+        <form action="" method="post" @submit.prevent="updateGroup(group.gId)">
+          <b-button type="submit" pill variant="warning">그룹 정보 수정하기</b-button>
+        </form>
         <form action="" method="post" @submit.prevent="deleteGroup(group.gId)">
           <b-button type="submit" pill variant="danger">그룹 삭제하기</b-button>
         </form>
@@ -39,12 +42,15 @@
       return {
         params: {
           type: 'gId',
-          word: '7',
+          word: this.$route.query.gId,
         },
         group: Object
       }
     },
     methods: {
+      updateGroup: function(gId) {
+        this.$router.push({path: './GroupUpdate', query: { gId: gId}})
+      },
       deleteGroup: function(gId) {
         console.log(gId)
         axios.delete(`http://localhost:8877/a407/group/delete/`, {headers: {gId: gId}})

@@ -87,6 +87,8 @@ export default {
     },
     fnDelete() {
       if (confirm('정말로 삭제하시겠습니까?')) {
+        console.log('#######')
+        console.log(this.bId)
         axios
           .delete(`http://localhost:8877/a407/board/delete`, {params: this.bId})
           .then((res) => {

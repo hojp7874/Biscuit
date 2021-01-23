@@ -73,17 +73,21 @@
   export default {
     data() {
       return {
-        gid: 3,
-        form: {
-          max: '',
-          edate: '',
-          email: '',
-          groupName: '',
-          groupDesc: '',
-          category: '',
-          region: '',
-          onoff: ''
+        params: {
+          type: 'gId',
+          word: this.$route.query.gId,
         },
+        form: Object,
+        // {
+        //   max: '5',
+        //   edate: '',
+        //   email: '',
+        //   groupName: '',
+        //   groupDesc: '',
+        //   category: '',
+        //   region: '',
+        //   onoff: ''
+        // },
         region:[{text:'지역을 선택해주세요.',value:null},'온라인','서울','대전','광주','구미'],
         category:[{text:'카테고리를 선택해주세요.',value:null},'한국사','프로그래머','농부','어부','광부']
       }
@@ -94,15 +98,18 @@
         const item = {
           max: this.form.max,
           edate: this.form.edate,
-          email: "ssafy@ssafy.com",
           groupName: this.form.groupName,
           groupDesc: this.form.groupDesc,
+          img: "null",
           category: this.form.category,
           region: this.form.region,
-          img: "null"
+          onoff: this.form.onoff,
+          groupFlag: this.form.groupFlag,
+          cycle: this.form.cycle,
+          gId: this.form.gId
         }
         // const data = [item]
-        axios.post(`http://localhost:8877/a407/group/create/`, item)
+        axios.put(`http://localhost:8877/a407/group/update/`, item)
           .then(res => {
             console.log(res)
           })
@@ -110,6 +117,16 @@
             console.log(err)
           })
       }
+    },
+    created: function () {
+      axios.get(`http://localhost:8877/a407/group/list/`, {params: this.params})
+        .then(res => {
+          console.log(res.data.list[0])
+          this.form = res.data.list[0]
+        })
+        .catch(err => {
+          console.log(err)
+        })
     }
   }
 </script>
