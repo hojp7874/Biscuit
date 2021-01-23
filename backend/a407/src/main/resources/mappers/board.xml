@@ -28,7 +28,11 @@
 	<select id="searchEmail" resultType="BoardDto">
 		select *
 		from a407.board
+<<<<<<< HEAD
 		where category = #{category} and email = #{word}
+=======
+		where category = #{category}
+>>>>>>> c9b0886391209605f1282baa6a264c0792d45e1e
 	</select>
 	
 	<select id="searchContents" resultType="BoardDto">
