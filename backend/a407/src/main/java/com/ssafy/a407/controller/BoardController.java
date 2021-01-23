@@ -1,5 +1,6 @@
 package com.ssafy.a407.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,7 +21,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.a407.dto.BoardDto;
 import com.ssafy.a407.dto.GroupDto;
+import com.ssafy.a407.dto.UserDto;
 import com.ssafy.a407.service.BoardService;
+import com.ssafy.a407.service.LoginService;
 
 @RestController
 @RequestMapping("/board")
@@ -28,6 +31,9 @@ public class BoardController {
 	
 	@Autowired
 	private BoardService board;
+	
+	@Autowired
+	private LoginService login;
 	
 	//게시글 작성
 	@PostMapping(value = "/create")
@@ -69,6 +75,7 @@ public class BoardController {
 		            result.put("list", list);
 		            result.put("success", "success");
 		            entity = new ResponseEntity(result, HttpStatus.OK);
+		            System.out.println(entity);
 		        } else {
 		        	result.put("success", "fail");
 		        	entity = new ResponseEntity(result, HttpStatus.OK);
@@ -101,9 +108,16 @@ public class BoardController {
 		        	entity = new ResponseEntity(result, HttpStatus.OK);
 		        }
 			}
-			//email(작성자)로 검색
-			else if(type.equals("email")) {
-				List<BoardDto> list = board.searchEmail(word, currentPage, category);
+			//작성자로 검색
+			else if(type.equals("name")) {
+				//nickname으로 email 호출하기
+				List<String> emails = login.profileName(word);
+				System.out.println(emails);
+				List<BoardDto> list = new ArrayList<BoardDto>();
+				for (String email : emails) {
+					list.addAll(board.searchEmail(email, currentPage, category));
+				}
+				
 				System.out.println(list);
 				if(list != null) {
 					result.put("list", list);

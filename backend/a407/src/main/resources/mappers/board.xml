@@ -28,7 +28,7 @@
 	<select id="searchEmail" resultType="BoardDto">
 		select *
 		from a407.board
-		where category = #{category}
+		where category = #{category} and email = #{word}
 	</select>
 	
 	<select id="searchContents" resultType="BoardDto">

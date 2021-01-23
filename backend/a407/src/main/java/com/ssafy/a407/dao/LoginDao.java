@@ -1,6 +1,7 @@
 package com.ssafy.a407.dao;
 
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -17,5 +18,7 @@ public interface LoginDao {
 	public int pwupdateUser(Map mem) throws Exception;
 	public UserDto profileUser(String email) throws Exception;
 	public int updateAdmin(Map user) throws Exception;
+	
+	public List<String> profileUserName(String nickname) throws Exception;
 	
 }

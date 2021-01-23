@@ -1,5 +1,6 @@
 package com.ssafy.a407.service;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,6 +58,12 @@ public class LoginServiceImpl implements LoginService {
 	@Override
 	public int updateAdmin(Map mem) throws Exception {
 		return dao.updateAdmin(mem);
+	}
+
+	@Override
+	public List<String> profileName(String nickname) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.profileUserName(nickname);
 	}
 
 }
