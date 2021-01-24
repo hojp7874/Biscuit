@@ -1,63 +1,54 @@
 <template>
-  <b-container fluid class="bgImg">
-    <Header/>
-    <b-row>
-      <b-col></b-col>
-      <b-col cols="8">
-        <b-card
-          border-variant="secondary"
-          class="mt-3"
-          header="로그인"
-          style="max-width: 40rem;"
-          align="left"
-        >
-          <b-form bg-variant="light">
-            <b-form-group label="이메일" label-for="email">
-              <b-form-input
-                id="email"
-                ref="email"
-                v-model="user.email"
-                required
-                placeholder="아이디(이메일)"
-              ></b-form-input>
-            </b-form-group>
-            <b-form-group label="비밀번호" label-for="password">
-              <b-form-input
-                type="password"
-                id="password"
-                ref="password"
-                v-model="user.password"
-                required
-                placeholder="비밀번호"
-                @keypress.enter="checkLogin"
-              ></b-form-input>
-            </b-form-group>
-            <b-button
-              block
+  <div style="text-align:center">
+    <Header v-on:logout="logout"></Header>
+    <br><br>
+    <h2 class="login_title">로그인</h2>
+    <div class="text-center login_cnt">
+      <form>
+        <input
+        v-bind:class="{ inputform: true }"
+          id="email"
+          ref="email"
+          v-model="user.email"
+          required
+          placeholder="아이디(이메일)"
+        /><br />
+        <input
+        v-bind:class="{ inputform: true }"
+          type="password"
+          id="password"
+          ref="password"
+          v-model="user.password"
+          required
+          placeholder="비밀번호"
+          @keypress.enter="checkLogin"
+          style="margin-bottom:15px"
+        />
+        <div>
+          <button block
               pill
               type="button"
               variant="primary"
               class="m-1"
               @click="checkLogin"
-              >로그인</b-button
-            >
-            <b-button
-              type="button"
-              block
-              pill
-              variant="success"
-              class="m-1"
-              @click="signup"
-              >회원가입</b-button
-            >
-            <b-button variant="link" @click="findId">ID찾기</b-button>
-            <b-button variant="link" @click="findPw">비밀번호찾기</b-button>
-          </b-form>
-        </b-card>
-      </b-col>
-      <b-col></b-col>
-    </b-row>
-  </b-container>
+              id="login_btn"
+              style="margin-bottom:10px">
+            로그인하기
+          </button>
+        </div>
+      </form>
+      
+
+      <router-link to="./join" id="sign"
+        >계정이 없으신가요? 가입하기</router-link
+      >
+      <div class="findpw">
+        <router-link to="./findPw" id="find_password"
+          >비밀번호 찾기</router-link
+        >
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -138,8 +129,82 @@ export default {
 </script>
 
 <style>
-#login-div {
+.login_title {
+  margin-bottom: 34px;
+  /* margin-left: 23px; */
+  font-weight: 600;
+  font-size: 44px;
   text-align: center;
 }
 
+#find_password {
+  color: #5d5d5d;
+  font-size: 13px;
+}
+
+.login_wrap {
+  width: 100%;
+}
+
+.login_cnt {
+  padding-top: 18px;
+  border-top: 4px solid #000;
+  border-top-width: 4px;
+  border-top-style: solid;
+  border-top-color: rgb(0, 0, 0);
+  width:27% ;
+  margin: 0px auto;
+  
+}
+
+#sign {
+  display: block;
+  height: 56px;
+  border: 1px solid #5d5d5d;
+  border-radius: 28px;
+  box-sizing: border-box;
+  font-weight: 600;
+  font-size: 14px;
+  color: #1d1d1d;
+  text-align: center;
+  line-height: 56px;
+  margin-top:30px
+}
+
+#login_btn {
+  width: 100%;
+  height: 60px;
+  background: #000;
+  border-radius: 2px;
+  color: #fff;
+  font-size: 16px;
+  text-align: center;
+  margin: 12px 0 10px;
+}
+
+.inputform {
+  width: 100%;
+  height: 50px;
+  margin-top: 10px;
+}
+
+.sns_login {
+  margin: 25px 0 80px;
+}
+
+.findpw {
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+}
+
+.btm_image {
+  width: 60px;
+  height: 60px;
+  background-color: white;
+  margin-right: 16px;
+  border: none;
+  vertical-align: top;
+}
 </style>
