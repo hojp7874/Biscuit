@@ -10,11 +10,37 @@
           <b-nav-item href="#">공지사항</b-nav-item>
           <b-nav-item to="/boardlist">자유게시판</b-nav-item>
         </b-navbar-nav>
-        <b-navbar-nav class="ml-auto">
+        <!-- <b-navbar-nav class="ml-auto">
           <b-nav-form>
             <b-nav-item to="/login">로그인</b-nav-item>
           </b-nav-form>
+        </b-navbar-nav> -->
+
+        <b-navbar-nav
+          class="ml-auto"
+          v-if="this.token !== ''"
+        >
+          
+          <b-navbar-nav class="ml-auto">
+            <b-nav-item
+          >{{ name }}({{ id }})님 환영합니다.</b-nav-item
+        >
+        <b-nav-form>
+          <b-button variant="success" @click="onClickLogout"
+            >로그아웃</b-button
+          >
+        </b-nav-form>
+          </b-navbar-nav>
         </b-navbar-nav>
+
+        <b-navbar-nav class="ml-auto" v-else>
+          <b-navbar-nav class="ml-auto">
+            <b-nav-form>
+              <b-nav-item to="/login">로그인</b-nav-item>
+            </b-nav-form>
+          </b-navbar-nav>
+        </b-navbar-nav>
+
       </b-collapse>
     </b-navbar>
   </div>
@@ -23,8 +49,33 @@
 <script>
 export default {
   name: 'Header',
-  data() {
-    return {};
+   data() {
+    return {
+      id: '',
+      name: '',
+      admin: '',
+      type: '',
+      token:''
+    };
   },
+  methods: {
+    onClickLogout() {
+      console.log("onclicklogout확인" + this.token +"gd" );
+      localStorage.removeItem('token');
+      localStorage.removeItem('id');
+      localStorage.removeItem('name');
+      localStorage.removeItem('admin');
+      this.$emit('logout');
+    }
+  },
+  created() {
+    if (localStorage.getItem('token')) {
+      this.token = localStorage.getItem('token');
+      this.id = localStorage.getItem('id');
+      this.name = localStorage.getItem('name');
+      this.admin = localStorage.getItem('admin');
+    }
+  }
+  
 };
 </script>
