@@ -62,9 +62,11 @@ export default {
     onClickLogout() {
       console.log("onclicklogout확인" + this.token +"gd" );
       localStorage.removeItem('token');
-      localStorage.removeItem('id');
-      localStorage.removeItem('name');
+      localStorage.removeItem('email');
+      localStorage.removeItem('nickname');
       localStorage.removeItem('admin');
+      localStorage.removeItem('phone');
+      localStorage.removeItem('region');
       this.$emit('logout');
     }
   },

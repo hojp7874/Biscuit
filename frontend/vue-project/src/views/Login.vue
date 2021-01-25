@@ -91,6 +91,7 @@ export default {
         ((msg = '비밀번호를 입력해주세요'),
         (err = false),
         this.$refs.password.focus());
+     
 
       if (!err) alert(msg);
       else this.login();
@@ -111,6 +112,7 @@ export default {
           this.$router.replace(`/`);
         })
         .catch(function(error) {
+          alert("아이디 혹은 비밀번호를 다시 확인 해 주세요");
           console.log(error);
         });
     },
