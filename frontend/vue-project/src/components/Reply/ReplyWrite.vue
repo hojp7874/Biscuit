@@ -34,7 +34,7 @@ export default {
       return {
         comments : {
           contents : "",
-          email : "a@a.com" //작성자 이메일(현재 로그인 되어있는 유저 이메일로 바꿔야됨)
+          email : localStorage.getItem("email")//"a@a.com" //작성자 이메일(현재 로그인 되어있는 유저 이메일로 바꿔야됨)
         },
         // list : [],
         // rpage : "1",
