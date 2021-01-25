@@ -83,7 +83,7 @@ public class BoardController {
 			}
 			//bId로 검색
 			else if(type.equals("bId")) {
-				System.out.println("tetetetetete");
+//				System.out.println("tetetetetete");
 				List<BoardDto> list = board.searchBId(word);
 				System.out.println(list);
 				if(list != null) {
