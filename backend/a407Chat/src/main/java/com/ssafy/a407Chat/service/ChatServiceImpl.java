@@ -2,6 +2,7 @@ package com.ssafy.a407Chat.service;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,7 +29,7 @@ import lombok.extern.slf4j.Slf4j;
 public class ChatServiceImpl implements ChatService{
 
 	private final ObjectMapper ObjectMapper;
-	private Map<String, ChatRoomDto> chatRooms;
+	private Map<String, ChatRoomDto> chatRoomMap;
 	
 	@Autowired
 	private ChatRoomDao roomDao;
@@ -38,28 +39,31 @@ public class ChatServiceImpl implements ChatService{
 	
 	@PostConstruct
 	private void init() {
-		chatRooms = new LinkedHashMap<>();
+		chatRoomMap = new LinkedHashMap<>();
 	}
 	
 	@Override
 	public List<ChatRoomDto> findAllRoom() {
-		return new ArrayList<>(chatRooms.values());
+		List chatRooms = new ArrayList<>(chatRoomMap.values());
+	    Collections.reverse(chatRooms);
+		return chatRooms;
 	}
 
 	@Override
 	public ChatRoomDto findRoomById(String roomId) {
-		return chatRooms.get(roomId);
+		return chatRoomMap.get(roomId);
 	}
 
 	//랜덤 id로 방생성
 	@Override
 	public ChatRoomDto createRoom(ChatRoomDto dto) {
-		dto.setRoomId(UUID.randomUUID().toString());
-		
+		String roomName = dto.getRoomName();
+		int gId = dto.getGId();
+		ChatRoomDto chatRoom = ChatRoomDto.create(roomName, gId);
 		try {
-			roomDao.insertRoom(dto);
-			chatRooms.put(dto.getRoomId(), dto);
-			return dto;
+			roomDao.insertRoom(chatRoom);
+			chatRoomMap.put(chatRoom.getRoomId(), chatRoom);
+			return chatRoom;
 			
 		} catch (Exception e) {
 			e.printStackTrace();

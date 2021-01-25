@@ -9,7 +9,7 @@ public class ChatMessageDto {
 	
 	//메시지 타입 : 입장, 채팅
 	public enum MessageType{
-		ENTER, TALK
+		ENTER, TALK, JOIN
 	}
 	private int msgId;
 	private MessageType type;
