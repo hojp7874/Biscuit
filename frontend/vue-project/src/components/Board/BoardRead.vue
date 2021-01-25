@@ -35,6 +35,7 @@
 
 <script>
 import axios from 'axios';
+const SERVER_URL = process.env.VUE_APP_LOCAL_SERVER_URL;
 
 export default {
   data() {
@@ -55,7 +56,7 @@ export default {
   methods: {
     fnGetView() {
       this.$axios
-        .get('http://localhost:8877/a407/board/read', {
+        .get(`${SERVER_URL}/a407/board/read`, {
           params: {type: "bId", word: this.$route.query.bId},
         })
         .then((res) => {
@@ -88,11 +89,14 @@ export default {
     fnDelete() {
       if (confirm('정말로 삭제하시겠습니까?')) {
         axios
-          .delete(`http://localhost:8877/a407/board/delete`, {params: this.bId})
+          .delete(`${SERVER_URL}/a407/board/delete`, {
+          headers: {
+            bId: this.bId,
+          }, })
           .then((res) => {
             if (res.data.success === 'success') {
               alert('게시글 삭제에 성공하셨습니다.');
-              this.$router.push({ path: 'noticelist', query: { pageno: 1 } });
+              this.fnList();
             } else {
               alert('게시글 삭제에 실패하셨습니다.');
             }

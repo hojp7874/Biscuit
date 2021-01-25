@@ -31,6 +31,8 @@
 </template>
 
 <script>
+const SERVER_URL = process.env.VUE_APP_LOCAL_SERVER_URL;
+
 export default {
   data() {
     return {
@@ -47,28 +49,26 @@ export default {
 
   mounted() {
     //최초 로딩 시 실행
-    if (this.num) {
-      this.fnGetView();
-    }
+
   },
   methods: {
     fnList() {
       this.$router.push({ path: './BoardList' });
     },
-    fnGetView() {
-      console.log(this.$route.query);
-      this.$axios
-        .get('http://localhost:8877/a407/board/update')
-        .then((res) => {
-          this.title = res.data.list[0].title;
-          //console.log(this.title);
-          this.contents = res.data.list[0].contents;
-          //console.log(this.contents);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
+    // fnGetView() {
+    //   console.log(this.$route.query);
+    //   this.$axios
+    //     .get('http://i4a407.p.ssafy.io:8877/a407/board/update')
+    //     .then((res) => {
+    //       this.title = res.data.list[0].title;
+    //       //console.log(this.title);
+    //       this.contents = res.data.list[0].contents;
+    //       //console.log(this.contents);
+    //     })
+    //     .catch((err) => {
+    //       console.log(err);
+    //     });
+    // },
     fnView() {
       this.$router.push({ path: './BoardRead', query: { bId: this.bId } }); //추가한 상세페이지 라우터
     },
@@ -83,7 +83,7 @@ export default {
       };
 
       this.$axios
-        .post('http://localhost:8877/a407/board/update', this.form)
+        .post(`${SERVER_URL}/a407/board/update`, this.form)
         .then((res) => {
           if (res.data.success) {
             alert('등록되었습니다.');
@@ -119,7 +119,7 @@ export default {
       };
 
       this.$axios
-        .put('http://localhost:8877/a407/board/update', this.form)
+        .put(`${SERVER_URL}/a407/board/update`, this.form)
         .then((res) => {
           if (res.data.success) {
             alert('수정되었습니다.');

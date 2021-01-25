@@ -7,8 +7,10 @@ import BoardRead from "../components/Board/BoardRead.vue";
 import BoardUpdate from "../components/Board/BoardUpdate.vue";
 import GroupCreate from "../components/Group/GroupCreate.vue";
 import GroupList from "../components/Group/GroupList.vue";
+import WebRTC from 'vue-webrtc'
 
 Vue.use(VueRouter);
+Vue.use(WebRTC);
 
 const routes = [
   {

@@ -33,6 +33,8 @@
 </template>
 
 <script>
+const SERVER_URL = process.env.VUE_APP_LOCAL_SERVER_URL;
+
 export default {
   data() {
 
@@ -63,20 +65,7 @@ export default {
       delete this.body.num;
       this.$router.push({ path: './BoardList', query: this.body });
     },
-    fnGetView() {
-      this.$axios
-        .get('http://localhost:3000/api/board/' + this.body.num, {
-          params: this.body,
-        })
-        .then((res) => {
-          this.view = res.data.view[0];
-          this.title = this.view.title;
-          this.contents = this.view.contents;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
+  
     fnView() {
       this.$router.push({ path: './view', query: this.body });
     },
@@ -88,7 +77,7 @@ export default {
       };
 
       this.$axios
-        .post('http://localhost:8877/a407/board/create', this.form)
+        .post(`${SERVER_URL}/a407/board/create`, this.form)
         .then((res) => {
           if (res.data.success) {
             alert('등록되었습니다.');
