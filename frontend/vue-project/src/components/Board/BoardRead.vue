@@ -30,13 +30,21 @@
         >삭제</b-button
       >
     </div>
+    <reply-write :bId="bId"/>
+    <reply-list v-for="(reply,index) in list" :reply="list[index]" :key="index" />
   </div>
 </template>
 
 <script>
 import axios from 'axios';
+import ReplyWrite from '../Reply/ReplyWrite.vue';
+import ReplyList from '../Reply/ReplyList.vue';
 
 export default {
+  components: {
+    ReplyWrite,
+    ReplyList,
+  },
   data() {
     return {
       form: '',
@@ -47,7 +55,13 @@ export default {
       noticeFlag: '',
       date: '',
       category: '',
+      
+      list : [],
+      replyPage : 1,
     };
+  },
+  created() {
+    this.getList();
   },
   mounted() {
     this.fnGetView();
@@ -104,6 +118,22 @@ export default {
           });
       }
     },
+    getList() {
+      console.log("getList IN : "+this.$route.query.bId);
+      this.$axios
+        .get('http://localhost:8877/a407/reply/list', {
+          params: {page: this.replyPage, bId: this.$route.query.bId},
+        })
+        .then((res) => {
+          console.log(res.data);
+          this.list = res.data["list"];
+          console.log(res.data["list"]);
+          this.pagination = res.data["pagination"];
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   },
 };
 </script>
