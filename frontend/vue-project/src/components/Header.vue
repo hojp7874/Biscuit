@@ -23,7 +23,7 @@
           
           <b-navbar-nav class="ml-auto">
             <b-nav-item
-          >{{ name }}({{ id }})님 환영합니다.</b-nav-item
+          >{{ nickname }}님 환영합니다.</b-nav-item
         >
         <b-nav-form>
           <b-button variant="success" @click="onClickLogout"
@@ -71,8 +71,8 @@ export default {
   created() {
     if (localStorage.getItem('token')) {
       this.token = localStorage.getItem('token');
-      this.id = localStorage.getItem('id');
-      this.name = localStorage.getItem('name');
+      this.email = localStorage.getItem('email');
+      this.nickname = localStorage.getItem('nickname');
       this.admin = localStorage.getItem('admin');
     }
   }

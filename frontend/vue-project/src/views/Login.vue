@@ -102,13 +102,12 @@ export default {
         .post(`http://localhost:8877/a407/user/login`, this.user)
         .then((response) => {
           localStorage.setItem('token', response.data['x-access-token']);
-          localStorage.setItem('email', response.data.email);
-          localStorage.setItem('name', response.data.name);
-          localStorage.setItem('admin', response.data.admin);
-          //   this.isLogin = true;
-          // axios.defaults.headers.common[
-          //   'x-access-token'
-          // ] = `${response.data['x-access-token']}`;
+          localStorage.setItem('email', response.data.user.email);
+          localStorage.setItem('nickname', response.data.user.nickname);
+          localStorage.setItem('admin', response.data.user.admin);
+          localStorage.setItem('phone', response.data.user.phone);
+          localStorage.setItem('region', response.data.user.region);
+          // localStorage.setItem('admin', response.data.admin);
           this.$router.replace(`/`);
         })
         .catch(function(error) {
@@ -188,10 +187,6 @@ export default {
   margin-top: 10px;
 }
 
-.sns_login {
-  margin: 25px 0 80px;
-}
-
 .findpw {
   margin-block-start: 1em;
   margin-block-end: 1em;
@@ -199,12 +194,4 @@ export default {
   margin-inline-end: 0px;
 }
 
-.btm_image {
-  width: 60px;
-  height: 60px;
-  background-color: white;
-  margin-right: 16px;
-  border: none;
-  vertical-align: top;
-}
 </style>
