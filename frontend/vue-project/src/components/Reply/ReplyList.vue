@@ -1,6 +1,4 @@
 <template>
-  <!-- <ol>
-    <oi v-for="(reply) in list" :key={reply}> -->
       <b-row class="mb-1">
         <b-col>
           <b-card border-variant="info" class="mb-2" no-body>
@@ -39,11 +37,6 @@
           </b-card>
         </b-col>
       </b-row>
-    <!-- </oi>
-    <oi>
-      {{this.isView}}
-    </oi>
-  </ol> -->
 </template>
 
 <script>

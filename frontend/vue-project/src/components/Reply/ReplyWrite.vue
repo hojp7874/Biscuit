@@ -16,19 +16,13 @@
         </b-col> 
       </b-row>
     </b-form>
-   <!-- <div>
-      <reply-list v-for="(reply,index) in list" :reply="list[index]" :key="index" />
-    </div>  -->
   </div>
 </template>
 
 
 <script>
-//import ReplyList from '../Reply/ReplyList.vue';
-
 export default {
   name: "replywrite",
-  //components : {ReplyList},
   props : ['bId'],
   data() {
       return {
