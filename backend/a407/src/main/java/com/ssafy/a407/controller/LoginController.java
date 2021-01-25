@@ -60,7 +60,6 @@ public class LoginController{
         	mem.replace("password", pw);
         	
             UserDto member = login.login(mem);
-            System.out.println(member);
             if (member == null) {
             	result.put("success", "fail"); 
                 entity = new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
@@ -69,7 +68,7 @@ public class LoginController{
                 String token = jwtService.create(member);
                 System.out.println(token);
                 logger.trace("token " , token);
-                result.put("user", member);
+
                 result.put("x-access-token", token);
                 result.put("success", "success");                
                 
