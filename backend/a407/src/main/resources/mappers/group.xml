@@ -4,7 +4,7 @@
 
  <mapper namespace="com.ssafy.a407.dao.GroupDao">
  	<delete id="removeGroup" parameterType="int">delete from a407.group where gId = #{gId}</delete>
- 	<update id="updateGroup" parameterType="map">update a407.group set max = #{max}, edate = #{edate}, groupName = #{groupName}, groupDesc = #{groupDesc}, img = #{img}, category = #{category}, region = #{region}, onoff = #{onoff}, groupIng = #{groupFlag}, cycle = #{cycle} where gId = #{gId}</update>
+ 	<update id="updateGroup" parameterType="map">update a407.group set max = #{max}, edate = #{edate}, groupName = #{groupName}, groupDesc = #{groupDesc}, img = #{img}, category = #{category}, region = #{region}, onoff = #{onoff}, groupFlag = #{groupFlag}, cycle = #{cycle} where gId = #{gId}</update>
 
  	<select id="selectList" resultType="GroupDto">
 		select *
