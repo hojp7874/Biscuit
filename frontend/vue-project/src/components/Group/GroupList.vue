@@ -1,6 +1,5 @@
 <template>
   <div class="container">
-    <h1>그룹 목록</h1>
     <b-button variant="primary" @click="goCreate">그룹생성</b-button>
     <b-card-group
       deck

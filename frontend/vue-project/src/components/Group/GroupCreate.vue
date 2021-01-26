@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <div class="container">
+    <h1 class="m-5">그룹 생성</h1>
     <b-form>
       <b-form-group id="input-group-1" label="스터디 이름:" label-for="input-1">
         <b-form-input

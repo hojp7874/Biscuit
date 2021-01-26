@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <!-- 추가된 헤더 컴포넌트 사용 -->
-    <!-- <Header v-on:logout="logout"></Header>  -->
+    <Header v-on:logout="logout"></Header> 
 
     <!-- <div class="container"> class 추가 -->
     <div>
@@ -14,13 +14,13 @@
 </template>
 
 <script>
-// import Header from './components/Header'; //import 헤더 추가
+import Header from './components/Header'; //import 헤더 추가
 import Footer from './components/Footer'; //import 풋터 추가
 
 export default {
   name: 'App',
   components: {
-    // Header,          //헤더 컴포넌트 추가
+    Header,          //헤더 컴포넌트 추가
     Footer
   },
 
