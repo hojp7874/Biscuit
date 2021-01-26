@@ -30,8 +30,10 @@
         >삭제</b-button
       >
     </div>
-    <reply-write :bId="bId"/>
-    <reply-list v-for="(reply,index) in list" :reply="list[index]" :key="index" />
+    <div>
+      <reply-write :bId="bId" />
+      <reply-list v-for="(reply,index) in list" :reply="list[index]" :key="index" />
+    </div>
   </div>
 </template>
 
@@ -39,9 +41,10 @@
 import axios from 'axios';
 import ReplyWrite from '../Reply/ReplyWrite.vue';
 import ReplyList from '../Reply/ReplyList.vue';
+const SERVER_URL = process.env.VUE_APP_LOCAL_SERVER_URL;
 
 export default {
-  components: {
+   components: {
     ReplyWrite,
     ReplyList,
   },
@@ -55,22 +58,23 @@ export default {
       noticeFlag: '',
       date: '',
       category: '',
-      
+            
       list : [],
       replyPage : 1,
     };
   },
-  created() {
+   created() {
     this.getList();
   },
+
   mounted() {
     this.fnGetView();
   },
   methods: {
     fnGetView() {
       this.$axios
-        .get('http://localhost:8877/a407/board/read', {
-          params: {type: "bId", word: this.$route.query.bId},
+        .get(`${SERVER_URL}/board/read`, {
+          params: { type: 'bId', word: this.$route.query.bId },
         })
         .then((res) => {
           this.title = res.data.list[0].title;
@@ -96,24 +100,26 @@ export default {
         noticeFlag: this.noticeFlag,
         date: this.date,
         category: this.category,
-      }
-      this.$router.push({ path: './BoardUpdate', query: this.form});
+      };
+      this.$router.push({ path: './BoardUpdate', query: this.form });
     },
     fnDelete() {
       if (confirm('정말로 삭제하시겠습니까?')) {
-        console.log('#######')
-        console.log(this.bId)
         axios
-          .delete(`http://localhost:8877/a407/board/delete`, {params: this.bId})
+          .delete(`${SERVER_URL}/board/delete`, {
+            headers: {
+              bId: this.bId,
+            },
+          })
           .then((res) => {
             if (res.data.success === 'success') {
-              alert('게시글 삭제에 성공하셨습니다.');
-              this.$router.push({ path: 'noticelist', query: { pageno: 1 } });
+              // alert('게시글이 삭제 되었습니다.');
+              this.fnList();
             } else {
               alert('게시글 삭제에 실패하셨습니다.');
             }
           })
-          .catch(function(error) {
+          .catch(function (error) {
             console.log(error);
           });
       }
@@ -121,7 +127,7 @@ export default {
     getList() {
       console.log("getList IN : "+this.$route.query.bId);
       this.$axios
-        .get('http://localhost:8877/a407/reply/list', {
+        .get(`${SERVER_URL}/reply/list`, {
           params: {page: this.replyPage, bId: this.$route.query.bId},
         })
         .then((res) => {

@@ -13,20 +13,6 @@ export default {
   name: "Home",
   components: {
     GroupList
-  },
-  methods: {
-      logout() {
-      console.log("로그아웃 테스트");
-        if (localStorage.getItem('token') !== null) {
-          localStorage.removeItem('token');
-          localStorage.removeItem('id');
-          localStorage.removeItem('name');
-          localStorage.removeItem('admin');
-        }
-        // this.$router.replace('/');
-        window.location.reload();
-    },
-  },
-  
+  }
 };
 </script>
