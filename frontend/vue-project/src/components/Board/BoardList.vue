@@ -41,6 +41,7 @@
 
 <script>
 import axios from 'axios';
+const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
 export default {
   data() {
@@ -98,12 +99,17 @@ export default {
         currentPage: '',
         category: '',
       };
-
+      console.log(`${SERVER_URL}/board/read`)
       axios
-        .get('http://localhost:8877/a407/board/read', { params: this.form })
+        // .get('http://localhost:8877/a407/board/read', { params: this.form })
+        .get(`${SERVER_URL}/board/read`, { params: this.form })
+        // .get(`http://i4a407.p.ssafy.io:8877/a407/board/read`, { params: this.form })
         .then((res) => {
            this.list = res.data.list.sort((a,b) => {return b.bid - a.bid});
            console.log(this.list.length);
+          })
+        .catch(err=> {
+          console.log(err)
         });
     },
 
