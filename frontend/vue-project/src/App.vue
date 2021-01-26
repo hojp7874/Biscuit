@@ -35,6 +35,8 @@ export default {
           localStorage.removeItem('admin');
         }
         // this.$router.replace('/');
+        // window.location.reload();
+        this.$router.push('/');
         window.location.reload();
     },
   },
