@@ -85,7 +85,7 @@
                 <div class="inpbx">
                   <input
                     type="password"
-                    id="password"
+                    id="pw"
                     placeholder="비밀번호 입력"
                     v-model="user.password"
                   />
@@ -130,9 +130,9 @@
               </div>
               <br /><br />
               <div class="inpbx" style="font-size :x-large">
-                닉네임 : <input type="text" id="user-id" placeholder="닉네임" v-model="user.nickname"/>
-                지역 : <input type="text" id="user-id" placeholder="지역" v-model="user.region"/>
-                전화번호 : <input type="text" id="user-id" placeholder="닉네임" v-model="user.phone" />
+                닉네임 : <input type="text" id="user-id" placeholder="닉네임" v-model="user.nickname"/><br>
+                지역 : <input type="text" id="user-region" placeholder="지역" v-model="user.region"/><br>
+                전화번호 : <input type="text" id="user-phone" placeholder="전화번호" v-model="user.phone" />
               </div>
               <br /><br /><br /><br /><br /><br /><br /><br />
             </form>
@@ -226,12 +226,16 @@ export default {
   text-align: center;
 }
 
+#pw,
 #certinum,
 #user-id,
+#user-phone,
+#user-region,
 #certipw {
-  width: 80%;
+  width: 350px;
   height: 45px;
 }
+
 
 #certinum_btn,
 #next_btn {
