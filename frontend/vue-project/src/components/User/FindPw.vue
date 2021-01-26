@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    <Header v-on:logout="logout"></Header>
     
     <div id="findpw_cnt"  class="container findpw-wrap col-md-3 col-md-offset-4" style="margin-top:60px">
       <h2 class="findpw_title">비밀번호 찾기</h2>
@@ -40,9 +39,8 @@
 </template>
 
 <script>
-import Header from '../Header'; //import 헤더 추가
 export default {
-  components: { Header },
+  components: {  },
 };
 </script>
 
