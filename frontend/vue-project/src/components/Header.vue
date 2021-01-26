@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class='mb-3'>
     <b-navbar toggleable="lg" type="dark" variant="info">
       <b-navbar-brand href="#">Vue.js로 게시판 만들기</b-navbar-brand>
 

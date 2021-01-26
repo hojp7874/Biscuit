@@ -1,53 +1,50 @@
 <template>
   <div style="text-align:center">
-    <Header v-on:logout="logout"></Header>
-    <br><br>
     <h2 class="login_title">로그인</h2>
-    <div class="text-center login_cnt">
-      <form>
-        <input
-        v-bind:class="{ inputform: true }"
-          id="email"
-          ref="email"
-          v-model="user.email"
-          required
-          placeholder="아이디(이메일)"
-        /><br />
-        <input
-        v-bind:class="{ inputform: true }"
-          type="password"
-          id="password"
-          ref="password"
-          v-model="user.password"
-          required
-          placeholder="비밀번호"
-          @keypress.enter="checkLogin"
-          style="margin-bottom:15px"
-        />
-        <div>
-          <button block
+      <form action="" @submit.prevent="checkLogin">
+        <div class="text-center login_cnt">
+          <input
+            v-bind:class="{ inputform: true }"
+            id="email"
+            ref="email"
+            v-model="user.email"
+            required
+            placeholder="아이디(이메일)"
+          /><br />
+          <input
+          v-bind:class="{ inputform: true }"
+            type="password"
+            id="password"
+            ref="password"
+            v-model="user.password"
+            required
+            placeholder="비밀번호"
+            style="margin-bottom:15px"
+          />
+            <!-- @keypress.enter="checkLogin" -->
+
+          <div>
+            <button block
               pill
-              type="button"
+              type="submit"
               variant="primary"
               class="m-1"
-              @click="checkLogin"
+              
               id="login_btn"
               style="margin-bottom:10px">
-            로그인하기
-          </button>
-        </div>
-      </form>
-      
-
-      <router-link to="./join" id="sign"
-        >계정이 없으신가요? 가입하기</router-link
-      >
-      <div class="findpw">
-        <router-link to="./findPw" id="find_password"
-          >비밀번호 찾기</router-link
+              로그인하기
+            </button>
+          </div>
+        <router-link to="./join" id="sign"
+          >계정이 없으신가요? 가입하기</router-link
         >
+        <div class="findpw">
+          <router-link to="./findPw" id="find_password"
+            >비밀번호 찾기</router-link
+          >
+        </div>
       </div>
-    </div>
+    </form>
   </div>
 </template>
 
@@ -55,14 +52,13 @@
 import Vue from 'vue';
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue';
 import axios from 'axios';
-import Header from '../components/Header'; //import 헤더 추가
+const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 Vue.use(BootstrapVue);
 Vue.use(IconsPlugin);
 
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 
-// const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 export default {
   name: 'Login',
   data: function() {
@@ -75,7 +71,6 @@ export default {
       message: '',
     };
   },
-  components: {Header},
   created() {
     // if (localStorage.getItem('token') !== null) this.$router.replace(`/`);
   },
@@ -100,7 +95,7 @@ export default {
       // LOGIN 액션 실행
       // 서버와 통신(axios)을 해 토큰값을 얻어야 하므로 Actions를 호출.
       axios
-        .post(`http://localhost:8877/a407/user/login`, this.user)
+        .post(`${SERVER_URL}/user/login`, this.user)
         .then((response) => {
           localStorage.setItem('token', response.data['x-access-token']);
           localStorage.setItem('email', response.data.user.email);
@@ -110,6 +105,7 @@ export default {
           localStorage.setItem('region', response.data.user.region);
           // localStorage.setItem('admin', response.data.admin);
           this.$router.replace(`/`);
+          window.location.reload();
         })
         .catch(function(error) {
           alert("아이디 혹은 비밀번호를 다시 확인 해 주세요");
@@ -117,7 +113,7 @@ export default {
         });
     },
     signup: function() {
-      this.$router.push('/signup');
+      this.$router.push('/join');
     },
     findId: function() {
       this.$router.push('/findid');

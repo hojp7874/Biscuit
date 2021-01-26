@@ -1,10 +1,9 @@
 <template>
   <div id="app">
     <!-- 추가된 헤더 컴포넌트 사용 -->
-    <!-- <Header v-on:logout="logout"></Header>  -->
+    <Header v-on:logout="logout"></Header>
 
-    <!-- <div class="container"> class 추가 -->
-    <div>
+    <div class="container">
       <router-view />
     </div>
     
@@ -14,16 +13,30 @@
 </template>
 
 <script>
-// import Header from './components/Header'; //import 헤더 추가
+import Header from './components/Header'; //import 헤더 추가
 import Footer from './components/Footer'; //import 풋터 추가
+// import axios from 'axios';
+// const SERVER_URL = process.env.VUE_APP_LOCAL_SERVER_URL;
 
 export default {
   name: 'App',
   components: {
-    // Header,          //헤더 컴포넌트 추가
+    Header,          //헤더 컴포넌트 추가
     Footer
   },
-
+  methods: {
+    logout() {
+      console.log("로그아웃 테스트");
+        if (localStorage.getItem('token') !== null) {
+          localStorage.removeItem('token');
+          localStorage.removeItem('id');
+          localStorage.removeItem('name');
+          localStorage.removeItem('admin');
+        }
+        // this.$router.replace('/');
+        window.location.reload();
+    },
+  },
 }
 </script>
 

@@ -1,15 +1,16 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from "../components/Home.vue";
+import Home from "../views/Home.vue";
 import BoardList from "../components/Board/BoardList.vue";
 import BoardWrite from "../components/Board/BoardWrite.vue";
 import BoardRead from "../components/Board/BoardRead.vue";
 import BoardUpdate from "../components/Board/BoardUpdate.vue";
 import GroupCreate from "../components/Group/GroupCreate.vue";
 import GroupList from "../components/Group/GroupList.vue";
-import Login from "../views/Login.vue";
-import GroupDetail from "../components/Group/GroupDetail.vue";
 import GroupUpdate from "../components/Group/GroupUpdate.vue";
+import Join from "../components/User/Join.vue"
+import FindPw from "../components/User/FindPw.vue"
+import Login from "../views/Login.vue";
 
 
 Vue.use(VueRouter);
@@ -51,21 +52,25 @@ const routes = [
     component: GroupList
   },
   {
-
     path: "/login",
     name: "Login",
     component: Login
   },
   {
+    path: "/join",
+    name: "Join",
+    component: Join
+  },
+  {
+    path: "/findpw",
+    name: "FindPw",
+    component: FindPw
+  },
+  {
     path: "/groupupdate",
     name: "GroupUpdate",
     component: GroupUpdate
-  },
-  {
-    path: "/groupdetail",
-    name: "GroupDetail",
-    component: GroupDetail
-  },
+  }
 ];
 
 const router = new VueRouter({
