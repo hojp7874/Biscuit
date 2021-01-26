@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div>
     <b-button variant="primary" @click="goCreate">그룹생성</b-button>
     <b-card-group
       deck
@@ -31,7 +31,6 @@
           size="xl"
           :title="''+group.groupName"
         >
-          {{group.groupDesc}}
           <div>
             <b-jumbotron bg-variant="info" text-variant="white" border-variant="dark">
               <template #header>{{ group.groupName }}</template>
