@@ -1,5 +1,8 @@
 <template>
   <div style="text-align:center">
+
+    <!-- <Header v-on:logout="logout"></Header> -->
+    <br><br>
     <h2 class="login_title">로그인</h2>
       <form action="" @submit.prevent="checkLogin">
         <div class="text-center login_cnt">
@@ -52,6 +55,7 @@
 import Vue from 'vue';
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue';
 import axios from 'axios';
+// import Header from '../components/Header'; //import 헤더 추가
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 Vue.use(BootstrapVue);
 Vue.use(IconsPlugin);
@@ -71,6 +75,7 @@ export default {
       message: '',
     };
   },
+  // components: {Header},
   created() {
     // if (localStorage.getItem('token') !== null) this.$router.replace(`/`);
   },
