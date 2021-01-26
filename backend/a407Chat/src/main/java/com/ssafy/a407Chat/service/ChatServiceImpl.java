@@ -43,20 +43,20 @@ public class ChatServiceImpl implements ChatService{
 	}
 	
 	@Override
-	public List<ChatRoomDto> findAllRoom() {
-		List chatRooms = new ArrayList<>(chatRoomMap.values());
-	    Collections.reverse(chatRooms);
-		return chatRooms;
+	public List<ChatRoomDto> findAllRoom() throws Exception {
+	
+		return roomDao.selectAllRoom();
+	
 	}
 
 	@Override
-	public ChatRoomDto findRoomById(String roomId) {
+	public ChatRoomDto findRoomById(String roomId) throws Exception{
 		return chatRoomMap.get(roomId);
 	}
 
 	//랜덤 id로 방생성
 	@Override
-	public ChatRoomDto createRoom(ChatRoomDto dto) {
+	public ChatRoomDto createRoom(ChatRoomDto dto) throws Exception{
 		String roomName = dto.getRoomName();
 		int gId = dto.getGId();
 		ChatRoomDto chatRoom = ChatRoomDto.create(roomName, gId);
@@ -73,7 +73,7 @@ public class ChatServiceImpl implements ChatService{
 	}
 
 	@Override
-	public <T> void sendMessage(WebSocketSession session, T message) {
+	public <T> void sendMessage(WebSocketSession session, T message) throws Exception{
 		try {
 			session.sendMessage(new TextMessage(ObjectMapper.writeValueAsString(message)));
 		} catch (IOException e) {
