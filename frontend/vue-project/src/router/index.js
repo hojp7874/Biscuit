@@ -8,7 +8,6 @@ import BoardUpdate from "../components/Board/BoardUpdate.vue";
 import GroupCreate from "../components/Group/GroupCreate.vue";
 import GroupList from "../components/Group/GroupList.vue";
 import GroupDetail from "../components/Group/GroupDetail.vue";
-import Login from "../views/Login.vue";
 import GroupUpdate from "../components/Group/GroupUpdate.vue";
 import Join from "../components/User/Join.vue"
 import FindPw from "../components/User/FindPw.vue"
