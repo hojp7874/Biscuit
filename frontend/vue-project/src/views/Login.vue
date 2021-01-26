@@ -2,7 +2,7 @@
   <div style="text-align:center">
     <h2 class="login_title">로그인</h2>
     <div class="text-center login_cnt">
-      <form>
+     
         <input
         v-bind:class="{ inputform: true }"
           id="email"
@@ -34,7 +34,7 @@
             로그인하기
           </button>
         </div>
-      </form>
+      
       
 
       <router-link to="./join" id="sign"
@@ -59,7 +59,7 @@ Vue.use(IconsPlugin);
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 
-// const SERVER_URL = process.env.VUE_APP_SERVER_URL;
+const SERVER_URL = process.env.VUE_APP_LOCAL_SERVER_URL;
 export default {
   name: 'Login',
   data: function() {
@@ -96,7 +96,7 @@ export default {
       // LOGIN 액션 실행
       // 서버와 통신(axios)을 해 토큰값을 얻어야 하므로 Actions를 호출.
       axios
-        .post(`http://localhost:8877/a407/user/login`, this.user)
+        .post(`${SERVER_URL}/user/login`, this.user)
         .then((response) => {
           localStorage.setItem('token', response.data['x-access-token']);
           localStorage.setItem('email', response.data.user.email);
@@ -113,7 +113,7 @@ export default {
         });
     },
     signup: function() {
-      this.$router.push('/signup');
+      this.$router.push('/join');
     },
     findId: function() {
       this.$router.push('/findid');
