@@ -7,14 +7,12 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.a407Chat.dto.ChatRoomDto;
 import com.ssafy.a407Chat.service.ChatService;
@@ -23,7 +21,7 @@ import lombok.RequiredArgsConstructor;
 
 
 @RequiredArgsConstructor
-@Controller
+@RestController
 @RequestMapping("/chat")
 public class ChatRoomController {
 	@Autowired
@@ -34,39 +32,88 @@ public class ChatRoomController {
 		return "test";
 	}
 	
-	@GetMapping(value = "/room")
-	public String rooms(Model model) {
-		return "/chat/room";
-	}
 	@GetMapping(value = "/rooms")
-	@ResponseBody
-	public List<ChatRoomDto> room(){
-		return chatService.findAllRoom();
+	public ResponseEntity roomList(){
+		
+		Map result = new HashMap();
+        ResponseEntity entity = null;
+        List<ChatRoomDto> data;
+		try {
+			data = chatService.findAllRoom();
+			if(data != null) {
+
+				result.put("data", data);
+				result.put("success", "success");
+				entity = new ResponseEntity<>(result, HttpStatus.OK);
+			}
+			else {
+
+				result.put("success", "fail");
+				entity = new ResponseEntity<>(result, HttpStatus.OK);
+				
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			result.put("success", "error");
+			entity = new ResponseEntity<>(result, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return entity;
 	}
 	
 	@PostMapping(value = "/room")
 	public ResponseEntity createRoom(@RequestBody ChatRoomDto dto) {
-		
+		System.out.println("create room. : " + dto.getRoomName());
+
+
 		Map result = new HashMap();
         ResponseEntity entity = null;
 
-        ChatRoomDto data = chatService.createRoom(dto);
-        	if (data != null) {
-        		result.put("chatRoom", data);
-        		result.put("success", "success");
-        		entity = new ResponseEntity<>(result, HttpStatus.OK);
-        		
-        	}
-        	else {
-        		result.put("success", "error");
-				entity = new ResponseEntity<>(result, HttpStatus.INTERNAL_SERVER_ERROR);
-        	}
+        ChatRoomDto data;
+		try {
+			data = chatService.createRoom(dto);
+
+			result.put("data", data);
+			result.put("success", "success");
+			entity = new ResponseEntity<>(result, HttpStatus.OK);
+		} catch (Exception e) {
+
+
+			result.put("success", "error");
+			entity = new ResponseEntity<>(result, HttpStatus.INTERNAL_SERVER_ERROR);
+			e.printStackTrace();
+		}
+
 			
 		return entity;
 	}
 	
 	@GetMapping(value = "room/{roomId}")
-	public ChatRoomDto roomInfo(@PathVariable String roomId) {
-		return chatService.findRoomById(roomId);
+	public ResponseEntity roomInfo(@PathVariable String roomId) {
+
+		Map result = new HashMap();
+        ResponseEntity entity = null;
+        ChatRoomDto data;
+		try {
+			data = chatService.findRoomById(roomId);
+
+			if(data != null) {
+
+				result.put("data", data);
+				result.put("success", "success");
+				entity = new ResponseEntity<>(result, HttpStatus.OK);
+			}
+			else {
+
+				result.put("success", "fail");
+				entity = new ResponseEntity<>(result, HttpStatus.OK);
+				
+			}
+		} catch (Exception e) {
+			result.put("success", "error");
+			entity = new ResponseEntity<>(result, HttpStatus.INTERNAL_SERVER_ERROR);
+			e.printStackTrace();
+		}
+		return entity;
 	}
 }
