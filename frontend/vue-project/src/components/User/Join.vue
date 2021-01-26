@@ -36,10 +36,11 @@
                   type="text"
                   id="user-id"
                   placeholder="아이디(이메일) 입력"
-                  style="width: 50%"
+                  style="width: 300px"
                   v-model="user.email"
                 />
-                <button class="btn btn-primary" id="certinum_btn">
+                &nbsp;
+                <button class="btn btn-primary" id="certinum_btn" @click="sendEmail()" style="width:130px">
                   인증번호 받기
                 </button>
                 <br />
@@ -47,9 +48,10 @@
                   type="text"
                   id="certinum"
                   placeholder="인증번호를 입력하세요"
-                  style="width: 50%"
+                  style="width: 300px"
                 />
-                <button class="btn btn-primary" id="certinum_btn">
+                &nbsp;
+                <button class="btn btn-primary" id="certinum_btn" style="width:130px">
                   확인
                 </button>
                 <br />
@@ -89,10 +91,10 @@
                     placeholder="비밀번호 입력"
                     v-model="user.password"
                   />
-                  <br /><br />
-                  <div style=" font-size :small" id="english-check">
+
+                  <!-- <div style=" font-size :small" id="english-check">
                     영문포함✓
-                  </div>
+                  </div> -->
                 </div>
                 <br />
                 <div>
@@ -100,6 +102,7 @@
                     type="password"
                     id="certipw"
                     placeholder="비밀번호 확인"
+                     v-model="pw_certification"
                   />
                   <br />
                 </div>
@@ -110,8 +113,7 @@
               class="btn btn-primary"
               id="next_btn"
               @click="
-                $refs.first.next();
-                barProceeding();
+                checkPw();
               "
             >
               다음</button
@@ -162,17 +164,18 @@ import { VueperSlides, VueperSlide } from 'vueperslides';
 import 'vueperslides/dist/vueperslides.css';
 import VueSlideBar from 'vue-slide-bar';
 import axios from 'axios';
+import 'url-search-params-polyfill';
 
 const SERVER_URL = process.env.VUE_APP_LOCAL_SERVER_URL;
 
 export default {
   data() {
     return {
+      pw_certification:'',
       searchWindow: {
         display: 'none',
         height: '300px',
       },
-      
       user: {
         email: '',
         password: '',
@@ -197,7 +200,7 @@ export default {
       return '20px';
     },
     signup() {
-      console.log(this.user.id);
+      console.log(this.user.email);
       axios
         .post(`${SERVER_URL}/user/join`, this.user)
         .then((response) => {
@@ -213,7 +216,55 @@ export default {
     back() {
       this.$router.replace('/');
     },
+    sendEmail(){
+      console.log(this.user.email);
+      axios
+        .post(`${SERVER_URL}/service/mail`,
+          {userId:"hi"}
+        )
+        .then(() =>{
+          console.log( "hihi" + this.user.email);
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    },
+    checkPw(){
+      console.log(this.user.password);
+      console.log(this.pw_certification);
+      if(this.user.password === ''){
+        alert("비밀번호를 입력해주세요");
+      }
+      // else if(this.verifyValidPw(this.user.password) === false){
+      //   console.log("gg");
+      // }
+      else if(this.user.password === this.pw_certification){ 
+        this.$refs.first.next();
+        this.barProceeding();
+      }else{
+        alert("비밀번호가 일치하지 않습니다");
+      }
+     
+    }
   },
+  verifyValidPw(str) {
+    console.log("확인작업");
+      var pw = str;
+      //var num = pw.search(/[0-9]/g);
+      // var eng = pw.search(/[a-z]/gi);
+      //var spe = pw.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
+
+      if (pw.length < 8 || pw.length > 20) {
+        alert('8자리 ~ 20자리 이내로 입력해주세요.');
+        return false;
+      }
+      if (pw.search(/₩s/) != -1) {
+        alert('비밀번호는 공백업이 입력해주세요.');
+        return false;
+      }
+
+      return true;
+    },
 };
 </script>
 
