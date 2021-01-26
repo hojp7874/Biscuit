@@ -9,6 +9,7 @@
         <b-navbar-nav>
           <b-nav-item href="#">공지사항</b-nav-item>
           <b-nav-item to="/boardlist">자유게시판</b-nav-item>
+          <b-nav-item to="/mypage">마이페이지</b-nav-item>
         </b-navbar-nav>
         <!-- <b-navbar-nav class="ml-auto">
           <b-nav-form>

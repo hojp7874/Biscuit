@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <!-- 추가된 헤더 컴포넌트 사용 -->
-    <Header v-on:logout="logout"></Header> 
+    <Header></Header> 
 
     <!-- <div class="container"> class 추가 -->
     <div>
