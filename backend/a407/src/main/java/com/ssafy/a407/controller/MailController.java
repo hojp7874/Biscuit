@@ -1,10 +1,15 @@
 package com.ssafy.a407.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,25 +29,47 @@ public class MailController {
 
 	@PostMapping("/mail")
 	@ResponseBody
-	public void emailConfirm(String userId) throws Exception {
+	public ResponseEntity emailConfirm(String userId){
+		
+		ResponseEntity entity = null;
+		Map result = new HashMap();
+		
 		logger.info("post emailConfirm");
 		System.out.println("전달 받은 이메일 : " + userId);
-		service.sendSimpleMessage(userId);
+		try {
+			service.sendSimpleMessage(userId);
+			result.put("success", "success");
+			entity = new ResponseEntity(result, HttpStatus.OK);
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			result.put("success", "error"); 
+	        entity = new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+		}
+		return entity;
 	}
 
 	@PostMapping("/verifyCode")
 	@ResponseBody
-	public int verifyCode(String code) {
+	public ResponseEntity verifyCode(String code) {
 		logger.info("Post verifyCode");
 
-		int result = 0;
+		ResponseEntity entity = null;
+		Map result = new HashMap();
+		
+//		int result = 0;
 		System.out.println("code : " + code);
 		System.out.println("code match : " + EmailServiceImpl.ePw.equals(code));
 		if (EmailServiceImpl.ePw.equals(code)) {
-			result = 1;
+			result.put("success", "success");
+			entity = new ResponseEntity(result, HttpStatus.OK);
+		}else {
+        	result.put("success", "fail");
+        	entity = new ResponseEntity(result, HttpStatus.OK);
 		}
 
-		return result;
+		return entity;
 	}
 	
 }
