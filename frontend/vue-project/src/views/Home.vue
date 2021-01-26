@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import GroupList from './Group/GroupList'
+import GroupList from '@/components/Group/GroupList'
 
 // @ is an alias to /src
 export default {

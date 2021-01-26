@@ -1,6 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from "../components/Home.vue";
+import Home from "../views/Home.vue";
 import BoardList from "../components/Board/BoardList.vue";
 import BoardWrite from "../components/Board/BoardWrite.vue";
 import BoardRead from "../components/Board/BoardRead.vue";

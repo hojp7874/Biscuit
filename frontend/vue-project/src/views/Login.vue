@@ -1,7 +1,5 @@
 <template>
   <div style="text-align:center">
-    <Header v-on:logout="logout"></Header>
-    <br><br>
     <h2 class="login_title">로그인</h2>
     <div class="text-center login_cnt">
       <form>
@@ -55,7 +53,6 @@
 import Vue from 'vue';
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue';
 import axios from 'axios';
-import Header from '../components/Header'; //import 헤더 추가
 Vue.use(BootstrapVue);
 Vue.use(IconsPlugin);
 
@@ -75,7 +72,6 @@ export default {
       message: '',
     };
   },
-  components: {Header},
   created() {
     // if (localStorage.getItem('token') !== null) this.$router.replace(`/`);
   },
