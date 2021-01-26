@@ -1,6 +1,5 @@
 <template v-slot:content>
   <div class="text-center memjoin_cnt">
-    <form>
       <div>
         <p style="font-size: x-large">회원 정보 수정</p>
       </div>
@@ -8,40 +7,19 @@
         <p style="font-size: large">로그인 정보</p>
         <div id="login_info">
           <span> 아이디(이메일) </span>
-          <p>aaaaa12345@naver.com</p>
+          <p>{{ user.email }}</p>
           <br />
           <span> 비밀번호 </span>
-          <p id="fakePw">········</p>
-          <button id="update_btn" @click="div_hide()">
+          <p id="fakePw" v-if="!show">········</p>
+          <UpdatePw v-if="show"  v-on:cancel="cancel()"/>
+          <button id="update_btn" @click.prevent="show_update_pw()" v-if="!show">
             변경
           </button>
-          <div id="addedKeyword"></div>
 
-          <div id="cancel" style="display:none">
-            <input
-              type="password"
-              style="margin-top: 10px;"
-              placeholder="현재 비밀번호를 입력하세요"
-            />
-            <br />
-            <input
-              type="password"
-              style="margin-top: 15px;"
-              placeholder="새 비밀번호를 입력하세요"
-            />
-            <br />
-            <input
-              type="password"
-              style="margin-top: 15px; width :500px ; margin-left: 180px; margin-bottom: 15px;"
-              placeholder="새 비밀번호를 한 번 더 입력하세요"
-            />
-            <br />
-            <button id="cancel_btn" @click="div_show()">변경취소</button>
-            &nbsp;
-            <button id="confirm_btn">확인</button>
           </div>
         </div>
         <br /><br />
+        <div>
         <p style="font-size: large">회원 정보</p>
         <div id="member_info">
           <div class="inpbx" style="font-size: large">
@@ -51,11 +29,12 @@
               id="user-id"
               placeholder="닉네임"
               style="margin-left : 30px"
+              v-model="user.nickname"
             /><br />
             <span style="margin-right : 20px">휴대폰 번호</span>
-            <input type="text" id="user-id" placeholder="휴대폰 번호" /><br />
+            <input type="text" id="user-id" placeholder="휴대폰 번호" v-model="user.phone"/><br />
             <span style="margin-right :55px">사는 곳</span>
-            <input type="text" id="user-id" placeholder="사는 곳" /><br />
+            <input type="text" id="user-id" placeholder="사는 곳" v-model="user.region"/><br />
           </div>
         </div>
       </div>
@@ -67,16 +46,33 @@
       </div>
       <br /><br />
       <div>
-        <button class="btn btn-primary" id="complete_btn">완료</button>
+        <button class="btn btn-primary" id="complete_btn"  @click.prevent="update()">완료</button>
       </div>
-    </form>
   </div>
+
 </template>
 
 <script>
-import DelPopup from './DelPopup.vue';
+import DelPopup from './updatecomponent/DelPopup.vue';
+import UpdatePw from './updatecomponent/UpdatePw.vue';
+import axios from 'axios';
+const SERVER_URL = process.env.VUE_APP_LOCAL_SERVER_URL;
 
 export default {
+  
+   data() {
+    return {
+      show:false,
+      user: {
+        email: '',
+        password: '',
+        nickname: '',
+        admin: 0,
+        region: '',
+        phone: '',
+      },
+    };
+  },
   methods: {
     doc_del_rendar() {
       this.$modal.show(
@@ -93,36 +89,50 @@ export default {
         }
       );
     },
-    addPwInput() {
-      console.log('123');
-      var addedFormDiv = document.getElementById('addedKeyword');
-      var str =
-        '<input type="text" style="margin-top: 10px;"' +
-        'placeholder="현재 비밀번호를 입력하세요" ><br><input type="text" style="margin-top: 10px;"' +
-        'placeholder="새 비밀번호를 입력하세요" ><br><input type="text" style="margin-top: 10px;"  placeholder="새 비밀번호를 한 번 더입력하세요" ><br>';
-      var addedDiv = document.createElement('div');
-      // addedDiv.setAttribute("id","keyword_Frm" + count);
-      addedDiv.innerHTML = str;
-      addedFormDiv.appendChild(addedDiv);
+
+    show_update_pw(){
+      this.show = true;
     },
-    div_hide() {
-      document.getElementById('update_btn').style.display = 'none';
-      document.getElementById('fakePw').style.display = 'none';
-      document.getElementById('cancel').style.display = 'block';
+
+    cancel(){
+      this.show = false;
     },
-    div_show() {
-      console.log('zzz');
-      document.getElementById('update_btn').style.display = 'block';
-      document.getElementById('fakePw').style.display = 'block';
-      document.getElementById('addedKeyword').style.display = 'none';
-      document.getElementById('cancel').style.display = 'none';
-    },
+
+    update(){
+      axios
+        .put(`${SERVER_URL}/user/update`, this.user ,{
+          headers:{
+            "x-access-token" : localStorage.getItem("token")
+          }
+        })
+        .then((response) => {
+          if (response.data.success === 'success') {
+            console.log(this.user.region);
+            alert('정보 수정에 성공하셨습니다.');
+            localStorage.setItem('region',this.user.region);
+            localStorage.setItem('nickname',this.user.nickname);
+            localStorage.setItem('phone',this.user.phone);
+            this.$router.push('/');
+          } else alert('정보 수정에 실패하셨습니다.');
+          
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    }
   },
   components: {
-    // 'button-counter': {
-    //   template: '<input type="text" style="margin-top: 10px;" ><br>',
-    // },
+    UpdatePw,
   },
+
+  created() {
+      this.user.region = localStorage.getItem('region');
+      this.user.email = localStorage.getItem('email');
+      this.user.nickname = localStorage.getItem('nickname');
+      this.user.phone = localStorage.getItem('phone');    
+  }
+  
+
 };
 </script>
 
