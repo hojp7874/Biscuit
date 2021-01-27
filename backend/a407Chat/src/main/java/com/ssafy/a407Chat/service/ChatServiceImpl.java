@@ -29,18 +29,12 @@ import lombok.extern.slf4j.Slf4j;
 public class ChatServiceImpl implements ChatService{
 
 	private final ObjectMapper ObjectMapper;
-	private Map<String, ChatRoomDto> chatRoomMap;
 	
 	@Autowired
 	private ChatRoomDao roomDao;
 	
 	@Autowired
 	private ChatMessageDao messageDao;
-	
-	@PostConstruct
-	private void init() {
-		chatRoomMap = new LinkedHashMap<>();
-	}
 	
 	@Override
 	public List<ChatRoomDto> findAllRoom() throws Exception {
@@ -51,7 +45,7 @@ public class ChatServiceImpl implements ChatService{
 
 	@Override
 	public ChatRoomDto findRoomById(String roomId) throws Exception{
-		return chatRoomMap.get(roomId);
+		return roomDao.selectById(roomId);
 	}
 
 	//랜덤 id로 방생성
@@ -62,7 +56,6 @@ public class ChatServiceImpl implements ChatService{
 		ChatRoomDto chatRoom = ChatRoomDto.create(roomName, gId);
 		try {
 			roomDao.insertRoom(chatRoom);
-			chatRoomMap.put(chatRoom.getRoomId(), chatRoom);
 			return chatRoom;
 			
 		} catch (Exception e) {
