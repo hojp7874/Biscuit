@@ -1,13 +1,11 @@
 <template>
-  <!-- <ol>
-    <oi v-for="(reply) in list" :key={reply}> -->
       <b-row class="mb-1">
         <b-col>
           <b-card border-variant="info" class="mb-2" no-body>
             <!-- <template> -->
               <b-row class="m-1">
                 <b-col class="text-left ml-3" 
-                  ><strong>{{items.email}}</strong> ({{items.date}})
+                  ><strong>{{items.nickname}}</strong> <small>({{items.date}})</small>
                 </b-col>
                 <b-col class="text-right mr-3" v-show="user.email===items.email" >
                   <b-button @click="modifyClick" variant="link">수정</b-button>
@@ -39,43 +37,40 @@
           </b-card>
         </b-col>
       </b-row>
-    <!-- </oi>
-    <oi>
-      {{this.isView}}
-    </oi>
-  </ol> -->
 </template>
 
 <script>
+const SERVER_URL = process.env.VUE_APP_SERVER_URL;
+
 export default {
   name: "ReplyList",
   props : { reply : {} },
   data() {
     return {
-      items : {
-        bId : "",
-        email : "",
-        contents : "",
-        date : "",
-        rId : Number,
-      },
       isView : true,
       modicontents : "",
       user : {
-        email : "ssafy@ssafy.com", //로그인 되어있는 유저 이메일 -> 현재 로그인 되어있는 유저로 바꿔야함
+        nickname : localStorage.getItem("nickname"),
+        email : localStorage.getItem("email")  //"ssafy@ssafy.com", //로그인 되어있는 유저 이메일 -> 현재 로그인 되어있는 유저로 바꿔야함
       },
       items2 : [],
     }
   },
+  computed: {
+    items: function() {
+      // console.log('props가 바꼈어요!')
+      const dummyItems = Object
+      dummyItems.rId = this.$props.reply.rId;
+      dummyItems.bId = this.$props.reply.bId;
+      dummyItems.email = this.$props.reply.email;
+      dummyItems.nickname = this.$props.reply.nickname;
+      dummyItems.contents = this.$props.reply.contents;
+      dummyItems.date = this.$props.reply.date;
+      return dummyItems
+    }
+  },
   created() {
-    this.items.rId = this.$props.reply.rId;
-    this.items.bId = this.$props.reply.bId;
-    this.items.email = this.$props.reply.email;
-    this.items.contents = this.$props.reply.contents;
-    this.items.date = this.$props.reply.date;
     this.items2 = this.$props.reply;
-    console.log(this.items2);
-    console.log(this.items.rId);
   },
   methods: {
     modifyClick(){
@@ -85,7 +80,7 @@ export default {
       event.preventDefault();
       console.log("수정 : "+this.user.email +" / "+this.modicontents+" / "+this.rId);
       this.$axios
-      .put('http://localhost:8877/a407/reply/update', {
+      .put(`${SERVER_URL}/reply/update`, {
         email : this.user.email,
         contents : this.modicontents,
         rId : this.items.rId
@@ -110,7 +105,7 @@ export default {
     deleteReply(){
       console.log("삭제 메소드");
       this.$axios
-      .delete('http://localhost:8877/a407/reply/delete', {params: {rId : this.items.rId}})
+      .delete(`${SERVER_URL}/reply/delete`, {params: {rId : this.items.rId}})
       .then((res) => {
         if (res.data.success) {
           alert('삭제되었습니다.');

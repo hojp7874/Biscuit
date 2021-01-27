@@ -16,25 +16,23 @@
         </b-col> 
       </b-row>
     </b-form>
-   <!-- <div>
-      <reply-list v-for="(reply,index) in list" :reply="list[index]" :key="index" />
-    </div>  -->
   </div>
 </template>
 
 
 <script>
-//import ReplyList from '../Reply/ReplyList.vue';
+const SERVER_URL = process.env.VUE_APP_SERVER_URL;
+
 
 export default {
   name: "replywrite",
-  //components : {ReplyList},
   props : ['bId'],
   data() {
       return {
         comments : {
           contents : "",
-          email : "a@a.com" //작성자 이메일(현재 로그인 되어있는 유저 이메일로 바꿔야됨)
+          nickname: localStorage.getItem("nickname"),
+          email : localStorage.getItem("email")//"a@a.com" //작성자 이메일(현재 로그인 되어있는 유저 이메일로 바꿔야됨)
         },
         // list : [],
         // rpage : "1",
@@ -49,8 +47,9 @@ export default {
   methods: {
     write() {
       this.$axios
-        .post('http://localhost:8877/a407/reply/create', {
+        .post(`${SERVER_URL}/reply/create`, {
           email : this.comments.email,
+          nickname : this.comments.nickname,
           contents : this.comments.contents,
           bId : this.bId
         })

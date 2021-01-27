@@ -30,9 +30,10 @@
         >삭제</b-button
       >
     </div>
+    <ReplyWrite :bId="bId" />
     <div>
-      <reply-write :bId="bId" />
-      <reply-list v-for="(reply,index) in list" :reply="list[index]" :key="index" />
+      <ReplyList v-for="(reply,index) in showList" :reply="reply" :key="index" />
+      <b-pagination v-model="replyPage" pills :total-rows="pageCnt" per-page="10" align="center" ></b-pagination><!--여깁니다-->
     </div>
   </div>
 </template>
@@ -53,6 +54,7 @@ export default {
       form: '',
       bId: this.$route.query.bId,
       email: '',
+      nickname: '',
       title: '',
       contents: '',
       noticeFlag: '',
@@ -60,17 +62,28 @@ export default {
       category: '',
             
       list : [],
-      replyPage : 1,
+      replyPage : '',
+      pageCnt : '',
     };
   },
-   created() {
-    this.getList();
+  computed: {
+    showList: function() {
+      return this.list.slice(10*(this.replyPage-1), 10*this.replyPage)
+    }
   },
-
+  created() {
+    this.getList();
+    this.getPage();
+  },
   mounted() {
     this.fnGetView();
   },
   methods: {
+    changePage: function() {
+      this.showList = this.list.slice(10*(this.replyPage-1), 10*this.replyPage)
+      // console.log(this.replyPage)
+      // console.log(temporaryList)
+    },
     fnGetView() {
       this.$axios
         .get(`${SERVER_URL}/board/read`, {
@@ -80,6 +93,7 @@ export default {
           this.title = res.data.list[0].title;
           this.contents = res.data.list[0].contents;
           this.email = res.data.list[0].email;
+          this.nickname = res.data.list[0].nickname;
           this.noticeFlag = res.data.list[0].noticeFlag;
           this.date = res.data.list[0].date;
           this.category = res.data.list[0].category;
@@ -95,6 +109,7 @@ export default {
       this.form = {
         bId: this.bId,
         email: this.email,
+        nickname: this.nicknmae,
         title: this.title,
         contents: this.contents,
         noticeFlag: this.noticeFlag,
@@ -128,13 +143,14 @@ export default {
       console.log("getList IN : "+this.$route.query.bId);
       this.$axios
         .get(`${SERVER_URL}/reply/list`, {
-          params: {page: this.replyPage, bId: this.$route.query.bId},
+          params: {page: 1, bId: this.$route.query.bId},
         })
         .then((res) => {
+          console.log('######')
           console.log(res.data);
           this.list = res.data["list"];
-          console.log(res.data["list"]);
-          this.pagination = res.data["pagination"];
+          // console.log(res.data["list"]);
+          this.pageCnt = this.list.length
         })
         .catch((err) => {
           console.log(err);
