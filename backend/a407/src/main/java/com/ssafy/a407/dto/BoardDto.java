@@ -5,6 +5,7 @@ package com.ssafy.a407.dto;
 public class BoardDto {
 	private int bId;
 	private String email;
+	private String nickname;
 	private String title;
 	private String contents;
 	private boolean noticeFlag;
@@ -15,10 +16,11 @@ public class BoardDto {
 		
 	}
 	
-	public BoardDto(int bId, String email, String title, String contents, boolean noticeFlag, String date, int category) {
+	public BoardDto(int bId, String email, String nickname, String title, String contents, boolean noticeFlag, String date, int category) {
 		super();
 		this.bId = bId;
 		this.email = email;
+		this.nickname = nickname;
 		this.title = title;
 		this.contents = contents;
 		this.noticeFlag = noticeFlag;
@@ -42,6 +44,13 @@ public class BoardDto {
 		this.email = email;
 	}
 	
+	public String getNickname() {
+		return nickname;
+	}
+	
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
 	public String getTitle() {
 		return title;
 	}
@@ -84,6 +93,6 @@ public class BoardDto {
 	
 	@Override
 	public String toString() {
-		return "BoardDto [bId=" + bId + ", email=" + email + ", title=" + title + ", contents=" + contents + ", noticeFlag=" + noticeFlag + ", date=" + date + ", category=" + category + "]";
+		return "BoardDto [bId=" + bId + ", email=" + email + ", nickname=" + nickname + ", title=" + title + ", contents=" + contents + ", noticeFlag=" + noticeFlag + ", date=" + date + ", category=" + category + "]";
 	}
 }

@@ -40,9 +40,9 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public List<BoardDto> searchEmail(String word, int currentPage, int category) throws Exception {
+	public List<BoardDto> searchName(String word, int currentPage, int category) throws Exception {
 		// TODO Auto-generated method stub
-		return dao.searchEmail(word, currentPage, category);
+		return dao.searchName(word, currentPage, category);
 	}
 
 	@Override

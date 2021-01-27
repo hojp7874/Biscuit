@@ -12,7 +12,7 @@ public interface BoardService {
 	public List<BoardDto> searchAll(int currentPage, int category) throws Exception;
 	public List<BoardDto> searchBId(String word) throws Exception;
 	public List<BoardDto> searchTitle(String word, int currentPage, int category) throws Exception;
-	public List<BoardDto> searchEmail(String word, int currentPage, int category) throws Exception;
+	public List<BoardDto> searchName(String word, int currentPage, int category) throws Exception;
 	public List<BoardDto> searchContents(String word, int currentPage, int category) throws Exception;
 
 	public int update(Map mem) throws Exception;
