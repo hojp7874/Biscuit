@@ -16,25 +16,19 @@
         </b-col> 
       </b-row>
     </b-form>
-   <!-- <div>
-      <reply-list v-for="(reply,index) in list" :reply="list[index]" :key="index" />
-    </div>  -->
   </div>
 </template>
 
 
 <script>
-//import ReplyList from '../Reply/ReplyList.vue';
-
 export default {
   name: "replywrite",
-  //components : {ReplyList},
   props : ['bId'],
   data() {
       return {
         comments : {
           contents : "",
-          email : "a@a.com" //작성자 이메일(현재 로그인 되어있는 유저 이메일로 바꿔야됨)
+          email : localStorage.getItem("email")//"a@a.com" //작성자 이메일(현재 로그인 되어있는 유저 이메일로 바꿔야됨)
         },
         // list : [],
         // rpage : "1",

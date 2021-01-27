@@ -33,6 +33,7 @@
     <div>
       <reply-write :bId="bId" />
       <reply-list v-for="(reply,index) in list" :reply="list[index]" :key="index" />
+      <b-pagination v-model="replyPage" pills :total-rows="pageCnt" align="center" ></b-pagination><!--여깁니다-->
     </div>
   </div>
 </template>
@@ -61,12 +62,12 @@ export default {
             
       list : [],
       replyPage : 1,
+      pageCnt : 1
     };
   },
    created() {
     this.getList();
   },
-
   mounted() {
     this.fnGetView();
   },
@@ -135,6 +136,7 @@ export default {
           this.list = res.data["list"];
           console.log(res.data["list"]);
           this.pagination = res.data["pagination"];
+          this.pageCnt = this.pagination.pageCnt;
         })
         .catch((err) => {
           console.log(err);

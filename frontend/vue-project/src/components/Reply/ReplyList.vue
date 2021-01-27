@@ -1,6 +1,4 @@
 <template>
-  <!-- <ol>
-    <oi v-for="(reply) in list" :key={reply}> -->
       <b-row class="mb-1">
         <b-col>
           <b-card border-variant="info" class="mb-2" no-body>
@@ -39,11 +37,6 @@
           </b-card>
         </b-col>
       </b-row>
-    <!-- </oi>
-    <oi>
-      {{this.isView}}
-    </oi>
-  </ol> -->
 </template>
 
 <script>
@@ -62,7 +55,7 @@ export default {
       isView : true,
       modicontents : "",
       user : {
-        email : "ssafy@ssafy.com", //로그인 되어있는 유저 이메일 -> 현재 로그인 되어있는 유저로 바꿔야함
+        email : localStorage.getItem("email")  //"ssafy@ssafy.com", //로그인 되어있는 유저 이메일 -> 현재 로그인 되어있는 유저로 바꿔야함
       },
       items2 : [],
     }
