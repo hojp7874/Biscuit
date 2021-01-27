@@ -12,4 +12,5 @@ public interface ChatRoomDao {
 
 	public int insertRoom(ChatRoomDto dto) throws Exception;
 	public List<ChatRoomDto> selectAllRoom() throws Exception;
+	public ChatRoomDto selectById(String roomId) throws Exception;
 }

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.a407Chat.dto.ChatRoomDto;
@@ -88,9 +89,9 @@ public class ChatRoomController {
 		return entity;
 	}
 	
-	@GetMapping(value = "room/{roomId}")
-	public ResponseEntity roomInfo(@PathVariable String roomId) {
-
+	@GetMapping(value = "/search")
+	public ResponseEntity roomInfo(@RequestParam String roomId) {
+		System.out.println("roomId : " + roomId);
 		Map result = new HashMap();
         ResponseEntity entity = null;
         ChatRoomDto data;

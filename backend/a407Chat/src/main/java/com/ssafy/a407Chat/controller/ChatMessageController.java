@@ -18,6 +18,6 @@ public class ChatMessageController {
 		if(ChatMessageDto.MessageType.ENTER.equals(message.getType())) {
 			message.setMessage(message.getEmail() + "님이 입장하였습니다.");
 		}
-		messagingTemplate.convertAndSend("/sub/chat/romm/" + message.getRoomId(), message);
+		messagingTemplate.convertAndSend("/sub/chat/room/" + message.getRoomId(), message);
 	}
 }

@@ -10,4 +10,9 @@
 	<select id="selectAllRoom" resultType="ChatRoomDto">
 		select * from chatRoom;
 	</select>
+	
+	<select id="selectById" parameterType="String" resultType="ChatRoomDto">
+		select * from chatRoom
+		where roomId = #{roomId}
+	</select>
 </mapper> 
