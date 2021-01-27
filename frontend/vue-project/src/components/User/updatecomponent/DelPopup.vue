@@ -1,38 +1,71 @@
 <template>
-    <div class="container" id = "popup" >
-        <p>
-        회원을 탈퇴하시면, 그동안 쌓여왔던 모든 자료와 데이터가 삭제되며<br>
-        참여하고 있던 모든 스터디 공간에 접근 할 수 없게 됩니다.<br>
-        그럼에도 꼭 탈퇴하고 싶으시다면 탈퇴사유를 남겨주시길 부탁드립니다.
-        </p>
-        <br><br>
-        <div class="input-group col-md-3">
-            <input type="textarea" v-model="withdraw_reason" class="form-control col-md-2" style = "width : 450px ; height : 40px" placeholder="탈퇴 사유를 남겨주세요">
-            <input type="password" class="form-control col-md-2" style = "width : 450px ;  height : 40px" placeholder="비밀번호를 입력 해 주세요">
-        </div>
-        <div class="row col-md-6" style="margin-top : 20px">
-            <input class="btn btn-default col-md-3" @click="del_data" type="button" value="탈퇴하기">
-            <input class="btn btn-default col-md-3" @click="$emit('close')" type="button" value="취소" style="margin-left : 200px">
-        </div>
+  <div class="my-modal"
+    v-if="visible" @click.self="handleWrapperClick">
+    <div class="my-modal__dialog">
+      <header class="my-modal__header">
+        <span>{{title}}</span>
+        <button @click="$emit('update:visible', !visible)">Close</button>
+      </header>
+      <div class="my-modal__body">
+        <slot></slot>
+      </div>
     </div>
+  </div>
 </template>
+
 <script>
 export default {
-  data:function(){
-      return {
-          withdraw_reason:''
-      }
-  },props : [
-      'hot_table',
-  ],methods : {
-      del_data(){
-          
-          this.$emit('close')
-      }
-  }
+  name: 'my-modal',
+  props: {
+    visible: {
+      type: Boolean,
+      require: true,
+      default: false
+    },
+    title: {
+      type: String,
+      require: false,
+    },
+  },
+  methods: {
+    handleWrapperClick(){
+      this.$emit('update:visible', false)
+    },
+  },
 }
 </script>
 
-<style>
- 
+<style lang="scss">
+$module: 'my-modal';
+.#{$module} {
+  // This is modal bg
+  background-color: rgba(0,0,0,.7);
+  top: 0; right: 0; bottom: 0; left: 0;
+  position: fixed;
+  overflow: auto;
+  margin: 0;
+  //This is modal layer
+  &__dialog{
+    left: 50%;
+    top: 75px;
+    width: 600px;
+    position: absolute;
+    background: #fff;
+    margin-bottom: 50px;
+  }
+
+  &__header {
+    font-size: 28px;
+    font-weight: bold;
+    line-height: 1.29;
+    padding: 16px 16px 0 25px;
+    position: relative;
+  }
+  &__body {
+    padding: 25px;
+    min-height: 150px;
+    max-height: 412px;
+    overflow-y: scroll;
+  }
+}
 </style>

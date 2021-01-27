@@ -38,12 +38,22 @@
           </div>
         </div>
       </div>
-      <button style="margin-left :550px ; font-size : small" @click="doc_del_rendar()">
+      <!-- <button style="margin-left :550px ; font-size : small" @click="doc_del_rendar()">
         회원 탈퇴하기
       </button>
       <div class="row">
-        <!-- <modals-container /> -->
+        <modals-container />
+      </div> -->
+<button @click="handleClickButton">Toggle Modal</button>
+    <app-my-modal
+      title="This is modal"
+      :visible.sync="visible">
+      <div>
+        This is modal body
       </div>
+    </app-my-modal>
+
+
       <br /><br />
       <div>
         <button class="btn btn-primary" id="complete_btn"  @click.prevent="update()">완료</button>
@@ -63,6 +73,7 @@ export default {
    data() {
     return {
       show:false,
+      visible: false,
       user: {
         email: '',
         password: '',
@@ -119,10 +130,14 @@ export default {
         .catch(function(error) {
           console.log(error);
         });
-    }
+    },
+
+    handleClickButton(){
+      this.visible = !this.visible
+    } 
   },
   components: {
-    UpdatePw,
+    UpdatePw, appMyModal:  DelPopup
   },
 
   created() {
