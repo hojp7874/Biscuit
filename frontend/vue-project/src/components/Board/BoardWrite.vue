@@ -33,7 +33,7 @@
 </template>
 
 <script>
-const SERVER_URL = process.env.VUE_APP_LOCAL_SERVER_URL;
+const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
 export default {
   data() {
@@ -72,6 +72,7 @@ export default {
     fnAddProc() {
       this.form = {
         email: 'ssafy@ssafy.com',
+        nickname: 'ssafy',
         title: this.title,
         contents: this.contents,
       };
