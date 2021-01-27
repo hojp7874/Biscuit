@@ -110,14 +110,8 @@ public class BoardController {
 			}
 			//작성자로 검색
 			else if(type.equals("name")) {
-				//nickname으로 email 호출하기
-				List<String> emails = login.profileName(word);
-				System.out.println(emails);
 				List<BoardDto> list = new ArrayList<BoardDto>();
-				for (String email : emails) {
-					list.addAll(board.searchEmail(email, currentPage, category));
-				}
-				
+				list.addAll(board.searchName(word, currentPage, category));
 				System.out.println(list);
 				if(list != null) {
 					result.put("list", list);

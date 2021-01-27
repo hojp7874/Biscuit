@@ -4,8 +4,8 @@
 
  <mapper namespace="com.ssafy.a407.dao.ReplyDao">
  	<insert id="insertReply" parameterType="ReplyDto">
- 		insert into a407.reply (bId, email, contents, date) 
- 		values (#{bId},#{email},#{contents},now())
+ 		insert into a407.reply (bId, email, nickname, contents, date) 
+ 		values (#{bId},#{email},#{nickname},#{contents},now())
  	</insert>
  	
  	<update id="updateReply" parameterType="ReplyDto">

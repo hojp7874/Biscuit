@@ -4,6 +4,7 @@ public class ReplyDto {
 	private int rId;
 	private int bId;
 	private String email;
+	private String nickname;
 	private String contents;
 	private String date;
 	
@@ -11,11 +12,12 @@ public class ReplyDto {
 		// TODO Auto-generated constructor stub
 	}
 
-	public ReplyDto(int rId, int bId, String email, String contents, String date) {
+	public ReplyDto(int rId, int bId, String email, String nickname, String contents, String date) {
 		super();
 		this.rId = rId;
 		this.bId = bId;
 		this.email = email;
+		this.nickname = nickname;
 		this.contents = contents;
 		this.date = date;
 	}
@@ -43,6 +45,14 @@ public class ReplyDto {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
+	public String getNickname() {
+		return nickname;
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
 
 	public String getContents() {
 		return contents;
@@ -62,7 +72,7 @@ public class ReplyDto {
 
 	@Override
 	public String toString() {
-		return "ReplyDto [rId=" + rId + ", bId=" + bId + ", email=" + email + ", contents=" + contents + ", date="
+		return "ReplyDto [rId=" + rId + ", bId=" + bId + ", email=" + email + ", nickname=" + nickname + ", contents=" + contents + ", date="
 				+ date + "]";
 	}
 
