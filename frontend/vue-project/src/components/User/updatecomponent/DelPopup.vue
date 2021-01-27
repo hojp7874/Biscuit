@@ -1,71 +1,112 @@
 <template>
-  <div class="my-modal"
-    v-if="visible" @click.self="handleWrapperClick">
-    <div class="my-modal__dialog">
-      <header class="my-modal__header">
-        <span>{{title}}</span>
-        <button @click="$emit('update:visible', !visible)">Close</button>
-      </header>
-      <div class="my-modal__body">
-        <slot></slot>
+  <div>
+    <b-button v-b-modal.modal-1 id="button">회원탈퇴</b-button>
+
+    <b-modal ref="my-modal" id="modal-1" title="회원탈퇴" hide-footer>
+      <p class="my-4">
+        회원을 탈퇴하시면, 그동안 쌓여왔던 모든 자료와 데이터가 삭제<br />
+        되며 참여하고 있던 모든 스터디 공간에 접근 할 수 없게 됩니다.<br />
+        그럼에도 꼭 탈퇴하고 싶으시다면 <br />
+        탈퇴사유를 남겨주시길 부탁드립니다.
+      </p>
+
+      <div>
+        <b-form-textarea
+          id="textarea"
+          v-model="reason"
+          placeholder="탈퇴사유"
+          rows="3"
+          max-rows="6"
+        ></b-form-textarea>
+        <p style="margin-top:20px">
+          &nbsp;비밀번호를 입력 해 주세요
+        </p>
+        <div style="margin-top:-10px">
+          <b-form-input
+            type="password"
+            v-model="mem.password"
+            placeholder="비밀번호"
+          ></b-form-input>
+        </div>
+
+        <!-- <pre class="mt-3 mb-0">{{ text }}</pre> -->
+        <div style="margin-top:20px;">
+          <b-button
+            variant="outline-primary"
+            style="margin-left:310px;"
+            @click="deleteUser()"
+            >탈퇴하기</b-button
+          >&nbsp;
+          <b-button variant="danger" @click="hideModal">취소</b-button>
+        </div>
       </div>
-    </div>
+    </b-modal>
   </div>
 </template>
-
 <script>
+import axios from 'axios';
+const SERVER_URL = process.env.VUE_APP_LOCAL_SERVER_URL;
+
 export default {
-  name: 'my-modal',
-  props: {
-    visible: {
-      type: Boolean,
-      require: true,
-      default: false
-    },
-    title: {
-      type: String,
-      require: false,
-    },
+  data() {
+    return {
+      reason: '',
+      mem: {
+        email: '',
+        password: '',
+      },
+      
+    };
   },
+
   methods: {
-    handleWrapperClick(){
-      this.$emit('update:visible', false)
+    hideModal() {
+      this.$refs['my-modal'].hide();
     },
+    deleteUser() {
+      console.log('delete token : ' + localStorage.getItem('token'));
+      axios
+        .post(`${SERVER_URL}/user/delete`,this.mem, {
+          headers: {
+            "x-access-token": localStorage.getItem('token')
+          }
+        })
+        .then((response) => {
+          if (response.data.success === 'success') {
+            alert('회원탈퇴에 성공하셨습니다.');
+            this.logout();
+          } else {
+            alert('회원탈퇴에 실패하셨습니다.');
+          }
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    },
+    logout() {
+      if (localStorage.getItem('token') !== null) {
+        localStorage.removeItem('token');
+        localStorage.removeItem('id');
+        localStorage.removeItem('name');
+        localStorage.removeItem('admin');
+      }
+      this.$emit('logout');
+    },
+
   },
-}
+
+    created() {
+    this.mem.email = localStorage.getItem('email');
+  },
+
+};
 </script>
 
-<style lang="scss">
-$module: 'my-modal';
-.#{$module} {
-  // This is modal bg
-  background-color: rgba(0,0,0,.7);
-  top: 0; right: 0; bottom: 0; left: 0;
-  position: fixed;
-  overflow: auto;
-  margin: 0;
-  //This is modal layer
-  &__dialog{
-    left: 50%;
-    top: 75px;
-    width: 600px;
-    position: absolute;
-    background: #fff;
-    margin-bottom: 50px;
-  }
+<style>
 
-  &__header {
-    font-size: 28px;
-    font-weight: bold;
-    line-height: 1.29;
-    padding: 16px 16px 0 25px;
-    position: relative;
-  }
-  &__body {
-    padding: 25px;
-    min-height: 150px;
-    max-height: 412px;
-    overflow-y: scroll;
-  }
+#button {
+  width: 80px;
+  height: 25px;
+  font-size: 10px;
 }
 </style>

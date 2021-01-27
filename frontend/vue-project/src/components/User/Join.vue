@@ -245,7 +245,7 @@ export default {
         });
     },
     back() {
-      this.$router.replace('/');
+      this.$router.replace('/login');
     },
     sendEmail(){
       console.log(this.user.email);
