@@ -21,6 +21,9 @@
 
 
 <script>
+const SERVER_URL = process.env.VUE_APP_SERVER_URL;
+
+
 export default {
   name: "replywrite",
   props : ['bId'],
@@ -28,6 +31,7 @@ export default {
       return {
         comments : {
           contents : "",
+          nickname: localStorage.getItem("nickname"),
           email : localStorage.getItem("email")//"a@a.com" //작성자 이메일(현재 로그인 되어있는 유저 이메일로 바꿔야됨)
         },
         // list : [],
@@ -43,8 +47,9 @@ export default {
   methods: {
     write() {
       this.$axios
-        .post('http://localhost:8877/a407/reply/create', {
+        .post(`${SERVER_URL}/reply/create`, {
           email : this.comments.email,
+          nickname : this.comments.nickname,
           contents : this.comments.contents,
           bId : this.bId
         })
