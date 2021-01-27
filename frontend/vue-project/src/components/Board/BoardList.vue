@@ -7,7 +7,7 @@
         <b-select-option value="" selected="selected" disabled hidden
           >전체</b-select-option
         >
-        <b-select-option value="email">작성자</b-select-option>
+        <b-select-option value="nickname">작성자</b-select-option>
         <b-select-option value="title">제목</b-select-option>
         <b-select-option value="contents">내용</b-select-option>
       </b-select>
@@ -41,7 +41,7 @@
 
 <script>
 import axios from 'axios';
-const SERVER_URL = process.env.VUE_APP_LOCAL_SERVER_URL;
+const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 export default {
   data() {
     //변수생성
@@ -57,7 +57,7 @@ export default {
           label: '제목',
         },
         {
-          key: 'email',
+          key: 'nickname',
           label: '작성자',
         },
         {

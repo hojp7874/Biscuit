@@ -41,7 +41,7 @@
 import axios from 'axios';
 import ReplyWrite from '../Reply/ReplyWrite.vue';
 import ReplyList from '../Reply/ReplyList.vue';
-const SERVER_URL = process.env.VUE_APP_LOCAL_SERVER_URL;
+const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
 export default {
    components: {
