@@ -10,8 +10,8 @@ import GroupList from "../components/Group/GroupList.vue";
 import GroupUpdate from "../components/Group/GroupUpdate.vue";
 import Join from "../components/User/Join.vue"
 import FindPw from "../components/User/FindPw.vue"
-import Login from "../views/Login.vue";
-
+import Login from "../components/User/Login.vue";
+import MyPage from "../components/User/MyPage.vue";
 
 Vue.use(VueRouter);
 
@@ -65,6 +65,11 @@ const routes = [
     path: "/findpw",
     name: "FindPw",
     component: FindPw
+  },
+  {
+    path: "/mypage",
+    name: "MyPage",
+    component: MyPage
   },
   {
     path: "/groupupdate",

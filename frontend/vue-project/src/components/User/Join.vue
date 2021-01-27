@@ -1,7 +1,7 @@
 <template>
   <div class="out">
-      <Header/>
-    <h2>간편가입</h2>
+
+    <h2 style="margin-top:50px">간편가입</h2>
 
     <vue-slide-bar
       v-model="simpleValue"
@@ -19,14 +19,14 @@
       :arrows="false"
       :fixed-height="setSliderHeight()"
       ref="first"
-      style="width: 500px; height: 500px; display: inline-block;background-color: white"
+      style="width: 500px; height: 400px; display: inline-block;background-color: white"
     >
       <vueper-slide :key="1">
         <template v-slot:content>
           <div class="text-center memjoin_cnt">
             <form>
               <div>
-                <p style=" font-size :x-large">
+                <p style=" font-size :x-large ; margin-top:20px">
                   로그인에 사용할<br />
                   아이디를 입력해주세요.
                 </p>
@@ -39,8 +39,13 @@
                   style="width: 300px"
                   v-model="user.email"
                 />
-                &nbsp;
-                <button class="btn btn-primary" id="certinum_btn" @click="sendEmail()" style="width:130px">
+                
+                <button
+                  class="btn btn-primary"
+                  id="certinum_btn"
+                  @click.prevent="sendEmail()"
+                  style="width:130px;margin-left:10px"
+                >
                   인증번호 받기
                 </button>
                 <br />
@@ -49,9 +54,15 @@
                   id="certinum"
                   placeholder="인증번호를 입력하세요"
                   style="width: 300px"
+                  v-model="code"
                 />
                 &nbsp;
-                <button class="btn btn-primary" id="certinum_btn" style="width:130px">
+                <button
+                  class="btn btn-primary"
+                  id="certinum_btn"
+                  style="width:130px ; margin-left:10px"
+                  @click.prevent="checkCode()"
+                >
                   확인
                 </button>
                 <br />
@@ -60,6 +71,7 @@
           </div>
           <div>
             <button
+              v-if="isHidden"
               class="btn btn-primary"
               id="certinum_btn"
               @click="
@@ -78,12 +90,14 @@
             <div class="text-center memjoin_cnt">
               <form>
                 <div>
-                  <p style=" font-size :x-large">
+                  <p style=" font-size :x-large ; margin-top:20px">
                     로그인에 사용할<br />
                     비밀번호를 입력해주세요.
                   </p>
+                  <p style="font-size :medium">
+                    8~20자 이내
+                  </p>
                 </div>
-                <br /><br />
                 <div class="inpbx">
                   <input
                     type="password"
@@ -102,20 +116,14 @@
                     type="password"
                     id="certipw"
                     placeholder="비밀번호 확인"
-                     v-model="pw_certification"
+                    v-model="pw_certification"
                   />
                   <br />
                 </div>
               </form>
             </div>
             <br /><br />
-            <button
-              class="btn btn-primary"
-              id="next_btn"
-              @click="
-                checkPw();
-              "
-            >
+            <button class="btn btn-primary" id="next_btn" @click="checkPw()">
               다음</button
             >>
           </div>
@@ -126,17 +134,39 @@
           <div class="text-center memjoin_cnt">
             <form>
               <div>
-                <p style=" font-size :x-large">
+                <p style=" font-size :x-large ; margin-top:20px">
                   기본 정보를 입력해주세요.
                 </p>
               </div>
-              <br /><br />
-              <div class="inpbx" style="font-size :x-large">
-                닉네임 : <input type="text" id="user-id" placeholder="닉네임" v-model="user.nickname"/><br>
-                지역 : <input type="text" id="user-region" placeholder="지역" v-model="user.region"/><br>
-                전화번호 : <input type="text" id="user-phone" placeholder="전화번호" v-model="user.phone" />
+              <div class="inpbx" style="font-size :x-large ; margin-top:20px">
+                <div style= "margin-top:20px">
+                닉네임 :&nbsp;
+                <input
+                  type="text"
+                  id="user-id"
+                  placeholder="닉네임"
+                  v-model="user.nickname"
+                />
+                </div>
+                <div style= "margin-top:10px;margin-left:25px">
+                지역 : &nbsp; &nbsp; &nbsp;
+                <input
+                  type="text"
+                  id="user-region"
+                  placeholder="지역"
+                  v-model="user.region"
+                /></div>
+                <div style= "margin-top:10px;margin-right:20px">
+                전화번호 :
+                <input
+                  type="text"
+                  id="user-phone"
+                  placeholder="전화번호"
+                  v-model="user.phone"
+                />
+                </div>
               </div>
-              <br /><br /><br /><br /><br /><br /><br /><br />
+              <br /><br/>
             </form>
           </div>
 
@@ -159,7 +189,6 @@
 </template>
 
 <script>
-import Header from '../Header'; //import 헤더 추가
 import { VueperSlides, VueperSlide } from 'vueperslides';
 import 'vueperslides/dist/vueperslides.css';
 import VueSlideBar from 'vue-slide-bar';
@@ -171,6 +200,8 @@ const SERVER_URL = process.env.VUE_APP_LOCAL_SERVER_URL;
 export default {
   data() {
     return {
+      isHidden:false,    //다음 표시 숨기기 기능
+      code:'',
       pw_certification:'',
       searchWindow: {
         display: 'none',
@@ -188,7 +219,7 @@ export default {
     };
   },
 
-  components: { VueperSlides, VueperSlide, VueSlideBar, Header },
+  components: { VueperSlides, VueperSlide, VueSlideBar },
   methods: {
     barProceeding() {
       this.simpleValue += 33;
@@ -219,14 +250,48 @@ export default {
     sendEmail(){
       console.log(this.user.email);
       axios
-        .post(`${SERVER_URL}/service/mail`,
-          {userId:"hi"}
-        )
-        .then(() =>{
-          console.log( "hihi" + this.user.email);
+        .post(`${SERVER_URL}/service/mail`, this.user.email)
+        .then((response) => {
+          if (response.data.success === 'success') {
+            alert('이메일로 코드를 전송하였습니다');
+            console.log("성공");
+          } else if(response.data.success === 'error'){
+            alert('이메일 형식에 맞추어 다시 입력 해 주세요.');
+            console.log("실패");
+          }else{
+            console.log("실패2");
+          }
         })
         .catch(function(error) {
           console.log(error);
+           alert('이메일 형식에 맞추어 다시 입력 해 주세요.');
+        });
+        // .then((response) => {
+        //   alert("11에러입니다");
+        //   if (response.data.success === 'success') {
+        //     alert('해당 이메일로 코드 발송하였습니다.');
+        //   } else alert('실패하셨습니다.');
+        // })
+        // .catch(function(error) {
+        //   alert("에러입니다");
+        //   console.log(error);
+        // });
+    },
+    checkCode(){
+      console.log(this.code +"  gd");
+      axios
+        .post(`${SERVER_URL}/service/verifyCode`, this.code)
+        .then((response) => {
+          if (response.data.success === 'success') {
+            alert('인증 성공');
+            this.isHidden = true;
+          }else{
+            alert('인증 실패');
+          }
+        })
+        .catch(function(error) {
+          console.log(error);
+          alert('오류');
         });
     },
     checkPw(){
@@ -235,19 +300,18 @@ export default {
       if(this.user.password === ''){
         alert("비밀번호를 입력해주세요");
       }
-      // else if(this.verifyValidPw(this.user.password) === false){
-      //   console.log("gg");
-      // }
-      else if(this.user.password === this.pw_certification){ 
+      else if(this.verifyValidPw(this.user.password) === false){
+        console.log("gg");
+      }
+      else if(this.user.password === this.pw_certification){
         this.$refs.first.next();
         this.barProceeding();
       }else{
         alert("비밀번호가 일치하지 않습니다");
       }
-     
-    }
-  },
-  verifyValidPw(str) {
+
+    },
+    verifyValidPw(str) {
     console.log("확인작업");
       var pw = str;
       //var num = pw.search(/[0-9]/g);
@@ -264,8 +328,10 @@ export default {
       }
 
       return true;
-    },
-};
+    }
+
+  },
+}
 </script>
 
 <style>
@@ -286,7 +352,6 @@ export default {
   width: 350px;
   height: 45px;
 }
-
 
 #certinum_btn,
 #next_btn {

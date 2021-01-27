@@ -3,6 +3,7 @@
     <!-- 추가된 헤더 컴포넌트 사용 -->
     <Header v-on:logout="logout"></Header>
 
+
     <div class="container">
       <router-view />
     </div>
@@ -34,6 +35,8 @@ export default {
           localStorage.removeItem('admin');
         }
         // this.$router.replace('/');
+        // window.location.reload();
+        this.$router.push('/');
         window.location.reload();
     },
   },
