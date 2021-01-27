@@ -114,12 +114,13 @@ public class LoginController{
 	}
 	
 	//회원탈퇴
-	@DeleteMapping(value = "/delete")
-	private ResponseEntity delete(@RequestHeader Map mem) {
+	@PostMapping(value = "/delete")
+	private ResponseEntity delete(@RequestBody Map mem) {
 		ResponseEntity entity = null;
 		System.out.println("delete =========");
 		Map result = new HashMap();
 		try {
+			mem.put("password",(getHashPassword((String)mem.get("password"))));
 			if (login.remove(mem) == 1) {
 				result.put("success", "success");
 				entity = new ResponseEntity<>(result, HttpStatus.OK);
@@ -141,12 +142,12 @@ public class LoginController{
 	
 	//회원정보수정
 	@PutMapping(value = "/update")
-	private ResponseEntity update(@RequestBody Map mem) {
+	private ResponseEntity update(@RequestBody Map user) {
 		ResponseEntity entity = null;
 		System.out.println("update ========");
 		Map result = new HashMap();
 		try {
-			if (login.update(mem) == 1) {
+			if (login.update(user) == 1) {
 				result.put("success", "success");
 				entity = new ResponseEntity<>(result, HttpStatus.OK);
 				
