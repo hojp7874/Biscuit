@@ -184,6 +184,7 @@ public class GroupController {
 		return entity;
 	}
 
+	
 	@ApiOperation(httpMethod = "POST"
 			,value = "그룹 생성"
 			,notes = "그룹 생성하는 API"
