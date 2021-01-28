@@ -25,7 +25,7 @@
  	</select>
  	
  	<insert id="insertMember" parameterType="MemberDto">
- 		insert into a407.member (gId, email,permission) values (#{gId}, #{email},#{permission})
+ 		insert into a407.member (gId, email, nickname, permission) values (#{gId}, #{email}, #{nickname}, #{permission})
  	</insert>
  	
  	<update id ="updateMemberPermission" parameterType="map">

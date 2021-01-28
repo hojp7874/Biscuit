@@ -24,11 +24,10 @@
  	</select>
  	
  	<select id="getReplyList" parameterType="map" resultType="ReplyDto">
-		select rId, bId, email, contents, date
+		select rId, bId, email, nickname, contents, date
 		from a407.reply
 		where bId = #{bId}
 		order by rId desc
-		limit #{startIndex}, #{pageSize}
 	</select>
 
 	<select id="getReplyListCnt" parameterType="int" resultType="int">

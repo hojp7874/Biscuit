@@ -1,9 +1,11 @@
 package com.ssafy.a407Chat.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.stereotype.Controller;
 
+import com.ssafy.a407Chat.dao.ChatMessageDao;
 import com.ssafy.a407Chat.dto.ChatMessageDto;
 
 import lombok.RequiredArgsConstructor;
@@ -11,13 +13,17 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Controller
 public class ChatMessageController {
+	@Autowired
+	private ChatMessageDao dao;
 	private final SimpMessageSendingOperations messagingTemplate;
 	
 	@MessageMapping("/chat/message")
-	public void message(ChatMessageDto message) {
-		if(ChatMessageDto.MessageType.ENTER.equals(message.getType())) {
+	public void message(ChatMessageDto message) throws Exception{
+		if((message.getType()).equals("ENTER")) {
 			message.setMessage(message.getEmail() + "님이 입장하였습니다.");
 		}
-		messagingTemplate.convertAndSend("/sub/chat/romm/" + message.getRoomId(), message);
+		System.out.println("message : " + message.getMessage());
+		dao.insertMessage(message);
+		messagingTemplate.convertAndSend("/sub/chat/room/" + message.getRoomId(), message);
 	}
 }

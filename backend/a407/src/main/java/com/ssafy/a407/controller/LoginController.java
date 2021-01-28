@@ -61,6 +61,7 @@ public class LoginController{
         	
             UserDto member = login.login(mem);
             if (member == null) {
+            	System.out.println("if");
             	result.put("success", "fail"); 
                 entity = new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
             }
