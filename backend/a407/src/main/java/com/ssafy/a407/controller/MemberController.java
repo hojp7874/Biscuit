@@ -43,11 +43,12 @@ public class MemberController {
 	//멤버 신청
 	@PostMapping(value = "/apply")
 	private ResponseEntity apply(@RequestBody Map map) {
-		//gid와 email을 파라미터로 받음
+		//gid와 email을 파라미터로 받음 (+nickname 추가)
 		ResponseEntity entity = null;
 		Map result = new HashMap();
 		MemberDto dto = new MemberDto();
 		dto.setEmail((String)map.get("email"));
+		dto.setNickname((String)map.get("nickname"));
 		dto.setgId((int)map.get("gId"));
 		dto.setPermission(0);
 		

@@ -2,6 +2,7 @@ CREATE TABLE `a407`.`reply` (
   `rId` INT NOT NULL AUTO_INCREMENT,
   `bId` INT NOT NULL,
   `email` VARCHAR(30) NOT NULL,
+  `nickname` VARCHAR(20) NOT NULL,
   `contents` VARCHAR(300) NOT NULL,
   `date` DATETIME NOT NULL,
   PRIMARY KEY (`rId`),
@@ -16,6 +17,11 @@ CREATE TABLE `a407`.`reply` (
   CONSTRAINT `fk_email`
     FOREIGN KEY (`email`)
     REFERENCES `a407`.`user` (`email`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION),
+  CONSTRAINT `fk_nickname`
+    FOREIGN KEY (`nickname`)
+    REFERENCES `a407`.`user` (`nickname`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
