@@ -1,191 +1,146 @@
-// main.js에 모달관련 import함
-<template v-slot:content>
-  <div class="text-center memjoin_cnt">
-    <div>
-      <span style="font-size: x-large">회원 정보 수정</span>
-      <del-popup style=  "margin-left:720px" v-on:logout="logout()"/>
-    </div>
-    <div id="user_info">
-      <p style="font-size: large">로그인 정보</p>
-      <div id="login_info">
-        <span> 아이디(이메일) </span>
-        <p>{{ user.email }}</p>
-        <br />
-        <span> 비밀번호 </span>
-        <p id="fakePw" v-if="!show">········</p>
-        <UpdatePw v-if="show" v-on:cancel="cancel()" />
-        <button id="update_btn" @click.prevent="show_update_pw()" v-if="!show">
-          변경
-        </button>
+<template>
+  <div id="mypage">
+    <h4 id="title">마이페이지</h4>
+
+    <div id="user-picture">
+      <div class="mb-2">
+        <b-avatar
+          style="margin-left:5px;margin-top:25px"
+          src="https://placekitten.com/300/300"
+          size="10rem"
+        ></b-avatar>
       </div>
-      <br><br>
     </div>
-    <br /><br />
-    <div>
-      <p style="font-size: large">회원 정보</p>
-      <div id="member_info">
-        <div class="inpbx" style="font-size: large">
-          <span style="margin-right :28px">닉네임</span>
-          <input
-            type="text"
-            id="user-id"
-            placeholder="닉네임"
-            style="margin-left : 30px"
-            v-model="user.nickname"
-          /><br />
-          <span style="margin-right : 20px">휴대폰 번호</span>
-          <input
-            type="text"
-            id="user-id"
-            placeholder="휴대폰 번호"
-            v-model="user.phone"
-          /><br />
-          <span style="margin-right :55px">사는 곳</span>
-          <input
-            type="text"
-            id="user-id"
-            placeholder="사는 곳"
-            v-model="user.region"
-          /><br />
-        </div>
-      </div>
+    <div id="user-profile">
+      <p style="text-align:left;font-size:40px;margin-left:30px">
+        {{ user.nickname }}
+      </p>
+      <p style="text-align:left;font-size:14px;margin-left:30px">
+        닉네임 : {{ user.nickname }}
+      </p>
+      <p style="text-align:left;font-size:14px;margin-left:30px">
+        전화번호 : {{ user.phone }}
+      </p>
+    </div>
+    <div id="tab">
+        <button class="navButton" style="margin-top: 50px" @click.prevent="loadStudy()">나의 스터디</button><br/>
+        <button class="navButton" style="margin-top: 200px" @click.prevent="loadSchedule()">나의 일정</button><br/>
+        <button class="navButton" style="margin-top: 200px" @click.prevent="loadUpdate()">개인 정보 수정</button>
     </div>
 
-    <br /><br />
-    <div>
-      <button
-        class="btn btn-primary"
-        id="complete_btn"
-        @click.prevent="update()"
-      >
-        완료
-      </button>
+    <div id="mypage-contents">
+      <!-- <UpdateUser id="update" style="margin-top:0px;margin-left:0px" /> -->
+      <component :is="componentLoading()"></component>
     </div>
   </div>
-  
 </template>
 
 <script>
-import DelPopup from './updatecomponent/DelPopup.vue';
-import UpdatePw from './updatecomponent/UpdatePw.vue';
-import axios from 'axios';
-const SERVER_URL = process.env.VUE_APP_LOCAL_SERVER_URL;
+import MyStudy from './MyPage/MyStudy';
+import MySchedule from './MyPage/MySchedule';
+import UpdateUser from './MyPage/UpdateUser';
 
 export default {
   data() {
     return {
-      show: false,
-      visible: false,
       user: {
         email: '',
         nickname: '',
-        picture:'',
+        picture: '',
         region: '',
         phone: '',
       },
+      active:0,
     };
   },
-  methods: {
-
-    show_update_pw() {
-      this.show = true;
-    },
-
-    cancel() {
-      this.show = false;
-    },
-
-    update() {
-      console.log("토큰 : " + localStorage.getItem('token'));
-      axios
-        .put(`${SERVER_URL}/user/update`, this.user, {
-          headers: {
-            "x-access-token": localStorage.getItem('token'),
-          },
-        })
-        .then((response) => {
-          if (response.data.success === 'success') {
-            console.log(this.user.region);
-            alert('정보 수정에 성공하셨습니다.');
-            localStorage.setItem('region', this.user.region);
-            localStorage.setItem('nickname', this.user.nickname);
-            localStorage.setItem('phone', this.user.phone);
-            this.$router.push('/');
-          } else alert('정보 수정에 실패하셨습니다.');
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
-    },
-
-    handleClickButton() {
-      this.visible = !this.visible;
-    },
-    logout(){
-      console.log("로그아웃입니다");
-      this.$router.push('/');
-      window.location.reload();
-    }
-  },
   components: {
-    UpdatePw,DelPopup
+    UpdateUser,MySchedule,MyStudy
   },
-
   created() {
     this.user.region = localStorage.getItem('region');
     this.user.email = localStorage.getItem('email');
     this.user.nickname = localStorage.getItem('nickname');
     this.user.phone = localStorage.getItem('phone');
   },
+  methods: {
+      componentLoading(){
+          switch(this.active){
+              case 0 :
+                  return 'MyStudy';
+              case 1 :
+                  return 'MySchedule';
+              case 2 :
+                  return 'UpdateUser';    
+          }
+      },
+
+      loadStudy(){
+           this.active = 0;
+      },
+      loadSchedule(){
+           this.active = 1;
+      },
+      loadUpdate(){
+          this.active = 2;
+      }
+  },
 };
 </script>
-
 <style>
-#user_info {
-  padding-top: 18px;
-  border-top: 4px solid #000;
-  border-top-width: 4px;
-  border-top-style: solid;
-  border-top-color: rgb(0, 0, 0);
-  width: 800px;
-  margin: 0 auto;
+#mypage {
+  background-color: rgba(226, 202, 202, 0.356);
+  height: 1000px;
+}
+#title {
+  text-align: left;
+  margin-left: 19px;
 }
 
-#login_info,
-#member_info {
-  margin: 0 auto;
-  font-size: 18px;
-  width: 600px;
-  text-align: center;
-  padding-top: 18px;
-  border-top: 4px solid #000;
-  border-top-width: 2px;
-  border-top-style: solid;
-  border-top-color: rgb(172, 159, 159);
+#update {
+  margin: 100px 0px 40px 200px;
 }
-
-#update_btn,
-#cancel_btn,
-#confirm_btn {
-  margin: 0 auto;
-  width: 70px;
-  height: 30px;
-  background: rgb(245, 245, 245);
-  border-radius: 2px;
-  color: rgb(32, 23, 23);
-  font-size: 16px;
-  font-weight: 600;
+#user-picture {
+  float: left;
+  width: 20%;
+  height: 20%;
+  /* background-color: dimgrey; */
+  background-color: white; 
 }
-
-#complete_btn {
-  width: 100px;
-  height: 45px;
-  background: #000;
-  border-radius: 2px;
-  color: #fff;
-  font-size: 16px;
-  font-weight: 600;
-  text-align: center;
-  margin: 12px 0 10px;
+#user-profile {
+  margin-left: 10px;
+  clear: right;
+  float: right;
+  width: 79%;
+  height: 20%;
+  /* background-color: rgb(116, 116, 189); */
+  background-color: white; 
+}
+#profile-content {
+  margin-top: 50px;
+  margin-bottom: 20px;
+  font-size: 100px;
+}
+#tab {
+  margin-top: 10px;
+  float: left;
+  width: 20%;
+  height: 80%;
+  /* background-color: darkgreen; */
+  background-color: white; 
+}
+#mypage-contents {
+  margin-top: 10px;
+  clear: right;
+  float: right;
+  width: 79%;
+  height: 80%;
+  /* background-color: darkslateblue; */
+  background-color: white; 
+}
+.navButton{
+    border: 0;
+    outline: 0;
+    background-color: white;
+    margin-right: 100px;
 }
 </style>
