@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-button variant="primary" @click="goCreate">그룹생성</b-button>
+    <b-button v-show="LoginStatus" variant="primary" @click="goCreate">그룹생성</b-button>
     <b-card-group
       deck
       class="d-flex flex-row"
@@ -54,7 +54,7 @@
               <form action="" method="post" @submit.prevent="updateGroup(group.gId)">
                 <b-button type="submit" pill variant="warning">그룹 정보 수정하기</b-button>
               </form>
-              <form action="" method="post" @submit.prevent="deleteGroup(group.gId)">
+              <form action="" method="post" @submit="deleteGroup(group.gId)">
                 <b-button type="submit" pill variant="danger">그룹 삭제하기</b-button>
               </form>
             </b-jumbotron>
@@ -77,9 +77,21 @@
           type: '',
           word: '',
         },
-        groups: Object
+        groups: Object,
       }
     },
+    computed: {
+      LoginStatus: function() {
+        if (localStorage.getItem('email') !== null) {
+          return true
+        } else {
+          return false
+        }
+      }
+    },
+    // props: {
+    //   LoginStatus: ''
+    // },
     methods: {
       goCreate: function() {
         // const data = [item]
@@ -92,10 +104,14 @@
         this.$router.push({path: './GroupUpdate', query: { gId: gId}})
       },
       deleteGroup: function(gId) {
-        console.log(gId)
         axios.delete(`${SERVER_URL}/group/delete/`, {headers: {gId: gId}})
           .then(res => {
             console.log(res)
+            console.log(this.idx)
+            // 모달창 닫기
+            let targetModal = document.querySelector('#group-'+this.idx)
+            console.log(targetModal)
+            // 리스트에서 해당 스터디
           })
           .catch(err => {
             console.log(err)
@@ -105,7 +121,6 @@
     created: function () {
       axios.get(`${SERVER_URL}/group/list/`, {params: this.params})
         .then(res => {
-          console.log(res.data.list[0])
           this.groups = res.data.list
         })
         .catch(err => {

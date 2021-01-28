@@ -8435,6 +8435,11 @@ vue@^2.5.22, vue@^2.6.11:
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.6.12.tgz#f5ebd4fa6bd2869403e29a896aed4904456c9123"
   integrity sha512-uhmLFETqPPNyuLLbsKz6ioJ4q7AZHzD8ZVFNATNyICSZouqP2Sz0rotWQC8UNBF6VGSCs5abnKJoStA6JbCbfg==
 
+vuejs-daum-postcode@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/vuejs-daum-postcode/-/vuejs-daum-postcode-1.0.4.tgz#084b7a6d3e42f3727c79f7ad7d5b161c7c27840d"
+  integrity sha512-xkKqhehDcZVrLAwA1bzbk1E9wA1v4qYcZnddso6W67snv9CWoQzhmlyvRr6LmaFNS4h53ja4paWpuiLXW9fA3g==
+
 vueperslides@^2.12.1:
   version "2.12.1"
   resolved "https://registry.yarnpkg.com/vueperslides/-/vueperslides-2.12.1.tgz#5dcb0e7b68ea1a2b997bfcf9beb29744963db5b0"

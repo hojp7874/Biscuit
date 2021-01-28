@@ -21,6 +21,15 @@ import Footer from './components/Footer'; //import 풋터 추가
 
 export default {
   name: 'App',
+  computed: {
+    LoginStatus: function() {
+      if (localStorage.getItem('email') !== null) {
+        return true
+      } else {
+        return false
+      }
+    }
+  },
   components: {
     Header,          //헤더 컴포넌트 추가
     Footer

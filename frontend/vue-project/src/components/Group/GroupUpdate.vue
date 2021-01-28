@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1 class="m-5">그룹 정보 수정</h1>
-    <b-form @submit.prevent="onEdit()">
+    <b-form @submit.prevent="onEdit">
       <b-form-group id="input-group-1" label="스터디 이름:" label-for="input-1">
         <b-form-input
           id="input-1"
@@ -84,9 +84,8 @@
       }
     },
     methods: {
-      onEdit: function(event) {
+      onEdit: function() {
         // 일단 로그인여부는 구현 ㄴ
-        event.preventDefault()
         const item = {
           max: this.form.max,
           edate: this.form.edate,
@@ -104,6 +103,7 @@
         axios.put(`${SERVER_URL}/group/update/`, item)
           .then(res => {
             console.log(res)
+            this.$router.push({ path: './' });
           })
           .catch(err => {
             console.log(err)
