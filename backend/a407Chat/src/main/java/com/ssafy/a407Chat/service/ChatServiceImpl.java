@@ -69,6 +69,7 @@ public class ChatServiceImpl implements ChatService{
 	public <T> void sendMessage(WebSocketSession session, T message) throws Exception{
 		try {
 			session.sendMessage(new TextMessage(ObjectMapper.writeValueAsString(message)));
+			System.out.println("message : " + message);
 		} catch (IOException e) {
 			log.error(e.getMessage(), e);
 
