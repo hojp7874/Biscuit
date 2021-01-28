@@ -1,6 +1,9 @@
+//코드 수정시 이메일 인증 다음 버튼에 추가삭제 v-if="isHidden" //비밀번호
+수정에서 아래코드 주석화 // else if (this.verifyValidPw(this.user.password) ===
+false) { // console.log('gg'); // }
+
 <template>
   <div class="out">
-
     <h2 style="margin-top:50px">간편가입</h2>
 
     <vue-slide-bar
@@ -19,7 +22,7 @@
       :arrows="false"
       :fixed-height="setSliderHeight()"
       ref="first"
-      style="width: 500px; height: 400px; display: inline-block;background-color: white"
+      style="width: 500px; height: 400px; display: inline-block;background-color: white;"
     >
       <vueper-slide :key="1">
         <template v-slot:content>
@@ -39,7 +42,7 @@
                   style="width: 300px"
                   v-model="user.email"
                 />
-                
+
                 <button
                   class="btn btn-primary"
                   id="certinum_btn"
@@ -71,7 +74,6 @@
           </div>
           <div>
             <button
-              v-if="isHidden"
               class="btn btn-primary"
               id="certinum_btn"
               @click="
@@ -139,34 +141,46 @@
                 </p>
               </div>
               <div class="inpbx" style="font-size :x-large ; margin-top:20px">
-                <div style= "margin-top:20px">
-                닉네임 :&nbsp;
-                <input
-                  type="text"
-                  id="user-id"
-                  placeholder="닉네임"
-                  v-model="user.nickname"
-                />
+                <div style="margin-top:20px">
+                  닉네임 :&nbsp;
+                  <input
+                    type="text"
+                    id="user-id"
+                    placeholder="닉네임"
+                    v-model="user.nickname"
+                  />
                 </div>
-                <div style= "margin-top:10px;margin-left:25px">
+                <!-- <div style= "margin-top:10px;margin-left:25px">
                 지역 : &nbsp; &nbsp; &nbsp;
                 <input
                   type="text"
                   id="user-region"
                   placeholder="지역"
                   v-model="user.region"
-                /></div>
-                <div style= "margin-top:10px;margin-right:20px">
-                전화번호 :
+                /></div> -->
+                <div style="margin-top:10px;margin-right:20px">
+                  전화번호 :
+                  <input
+                    type="text"
+                    id="user-phone"
+                    placeholder="전화번호"
+                    v-model="user.phone"
+                  />
+                </div>
+                <div style="margin-top:10px;margin-right:280px">
+                  <span style="margin-left:20px ;margin-right:15px"
+                    >사는 곳 :</span
+                  >
+                  <b-button v-b-modal.modal-2>주소찾기</b-button>
+                </div>
                 <input
                   type="text"
-                  id="user-phone"
-                  placeholder="전화번호"
-                  v-model="user.phone"
+                  id="user-address"
+                  placeholder=""
+                  v-model="user.region"
+                  style="margin-top:10px ;margin-bottom:20px;font-size:13px ;height:30px "
                 />
-                </div>
               </div>
-              <br /><br/>
             </form>
           </div>
 
@@ -185,6 +199,9 @@
         </template>
       </vueper-slide>
     </vueper-slides>
+    <b-modal ref="addr-modal" id="modal-2" title="주소 찾기" hide-footer>
+      <FindPostCode @setAddress="setAddress" />
+    </b-modal>
   </div>
 </template>
 
@@ -194,15 +211,16 @@ import 'vueperslides/dist/vueperslides.css';
 import VueSlideBar from 'vue-slide-bar';
 import axios from 'axios';
 import 'url-search-params-polyfill';
+import FindPostCode from './FindPostCode';
 
 const SERVER_URL = process.env.VUE_APP_LOCAL_SERVER_URL;
 
 export default {
   data() {
     return {
-      isHidden:false,    //다음 표시 숨기기 기능
-      code:'',
-      pw_certification:'',
+      isHidden: false, //다음 표시 숨기기 기능
+      code: '',
+      pw_certification: '',
       searchWindow: {
         display: 'none',
         height: '300px',
@@ -219,7 +237,7 @@ export default {
     };
   },
 
-  components: { VueperSlides, VueperSlide, VueSlideBar },
+  components: { VueperSlides, VueperSlide, VueSlideBar, FindPostCode },
   methods: {
     barProceeding() {
       this.simpleValue += 33;
@@ -247,45 +265,45 @@ export default {
     back() {
       this.$router.replace('/login');
     },
-    sendEmail(){
+    sendEmail() {
       console.log(this.user.email);
       axios
         .post(`${SERVER_URL}/service/mail`, this.user.email)
         .then((response) => {
           if (response.data.success === 'success') {
             alert('이메일로 코드를 전송하였습니다');
-            console.log("성공");
-          } else if(response.data.success === 'error'){
+            console.log('성공');
+          } else if (response.data.success === 'error') {
             alert('이메일 형식에 맞추어 다시 입력 해 주세요.');
-            console.log("실패");
-          }else{
-            console.log("실패2");
+            console.log('실패');
+          } else {
+            console.log('실패2');
           }
         })
         .catch(function(error) {
           console.log(error);
-           alert('이메일 형식에 맞추어 다시 입력 해 주세요.');
+          alert('이메일 형식에 맞추어 다시 입력 해 주세요.');
         });
-        // .then((response) => {
-        //   alert("11에러입니다");
-        //   if (response.data.success === 'success') {
-        //     alert('해당 이메일로 코드 발송하였습니다.');
-        //   } else alert('실패하셨습니다.');
-        // })
-        // .catch(function(error) {
-        //   alert("에러입니다");
-        //   console.log(error);
-        // });
+      // .then((response) => {
+      //   alert("11에러입니다");
+      //   if (response.data.success === 'success') {
+      //     alert('해당 이메일로 코드 발송하였습니다.');
+      //   } else alert('실패하셨습니다.');
+      // })
+      // .catch(function(error) {
+      //   alert("에러입니다");
+      //   console.log(error);
+      // });
     },
-    checkCode(){
-      console.log(this.code +"  gd");
+    checkCode() {
+      console.log(this.code + '  gd');
       axios
         .post(`${SERVER_URL}/service/verifyCode`, this.code)
         .then((response) => {
           if (response.data.success === 'success') {
             alert('인증 성공');
             this.isHidden = true;
-          }else{
+          } else {
             alert('인증 실패');
           }
         })
@@ -294,25 +312,24 @@ export default {
           alert('오류');
         });
     },
-    checkPw(){
+    checkPw() {
       console.log(this.user.password);
       console.log(this.pw_certification);
-      if(this.user.password === ''){
-        alert("비밀번호를 입력해주세요");
+      if (this.user.password === '') {
+        alert('비밀번호를 입력해주세요');
       }
-      else if(this.verifyValidPw(this.user.password) === false){
-        console.log("gg");
-      }
-      else if(this.user.password === this.pw_certification){
+      // else if (this.verifyValidPw(this.user.password) === false) {
+      //   console.log('gg');
+      // }
+      else if (this.user.password === this.pw_certification) {
         this.$refs.first.next();
         this.barProceeding();
-      }else{
-        alert("비밀번호가 일치하지 않습니다");
+      } else {
+        alert('비밀번호가 일치하지 않습니다');
       }
-
     },
     verifyValidPw(str) {
-    console.log("확인작업");
+      console.log('확인작업');
       var pw = str;
       //var num = pw.search(/[0-9]/g);
       // var eng = pw.search(/[a-z]/gi);
@@ -328,10 +345,17 @@ export default {
       }
 
       return true;
-    }
-
+    },
+    setAddress(data) {
+      this.user.region = data;
+      console.log(this.user.region);
+      this.hideModal();
+    },
+    hideModal() {
+      this.$refs['addr-modal'].hide();
+    },
   },
-}
+};
 </script>
 
 <style>
