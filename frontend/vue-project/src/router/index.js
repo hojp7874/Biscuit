@@ -12,6 +12,8 @@ import Join from "../components/User/Join.vue"
 import FindPw from "../components/User/FindPw.vue"
 import Login from "../components/User/Login.vue";
 import MyPage from "../components/User/MyPage.vue";
+import ChatRoomList from "../components/Chat/ChatRoomList.vue";
+import ChatRoom from "../components/Chat/ChatRoom.vue";
 
 Vue.use(VueRouter);
 
@@ -75,6 +77,16 @@ const routes = [
     path: "/groupupdate",
     name: "GroupUpdate",
     component: GroupUpdate
+  },
+  {
+    path: "/chatroomlist",
+    name: "ChatRoomList",
+    component: ChatRoomList
+  },
+  {
+    path: "/chatroom",
+    name: "ChatRoom",
+    component: ChatRoom
   }
 ];
 

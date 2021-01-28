@@ -9,6 +9,7 @@
         <b-navbar-nav>
           <b-nav-item href="#">공지사항</b-nav-item>
           <b-nav-item to="/boardlist">자유게시판</b-nav-item>
+          <b-nav-item to="/chatroomlist">채팅</b-nav-item> 
         </b-navbar-nav>
         <b-navbar-nav
           v-if="this.token !== ''"
