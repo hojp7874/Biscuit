@@ -3,6 +3,7 @@ package com.ssafy.a407.dto;
 public class GroupDto {
 	private int gId; //그룹 아이디
 	private String email; //그룹장 아이디
+	private String nickname; //그룹장 닉네임
 	private int max; //제한 인원
 	private String sdate; //그룹 생성 날짜
 	private String edate; //그룹 모집 완료 날짜
@@ -19,11 +20,12 @@ public class GroupDto {
 		// TODO Auto-generated constructor stub
 	}
 
-	public GroupDto(int gId, String email, int max, String sdate, String edate, String groupName, String groupDesc,
+	public GroupDto(int gId, String email, String nickname, int max, String sdate, String edate, String groupName, String groupDesc,
 			String category, int onoff, String region, String img, int groupFlag, String cycle) {
 		super();
 		this.gId = gId;
 		this.email = email;
+		this.nickname = nickname;
 		this.max = max;
 		this.sdate = sdate;
 		this.edate = edate;
@@ -51,6 +53,14 @@ public class GroupDto {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	
+	public String getNickname() {
+		return nickname;
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
 
 	public int getMax() {
@@ -143,7 +153,7 @@ public class GroupDto {
 
 	@Override
 	public String toString() {
-		return "GroupDto [gId=" + gId + ", email=" + email + ", max=" + max + ", sdate=" + sdate + ", edate=" + edate
+		return "GroupDto [gId=" + gId + ", email=" + email + ", nickname=" + nickname + ", max=" + max + ", sdate=" + sdate + ", edate=" + edate
 				+ ", groupName=" + groupName + ", groupDesc=" + groupDesc + ", category=" + category + ", onoff="
 				+ onoff + ", region=" + region + ", img=" + img + ", groupFlag=" + groupFlag + ", cycle=" + cycle + "]";
 	}

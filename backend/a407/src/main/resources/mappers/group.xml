@@ -42,8 +42,8 @@
 	</select>
 	
 	<insert id="insertGroup" parameterType="GroupDto">
- 		insert into a407.group (email, max, sdate, edate, groupName, groupDesc, category, onoff, region, img, groupFlag, cycle)
- 		values (#{email},#{max},now(),#{edate},#{groupName},#{groupDesc},#{category},#{onoff},#{region},#{img},1,#{cycle})
+ 		insert into a407.group (email, nickname, max, sdate, edate, groupName, groupDesc, category, onoff, region, img, groupFlag, cycle)
+ 		values (#{email},#{nickname},#{max},now(),#{edate},#{groupName},#{groupDesc},#{category},#{onoff},#{region},#{img},1,#{cycle})
  	</insert>
  	
  </mapper> 

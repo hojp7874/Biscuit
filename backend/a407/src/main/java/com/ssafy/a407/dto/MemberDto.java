@@ -4,17 +4,19 @@ public class MemberDto {
 	private int mId;
 	private int gId;
 	private String email;
+	private String nickname;
 	private int permission;
 	
 	public MemberDto() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public MemberDto(int mId, int gId, String email, int permission) {
+	public MemberDto(int mId, int gId, String email, String nickname, int permission) {
 		super();
 		this.mId = mId;
 		this.gId = gId;
 		this.email = email;
+		this.nickname = nickname;
 		this.permission = permission;
 	}
 
@@ -41,6 +43,14 @@ public class MemberDto {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
+	public String getNickname() {
+		return nickname;
+	}
+
+	public void setNickname(String nickname) {
+		this.email = nickname;
+	}
 
 	public int getPermission() {
 		return permission;
@@ -52,7 +62,7 @@ public class MemberDto {
 
 	@Override
 	public String toString() {
-		return "MemberDto [mId=" + mId + ", gId=" + gId + ", email=" + email + ", permission=" + permission + "]";
+		return "MemberDto [mId=" + mId + ", gId=" + gId + ", email=" + email + ", nickname=" + nickname + ", permission=" + permission + "]";
 	}
 
 	
