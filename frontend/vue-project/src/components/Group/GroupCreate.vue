@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1 class="m-5">그룹 생성</h1>
-    <b-form>
+    <b-form @submit.prevent="onSubmit">
       <b-form-group id="input-group-1" label="스터디 이름:" label-for="input-1">
         <b-form-input
           id="input-1"
@@ -62,13 +62,14 @@
         ></b-form-input>
       </b-form-group>
 
-      <b-button @click="onSubmit" type="submit" variant="primary">Submit</b-button>
+      <b-button type="submit" variant="primary">Submit</b-button>
     </b-form>
   </div>
 </template>
 
 <script>
   import axios from 'axios'
+  const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
   export default {
     data() {
@@ -77,6 +78,7 @@
           max: '',
           edate: '',
           email: '',
+          nickname: '',
           groupName: '',
           groupDesc: '',
           category: '',
@@ -93,7 +95,8 @@
         const item = {
           max: this.form.max,
           edate: this.form.edate,
-          email: "ssafy@ssafy.com",
+          email: localStorage.getItem("email"),
+          nickname: localStorage.getItem("nickname"),
           groupName: this.form.groupName,
           groupDesc: this.form.groupDesc,
           category: this.form.category,
@@ -101,9 +104,10 @@
           img: "null"
         }
         // const data = [item]
-        axios.post(`http://localhost:8877/a407/group/create/`, item)
+        axios.post(`${SERVER_URL}/group/create/`, item)
           .then(res => {
             console.log(res)
+            this.$router.push({ path: './' });
           })
           .catch(err => {
             console.log(err)

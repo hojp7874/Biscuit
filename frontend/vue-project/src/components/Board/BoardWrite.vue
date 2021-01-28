@@ -71,8 +71,8 @@ export default {
     },
     fnAddProc() {
       this.form = {
-        email: 'ssafy@ssafy.com',
-        nickname: 'ssafy',
+        email: localStorage.getItem("email"),
+        nickname: localStorage.getItem("nickname"),
         title: this.title,
         contents: this.contents,
       };
