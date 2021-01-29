@@ -25,4 +25,5 @@ public interface MemberDao {
 	 public int updateMemberPermission(Map input) throws Exception;
 
 	 public int deleteMemberApply(int mId) throws Exception;
+	public int applyState(Map map) throws Exception;
 }

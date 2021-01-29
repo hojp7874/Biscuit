@@ -49,7 +49,7 @@ public class MemberDto {
 	}
 
 	public void setNickname(String nickname) {
-		this.email = nickname;
+		this.nickname = nickname;
 	}
 
 	public int getPermission() {
