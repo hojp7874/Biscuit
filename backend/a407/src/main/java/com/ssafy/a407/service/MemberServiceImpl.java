@@ -49,5 +49,12 @@ public class MemberServiceImpl implements MemberService{
 	public int cancelApply(int mId) throws Exception {
 		return dao.deleteMemberApply(mId);
 	}
+
+	@Override
+	public int applyState(Map map) throws Exception {
+		// TODO Auto-generated method stub
+		System.out.println(map);
+		return dao.applyState(map);
+	}
 	
 }

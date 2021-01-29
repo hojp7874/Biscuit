@@ -40,6 +40,28 @@ public class MemberController {
 		return "test2";
 	}
 	
+	//신청상태확인
+	@GetMapping(value = "/apply/state")
+	private ResponseEntity state(@RequestParam Map map) {
+		//gId, nickname을 주고 state를 받음
+		System.out.println(map);
+		ResponseEntity entity = null;
+		Map result = new HashMap();
+		try {
+			int state = member.applyState(map);
+			System.out.println(state);
+			result.put("success", "success");
+			result.put("state", state);
+			entity = new ResponseEntity<>(result, HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.put("success", "error");
+			result.put("state", -1);
+			entity = new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
+	
 	//멤버 신청
 	@PostMapping(value = "/apply")
 	private ResponseEntity apply(@RequestBody Map map) {
@@ -47,10 +69,13 @@ public class MemberController {
 		ResponseEntity entity = null;
 		Map result = new HashMap();
 		MemberDto dto = new MemberDto();
-		dto.setEmail((String)map.get("email"));
-		dto.setNickname((String)map.get("nickname"));
+		System.out.println(map);
+		dto.setEmail((String) map.get("email"));
+		dto.setNickname((String) map.get("nickname"));
 		dto.setgId((int)map.get("gId"));
 		dto.setPermission(0);
+		System.out.println(dto);
+		System.out.println((String) map.get("email"));
 		
 		try {
 			if(member.joinMember(dto) == 1) {
