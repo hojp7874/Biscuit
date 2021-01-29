@@ -5,7 +5,12 @@
  <mapper namespace="com.ssafy.a407Chat.dao.ChatMessageDao">	
  
 	<insert id="insertMessage" parameterType="ChatMessageDto">
-		insert into chatMessage (type,roomId,email,message) values (#{type},#{roomId},#{email},#{message})
+		insert into chatMessage (type,roomId,email,message) values (#{type},#{roomId},#{email},#{message});
 	</insert>
-
+	
+		
+	<select id="listMessage" parameterType="String" resultType="ChatMessageDto">
+		select * from chatMessage
+		where roomId = #{roomId};
+	</select>
 </mapper> 

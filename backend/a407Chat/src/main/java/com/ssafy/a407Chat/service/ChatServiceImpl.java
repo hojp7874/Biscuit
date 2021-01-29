@@ -18,6 +18,7 @@ import org.springframework.web.socket.WebSocketSession;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.a407Chat.dao.ChatMessageDao;
 import com.ssafy.a407Chat.dao.ChatRoomDao;
+import com.ssafy.a407Chat.dto.ChatMessageDto;
 import com.ssafy.a407Chat.dto.ChatRoomDto;
 
 import lombok.RequiredArgsConstructor;
@@ -75,5 +76,12 @@ public class ChatServiceImpl implements ChatService{
 
 		}
 	}
+
+	@Override
+	public List<ChatMessageDto> loadMessages(String roomId) throws Exception {
+		return messageDao.listMessage(roomId);
+	}
+	
+	
 
 }
