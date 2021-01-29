@@ -3,6 +3,11 @@
     <div>
       <h2>{{ room.roomName }}</h2>
     </div>
+    <ul class="list-group">
+      <li class="list-group-item" v-for="message in messages" v-bind:key="message.id">
+        <a>{{ message.email }} - {{ message.message }}</a>
+      </li>
+    </ul>
     <div class="input-group">
       <div class="input-group-prepend">
         <label class="input-group-text">내용</label>
@@ -12,20 +17,15 @@
         <button class="btn btn-primary" type="button" @click="sendMessage">보내기</button>
       </div>
     </div>
-    <ul class="list-group">
-      <li class="list-group-item" v-for="message in messages" v-bind:key="message.id">
-        <a>{{ message.email }} - {{ message.message }}</a>
-      </li>
-    </ul>
+    
     <div></div>
   </div>
 </template>
 
- <script>
+<script>
 import axios from 'axios';
-import SockJS from 'sockjs-client'
+import SockJS from 'sockjs-client';
 import Stomp from 'stomp-websocket';
-
 
 export default {
   data() {
@@ -43,24 +43,36 @@ export default {
     this.roomId = localStorage.getItem('wschat.roomId');
     this.email = localStorage.getItem('wschat.email');
     this.findRoom();
-    
-      this.connect();
+    this.loadMessages();
+    this.connect();
   },
   methods: {
+    loadMessages: function() {
+      axios
+        .get('http://localhost:7788/a407/chat/messages', {
+          params: {
+            roomId: this.roomId,
+          },
+        })
+        .then((res) => {
+          this.messages = res.data.data;
+        });
+
+    },
     findRoom: function() {
       axios
-      .get('http://localhost:7788/a407/chat/search', {
+        .get('http://localhost:7788/a407/chat/search', {
           params: {
-              roomId: this.roomId
-              },
+            roomId: this.roomId,
+          },
         })
-      .then((res) => {
-        this.room = res.data.data;
-        console.log("###room : " + res.data.data);
-      });
+        .then((res) => {
+          this.room = res.data.data.sort((a,b) => {return a.msgId - b.msgId});
+          console.log('###room : ' + res.data.data);
+        });
     },
     sendMessage: function() {
-      console.log("###sendMsg start");
+      console.log('###sendMsg start');
       this.ws.send(
         '/pub/chat/message',
         {},
@@ -71,46 +83,50 @@ export default {
           message: this.message,
         })
       );
-      
-      console.log("###sendMsg end");
+
+      console.log('###sendMsg end');
       this.message = '';
     },
     recvMessage: function(recv) {
-      console.log("###recv msg : " + recv.message);
-      this.messages.unshift({
-        type: recv.type,
-        email: recv.type == 'ENTER' ? '[알림]' : recv.email,
-        message: recv.message,
-      });
+      console.log('###recv msg : ' + recv.message);
+      // this.messages.unshift({
+      //   type: recv.type,
+      //   email: recv.type == 'ENTER' ? '[알림]' : recv.email,
+      //   message: recv.message,
+      // });
+      this.messages.push(recv)
     },
     // {"Access-Control-Allow-Credentials" : true}
     connect: function() {
-        this.sock = new SockJS('http://localhost:7788/a407/ws-stomp');
-        this.ws = Stomp.over(this.sock);
-        this.reconnect = 0;
-        console.log("a");
+      this.sock = new SockJS('http://localhost:7788/a407/ws-stomp');
+      this.ws = Stomp.over(this.sock);
+      this.reconnect = 0;
+      console.log('a');
       // pub/sub event
       this.ws.connect(
         {},
-        frame => {
-          console.log("###connect start");
-          this.ws.subscribe('/sub/chat/room/' + this.roomId, function(
-            message
-          ) {
-            var recv = JSON.parse(message.body);
-            console.log("###receive start. recv : " +  recv);
-            console.log("###frame : " + frame);
-            this.recvMessage(recv);
-            console.log("###received.");
-          }.bind(this));
-          console.log("###send start. json msg : " + JSON.stringify({ type: 'ENTER', roomId: this.roomId, email: this.email }));
+        (frame) => {
+          console.log('###connect start');
+          this.ws.subscribe(
+            '/sub/chat/room/' + this.roomId,
+            function(message) {
+              var recv = JSON.parse(message.body);
+              console.log('###receive start. recv : ' + recv);
+              console.log('###frame : ' + frame);
+              this.recvMessage(recv);
+              console.log('###received.');
+            }.bind(this)
+          );
+          console.log(
+            '###send start. json msg : ' +
+              JSON.stringify({ type: 'ENTER', roomId: this.roomId, email: this.email })
+          );
           this.ws.send(
             '/pub/chat/message',
             {},
-            JSON.stringify({ type: 'ENTER', roomId: this.roomId, email: this.email, message: null})
-            
+            JSON.stringify({ type: 'ENTER', roomId: this.roomId, email: this.email, message: null })
           );
-          console.log("###send end")
+          console.log('###send end');
         },
         function(error) {
           if (this.reconnect++ <= 5) {
@@ -125,7 +141,6 @@ export default {
       );
     },
   },
-  mounted(){
-  }
+  mounted() {},
 };
 </script>
