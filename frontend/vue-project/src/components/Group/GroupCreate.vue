@@ -55,11 +55,11 @@
       </b-form-group>
 
       <b-form-group id="input-group-6" label="스터디 설명:" label-for="input-6">
-        <b-form-input
+        <b-form-textarea
           id="input-6"
           v-model="form.groupDesc"
           placeholder="스터디그룹에 대해 설명해주세요."
-        ></b-form-input>
+        ></b-form-textarea>
       </b-form-group>
 
       <b-button type="submit" variant="primary">Submit</b-button>

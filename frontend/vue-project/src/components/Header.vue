@@ -1,7 +1,9 @@
 <template>
   <div class='mb-3'>
     <b-navbar toggleable="lg" type="dark" variant="info">
-      <b-navbar-brand href="/" style="font-size:x-large">Biscuit</b-navbar-brand>
+      <b-navbar-brand style="font-size:x-large">
+        <router-link :to="{name: 'Home'}">Biscuit</router-link>
+      </b-navbar-brand>
 
       <b-navbar-toggle target="nav_collapse" />
 

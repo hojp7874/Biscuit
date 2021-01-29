@@ -37,7 +37,6 @@ const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
 export default {
   data() {
-
     return {
       temptitle: '',
       board_code: 'news',
@@ -49,10 +48,9 @@ export default {
 
         
       },
-	  num: this.$route.query.num,
-	};
+      num: this.$route.query.num,
+    };
   },
-  
   mounted() {
     //최초 로딩 시 실행
     if (this.num) {

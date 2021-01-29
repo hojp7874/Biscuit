@@ -21,14 +21,16 @@
       </form>
     </div>
 
-    <div class="btnWrap">
+    <div class="btnWrap d-flex justify-content-center">
       <b-button @click="fnList" class="btnList m-1">목록</b-button>
-      <b-button v-if="email" @click="fnUpdate" class="btnUpdate m-1"
-        >수정</b-button
-      >
-      <b-button v-if="email" @click="fnDelete" class="btnDelete m-1"
-        >삭제</b-button
-      >
+      <div v-if="loginStatus.nickname == nickname">
+        <b-button v-if="email" @click="fnUpdate" class="btnUpdate m-1"
+          >수정</b-button
+        >
+        <b-button v-if="email" @click="fnDelete" class="btnDelete m-1"
+          >삭제</b-button
+        >
+      </div>
     </div>
     <ReplyWrite :bId="bId" />
     <div>
@@ -39,6 +41,7 @@
 </template>
 
 <script>
+import {mapState} from 'vuex'
 import axios from 'axios';
 import ReplyWrite from '../Reply/ReplyWrite.vue';
 import ReplyList from '../Reply/ReplyList.vue';
@@ -67,9 +70,12 @@ export default {
     };
   },
   computed: {
+    ...mapState([
+      'loginStatus'
+    ]),
     showList: function() {
       return this.list.slice(10*(this.replyPage-1), 10*this.replyPage)
-    }
+    },
   },
   created() {
     this.getList();
