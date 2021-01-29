@@ -109,6 +109,7 @@ export default {
           localStorage.setItem('phone', response.data.user.phone);
           localStorage.setItem('region', response.data.user.region);
           // localStorage.setItem('admin', response.data.admin);
+          // this.$store.dispatch('login', true);
           this.$router.replace(`/`);
           window.location.reload();
         })

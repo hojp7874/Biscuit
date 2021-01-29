@@ -3,7 +3,6 @@
     <!-- 추가된 헤더 컴포넌트 사용 -->
     <Header v-on:logout="logout"></Header>
 
-
     <div class="container">
       <router-view />
     </div>
@@ -22,17 +21,10 @@ import Footer from './components/Footer'; //import 풋터 추가
 export default {
   name: 'App',
   computed: {
-    LoginStatus: function() {
-      if (localStorage.getItem('email') !== null) {
-        return true
-      } else {
-        return false
-      }
-    }
   },
   components: {
     Header,          //헤더 컴포넌트 추가
-    Footer
+    Footer,
   },
   methods: {
     logout() {
@@ -45,6 +37,7 @@ export default {
         }
         // this.$router.replace('/');
         // window.location.reload();
+        // this.$store.dispatch('logout')
         this.$router.push('/');
         window.location.reload();
     },
