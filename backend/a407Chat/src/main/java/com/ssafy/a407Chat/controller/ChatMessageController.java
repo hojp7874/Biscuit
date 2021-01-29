@@ -26,4 +26,6 @@ public class ChatMessageController {
 		dao.insertMessage(message);
 		messagingTemplate.convertAndSend("/sub/chat/room/" + message.getRoomId(), message);
 	}
+	
+	
 }

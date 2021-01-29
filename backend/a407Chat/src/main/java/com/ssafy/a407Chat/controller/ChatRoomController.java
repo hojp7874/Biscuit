@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ssafy.a407Chat.dto.ChatMessageDto;
 import com.ssafy.a407Chat.dto.ChatRoomDto;
 import com.ssafy.a407Chat.service.ChatService;
 
@@ -117,4 +118,35 @@ public class ChatRoomController {
 		}
 		return entity;
 	}
+	
+	@GetMapping(value = "/messages")
+	public ResponseEntity messages(@RequestParam String roomId) {
+		System.out.println("roomId : " + roomId);
+		Map result = new HashMap();
+        ResponseEntity entity = null;
+        List<ChatMessageDto> data;
+		try {
+			data = chatService.loadMessages(roomId);
+
+			if(data != null) {
+
+				result.put("data", data);
+				result.put("success", "success");
+				entity = new ResponseEntity<>(result, HttpStatus.OK);
+			}
+			else {
+
+				result.put("success", "fail");
+				entity = new ResponseEntity<>(result, HttpStatus.OK);
+				
+			}
+		} catch (Exception e) {
+			result.put("success", "error");
+			entity = new ResponseEntity<>(result, HttpStatus.INTERNAL_SERVER_ERROR);
+			e.printStackTrace();
+		}
+		return entity;
+	}
+	
+	
 }

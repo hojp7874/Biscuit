@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.web.socket.WebSocketSession;
 
+import com.ssafy.a407Chat.dto.ChatMessageDto;
 import com.ssafy.a407Chat.dto.ChatRoomDto;
 
 public interface ChatService {
@@ -12,4 +13,5 @@ public interface ChatService {
 	public ChatRoomDto findRoomById(String roomId) throws Exception;
 	public ChatRoomDto createRoom(ChatRoomDto dto) throws Exception;
 	public <T> void sendMessage(WebSocketSession session, T message) throws Exception;
+	public List<ChatMessageDto> loadMessages(String roomId) throws Exception;
 }
