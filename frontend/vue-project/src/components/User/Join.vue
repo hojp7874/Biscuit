@@ -213,7 +213,7 @@ import axios from 'axios';
 import 'url-search-params-polyfill';
 import FindPostCode from './FindPostCode';
 
-const SERVER_URL = process.env.VUE_APP_LOCAL_SERVER_URL;
+const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
 export default {
   data() {

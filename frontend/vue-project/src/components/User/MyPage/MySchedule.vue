@@ -1,3 +1,12 @@
 <template>
-   <h2> 나의 스케줄 페이지</h2>
+  <Schedule/>
 </template>
+<script>
+import Schedule from '../../common/Schedule';
+
+export default {
+  components : {
+    Schedule
+  }
+}
+</script>
