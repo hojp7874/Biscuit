@@ -2,6 +2,9 @@
 
     <div class="container" id="app" v-cloak>
         <div class="row">
+                <div>
+      <h2>닉네임 : {{ nickname }}</h2>
+    </div>
             <div class="col-md-12">
                 <h3>채팅방 리스트</h3>
             </div>
@@ -42,11 +45,14 @@
                         key: 'roomName',
                         label: '방 이름'
                     }
-                ]
+                ],
+                
+      nickname: '',
             }
         },
             created() {
                 this.findAllRoom();
+    this.nickname = localStorage.getItem('nickname');
             },
             methods: {
                 findAllRoom: function() {
@@ -74,9 +80,7 @@
                     }
                 },
                 enterRoom: function(roomId) {
-                    var email = prompt('대화명을 입력해 주세요.');
-                    if(email != "") {
-                        localStorage.setItem('wschat.email',email);
+                    if(this.nickname != "") {
                         localStorage.setItem('wschat.roomId',roomId);
                         this.$router.push({path: 'chatroom', querey: {roomId: roomId}});
                     }
