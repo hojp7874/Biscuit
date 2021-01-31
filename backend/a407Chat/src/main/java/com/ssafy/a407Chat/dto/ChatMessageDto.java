@@ -11,12 +11,13 @@ import lombok.Setter;
 public class ChatMessageDto {
 	
 	//메시지 타입 : 입장, 채팅
-//	public enum MessageType{
-//		ENTER, TALK, JOIN
-//	}
+	public enum MessageType{
+		ENTER, TALK, JOIN
+	}
 	private String type;
 	private String roomId; // 방번호
-	private String email; // 메시지 보낸 사람
+	private String email; // sender 이메일
+	private String nickname; //sender 닉네임
 	private String message;
 	
 	public ChatMessageDto() {
