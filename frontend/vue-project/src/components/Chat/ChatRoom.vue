@@ -5,7 +5,7 @@
     </div>
     <ul class="list-group">
       <li class="list-group-item" v-for="message in messages" v-bind:key="message.id">
-        <a>{{ message.email }} - {{ message.message }}</a>
+        <a>{{ message.nickname }} - {{ message.message }}</a>
       </li>
     </ul>
     <div class="input-group">
@@ -36,12 +36,14 @@ export default {
       messages: [],
       message: null,
       reconnect: '',
+      nickname: '',
     };
   },
   created() {
     this.reconnect = 0;
     this.roomId = localStorage.getItem('wschat.roomId');
-    this.email = localStorage.getItem('wschat.email');
+    this.email = localStorage.getItem('email');
+    this.nickname = localStorage.getItem('nickname');
     this.findRoom();
     this.loadMessages();
     this.connect();
@@ -80,6 +82,7 @@ export default {
           type: 'TALK',
           roomId: this.roomId,
           email: this.email,
+          nickname: this.nickname,
           message: this.message,
         })
       );
@@ -119,12 +122,12 @@ export default {
           );
           console.log(
             '###send start. json msg : ' +
-              JSON.stringify({ type: 'ENTER', roomId: this.roomId, email: this.email })
+              JSON.stringify({ type: 'ENTER', roomId: this.roomId, email: this.email, nickname: this.nickname })
           );
           this.ws.send(
             '/pub/chat/message',
             {},
-            JSON.stringify({ type: 'ENTER', roomId: this.roomId, email: this.email, message: null })
+            JSON.stringify({ type: 'ENTER', roomId: this.roomId, email: this.email, nickname: this.nickname, message: null })
           );
           console.log('###send end');
         },
