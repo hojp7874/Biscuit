@@ -2,115 +2,44 @@
   <div id="app">
     <div class="calendar-controls">
       <div v-if="message" class="notification is-success">{{ message }}</div>
+      <div style="margin-top:10px;margin-bottom:10px">
+        <b-button v-b-modal.modal-1>일정 추가</b-button>
 
-      <!-- <div class="box">
-        <h4 class="title is-5">Play with the options!</h4>
-
-         <div class="field">
-          <label class="label">Period UOM</label>
-          <div class="control">
-            <div class="select">
-              <select v-model="displayPeriodUom">
-                <option>month</option>
-                <option>week</option>
-                <option>year</option>
-              </select>
+        <b-modal ref="create-modal" id="modal-1" title="일정 추가">
+          <div class="box">
+            <div class="field">
+              <label class="label">Title</label>
+              <div class="control">
+                <input v-model="newItemTitle" class="input" type="text" />
+              </div>
             </div>
-          </div>
-        </div> 
 
-        <div class="field">
-          <label class="label">Period Count</label>
-          <div class="control">
-            <div class="select">
-              <select v-model="displayPeriodCount">
-                <option :value="1">1</option>
-                <option :value="2">2</option>
-                <option :value="3">3</option>
-              </select>
+            <div class="field">
+              <label class="label">Start date</label>
+              <div class="control">
+                <input v-model="newItemStartDate" class="input" type="date" />
+              </div>
             </div>
-          </div>
-        </div>
 
-        <div class="field">
-          <label class="label">Starting day of the week</label>
-          <div class="control">
-            <div class="select">
-              <select v-model="startingDayOfWeek">
-                <option
-                  v-for="(d, index) in dayNames"
-                  :key="index"
-                  :value="index"
-                >
-                  {{ d }}
-                </option>
-              </select>
+            <div class="field">
+              <label class="label">End date</label>
+              <div class="control">
+                <input v-model="newItemEndDate" class="input" type="date" />
+              </div>
             </div>
+
+            <div class="field">
+              <label class="label">Content</label>
+              <div class="control">
+                <b-form-textarea v-model="newItemContents" class="input" />
+              </div>
+            </div>
+
+            <button class="button is-info" @click="addSchedule">
+              추가
+            </button>
           </div>
-        </div>
-
-        <div class="field">
-          <label class="checkbox">
-            <input v-model="useTodayIcons" type="checkbox" />
-            Use icon for today's period
-          </label>
-        </div>
-
-        <div class="field">
-          <label class="checkbox">
-            <input v-model="displayWeekNumbers" type="checkbox" />
-            Show week number
-          </label>
-        </div>
-
-        <div class="field">
-          <label class="checkbox">
-            <input v-model="showTimes" type="checkbox" />
-            Show times
-          </label>
-        </div>
-
-        <div class="field">
-          <label class="label">Themes</label>
-          <label class="checkbox">
-            <input v-model="useDefaultTheme" type="checkbox" />
-            Default
-          </label>
-        </div>
-
-        <div class="field">
-          <label class="checkbox">
-            <input v-model="useHolidayTheme" type="checkbox" />
-            Holidays
-          </label>
-        </div>
-      </div> -->
-
-      <div class="box">
-        <div class="field">
-          <label class="label">Title</label>
-          <div class="control">
-            <input v-model="newItemTitle" class="input" type="text" />
-          </div>
-        </div>
-
-        <div class="field">
-          <label class="label">Start date</label>
-          <div class="control">
-            <input v-model="newItemStartDate" class="input" type="date" />
-          </div>
-        </div>
-
-        <div class="field">
-          <label class="label">End date</label>
-          <div class="control">
-            <input v-model="newItemEndDate" class="input" type="date" />
-          </div>
-        </div>
-
-        <button class="button is-info" @click="clickTestAddItem">
-          Add Item
-        </button>
+        </b-modal>
       </div>
     </div>
     <div class="calendar-parent">
@@ -118,7 +47,7 @@
         :items="items"
         :show-date="showDate"
         :time-format-options="{ hour: 'numeric', minute: '2-digit' }"
-        :enable-drag-drop="true"
+        :enable-drag-drop="false"
         :disable-past="disablePast"
         :disable-future="disableFuture"
         :show-times="showTimes"
@@ -149,6 +78,59 @@
         />
       </calendar-view>
     </div>
+
+    <div>
+      <!-- <b-button v-b-modal.modal-1>Launch demo modal</b-button> -->
+
+      <b-modal id="modal-2" title="일정" ref="detail-modal">
+        <div v-if="readOnly">
+        <b-icon icon="pencil" style="margin-left:430px" @click="changeReadOnly()"></b-icon><br/>
+        {{detail.title}} <br/>
+        {{detail.sdate}}<br/>
+        {{detail.edate}}<br/>
+        {{detail.contents}}  <br/> 
+        </div>
+        <div v-if="!readOnly">
+
+          <div class="box">
+            <div class="field">
+              <label class="label">Title</label>
+              <div class="control">
+                <input v-model="detail.title" class="input" type="text" />
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="label">Start date</label>
+              <div class="control">
+                <input v-model="detail.sdate" class="input" type="date" />
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="label">End date</label>
+              <div class="control">
+                <input v-model="detail.edate" class="input" type="date" />
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="label">Content</label>
+              <div class="control">
+                <b-form-textarea v-model="detail.contents" class="input" />
+              </div>
+            </div>
+
+            <button class="button is-info" @click="updateSchedule()">
+              수정
+            </button>
+          </div>
+
+          <button  @click="changeReadOnly()">취소</button>
+          <button  @click="deleteSchedule()">삭제</button>
+        </div>
+      </b-modal>
+    </div>
   </div>
 </template>
 <script>
@@ -173,6 +155,7 @@ export default {
     CalendarViewHeader,
   },
   mixins: [CalendarMathMixin],
+  props: ['scheduleType', 'items'],
   data() {
     return {
       /* Show the current month, and give it some fake items to show */
@@ -190,94 +173,25 @@ export default {
       newItemTitle: '',
       newItemStartDate: '',
       newItemEndDate: '',
+      newItemContents: '',
       useDefaultTheme: true,
       useHolidayTheme: true,
       useTodayIcons: false,
       schedule: {
         gid: '',
-        email: 'dldlsh2309@naver.com',
+        email: localStorage.getItem('email'),
         sdate: '',
         edate: '',
         title: '',
-        contents: '',
+        content: '',
         pgflag: '',
       },
+      detail: '',
       form: '',
-      //   items: [
-      //     {
-      //       id: 'e0',
-      //       startDate: '2018-01-05',
-      //     },
-      //     {
-      //       id: 'e1',
-      //       startDate: this.thisMonth(15, 18, 30),
-      //     },
-      //     {
-      //       id: 'e2',
-      //       startDate: this.thisMonth(15),
-      //       title: 'Single-day item with a long title',
-      //     },
-      //     {
-      //       id: 'e3',
-      //       startDate: this.thisMonth(7, 9, 25),
-      //       endDate: this.thisMonth(10, 16, 30),
-      //       title: 'Multi-day item with a long title and times',
-      //     },
-      //     {
-      //       id: 'e4',
-      //       startDate: this.thisMonth(20),
-      //       title: 'My Birthday!',
-      //       classes: 'birthday',
-      //       url: 'https://en.wikipedia.org/wiki/Birthday',
-      //     },
-      //     {
-      //       id: 'e5',
-      //       startDate: this.thisMonth(5),
-      //       endDate: this.thisMonth(12),
-      //       title: 'Multi-day item',
-      //       classes: 'purple',
-      //     },
-      //     {
-      //       id: 'foo',
-      //       startDate: this.thisMonth(29),
-      //       title: 'Same day 1',
-      //     },
-      //     {
-      //       id: 'e6',
-      //       startDate: this.thisMonth(29),
-      //       title: 'Same day 2',
-      //       classes: 'orange',
-      //     },
-      //     {
-      //       id: 'e7',
-      //       startDate: this.thisMonth(29),
-      //       title: 'Same day 3',
-      //     },
-      //     {
-      //       id: 'e8',
-      //       startDate: this.thisMonth(29),
-      //       title: 'Same day 4',
-      //       classes: 'orange',
-      //     },
-      //     {
-      //       id: 'e9',
-      //       startDate: this.thisMonth(29),
-      //       title: 'Same day 5',
-      //     },
-      //     {
-      //       id: 'e10',
-      //       startDate: this.thisMonth(29),
-      //       title: 'Same day 6',
-      //       classes: 'orange',
-      //     },
-      //     {
-      //       id: 'e11',
-      //       startDate: this.thisMonth(29),
-      //       title: 'Same day 7',
-      //     },
-      //   ],
-      items: [],
-      list: [],
+      delForm:'',
+      sId: '',
+      show_detail: false,
+      readOnly: true,
     };
   },
   computed: {
@@ -315,7 +229,11 @@ export default {
   mounted() {
     this.newItemStartDate = this.isoYearMonthDay(this.today());
     this.newItemEndDate = this.isoYearMonthDay(this.today());
-    this.getItem();
+    console.log("처음값" + this.newItemStartDate);
+    if (this.scheduleType === 'mySchedule') {
+      this.getItem();
+    }
+    // this.schedule.email = localStorage.getItem('email');
     //console.log("아이템" + this.items);
   },
   methods: {
@@ -333,10 +251,30 @@ export default {
     onClickDay(d) {
       this.selectionStart = null;
       this.selectionEnd = null;
-      this.message = `You clicked: ${d.toLocaleDateString()}`;
+      this.message = ` ${d.toLocaleDateString()}`;
     },
     onClickItem(e) {
-      this.message = `You clicked: ${e.title}`;
+      //this.message = `You clicked: ${e.title}`;console.log("dff  " + this.detail.sid);
+      this.sId = e.id.substr(1);
+      // this.detail.sdate = e.startDate;
+      // this.detail.edate = e.endDate;
+      // this.detail.title = e.title;
+      // this.detail.content =
+      this.form = { sId: this.sId };
+      axios
+        .get(`${SERVER_URL}/schedule/detail`, {
+          params: this.form,
+        })
+        .then((res) => {
+          this.readOnly =  true,
+          this.detail = res.data.Schedule;
+          this.show_detail = true;
+          this.$refs['detail-modal'].show();
+          this.detail.sdate = this.detail.sdate.substr(0,10);
+          this.detail.edate = this.detail.edate.substr(0,10);
+          console.log("다음값" + this.detail.sdate);
+        });
+      
     },
     setShowDate(d) {
       this.message = `Changing calendar view to ${d.toLocaleDateString()}`;
@@ -358,68 +296,89 @@ export default {
       item.originalItem.startDate = this.addDays(item.startDate, eLength);
       item.originalItem.endDate = this.addDays(item.endDate, eLength);
     },
+    addSchedule() {
+      if (this.scheduleType === 'mySchedule') {
+        this.clickTestAddItem();
+      }
+      this.$refs['create-modal'].hide();
+    },
     clickTestAddItem() {
       this.schedule.sdate = this.newItemStartDate;
       this.schedule.edate = this.newItemEndDate;
       this.schedule.title = this.newItemTitle;
+      this.schedule.contents = this.newItemContents;
+      //   axios
+      //     .post(`${SERVER_URL}/schedule/create`, this.schedule)
+      //     .then((response) => {
+      //       if (response.data.success === 'success') {
+      //         alert('일정 등록에 성공하셨습니다.');
+      //       } else alert('일정 등록에 실패하셨습니다.');
+      //       //this.back();
+      //     })
+      //     .catch(function(error) {
+      //       console.log(error);
+      //     });
+      this.$emit('createSchedule', this.schedule);
+      // this.items.push({
+      //   startDate: this.newItemStartDate,
+      //   endDate: this.newItemEndDate,
+      //   title: this.newItemTitle,
+      //   id:
+      //     'e' +
+      //     Math.random()
+      //       .toString(36)
+      //       .substr(2, 10),
+      // });
+      // this.message = 'You added a calendar item!';
+    },
+    getItem() {
+      this.$emit('getSchedule');
+      //  this.insertItems();
+    },
+    changeReadOnly(){
+      this.readOnly = !this.readOnly;
+    },
+    updateSchedule(){
       axios
-        .post(`${SERVER_URL}/schedule/create`, this.schedule)
+        .put(`${SERVER_URL}/schedule/update`, this.detail, {
+          headers: {
+            'x-access-token': localStorage.getItem('token'),
+          },
+        })
         .then((response) => {
           if (response.data.success === 'success') {
-            alert('일정 등록에 성공하셨습니다.');
-          } else alert('일정 등록에 실패하셨습니다.');
-          this.back();
+            alert('정보 수정에 성공하셨습니다.');
+            this.$emit('getSchedule');
+            this.readOnly = !this.readOnly;
+          } else alert('정보 수정에 실패하셨습니다.');
         })
         .catch(function(error) {
           console.log(error);
         });
-      this.items.push({
-        startDate: this.newItemStartDate,
-        endDate: this.newItemEndDate,
-        title: this.newItemTitle,
-        id:
-          'e' +
-          Math.random()
-            .toString(36)
-            .substr(2, 10),
-      });
-      this.message = 'You added a calendar item!';
     },
-    getItem() {
-      this.form = { email: this.schedule.email };
+    deleteSchedule(){
       axios
-        .get(`${SERVER_URL}/schedule/perlist`, {
+        .delete(`${SERVER_URL}/schedule/delete`, {
           params: this.form,
         })
         .then((res) => {
-          this.list = res.data.list;
-          this.insertItems();
-          console.log('ㅎㅇ');
-          console.log('아이템' + this.items.length);
-        });
-    },
-    insertItems() {
-      for (var i in this.list) {
-        // this.items[i].id = 'e' + this.list[i].sId;
-        // this.items[i].startDate = this.list[i].sdate;
-        // this.items[i].endDate = this.list[i].edate;
-        // this.items[i].title = this.list[i].title;
-        this.items.push({
-          id: 'e' + this.list[i].sId,
-          startDate: this.list[i].sdate,
-          endDate: this.list[i].edate,
-          title: this.list[i].title,
-        });
-      }
-    },
+          if (res.data.success === 'success') {
+            alert('삭제하였습니다.');
+            this.$refs['detail-modal'].hide();
+            this.$emit('getSchedule');
+          }else{
+            alert('실패');
+          }
+        });   
+    }
   },
 };
 </script>
 
 <style>
-#calendar{
-    margin-left: 30px;
-    width:800px;
-    height:500px;
+#calendar {
+  margin-left: 30px;
+  width: 800px;
+  height: 500px;
 }
 </style>
