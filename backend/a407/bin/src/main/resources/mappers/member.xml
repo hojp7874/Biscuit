@@ -3,6 +3,12 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
  <mapper namespace="com.ssafy.a407.dao.MemberDao">
+ 
+ 	<select id="applyState" parameterType="map" resultType="int">
+ 		select permission
+ 		from a407.member
+ 		where gId = #{gId} and nickname = #{nickname}
+ 	</select>
   	
   	<select id="selectApplyList" parameterType="int" resultType="UserMemberDto">
  		select member.mId, user.nickname, user.picture, member.permission
@@ -25,7 +31,7 @@
  	</select>
  	
  	<insert id="insertMember" parameterType="MemberDto">
- 		insert into a407.member (gId, email,permission) values (#{gId}, #{email},#{permission})
+ 		insert into a407.member (gId, email, nickname, permission) values (#{gId}, #{email}, #{nickname}, #{permission})
  	</insert>
  	
  	<update id ="updateMemberPermission" parameterType="map">

@@ -48,7 +48,11 @@ public class MemberController {
 		ResponseEntity entity = null;
 		Map result = new HashMap();
 		try {
-			int state = member.applyState(map);
+			Integer state = null;
+			Map applyState = member.applyState(map);
+			if(applyState != null) {
+				state = (Integer) applyState.get("permission");				
+			}
 			System.out.println(state);
 			result.put("success", "success");
 			result.put("state", state);
