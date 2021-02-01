@@ -196,7 +196,18 @@ public class GroupController {
 		System.out.println("controller >> " + groupDto.toString());
 		ResponseEntity entity = null;
 		Map result = new HashMap();
-		
+		String ctg = groupDto.getCategory();
+		if (ctg.equals("한국사")) {
+			groupDto.setImg("https://images.unsplash.com/photo-1594373607112-5628b9cf8e05?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80");
+		} else if (ctg.equals("프로그래머")) {
+			groupDto.setImg("https://images.unsplash.com/photo-1537111261224-6fa49cecda2f?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80");
+		} else if (ctg.equals("농부")) {
+			groupDto.setImg("https://images.unsplash.com/photo-1526390593784-bb19335737b4?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1349&q=80");
+		} else if (ctg.equals("어부")) {
+			groupDto.setImg("https://images.unsplash.com/photo-1515676724626-c0290fe4cf6f?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTZ8fGZpc2hlcm1hbnxlbnwwfDB8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60");
+		} else if (ctg.equals("광부")) {
+			groupDto.setImg("https://images.unsplash.com/photo-1562167055-1afdc7ac7bca?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1355&q=80");
+		}
 		try {
 			if( group.createGroup(groupDto)==1) {
 				result.put("success", "success");
