@@ -56,7 +56,7 @@ import Vue from 'vue';
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue';
 import axios from 'axios';
 // import Header from '../components/Header'; //import 헤더 추가
-const SERVER_URL = process.env.VUE_APP_LOCAL_SERVER_URL;
+const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 Vue.use(BootstrapVue);
 Vue.use(IconsPlugin);
 
