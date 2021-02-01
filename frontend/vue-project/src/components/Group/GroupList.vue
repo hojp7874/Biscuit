@@ -1,5 +1,23 @@
 <template>
   <div>
+    <div class="searchWrap">
+      <b-input-group>
+        <template #prepend>
+          <b-select name="type" v-model="params.type">
+            <b-select-option value="">전체</b-select-option>
+            <b-select-option value="groupName">그룹 이름</b-select-option>
+            <b-select-option value="groupDesc">그룹 설명</b-select-option>
+            <b-select-option value="category">카테고리</b-select-option>
+            <b-select-option value="region">지역</b-select-option>
+          </b-select>
+        </template>
+
+        <b-form-input type="text" v-model="params.word" @keypress.enter="searchGroup"></b-form-input>
+        <b-input-group-append type="submit">
+          <b-button size="sm" text="Button" variant="info" @click="searchGroup">검색</b-button>
+        </b-input-group-append>
+      </b-input-group>
+    </div>
     <b-button v-show="loginStatus" variant="primary" @click="goCreate">그룹생성</b-button>
     <b-card-group
       deck
@@ -94,6 +112,16 @@
       ]),
     },
     methods: {
+      searchGroup: function() {
+        console.log('searchGroup')
+        axios.get(`${SERVER_URL}/group/list/`, {params: this.params})
+          .then(res => {
+            this.groups = res.data.list
+          })
+          .catch(err => {
+            console.log(err)
+          })
+      },
       getPermission: function(gId) {
         console.log({gId: gId, nickname: this.loginStatus.nickname})
         axios.get(`${SERVER_URL}/group/member/apply/state`, {params: {gId: gId, nickname: this.loginStatus.nickname}})
