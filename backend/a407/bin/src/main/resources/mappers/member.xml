@@ -4,7 +4,7 @@
 
  <mapper namespace="com.ssafy.a407.dao.MemberDao">
  
- 	<select id="applyState" parameterType="map" resultType="int">
+ 	<select id="applyState" parameterType="map" resultType="map">
  		select permission
  		from a407.member
  		where gId = #{gId} and nickname = #{nickname}
