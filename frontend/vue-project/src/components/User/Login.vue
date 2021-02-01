@@ -43,7 +43,7 @@
         >
         <div class="findpw">
           <router-link to="./findPw" id="find_password"
-            >비밀번호 찾기</router-link
+            >비밀번호를 잊어버리셨나요?</router-link
           >
         </div>
       </div>

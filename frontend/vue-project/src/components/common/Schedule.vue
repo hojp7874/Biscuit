@@ -3,28 +3,31 @@
     <div class="calendar-controls">
       <div v-if="message" class="notification is-success">{{ message }}</div>
       <div style="margin-top:10px;margin-bottom:10px">
-        <b-button v-b-modal.modal-1>일정 추가</b-button>
+        <b-button v-b-modal.modal-1 style="margin-left:690px">일정 추가</b-button>
 
-        <b-modal ref="create-modal" id="modal-1" title="일정 추가">
+        <b-modal ref="create-modal" id="modal-1" title="일정 추가" hide-footer>
           <div class="box">
             <div class="field">
               <label class="label">Title</label>
               <div class="control">
-                <input v-model="newItemTitle" class="input" type="text" />
+                <!-- <input v-model="newItemTitle" class="input" type="text" /> -->
+                <b-form-input v-model="newItemTitle" style="width:50%"></b-form-input>
               </div>
             </div>
 
             <div class="field">
               <label class="label">Start date</label>
               <div class="control">
-                <input v-model="newItemStartDate" class="input" type="date" />
+                <!-- <input v-model="newItemStartDate" class="input" type="date" /> -->
+                <b-form-datepicker id="example-datepicker" v-model="newItemStartDate" class="mb-2"></b-form-datepicker>
               </div>
             </div>
 
             <div class="field">
               <label class="label">End date</label>
               <div class="control">
-                <input v-model="newItemEndDate" class="input" type="date" />
+                <!-- <input v-model="newItemEndDate" class="input" type="date" /> -->
+                <b-form-datepicker id="example-datepicker2" v-model="newItemEndDate" class="mb-2"></b-form-datepicker>
               </div>
             </div>
 
@@ -35,7 +38,7 @@
               </div>
             </div>
 
-            <button class="button is-info" @click="addSchedule">
+            <button class="snip1535" @click="addSchedule"  style="margin-left:160px">
               추가
             </button>
           </div>
@@ -82,35 +85,40 @@
     <div>
       <!-- <b-button v-b-modal.modal-1>Launch demo modal</b-button> -->
 
-      <b-modal id="modal-2" title="일정" ref="detail-modal">
+      <b-modal id="modal-2" title="일정" ref="detail-modal" hide-footer>
         <div v-if="readOnly">
         <b-icon icon="pencil" style="margin-left:430px" @click="changeReadOnly()"></b-icon><br/>
-        {{detail.title}} <br/>
-        {{detail.sdate}}<br/>
-        {{detail.edate}}<br/>
-        {{detail.contents}}  <br/> 
+        <h2 style="text-align:center">{{detail.title}}</h2>
+        {{detail.sdate}} ~ {{detail.edate}}<br/>
+
+        <div id="detail-contents">{{detail.contents}}</div>
         </div>
         <div v-if="!readOnly">
 
           <div class="box">
             <div class="field">
               <label class="label">Title</label>
+              <!-- <button @click="deleteSchedule()" style="margin-left:360px border">삭제</button> -->
+              <b-button @click="deleteSchedule()" variant="light" style="margin-left:360px">삭제</b-button>
               <div class="control">
-                <input v-model="detail.title" class="input" type="text" />
+                <!-- <input v-model="detail.title" class="input" type="text" /> -->
+                 <b-form-input v-model="detail.title" style="width:50%"></b-form-input>
               </div>
             </div>
 
             <div class="field">
               <label class="label">Start date</label>
               <div class="control">
-                <input v-model="detail.sdate" class="input" type="date" />
+                <!-- <input v-model="detail.sdate" class="input" type="date" /> -->
+                 <b-form-datepicker id="example-datepicker" v-model="detail.sdate" class="mb-2"></b-form-datepicker>
               </div>
             </div>
 
             <div class="field">
               <label class="label">End date</label>
               <div class="control">
-                <input v-model="detail.edate" class="input" type="date" />
+                <!-- <input v-model="detail.edate" class="input" type="date" /> -->
+                <b-form-datepicker id="example-datepicker" v-model="detail.edate" class="mb-2"></b-form-datepicker>
               </div>
             </div>
 
@@ -121,13 +129,11 @@
               </div>
             </div>
 
-            <button class="button is-info" @click="updateSchedule()">
+            <button class="snip1535" @click="updateSchedule()">
               수정
             </button>
+            <button class="snip1535" @click="changeReadOnly()" style="margin-left:80px">취소</button>
           </div>
-
-          <button  @click="changeReadOnly()">취소</button>
-          <button  @click="deleteSchedule()">삭제</button>
         </div>
       </b-modal>
     </div>
@@ -251,7 +257,8 @@ export default {
     onClickDay(d) {
       this.selectionStart = null;
       this.selectionEnd = null;
-      this.message = ` ${d.toLocaleDateString()}`;
+      d;
+      // this.message = ` ${d.toLocaleDateString()}`;
     },
     onClickItem(e) {
       //this.message = `You clicked: ${e.title}`;console.log("dff  " + this.detail.sid);
@@ -277,7 +284,7 @@ export default {
       
     },
     setShowDate(d) {
-      this.message = `Changing calendar view to ${d.toLocaleDateString()}`;
+      // this.message = `Changing calendar view to ${d.toLocaleDateString()}`;
       this.showDate = d;
     },
     setSelection(dateRange) {
@@ -286,7 +293,7 @@ export default {
     },
     finishSelection(dateRange) {
       this.setSelection(dateRange);
-      this.message = `You selected: ${this.selectionStart.toLocaleDateString()} -${this.selectionEnd.toLocaleDateString()}`;
+      // this.message = `You selected: ${this.selectionStart.toLocaleDateString()} -${this.selectionEnd.toLocaleDateString()}`;
     },
     onDrop(item, date) {
       this.message = `You dropped ${item.id} on ${date.toLocaleDateString()}`;
@@ -357,6 +364,8 @@ export default {
         });
     },
     deleteSchedule(){
+      
+      if(confirm("해당 스케줄을 삭제하시겠습니까?")== true){
       axios
         .delete(`${SERVER_URL}/schedule/delete`, {
           params: this.form,
@@ -370,15 +379,84 @@ export default {
             alert('실패');
           }
         });   
+    }else{
+      console.log("d");
     }
+    },
+    // hoverItem(){
+    //   document.getElementById("myP").style.cursor = "pointer"
+    // }
   },
 };
 </script>
 
 <style>
+@import url(https://fonts.googleapis.com/css?family=BenchNine:700);
+
+.snip1535 {
+  background-color: #c47135;
+  border: none;
+  color: #ffffff;
+  cursor: pointer;
+  display: inline-block;
+  font-family: 'BenchNine', Arial, sans-serif;
+  font-size: 1em;
+  font-size: 22px;
+  line-height: 1em;
+  margin: 15px 40px;
+  outline: none;
+  padding: 12px 40px 10px;
+  position: relative;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+.snip1535:before,
+.snip1535:after {
+  border-color: transparent;
+  -webkit-transition: all 0.25s;
+  transition: all 0.25s;
+  border-style: solid;
+  border-width: 0;
+  content: "";
+  height: 24px;
+  position: absolute;
+  width: 24px;
+}
+.snip1535:before {
+  border-color: #c47135;
+  border-right-width: 2px;
+  border-top-width: 2px;
+  right: -5px;
+  top: -5px;
+}
+.snip1535:after {
+  border-bottom-width: 2px;
+  border-color: #c47135;
+  border-left-width: 2px;
+  bottom: -5px;
+  left: -5px;
+}
+.snip1535:hover,
+.snip1535.hover {
+  background-color: #c47135;
+}
+.snip1535:hover:before,
+.snip1535.hover:before,
+.snip1535:hover:after,
+.snip1535.hover:after {
+  height: 100%;
+  width: 100%;
+}
+
 #calendar {
   margin-left: 30px;
   width: 800px;
   height: 500px;
+}
+
+#detail-contents{
+  border: 1px solid gainsboro;
+  height: 100px;
+  margin-top: 10px;
 }
 </style>
