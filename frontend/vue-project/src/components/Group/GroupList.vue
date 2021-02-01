@@ -33,7 +33,7 @@
         <b-card
           @click="$bvModal.show(`group-${idx}`), getPermission(group.gId)"
           v-bind:title="group.groupName"
-          img-src="https://picsum.photos/300/300/?image=41"
+          :img-src="group.img"
           img-alt="Image"
           img-top
         >
@@ -131,7 +131,12 @@
             const wait = document.querySelector("#wait")
             const mine = document.querySelector("#mine")
             const ban = document.querySelector("#ban")
-            if (res.data.state == 0 || res.data.state == 4) {
+            if (this.loginStatus.token == null) {
+              none.style.display = "none"
+              wait.style.display = "none"
+              mine.style.display = "none"
+              ban.style.display = "none"
+            } else if (res.data.state == 0 || res.data.state == 4) {
               none.style.display = "none"
               wait.style.display = "block"
               mine.style.display = "none"
@@ -147,7 +152,7 @@
               mine.style.display = "none"
               ban.style.display = "block"
             } else {
-              none.style.display = "none"
+              none.style.display = "block"
               wait.style.display = "none"
               mine.style.display = "none"
               ban.style.display = "none"
