@@ -4,36 +4,37 @@
 
 <mapper namespace="com.ssafy.a407.dao.BoardDao">
 	<insert id="createBoard" parameterType="BoardDto">
-		insert into board (email, title, contents, noticeFlag, category) values (#{email}, #{title}, #{contents}, #{noticeFlag}, #{category})
+		insert into board (email, nickname, title, contents, noticeFlag, category) values (#{email}, #{nickname}, #{title}, #{contents}, #{noticeFlag}, #{category})
 	</insert>
 	
 	<select id="searchAll" resultType="BoardDto">
 		select *
-		from a407.board;
+		from a407.board
+		where category = #{category}
 	</select>
 	
 	<select id="searchBId" parameterType="String" resultType="BoardDto">
 		select *
 		from a407.board
-		where groupName like CONCAT('%', #{word}, "%")
+		where bId = #{word}
 	</select>
 	
-	<select id="searchTitle" parameterType="String" resultType="BoardDto">
+	<select id="searchTitle" resultType="BoardDto">
 		select *
 		from a407.board
-		where groupDesc like CONCAT('%', #{word}, "%")
+		where title like CONCAT('%', #{word}, "%") and category = #{category}
 	</select>
 	
-	<select id="searchEmail" parameterType="String" resultType="BoardDto">
+	<select id="searchName" resultType="BoardDto">
 		select *
 		from a407.board
-		where category like CONCAT('%', #{word}, "%")
+		where nickname like CONCAT('%', #{word}, "%") and category = #{category}
 	</select>
 	
-	<select id="searchContents" parameterType="String" resultType="BoardDto">
+	<select id="searchContents" resultType="BoardDto">
 		select *
 		from a407.board
-		where region like CONCAT('%', #{word}, "%")
+		where contents like CONCAT('%', #{word}, "%") and category = #{category}
 	</select>
 	
 	<update id="updateBoard" parameterType="map">update a407.board set title = #{title}, contents = #{contents}, noticeFlag = #{noticeFlag}, category= #{category} where bId = #{bId} and email = #{email}</update>

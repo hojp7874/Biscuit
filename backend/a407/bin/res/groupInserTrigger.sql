@@ -7,6 +7,7 @@ BEGIN
     insert into member
     set
         email = new.email,
+        nickname = new.nickname,
         gId = new.gId,
         permission = 3
         ;

@@ -19,5 +19,5 @@ public interface MemberService {
 	public int updateMemberPermission(Map map) throws Exception;
 
 	public int cancelApply(int mId) throws Exception;
-	public int applyState(Map map) throws Exception;
+	public Map applyState(Map map) throws Exception;
 }
