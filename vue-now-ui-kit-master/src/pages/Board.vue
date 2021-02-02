@@ -11,23 +11,23 @@
         <img class="n-logo" src="img/bisWhite.png" alt="" />
         <h1 class="h1-seo">자유게시판 페이지 입니당</h1>
         <h3>비스킷에서 전국 39291개의 스터디를 찾고 함께 공부하세요</h3>
+
+        <div class="searchWrap">
+          <b-select name="type" v-model="type" style="width:80px">
+            <b-select-option value="" selected="selected" disabled hidden
+              >전체</b-select-option
+            >
+            <b-select-option value="nickname">작성자</b-select-option>
+            <b-select-option value="title">제목</b-select-option>
+            <b-select-option value="contents">내용</b-select-option>
+          </b-select>
+          <input type="text" v-model="word" @keyup.enter="fnSearch" />
+          <b-button @click="fnSearch" class="btnSearch m-1">검색</b-button>
+        </div>
       </div>
     </div>
 
     <div class="container">
-      <div class="searchWrap">
-        <b-select name="type" v-model="type" style="width:80px">
-          <b-select-option value="" selected="selected" disabled hidden
-            >전체</b-select-option
-          >
-          <b-select-option value="nickname">작성자</b-select-option>
-          <b-select-option value="title">제목</b-select-option>
-          <b-select-option value="contents">내용</b-select-option>
-        </b-select>
-        <input type="text" v-model="word" @keyup.enter="fnSearch" />
-        <b-button @click="fnSearch" class="btnSearch m-1">검색</b-button>
-      </div>
-
       <div class="listWrap">
         <b-table
           id="my-table"
