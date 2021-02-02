@@ -8,6 +8,9 @@ import Group from './pages/Group.vue';
 import Board from './pages/Board.vue';
 import MainNavbar from './layout/MainNavbar.vue';
 import MainFooter from './layout/MainFooter.vue';
+import Join from './pages/Join.vue';
+import MyPage from './pages/MyPage.vue';
+import FindPw from './pages/FindPw.vue';
 
 Vue.use(Router);
 
@@ -62,6 +65,33 @@ export default new Router({
       path: '/board',
       name: 'board',
       components: { default: Board, header: MainNavbar, footer: MainFooter },
+      props: {
+        header: { colorOnScroll: 400 },
+        footer: { backgroundColor: 'black' }
+      }
+    },
+    {
+      path: '/join',
+      name: 'join',
+      components: { default: Join, header: MainNavbar, footer: MainFooter },
+      props: {
+        header: { colorOnScroll: 400 },
+        footer: { backgroundColor: 'black' }
+      }
+    },
+    {
+      path: '/mypage',
+      name: 'mypage',
+      components: { default: MyPage, header: MainNavbar, footer: MainFooter },
+      props: {
+        header: { colorOnScroll: 400 },
+        footer: { backgroundColor: 'black' }
+      }
+    },
+    {
+      path: '/findpw',
+      name: 'findpw',
+      components: { default: FindPw, header: MainNavbar, footer: MainFooter },
       props: {
         header: { colorOnScroll: 400 },
         footer: { backgroundColor: 'black' }

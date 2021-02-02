@@ -61,6 +61,9 @@
         <nav-link to="/profile">
           <i class="now-ui-icons users_single-02"></i> Profile
         </nav-link>
+        <nav-link to="/mypage">
+          <i class="now-ui-icons users_single-02"></i> MyPage
+        </nav-link>
       </drop-down>
       <li class="nav-item">
         <a
