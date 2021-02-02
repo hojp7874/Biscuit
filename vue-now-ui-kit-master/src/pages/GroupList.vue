@@ -6,49 +6,35 @@
         style="background-image:url('img/header.jpg')"
       >
       </parallax>
-      <div class="container">
           
-        <div class="content-center brand">
-          <img class="n-logo" src="img/bisWhite.png" alt="" />
-          <h1 class="h1-seo">아직까지 혼자 공부하세요?</h1>
-          <h3>비스킷에서 전국 39291개의 스터디를 찾고 함께 공부하세요</h3>
+      <div class="content-center brand">
+        <img class="n-logo" src="img/bisWhite.png" alt="" />
+        <h1 class="h1-seo">그룹 페이지 입니당</h1>
+        <h3>비스킷에서 전국 39291개의 스터디를 찾고 함께 공부하세요</h3>
+        <div class="searchWrap">
+          <b-input-group>
+            <template #prepend>
+            <b-input-group-append>
+              <b-select name="type" v-model="params.type">
+                <b-select-option value="">전체</b-select-option>
+                <b-select-option value="groupName">그룹 이름</b-select-option>
+                <b-select-option value="groupDesc">그룹 설명</b-select-option>
+                <b-select-option value="category">카테고리</b-select-option>
+                <b-select-option value="region">지역</b-select-option>
+              </b-select>
+            </b-input-group-append>
+            </template>
+
+            <b-form-input type="text" v-model="params.word" @keypress.enter="searchGroup"></b-form-input>
+            <b-input-group-append>
+              <b-button class="mt-0" text="Button" variant="info" @click="searchGroup">검색</b-button>
+            </b-input-group-append>
+          </b-input-group>
         </div>
-        <h6 class="category category-absolute">
-          Designed by
-          <a href="http://invisionapp.com/" target="_blank">
-            <img src="img/invision-white-slim.png" class="invision-logo" /> </a
-          >. Coded by
-          <a href="https://www.creative-tim.com" target="_blank">
-            <img
-              src="img/creative-tim-white-slim2.png"
-              class="creative-tim-logo"
-            /> </a
-          >.
-        </h6>
       </div>
-
-      
     </div>
-    <div class='container'>
-      <div class="searchWrap">
-        <h1>hello</h1>
-        <b-input-group>
-          <template #prepend>
-            <b-select name="type" v-model="params.type">
-              <b-select-option value="">전체</b-select-option>
-              <b-select-option value="groupName">그룹 이름</b-select-option>
-              <b-select-option value="groupDesc">그룹 설명</b-select-option>
-              <b-select-option value="category">카테고리</b-select-option>
-              <b-select-option value="region">지역</b-select-option>
-            </b-select>
-          </template>
-
-          <b-form-input type="text" v-model="params.word" @keypress.enter="searchGroup"></b-form-input>
-          <b-input-group-append type="submit">
-            <b-button size="sm" text="Button" variant="info" @click="searchGroup">검색</b-button>
-          </b-input-group-append>
-        </b-input-group>
-      </div>
+    <div class="container">
+      <card></card>
       <b-button v-show="loginStatus" variant="primary" @click="goCreate">그룹생성</b-button>
       <b-card-group
         deck
@@ -64,7 +50,7 @@
           <b-card
             @click="$bvModal.show(`group-${idx}`), getPermission(group.gId)"
             v-bind:title="group.groupName"
-            img-src="https://picsum.photos/300/300/?image=41"
+            :img-src="group.img"
             img-alt="Image"
             img-top
           >
@@ -84,7 +70,7 @@
               <b-jumbotron bg-variant="info" text-variant="white" border-variant="dark">
                 <template #header>{{ group.groupName }}</template>
                 <b-button id="none" @click="applyGroup(group.gId)" pill variant="primary">그룹 참가하기</b-button>
-                <b-button id="wait" pill variant="secondary">이미 참가신청을 하셨습니다</b-button>
+                <b-button id="wait" @click="removeApply(group.gId)" pill variant="secondary">그룹 참가 신청 취소하기</b-button>
                 <b-button id="mine" pill variant="primary">당신의 스터디 그룹입니다</b-button>
                 <b-button id="ban" pill variant="danger">당신은 이 스터디에서 추방되었습니다</b-button>
                 <b-button v-if="!loginStatus.token" pill variant="secondary">스터디에 참여하려면 로그인 해주세요</b-button>
@@ -122,12 +108,17 @@
 </template>
 
 <script>
-  // import {mapState} from 'vuex'
+  import {mapState} from 'vuex'
   import axios from 'axios'
+  import card from '@/components/Cards/Card'
   const SERVER_URL = process.env.VUE_APP_SERVER_URL
 
 
   export default {
+    name: "Group",
+    components: {
+      card
+    },
     data() {
       return {
         params: {
@@ -138,11 +129,11 @@
         permission: '',
       }
     },
-    // computed: {
-    //   ...mapState([
-    //     'loginStatus',
-    //   ]),
-    // },
+    computed: {
+      ...mapState([
+        'loginStatus',
+      ]),
+    },
     methods: {
       searchGroup: function() {
         console.log('searchGroup')
@@ -163,7 +154,12 @@
             const wait = document.querySelector("#wait")
             const mine = document.querySelector("#mine")
             const ban = document.querySelector("#ban")
-            if (res.data.state == 0 || res.data.state == 4) {
+            if (this.loginStatus.token == null) {
+              none.style.display = "none"
+              wait.style.display = "none"
+              mine.style.display = "none"
+              ban.style.display = "none"
+            } else if (res.data.state == 0 || res.data.state == 4) {
               none.style.display = "none"
               wait.style.display = "block"
               mine.style.display = "none"
@@ -179,7 +175,7 @@
               mine.style.display = "none"
               ban.style.display = "block"
             } else {
-              none.style.display = "none"
+              none.style.display = "block"
               wait.style.display = "none"
               mine.style.display = "none"
               ban.style.display = "none"
@@ -198,11 +194,29 @@
             ban.style.display = "none"
           })
       },
+      removeApply: function(gId) {
+        axios.delete(`${SERVER_URL}/group/member/cancel`,
+        {data: {gId: gId, nickname: this.loginStatus.nickname}})
+         .then(res => {
+           console.log(res)
+           const none = document.querySelector("#none")
+           const wait = document.querySelector("#wait")
+           none.style.display = "block"
+           wait.style.display = "none"
+         })
+         .catch(err => {
+           console.log(err)
+         })
+      },
       applyGroup: function(gId) {
         axios.post(`${SERVER_URL}/group/member/apply`,
         {gId: gId, email: this.loginStatus.email, nickname: this.loginStatus.nickname})
           .then(res => {
             console.log(res)
+            const none = document.querySelector("#none")
+            const wait = document.querySelector("#wait")
+            none.style.display = "none"
+            wait.style.display = "block"
           })
           .catch(err => {
             console.log(err)

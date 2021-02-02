@@ -4,7 +4,9 @@ import Index from './pages/Index.vue';
 import Landing from './pages/Landing.vue';
 import Login from './pages/Login.vue';
 import Profile from './pages/Profile.vue';
-import Group from './pages/Group.vue';
+import GroupList from './pages/GroupList.vue';
+import GroupCreate from './pages/GroupCreate.vue';
+import GroupUpdate from './pages/GroupUpdate.vue';
 import Board from './pages/Board.vue';
 import MainNavbar from './layout/MainNavbar.vue';
 import MainFooter from './layout/MainFooter.vue';
@@ -50,9 +52,27 @@ export default new Router({
       }
     },
     {
-      path: '/group',
-      name: 'group',
-      components: { default: Group, header: MainNavbar, footer: MainFooter },
+      path: '/grouplist',
+      name: 'grouplist',
+      components: { default: GroupList, header: MainNavbar, footer: MainFooter },
+      props: {
+        header: { colorOnScroll: 400 },
+        footer: { backgroundColor: 'black' }
+      }
+    },
+    {
+      path: '/groupcreate',
+      name: 'groupcreate',
+      components: { default: GroupCreate, header: MainNavbar, footer: MainFooter },
+      props: {
+        header: { colorOnScroll: 400 },
+        footer: { backgroundColor: 'black' }
+      }
+    },
+    {
+      path: '/groupupdate',
+      name: 'groupupdate',
+      components: { default: GroupUpdate, header: MainNavbar, footer: MainFooter },
       props: {
         header: { colorOnScroll: 400 },
         footer: { backgroundColor: 'black' }
