@@ -197,6 +197,7 @@ public class MemberController {
 			if(list != null) {
 				result.put("success", "success");
 				result.put("list", list);
+				System.out.println("### /apply/user/list . num : " + list.size());
 				entity = new ResponseEntity<>(result, HttpStatus.OK);	
 			}
 			else {
@@ -219,7 +220,7 @@ public class MemberController {
 		ResponseEntity entity = null;
 		Map result = new HashMap();
 		List list = new ArrayList();
-		
+		System.out.println("MemberController. apply/group/list. gId : " + gId);
 		try {
 			list = member.getApplyList(gId);
 		
@@ -242,6 +243,37 @@ public class MemberController {
 		return entity;
 		
 	}
+	
+	//신청 목록 조회(그룹장)
+	@GetMapping(value = "/apply/group/count")
+	private ResponseEntity applyCount(@RequestParam int gId) {
+		ResponseEntity entity = null;
+		Map result = new HashMap();
+		System.out.println("MemberController. apply/group/count. gId : " + gId);
+		try {
+			Map applyCount = member.getApplyCount(gId);
+			Long count = null;
+			if(applyCount != null) {
+				count = (Long) applyCount.get("applyCount");		
+				result.put("success", "success");
+				result.put("applyCount", count);
+				entity = new ResponseEntity<>(result, HttpStatus.OK);	
+			}
+			else {
+				result.put("success", "fail");
+				entity = new ResponseEntity<>(result, HttpStatus.OK);
+			
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.put("success", "error");
+			entity = new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+		
+		}
+		return entity;
+		
+	}
+	
 	//권한 변경
 	@PutMapping(value = "/permission")
 	private ResponseEntity permission(@RequestBody Map map)

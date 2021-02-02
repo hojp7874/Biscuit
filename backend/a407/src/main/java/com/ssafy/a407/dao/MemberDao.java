@@ -26,4 +26,6 @@ public interface MemberDao {
 
 	 public int deleteMemberApply(Map map) throws Exception;
 	public Map applyState(Map map) throws Exception;
+	
+	public Map selectApplyCount(int gId) throws Exception;
 }
