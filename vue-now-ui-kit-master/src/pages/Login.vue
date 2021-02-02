@@ -16,6 +16,7 @@
               class="no-border input-lg"
               addon-left-icon="now-ui-icons users_circle-08"
               v-model="user.email"
+              ref="id"
               placeholder="아이디"
             >
             </fg-input>
@@ -24,6 +25,7 @@
               class="no-border input-lg"
               addon-left-icon="now-ui-icons text_caps-small"
               v-model="user.password"
+               ref="password"
               placeholder="비밀번호"
               type="password"
             >
@@ -39,12 +41,12 @@
               </div>
               <div class="pull-left">
                 <h6>
-                  <a href="#pablo" class="link footer-link">Create Account</a>
+                  <a  href="#" v-on:click="signup()" class="link footer-link">Create Account</a>
                 </h6>
               </div>
               <div class="pull-right">
                 <h6>
-                  <a href="#pablo" class="link footer-link">Need Help?</a>
+                  <a href="#" v-on:click="findPw()" class="link footer-link">Forgot Password?</a>
                 </h6>
               </div>
             </template>
@@ -81,7 +83,11 @@ export default {
   },
   methods: {
     checkLogin() {
-      console.log("로그인체크");
+
+      // let err = true;
+      // let msg = '';
+
+      // console.log("로그인체크");
       // !this.user.email &&
       //   ((msg = '아이디를 입력해주세요'), (err = false), this.$refs.id.focus());
       // err &&
@@ -94,7 +100,7 @@ export default {
       // else 
         this.login();
     },
-    login: function() {
+    login() {
       // LOGIN 액션 실행
       // 서버와 통신(axios)을 해 토큰값을 얻어야 하므로 Actions를 호출.
       axios
@@ -116,15 +122,15 @@ export default {
           console.log(error);
         });
     },
-    // signup: function() {
-    //   this.$router.push('/join');
-    // },
+    signup() {
+      this.$router.push('/join');
+    },
     // findId: function() {
     //   this.$router.push('/findid');
     // },
-    // findPw: function() {
-    //   this.$router.push('/findpw');
-    // },
+    findPw() {
+      this.$router.push('/findpw');
+    },
   },
 };
 </script>

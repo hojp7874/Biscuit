@@ -28,6 +28,7 @@ import 'core-js'
 Vue.use(BootstrapVue)
 Vue.use(BootstrapVueIcons)
 Vue.config.productionTip = false;
+// Vue.component(Button.name, Button);
 
 Vue.prototype.$axios = axios;
 

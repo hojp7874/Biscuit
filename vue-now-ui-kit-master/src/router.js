@@ -13,6 +13,9 @@ import BoardUpdate from './pages/Board/BoardUpdate.vue';
 import BoardWrite from './pages/Board/BoardWrite.vue';
 import MainNavbar from './layout/MainNavbar.vue';
 import MainFooter from './layout/MainFooter.vue';
+import Join from './pages/Join.vue';
+import MyPage from './pages/MyPage.vue';
+import FindPw from './pages/FindPw.vue';
 
 Vue.use(Router);
 
@@ -112,6 +115,33 @@ export default new Router({
       path: '/boardwrite',
       name: 'boardwrite',
       components: { default: BoardWrite, header: MainNavbar, footer: MainFooter },
+      props: {
+        header: { colorOnScroll: 400 },
+        footer: { backgroundColor: 'black' }
+      }
+    },
+    {
+      path: '/join',
+      name: 'join',
+      components: { default: Join, header: MainNavbar, footer: MainFooter },
+      props: {
+        header: { colorOnScroll: 400 },
+        footer: { backgroundColor: 'black' }
+      }
+    },
+    {
+      path: '/mypage',
+      name: 'mypage',
+      components: { default: MyPage, header: MainNavbar, footer: MainFooter },
+      props: {
+        header: { colorOnScroll: 400 },
+        footer: { backgroundColor: 'black' }
+      }
+    },
+    {
+      path: '/findpw',
+      name: 'findpw',
+      components: { default: FindPw, header: MainNavbar, footer: MainFooter },
       props: {
         header: { colorOnScroll: 400 },
         footer: { backgroundColor: 'black' }
