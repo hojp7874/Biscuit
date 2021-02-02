@@ -1,31 +1,44 @@
 <template>
   <div>
-    <h1>게시판 수정</h1>
-    <div class="UpdateWrap">
-      <form>
-        <table class="tbAdd" width="100%">
-          <colgroup>
-            <col width="20%" />
-            <col width="80%" />
-          </colgroup>
-          <tr>
-            <th>제목</th>
-            <td>
-              <!-- v-model 양뱡향데이터전송으로 상세 데이터 넣어준다 -->
-              <input type="text" v-model="title" ref="title" />
-            </td>
-          </tr>
-          <tr>
-            <th>내용</th>
-            <td><textarea v-model="contents" ref="contents"></textarea></td>
-          </tr>
-        </table>
-      </form>
-    </div>
+    <div class="page-header clear-filter" filter-color="orange">
+      <parallax
+        class="page-header-image"
+        style="background-image:url('img/header.jpg')"
+      >
+      </parallax>
+          
+      <div class="content-center brand">
+        <img class="n-logo" src="img/bisWhite.png" alt="" />
+        <div>
+          <h1>게시판 수정</h1>
+          <div class="UpdateWrap">
+            <form>
+              <table class="tbAdd" width="100%">
+                <colgroup>
+                  <col width="20%" />
+                  <col width="80%" />
+                </colgroup>
+                <tr>
+                  <th>제목</th>
+                  <td>
+                    <!-- v-model 양뱡향데이터전송으로 상세 데이터 넣어준다 -->
+                    <input type="text" v-model="title" ref="title" />
+                  </td>
+                </tr>
+                <tr>
+                  <th>내용</th>
+                  <td><textarea v-model="contents" ref="contents"></textarea></td>
+                </tr>
+              </table>
+            </form>
+          </div>
 
-    <div class="btnWrap">
-      <b-button @click="fnList" class="btnList m-1">취소</b-button>
-      <b-button @click="fnModProc" class="btnReset m-1">확인</b-button>
+          <div class="btnWrap">
+            <b-button @click="fnList" class="btnList m-1">취소</b-button>
+            <b-button @click="fnModProc" class="btnReset m-1">확인</b-button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>

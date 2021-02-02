@@ -1,33 +1,47 @@
 <template>
   <div>
-    <h1>게시판 {{ num ? '수정' : '등록' }}</h1>
-    <!-- num 값에 따라 제목 변경 -->
+    <div class="page-header clear-filter" filter-color="orange">
+      <parallax
+        class="page-header-image"
+        style="background-image:url('img/header.jpg')"
+      >
+      </parallax>
+          
+      <div class="content-center brand">
+        <img class="n-logo" src="img/bisWhite.png" alt="" />
+  
+        <div class="container">
+          <h1>게시판 {{ num ? '수정' : '등록' }}</h1>
+          <!-- num 값에 따라 제목 변경 -->
 
-    <div class="AddWrap">
-      <form>
-          <table class="tbAdd" width="100%">
-          <colgroup>
-            <col width="20%"/>
-            <col width="80%"/>
-          </colgroup>
-          <tr>
-            <th>제목</th>
-            <td>
-              <!-- v-model 양뱡향데이터전송으로 상세 데이터 넣어준다 -->
-              <input type="text" v-model="title" ref="title" />
-            </td>
-          </tr>
-          <tr>
-            <th>내용</th>
-            <td><textarea v-model="contents" ref="contents"></textarea></td>
-          </tr>
-        </table>
-      </form>
-    </div>
+          <div class="AddWrap">
+            <form>
+                <table class="tbAdd" width="100%">
+                <colgroup>
+                  <col width="20%"/>
+                  <col width="80%"/>
+                </colgroup>
+                <tr>
+                  <th>제목</th>
+                  <td>
+                    <!-- v-model 양뱡향데이터전송으로 상세 데이터 넣어준다 -->
+                    <input type="text" v-model="title" ref="title" />
+                  </td>
+                </tr>
+                <tr>
+                  <th>내용</th>
+                  <td><textarea v-model="contents" ref="contents"></textarea></td>
+                </tr>
+              </table>
+            </form>
+          </div>
 
-	<div class="btnWrap">
-      <b-button @click="fnList" class="btnList m-1">목록</b-button>
-      <b-button v-if="!num" @click="fnAddProc" type="submit" class="btnAdd m-1">등록</b-button>
+          <div class="btnWrap">
+            <b-button @click="fnList" class="btnList m-1">목록</b-button>
+            <b-button v-if="!num" @click="fnAddProc" type="submit" class="btnAdd m-1">등록</b-button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
