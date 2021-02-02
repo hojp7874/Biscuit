@@ -131,11 +131,11 @@ public class MemberController {
 	//멤버 신청 취소
 	@DeleteMapping(value = "/cancel")
 	private ResponseEntity cancel(@RequestBody Map map) {
+		System.out.println(map);
 		ResponseEntity entity = null;
 		Map result = new HashMap();
-		int mId = (int)map.get("mId");
 		try {
-			if(member.cancelApply(mId) == 1) {
+			if(member.cancelApply(map) == 1) {
 				result.put("success", "success");
 				entity = new ResponseEntity<>(result, HttpStatus.OK);	
 			}

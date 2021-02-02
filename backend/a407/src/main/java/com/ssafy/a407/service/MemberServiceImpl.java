@@ -46,8 +46,8 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public int cancelApply(int mId) throws Exception {
-		return dao.deleteMemberApply(mId);
+	public int cancelApply(Map map) throws Exception {
+		return dao.deleteMemberApply(map);
 	}
 
 	@Override
