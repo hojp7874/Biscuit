@@ -20,4 +20,6 @@ public interface MemberService {
 
 	public int cancelApply(int mId) throws Exception;
 	public Map applyState(Map map) throws Exception;
+	
+	public Map getApplyCount(int gId) throws Exception;
 }

@@ -17,17 +17,25 @@
  		and permission = 0
  	</select>
   	
+  	<select id="selectApplyCount" parameterType="int" resultType="map">
+  		select count(*) as applyCount
+  		from member
+  		where gId = #{gId}
+  		and permission = 0
+  	</select>
+  	
  	<select id="selectMemberList" parameterType="int" resultType="UserMemberDto">
  		select member.mId, user.nickname, user.picture, member.permission
  		from member, user
  		where gId = #{gId} and user.email = member.email
- 		and (permission = 1 or permission = 2 or permission = 3)
+ 		and (a407.group.permission = 1 or a407.group.permission = 2 or a407.group.permission = 3)
  	</select>
  	
  	<select id="selectGroupList" parameterType = "String" resultType="GroupMemberDto">
 	 	select member.mId, member.email, a407.group.gId, a407.group.groupName, member.permission
 	 	from member, a407.group
-	 	where member.email = #{email} and member.gId = a407.group.gId;
+	 	where member.email = #{email} and member.gId = a407.group.gId
+	 	and (a407.member.permission = 1 or a407.member.permission = 2 or a407.member.permission = 3);
  	</select>
  	
  	<insert id="insertMember" parameterType="MemberDto">
