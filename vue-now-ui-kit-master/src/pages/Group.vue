@@ -70,7 +70,7 @@
               <b-jumbotron bg-variant="info" text-variant="white" border-variant="dark">
                 <template #header>{{ group.groupName }}</template>
                 <b-button id="none" @click="applyGroup(group.gId)" pill variant="primary">그룹 참가하기</b-button>
-                <b-button id="wait" pill variant="secondary">이미 참가신청을 하셨습니다</b-button>
+                <b-button id="wait" @click="removeApply(group.gId)" pill variant="secondary">그룹 참가 신청 취소하기</b-button>
                 <b-button id="mine" pill variant="primary">당신의 스터디 그룹입니다</b-button>
                 <b-button id="ban" pill variant="danger">당신은 이 스터디에서 추방되었습니다</b-button>
                 <b-button v-if="!loginStatus.token" pill variant="secondary">스터디에 참여하려면 로그인 해주세요</b-button>
@@ -154,7 +154,12 @@
             const wait = document.querySelector("#wait")
             const mine = document.querySelector("#mine")
             const ban = document.querySelector("#ban")
-            if (res.data.state == 0 || res.data.state == 4) {
+            if (this.loginStatus.token == null) {
+              none.style.display = "none"
+              wait.style.display = "none"
+              mine.style.display = "none"
+              ban.style.display = "none"
+            } else if (res.data.state == 0 || res.data.state == 4) {
               none.style.display = "none"
               wait.style.display = "block"
               mine.style.display = "none"
@@ -170,7 +175,7 @@
               mine.style.display = "none"
               ban.style.display = "block"
             } else {
-              none.style.display = "none"
+              none.style.display = "block"
               wait.style.display = "none"
               mine.style.display = "none"
               ban.style.display = "none"
@@ -189,11 +194,29 @@
             ban.style.display = "none"
           })
       },
+      removeApply: function(gId) {
+        axios.delete(`${SERVER_URL}/group/member/cancel`,
+        {data: {gId: gId, nickname: this.loginStatus.nickname}})
+         .then(res => {
+           console.log(res)
+           const none = document.querySelector("#none")
+           const wait = document.querySelector("#wait")
+           none.style.display = "block"
+           wait.style.display = "none"
+         })
+         .catch(err => {
+           console.log(err)
+         })
+      },
       applyGroup: function(gId) {
         axios.post(`${SERVER_URL}/group/member/apply`,
         {gId: gId, email: this.loginStatus.email, nickname: this.loginStatus.nickname})
           .then(res => {
             console.log(res)
+            const none = document.querySelector("#none")
+            const wait = document.querySelector("#wait")
+            none.style.display = "none"
+            wait.style.display = "block"
           })
           .catch(err => {
             console.log(err)
