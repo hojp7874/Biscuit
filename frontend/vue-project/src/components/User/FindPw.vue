@@ -1,6 +1,6 @@
 <template>
 <div>
-  <div id="app" v-if="emailVeify">
+  <div id="app">
     
     <div  style="margin-top:60px">
       <h2 class="findpw_title">비밀번호 찾기</h2>
@@ -12,8 +12,9 @@
               비밀번호를 변경하실 수 있습니다.
             </p>
           </div>
+          <div v-if="emailVeify">
           <div>
-            <input type="text" id="cert-id" placeholder="아이디 (이메일)" v-model="email"/>
+            <input type="text" id="cert-id" placeholder="아이디 (이메일)" v-model="mem.email"/>
           </div>
           <div class="cert-wrap">
             <input
@@ -35,6 +36,7 @@
               확인
             </button>
           </div>
+          </div>
         </form>
       </div>
     </div>
@@ -47,20 +49,22 @@
             <br />
             <input
               type="password"
-              style="margin-top: 15px;"
+              id="cert-id"
+              style=" width: 300px"
               placeholder="새 비밀번호를 입력하세요"
-              v-model="newpassword"
+              v-model="mem.newpassword"
             />
             <br />
             <input
               type="password"
-              style="margin-top: 15px; margin-bottom: 15px;"
+              id="cert-id"
+              style="margin-top: 5px; margin-bottom: 15px; width: 300px"
               placeholder="새 비밀번호를 한 번 더 입력하세요"
               v-model="verify_newpassword"
             />
             <br />
             &nbsp;
-            <button id="confirm_btn" @click="updatePw();">확인</button>
+            <button id="findpw_btn" @click="updatePw();">확인</button>
     </div>
   </div>
   
@@ -80,17 +84,20 @@ export default {
   data(){
     return{
     emailVeify: true,
-    email:'',
     code:'',
-    newpassword:'',
     verify_newpassword:'',
+    mem : {
+        password:'',
+        newpassword:'',
+        email:''
+      },
     }
   },
   methods:{
     sendEmail() {
       console.log(this.email);
       axios
-        .post(`${SERVER_URL}/service/mail`, this.email)
+        .post(`${SERVER_URL}/service/mail`, this.mem.email)
         .then((response) => {
           if (response.data.success === 'success') {
             alert('이메일로 코드를 전송하였습니다');
@@ -127,24 +134,24 @@ export default {
     },
 
     updatePw(){
+      if(this.mem.newpassword === this.verify_newpassword){
         axios
-        .put(`${SERVER_URL}/user/pwupdate`,  this.mem,{
-          headers:{
-            "x-access-token" : localStorage.getItem("token")
-          }
-        })
+        .put(`${SERVER_URL}/user/pwupdate`,  this.mem)
         .then((response) => {
           if (response.data.success === 'success') {
             alert('변경 완료되었습니다');
             this.isHidden = true;
-            this.cancel();
+            this.$router.replace('/login');
           }else{
-            alert('현재 비밀번호를 다시 한 번 확인 해 주세요!');
+            alert('에러 발생!');
           }
         }).catch(function(error) {
           console.log(error);
           alert('오류');
         });
+      }else{
+        alert("비밀번호 확인이 일치하지 않습니다.");
+      }
 
       }
 
