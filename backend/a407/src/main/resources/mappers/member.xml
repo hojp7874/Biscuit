@@ -40,8 +40,8 @@
  		where mId = #{mId}
  	</update>
  	
- 	<delete id = "deleteMemberApply" parameterType="int">
+ 	<delete id = "deleteMemberApply" parameterType="map">
  		delete from member
- 		where mId = #{mId}
+ 		where gId = #{gId} and nickname = #{nickname}
  	</delete>
  </mapper>
