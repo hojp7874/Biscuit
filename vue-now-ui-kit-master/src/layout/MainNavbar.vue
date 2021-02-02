@@ -59,12 +59,10 @@
               title="마이페이지"
               icon="now-ui-icons design_image"
               class="nav-item"
+               v-if="this.token !== ''"
       >
         <nav-link to="/landing">
           <i class="now-ui-icons education_paper"></i> Landing
-        </nav-link>
-        <nav-link to="/login">
-          <i class="now-ui-icons users_circle-08"></i> Login
         </nav-link>
         <nav-link to="/profile">
           <i class="now-ui-icons users_single-02"></i> Profile
@@ -73,11 +71,21 @@
       <li class="nav-item">
         <a
           class="nav-link btn btn-neutral"
-          href="https://www.creative-tim.com/product/vue-now-ui-kit-pro"
+          v-on:click="goToLogin()"
           target="_blank"
+          v-if="this.token === ''"
         >
           <i class="now-ui-icons arrows-1_share-66"></i>
           <p>로그인</p>
+        </a>
+        <a
+          class="nav-link btn btn-neutral"
+          v-on:click="onClickLogout()"
+          target="_blank"
+          v-else
+        >
+          <i class="now-ui-icons arrows-1_share-66"></i>
+          <p>로그아웃</p>
         </a>
       </li>
 
@@ -129,6 +137,15 @@ import { DropDown, Navbar, NavLink } from '@/components';
 import { Popover } from 'element-ui';
 export default {
   name: 'main-navbar',
+  data() {
+    return {
+      id: '',
+      name: '',
+      admin: '',
+      type: '',
+      token:''
+    };
+  },
   props: {
     transparent: Boolean,
     colorOnScroll: Number
@@ -138,7 +155,30 @@ export default {
     Navbar,
     NavLink,
     [Popover.name]: Popover
-  }
+  },
+  methods:{
+    onClickLogout() {
+      console.log("onclicklogout확인" + this.token +"gd" );
+      localStorage.removeItem('token');
+      localStorage.removeItem('email');
+      localStorage.removeItem('nickname');
+      localStorage.removeItem('admin');
+      localStorage.removeItem('phone');
+      localStorage.removeItem('region');
+      this.$emit('logout');
+    },
+    goToLogin(){
+      this.$router.replace(`/login`);
+    }
+  },
+  created() {
+    if (localStorage.getItem('token')) {
+      this.token = localStorage.getItem('token');
+      this.email = localStorage.getItem('email');
+      this.nickname = localStorage.getItem('nickname');
+      this.admin = localStorage.getItem('admin');
+    }
+  },
 };
 </script>
 
