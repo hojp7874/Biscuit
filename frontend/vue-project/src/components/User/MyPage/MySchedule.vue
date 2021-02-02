@@ -63,6 +63,7 @@ export default {
           startDate: this.list[i].sdate,
           endDate: this.list[i].edate,
           title: this.list[i].title,
+          url:'#'
         });
       }
     },
