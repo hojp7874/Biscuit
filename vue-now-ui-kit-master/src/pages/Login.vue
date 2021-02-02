@@ -15,22 +15,25 @@
             <fg-input
               class="no-border input-lg"
               addon-left-icon="now-ui-icons users_circle-08"
-              placeholder="First Name..."
+              v-model="user.email"
+              placeholder="아이디"
             >
             </fg-input>
 
             <fg-input
               class="no-border input-lg"
               addon-left-icon="now-ui-icons text_caps-small"
-              placeholder="Last Name..."
+              v-model="user.password"
+              placeholder="비밀번호"
+              type="password"
             >
             </fg-input>
 
-            <template slot="raw-content">
+            <template slot="raw-content" id="function_button">
               <div class="card-footer text-center">
                 <a
-                  href="#pablo"
                   class="btn btn-primary btn-round btn-lg btn-block"
+                  v-on:click="checkLogin"
                   >Get Started</a
                 >
               </div>
@@ -55,15 +58,75 @@
 <script>
 import { Card, Button, FormGroupInput } from '@/components';
 import MainFooter from '@/layout/MainFooter';
+import axios from 'axios';
+const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 export default {
   name: 'login-page',
+  data: function() {
+    return {
+      //   isLogin: false,
+      user: {
+        email: '',
+        password: '',
+      },
+      message: '',
+    };
+  },
   bodyClass: 'login-page',
   components: {
     Card,
     MainFooter,
     [Button.name]: Button,
-    [FormGroupInput.name]: FormGroupInput
-  }
+    [FormGroupInput.name]: FormGroupInput,
+  },
+  methods: {
+    checkLogin() {
+      console.log("로그인체크");
+      // !this.user.email &&
+      //   ((msg = '아이디를 입력해주세요'), (err = false), this.$refs.id.focus());
+      // err &&
+      //   !this.user.password &&
+      //   ((msg = '비밀번호를 입력해주세요'),
+      //   (err = false),
+      //   this.$refs.password.focus());
+
+      // if (!err) alert(msg);
+      // else 
+        this.login();
+    },
+    login: function() {
+      // LOGIN 액션 실행
+      // 서버와 통신(axios)을 해 토큰값을 얻어야 하므로 Actions를 호출.
+      axios
+        .post(`${SERVER_URL}/user/login`, this.user)
+        .then((response) => {
+          localStorage.setItem('token', response.data['x-access-token']);
+          localStorage.setItem('email', response.data.user.email);
+          localStorage.setItem('nickname', response.data.user.nickname);
+          localStorage.setItem('admin', response.data.user.admin);
+          localStorage.setItem('phone', response.data.user.phone);
+          localStorage.setItem('region', response.data.user.region);
+          // localStorage.setItem('admin', response.data.admin);
+          // this.$store.dispatch('login', true);
+          this.$router.replace(`/`);
+          window.location.reload();
+        })
+        .catch(function(error) {
+          alert('아이디 혹은 비밀번호를 다시 확인 해 주세요');
+          console.log(error);
+        });
+    },
+    // signup: function() {
+    //   this.$router.push('/join');
+    // },
+    // findId: function() {
+    //   this.$router.push('/findid');
+    // },
+    // findPw: function() {
+    //   this.$router.push('/findpw');
+    // },
+  },
 };
 </script>
-<style></style>
+
+
