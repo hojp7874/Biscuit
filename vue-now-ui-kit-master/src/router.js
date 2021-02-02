@@ -4,8 +4,13 @@ import Index from './pages/Index.vue';
 import Landing from './pages/Landing.vue';
 import Login from './pages/Login.vue';
 import Profile from './pages/Profile.vue';
-import Group from './pages/Group.vue';
-import Board from './pages/Board.vue';
+import GroupList from './pages/Group/GroupList.vue';
+import GroupCreate from './pages/Group/GroupCreate.vue';
+import GroupUpdate from './pages/Group/GroupUpdate.vue';
+import BoardList from './pages/Board/BoardList.vue';
+import BoardRead from './pages/Board/BoardRead.vue';
+import BoardUpdate from './pages/Board/BoardUpdate.vue';
+import BoardWrite from './pages/Board/BoardWrite.vue';
 import MainNavbar from './layout/MainNavbar.vue';
 import MainFooter from './layout/MainFooter.vue';
 import Join from './pages/Join.vue';
@@ -53,18 +58,63 @@ export default new Router({
       }
     },
     {
-      path: '/group',
-      name: 'group',
-      components: { default: Group, header: MainNavbar, footer: MainFooter },
+      path: '/grouplist',
+      name: 'grouplist',
+      components: { default: GroupList, header: MainNavbar, footer: MainFooter },
       props: {
         header: { colorOnScroll: 400 },
         footer: { backgroundColor: 'black' }
       }
     },
     {
-      path: '/board',
-      name: 'board',
-      components: { default: Board, header: MainNavbar, footer: MainFooter },
+      path: '/groupcreate',
+      name: 'groupcreate',
+      components: { default: GroupCreate, header: MainNavbar, footer: MainFooter },
+      props: {
+        header: { colorOnScroll: 400 },
+        footer: { backgroundColor: 'black' }
+      }
+    },
+    {
+      path: '/groupupdate',
+      name: 'groupupdate',
+      components: { default: GroupUpdate, header: MainNavbar, footer: MainFooter },
+      props: {
+        header: { colorOnScroll: 400 },
+        footer: { backgroundColor: 'black' }
+      }
+    },
+    {
+      path: '/boardlist',
+      name: 'boardlist',
+      components: { default: BoardList, header: MainNavbar, footer: MainFooter },
+      props: {
+        header: { colorOnScroll: 400 },
+        footer: { backgroundColor: 'black' }
+      }
+    },
+    {
+      path: '/boardread',
+      name: 'boardread',
+      components: { default: BoardRead, header: MainNavbar, footer: MainFooter },
+      props: {
+        header: { colorOnScroll: 400 },
+        footer: { backgroundColor: 'black' }
+      }
+    },
+    {
+      path: '/boardupdate',
+      name: 'boardupdate',
+      components: { default: BoardUpdate, header: MainNavbar, footer: MainFooter },
+      props: {
+        header: { colorOnScroll: 400 },
+        footer: { backgroundColor: 'black' }
+      }
+    },
+    {
+      path: '/boardwrite',
+      name: 'boardwrite',
+      components: { default: BoardWrite, header: MainNavbar, footer: MainFooter },
       props: {
         header: { colorOnScroll: 400 },
         footer: { backgroundColor: 'black' }

@@ -24,7 +24,7 @@
       </el-popover>
     </template>
     <template slot="navbar-menu">
-      <router-link class="navbar-brand" to="/group">
+      <router-link class="navbar-brand" to="/grouplist">
         <i class="now-ui-icons arrows-1_cloud-download-93"></i>
         <p>그룹 찾기</p>
       </router-link>
@@ -37,7 +37,7 @@
         <nav-link to="/">
           <i class="now-ui-icons business_chart-pie-36"></i> 공지사항
         </nav-link>
-        <nav-link to="/board">
+        <nav-link to="/boardlist">
           <i class="now-ui-icons business_chart-pie-36"></i> All components 자유 게시판
         </nav-link>
         <a
