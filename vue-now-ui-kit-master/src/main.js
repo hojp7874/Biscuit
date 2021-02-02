@@ -22,6 +22,8 @@ import store from "./store";
 import NowUiKit from './plugins/now-ui-kit';
 import {BootstrapVue, BootstrapVueIcons} from 'bootstrap-vue'
 import axios from 'axios'; //axios 호출
+import 'core-js'
+
 
 Vue.use(BootstrapVue)
 Vue.use(BootstrapVueIcons)
