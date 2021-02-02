@@ -14,7 +14,7 @@
         <div class="searchWrap">
           <b-input-group>
             <template #prepend>
-            <b-input-group-append>
+            <b-input-group>
               <b-select name="type" v-model="params.type">
                 <b-select-option value="">전체</b-select-option>
                 <b-select-option value="groupName">그룹 이름</b-select-option>
@@ -22,12 +22,12 @@
                 <b-select-option value="category">카테고리</b-select-option>
                 <b-select-option value="region">지역</b-select-option>
               </b-select>
-            </b-input-group-append>
+            </b-input-group>
             </template>
 
             <b-form-input type="text" v-model="params.word" @keypress.enter="searchGroup"></b-form-input>
             <b-input-group-append>
-              <b-button class="mt-0" text="Button" variant="info" @click="searchGroup">검색</b-button>
+              <b-button class="mt-0" text="Button" variant="primary" @click="searchGroup">검색</b-button>
             </b-input-group-append>
           </b-input-group>
         </div>

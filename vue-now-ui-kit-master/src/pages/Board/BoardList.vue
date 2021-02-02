@@ -13,41 +13,47 @@
         <h3>비스킷에서 전국 39291개의 스터디를 찾고 함께 공부하세요</h3>
 
         <div class="searchWrap">
-          <b-select name="type" v-model="type" style="width:80px">
-            <b-select-option value="" selected="selected" disabled hidden
-              >전체</b-select-option
-            >
-            <b-select-option value="nickname">작성자</b-select-option>
-            <b-select-option value="title">제목</b-select-option>
-            <b-select-option value="contents">내용</b-select-option>
-          </b-select>
-          <input type="text" v-model="word" @keyup.enter="fnSearch" />
-          <b-button @click="fnSearch" class="btnSearch m-1">검색</b-button>
+          <b-input-group>
+            <template #prepend>
+              <b-select name="type" v-model="type">
+                <b-select-option value="" selected="selected" disabled hidden
+                  >전체</b-select-option
+                >
+                <b-select-option value="nickname">작성자</b-select-option>
+                <b-select-option value="title">제목</b-select-option>
+                <b-select-option value="contents">내용</b-select-option>
+              </b-select>
+            </template>
+            <b-form-input type="text" v-model="word" @keyup.enter="fnSearch" />
+            <b-input-group-append>
+              <b-button @click="fnSearch" text="Button" variant="primary" class="btnSearch mt-0">검색</b-button>
+            </b-input-group-append>
+          </b-input-group>
         </div>
-      </div>
-    </div>
 
-    <div class="container">
-      <div class="listWrap">
-        <b-table
-          id="my-table"
-          :items="list"
-          :per-page="perPage"
-          :fields="column"
-          :current-page="currentPage"
-          @row-clicked="rowClick"
-        ></b-table>
+        <div class="container">
+          <div class="listWrap">
+            <b-table
+              id="my-table"
+              :items="list"
+              :per-page="perPage"
+              :fields="column"
+              :current-page="currentPage"
+              @row-clicked="rowClick"
+            ></b-table>
 
-        <b-pagination
-          v-model="currentPage"
-          :total-rows="this.list.length"
-          :per-page="perPage"
-          aria-controls="my-table"
-        ></b-pagination>
-      </div>
+            <b-pagination
+              v-model="currentPage"
+              :total-rows="this.list.length"
+              :per-page="perPage"
+              aria-controls="my-table"
+            ></b-pagination>
+          </div>
 
-      <div class="btnRightWrap">
-        <b-button @click="fnAdd" class="btnAdd m-1">등록</b-button>
+          <div class="btnRightWrap">
+            <b-button @click="fnAdd" class="btnAdd m-1">등록</b-button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -116,7 +122,7 @@ export default {
       axios
         .get(`${SERVER_URL}/board/read`, { params: this.form })
         .then((res) => {
-           this.list = res.data.list.sort((a,b) => {return b.bid - a.bid});
+          this.list = res.data.list.sort((a,b) => {return b.bid - a.bid});
            console.log(this.list.length);
         });
     },
