@@ -24,16 +24,10 @@
       </el-popover>
     </template>
     <template slot="navbar-menu">
-      <li class="nav-item">
-        <a
-          class="nav-link"
-          href="https://www.creative-tim.com/product/vue-now-ui-kit"
-          target="_blank"
-        >
-          <i class="now-ui-icons arrows-1_cloud-download-93"></i>
-          <p>메인</p>
-        </a>
-      </li>
+      <router-link class="navbar-brand" to="/group">
+        <i class="now-ui-icons arrows-1_cloud-download-93"></i>
+        <p>그룹 찾기</p>
+      </router-link>
       <drop-down
         tag="li"
         title="게시판"
@@ -43,7 +37,7 @@
         <nav-link to="/">
           <i class="now-ui-icons business_chart-pie-36"></i> 공지사항
         </nav-link>
-        <nav-link to="/">
+        <nav-link to="/board">
           <i class="now-ui-icons business_chart-pie-36"></i> All components 자유 게시판
         </nav-link>
         <a
