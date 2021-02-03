@@ -15,22 +15,60 @@
           <h1 class="h1-seo">아직까지 혼자 공부하세요?</h1>
           <h3>비스킷에서 전국 39291개의 스터디를 찾고 함께 공부하세요</h3>
         </div>
-        <h6 class="category category-absolute">
-          Designed by
-          <a href="http://invisionapp.com/" target="_blank">
-            <img src="img/invision-white-slim.png" class="invision-logo" /> </a
-          >. Coded by
-          <a href="https://www.creative-tim.com" target="_blank">
-            <img
-              src="img/creative-tim-white-slim2.png"
-              class="creative-tim-logo"
-            /> </a
-          >.
-        </h6>
+       
       </div>
+
+
+
+      
 
       
     </div>
+
+
+    <div class="main">
+      <div class="section section-images">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="hero-images-container">
+                <img src="img/Group 38.png" alt="" />
+              </div>
+         
+              <div class="hero-images-container-2">
+                <h1>스터디원</h1>
+                <h2>모집부터</h2>
+                <h2>스터디 관리까지</h2>
+                <h2>한번에.</h2>
+              </div>
+            </div>
+
+            <div class="col-md-12">
+           
+             
+         
+              <div class="hero-images-container-3">
+                <h1>비대면 시대에도 편리하게 스터디.</h1>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="section section-images">
+
+      <div class="col-md-8">
+           
+              <div class="hero-images-container">
+                <img src="img/frame2md.png" alt="" />
+              </div>
+         
+              <div class="hero-images-container-2">
+                <h1>비대면 시대에도 편리하게 스터디.</h1>
+              </div>
+      </div>
+    </div>
+
      <carousel-section></carousel-section>
  
 
