@@ -39,6 +39,7 @@
            <button  class="navButton" style="margin-top: 50px" @click.prevent=""> 그룹 관리
            </button><br/>
         </div>
+        <button class="navButton" style="margin-top: 50px" @click.prevent="joinMeeting()">화상 스터디 참여</button><br/>
     </div>
 
     <div id="mypage-contents">
@@ -136,6 +137,12 @@ export default {
       },
       loadApplyList(){
         this.active = 1;
+      },
+      joinMeeting(){
+        var VUE_RTC_LOCAL_SERVER_URL = `http://localhost:9001/demos/dashboard/`;
+        // var VUE_RTC_SERVER_URL = `http://i4a407.p.ssafy.io:9001/demos/dashboard/`;
+        // var nickname = localStorage.getItem('nickname');
+        window.open(`${VUE_RTC_LOCAL_SERVER_URL}?gId=${this.gId}&nickname=${this.loginStatus.nickname}`, "_blank");
       }
   },
 };
