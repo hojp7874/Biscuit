@@ -41,7 +41,6 @@
           <i class="now-ui-icons business_chart-pie-36"></i> All components 자유 게시판
         </nav-link>
         <a
-          href="https://demos.creative-tim.com/vue-now-ui-kit/documentation"
           target="_blank"
           class="dropdown-item"
         >
@@ -55,13 +54,10 @@
               class="nav-item"
                v-if="this.token !== ''"
       >
-        <nav-link to="/landing">
+        <!-- <nav-link to="/landing">
           <i class="now-ui-icons education_paper"></i> Landing
-        </nav-link>
+        </nav-link> -->
         <nav-link to="/profile">
-          <i class="now-ui-icons users_single-02"></i> Profile
-        </nav-link>
-        <nav-link to="/mypage">
           <i class="now-ui-icons users_single-02"></i> MyPage
         </nav-link>
       </drop-down>
@@ -85,7 +81,7 @@
           <p>로그아웃</p>
         </a>
       </li>
-
+<!-- 
       <li class="nav-item">
         <a
           class="nav-link"
@@ -124,7 +120,7 @@
           <i class="fab fa-instagram"></i>
           <p class="d-lg-none d-xl-none">Instagram</p>
         </a>
-      </li>
+      </li> -->
     </template>
   </navbar>
 </template>

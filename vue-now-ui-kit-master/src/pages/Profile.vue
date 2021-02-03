@@ -10,20 +10,20 @@
         <div class="photo-container">
           <img src="img/ryan.jpg" alt="" />
         </div>
-        <h3 class="title">Ryan Scheinder</h3>
-        <p class="category">Photographer</p>
+        <h3 class="title">{{loginStatus.nickname}}</h3>
+        <p class="category">{{loginStatus.phone}}</p>
         <div class="content">
           <div class="social-description">
             <h2>26</h2>
-            <p>Comments</p>
+            <p>내 게시글</p>
           </div>
           <div class="social-description">
             <h2>26</h2>
-            <p>Comments</p>
+            <p>내 댓글</p>
           </div>
           <div class="social-description">
             <h2>48</h2>
-            <p>Bookmarks</p>
+            <p>가입한 스터디</p>
           </div>
         </div>
       </div>
@@ -31,107 +31,72 @@
     <div class="section">
       <div class="container">
         <div class="button-container">
-          <a href="#button" class="btn btn-primary btn-round btn-lg">Follow</a>
-          <a
-            href="#button"
-            class="btn btn-default btn-round btn-lg btn-icon"
-            rel="tooltip"
-            title="Follow me on Twitter"
-          >
-            <i class="fab fa-twitter"></i>
-          </a>
-          <a
-            href="#button"
-            class="btn btn-default btn-round btn-lg btn-icon"
-            rel="tooltip"
-            title="Follow me on Instagram"
-          >
-            <i class="fab fa-instagram"></i>
-          </a>
+          <a v-on:click="loadSchedule()" class="btn btn-primary btn-round btn-lg">나의 일정</a>
+          <a v-on:click="loadUpdate()" class="btn btn-primary btn-round btn-lg" >개인 정보 수정</a>
         </div>
-        <h3 class="title">About me</h3>
-        <h5 class="description">
-          An artist of considerable range, Ryan — the name taken by
-          Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs and
-          records all of his own music, giving it a warm, intimate feel with a
-          solid groove structure. An artist of considerable range.
-        </h5>
-        <div class="row">
-          <div class="col-md-6 ml-auto mr-auto">
-            <h4 class="title text-center">My Portfolio</h4>
-          </div>
-          <tabs
-            pills
-            class="nav-align-center"
-            tab-content-classes="gallery"
-            tab-nav-classes="nav-pills-just-icons"
-            type="primary"
-          >
-            <tab-pane title="Profile">
-              <i slot="label" class="now-ui-icons design_image"></i>
-
-              <div class="col-md-10 ml-auto mr-auto">
-                <div class="row collections">
-                  <div class="col-md-6">
-                    <img src="img/bg6.jpg" class="img-raised" />
-                    <img src="img/bg11.jpg" alt="" class="img-raised" />
-                  </div>
-                  <div class="col-md-6">
-                    <img src="img/bg7.jpg" alt="" class="img-raised" />
-                    <img src="img/bg8.jpg" alt="" class="img-raised" />
-                  </div>
-                </div>
-              </div>
-            </tab-pane>
-
-            <tab-pane title="Home">
-              <i slot="label" class="now-ui-icons location_world"></i>
-
-              <div class="col-md-10 ml-auto mr-auto">
-                <div class="row collections">
-                  <div class="col-md-6">
-                    <img src="img/bg1.jpg" alt="" class="img-raised" />
-                    <img src="img/bg3.jpg" alt="" class="img-raised" />
-                  </div>
-                  <div class="col-md-6">
-                    <img src="img/bg8.jpg" alt="" class="img-raised" />
-                    <img src="img/bg7.jpg" alt="" class="img-raised" />
-                  </div>
-                </div>
-              </div>
-            </tab-pane>
-
-            <tab-pane title="Messages">
-              <i slot="label" class="now-ui-icons sport_user-run"></i>
-
-              <div class="col-md-10 ml-auto mr-auto">
-                <div class="row collections">
-                  <div class="col-md-6">
-                    <img src="img/bg3.jpg" alt="" class="img-raised" />
-                    <img src="img/bg8.jpg" alt="" class="img-raised" />
-                  </div>
-                  <div class="col-md-6">
-                    <img src="img/bg7.jpg" alt="" class="img-raised" />
-                    <img src="img/bg6.jpg" class="img-raised" />
-                  </div>
-                </div>
-              </div>
-            </tab-pane>
-          </tabs>
-        </div>
-      </div>
-    </div>
+        <component :is="componentLoading()"></component>
   </div>
+    </div>
+    </div>
+  
 </template>
 <script>
 import { Tabs, TabPane } from '@/components';
-
+import MyStudy from './components/User/MyPage/MyStudy';
+import MySchedule from './components/User/MyPage/MySchedule';
+import UpdateUser from './components/User/MyPage/UpdateUser';
+ import {mapState} from 'vuex'
 export default {
   name: 'profile',
   bodyClass: 'profile-page',
+  data() {
+    return {
+      user: {
+        email: '',
+        nickname: '',
+        picture: '',
+        region: '',
+        phone: '',
+      },
+      active:1,
+    };
+  },
+  created() {
+    this.user.region = localStorage.getItem('region');
+    this.user.email = localStorage.getItem('email');
+    this.user.nickname = localStorage.getItem('nickname');
+    this.user.phone = localStorage.getItem('phone');
+  },
+  computed: {
+      ...mapState([
+        'loginStatus',
+      ]),
+    },
   components: {
     Tabs,
-    TabPane
+    TabPane,MySchedule,UpdateUser,MyStudy
+  },
+  methods: {
+    componentLoading(){
+          switch(this.active){
+              case 0 :
+                  return 'MyStudy';
+              case 1 :
+                  return 'MySchedule';
+              case 2 :
+                  return 'UpdateUser';    
+          }
+      },
+
+      loadStudy(){
+           this.active = 0;
+      },
+      loadSchedule(){
+           this.active = 1;
+      },
+      loadUpdate(){
+          this.active = 2;
+      }
   }
 };
 </script>
