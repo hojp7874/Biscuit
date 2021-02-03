@@ -4,162 +4,222 @@ false) { // console.log('gg'); // }
 
 <template>
   <div class="page-header clear-filter" filter-color="orange">
-      <div
+    <div
       class="page-header-image"
       style="background-image: url('img/login.jpg')"
     ></div>
-    <div>
-      <center style="margin-bottom:-30px">
-    <h2 style="margin-top:120px">간편가입</h2>
+    <div class="content" style="margin-top:140px">
+      <center style="margin-bottom:-50px">
+        <h2 style="x">간편가입</h2>
       </center>
     </div>
     <vue-slide-bar
       v-model="simpleValue"
       :processStyle="{ backgroundColor: '#35495e' }"
       :lineHeight="5"
-      :style="{ width: '500px', margin: 'auto'}"
+      :style="{ width: '500px', margin: 'auto' }"
       :showTooltip="false"
     />
     <br />
-  <div>
-  <center>
-    <vueper-slides
-      class="in"
-      id="slides"
-      :touchable="false"
-      :bullets="false"
-      :arrows="false"
-      :fixed-height="setSliderHeight()"
-      ref="first"
-      style="width: 500px; height: 400px; display: inline-block;"
-    >
-      <vueper-slide :key="1">
-        <template v-slot:content>
-          <div class="text-center memjoin_cnt">
-            <form>
+    <div>
+      <center>
+        <vueper-slides
+          class="in"
+          id="slides"
+          :touchable="false"
+          :bullets="false"
+          :arrows="false"
+          :fixed-height="setSliderHeight()"
+          ref="first"
+          style="width: 500px; height: 400px; display: inline-block; border:0;outline:0 "
+        >
+          <vueper-slide :key="1">
+            <template v-slot:content>
+              <div class="text-center memjoin_cnt">
+                <form>
+                  <div>
+                    <p style=" font-size :x-large ; margin-top:20px">
+                      로그인에 사용할<br />
+                      아이디를 입력해주세요.
+                    </p>
+                  </div>
+                  <div class="inpbx">
+                    <fg-input
+                      placeholder="아이디(이메일) 입력"
+                      style="width: 300px ; margin-left : 20px ; opacity: 2.0"
+                      v-model="user.email"
+                    >
+                    </fg-input>
+                    <n-button
+                      type="primary"
+                      @click.prevent="sendEmail()"
+                      style="width:150px;margin-left:320px;margin-top:-75px"
+                      >인증번호 받기</n-button
+                    >
+
+                    <!-- <button
+                      class="btn btn-primary"
+                      id="certinum_btn"
+                      @click.prevent="sendEmail()"
+                      style="width:150px;margin-left:10px"
+                    >
+                      인증번호 받기
+                    </button> -->
+
+                    <br />
+                    <!-- <input
+                      type="text"
+                      id="certinum"
+                      placeholder="인증번호를 입력하세요"
+                      style="width: 300px"
+                      v-model="code"
+                    /> -->
+                    <fg-input
+                      placeholder="인증번호를 입력하세요"
+                      style="width: 300px ; margin-left : 20px"
+                      v-model="code"
+                    >
+                    </fg-input>
+                    &nbsp;
+                    <!-- <button
+                      class="btn btn-primary"
+                      id="certinum_btn"
+                      style="width:150px ; margin-left:10px"
+                      @click.prevent="checkCode()"
+                    >
+                      확인
+                    </button> -->
+                    <n-button
+                      type="primary"
+                      @click.prevent="checkCode()"
+                      style="width:150px;margin-left:320px;margin-top:-75px"
+                      >확인</n-button
+                    >
+                    <br />
+                  </div>
+                </form>
+              </div>
               <div>
-                <p style=" font-size :x-large ; margin-top:20px">
-                  로그인에 사용할<br />
-                  아이디를 입력해주세요.
-                </p>
-              </div>
-              <div class="inpbx">
-                <input
-                  type="text"
-                  id="user-id"
-                  placeholder="아이디(이메일) 입력"
-                  style="width: 300px"
-                  v-model="user.email"
-                />
-
-                <button
+                <!-- <button
                   class="btn btn-primary"
                   id="certinum_btn"
-                  @click.prevent="sendEmail()"
-                  style="width:150px;margin-left:10px"
+                  @click="
+                    $refs.first.next();
+                    barProceeding();
+                  "
                 >
-                  인증번호 받기
-                </button>
-                <br />
-                <input
-                  type="text"
-                  id="certinum"
-                  placeholder="인증번호를 입력하세요"
-                  style="width: 300px"
-                  v-model="code"
-                />
-                &nbsp;
-                <button
-                  class="btn btn-primary"
-                  id="certinum_btn"
-                  style="width:150px ; margin-left:10px"
-                  @click.prevent="checkCode()"
+                  다음
+                </button> -->
+                <n-button
+                  type="primary"
+                  round
+                  @click="
+                    $refs.first.next();
+                    barProceeding();
+                  "
+                  style="width:200px"
+                  >다음</n-button
                 >
-                  확인
-                </button>
-                <br />
               </div>
-            </form>
-          </div>
-          <div>
-            <button
-              class="btn btn-primary"
-              id="certinum_btn"
-              @click="
-                $refs.first.next();
-                barProceeding();
-              "
-            >
-              다음
-            </button>
-          </div>
-        </template>
-      </vueper-slide>
-      <vueper-slide :key="2">
-        <template v-slot:content>
-          <div>
-            <div class="text-center memjoin_cnt">
-              <form>
-                <div>
-                  <p style=" font-size :x-large ; margin-top:20px">
-                    로그인에 사용할<br />
-                    비밀번호를 입력해주세요.
-                  </p>
-                  <p style="font-size :medium">
-                    8~20자 이내
-                  </p>
-                </div>
-                <div class="inpbx">
-                  <input
-                    type="password"
-                    id="pw"
-                    placeholder="비밀번호 입력"
-                    v-model="user.password"
-                  />
+            </template>
+          </vueper-slide>
+          <vueper-slide :key="2">
+            <template v-slot:content>
+              <div>
+                <div class="text-center memjoin_cnt">
+                  <form>
+                    <div>
+                      <p style=" font-size :x-large ; margin-top:20px">
+                        로그인에 사용할<br />
+                        비밀번호를 입력해주세요.
+                      </p>
+                      <p style="font-size :medium">
+                        8~20자 이내
+                      </p>
+                    </div>
+                    <div class="inpbx">
+                      <fg-input
+                        type="password"
+                        class="col-12"
+                        placeholder="비밀번호 입력"
+                        style="width: 300px ; margin-left : 95px ;"
+                        v-model="user.password"
+                      >
+                      </fg-input>
+                      <!-- <input
+                        type="password"
+                        id="pw"
+                        placeholder="비밀번호 입력"
+                        v-model="user.password"
+                      /> -->
 
-                  <!-- <div style=" font-size :small" id="english-check">
+                      <!-- <div style=" font-size :small" id="english-check">
                     영문포함✓
                   </div> -->
+                    </div>
+                    <br />
+                    <div>
+                      <!-- <input
+                        type="password"
+                        id="certipw"
+                        placeholder="비밀번호 확인"
+                        v-model="pw_certification"
+                      /> -->
+                      <fg-input
+                        type="password"
+                        class="col-12"
+                        placeholder="비밀번호 확인"
+                        style="width: 300px ; margin-left : 95px ;"
+                        v-model="pw_certification"
+                      >
+                      </fg-input>
+                      <br />
+                    </div>
+                  </form>
                 </div>
-                <br />
-                <div>
-                  <input
-                    type="password"
-                    id="certipw"
-                    placeholder="비밀번호 확인"
-                    v-model="pw_certification"
-                  />
-                  <br />
-                </div>
-              </form>
-            </div>
-            <br /><br />
-            <button class="btn btn-primary" id="next_btn" @click="checkPw()">
-              다음</button
-            >>
-          </div>
-        </template>
-      </vueper-slide>
-      <vueper-slide :key="3">
-        <template v-slot:content>
-          <div class="text-center memjoin_cnt">
-            <form>
-              <div>
-                <p style=" font-size :x-large ; margin-top:20px">
-                  기본 정보를 입력해주세요.
-                </p>
+                <br /><br />
+                <!-- <button
+                  class="btn btn-primary"
+                  id="next_btn"
+                  @click="checkPw()"
+                >
+                  다음</button -->
+                <n-button
+                  type="primary"
+                  @click="checkPw()"
+                  style="width:200px ; margin-top : -60px"
+                  >다음</n-button
+                >
               </div>
-              <div class="inpbx" style="font-size :x-large ; margin-top:20px">
-                <div style="margin-top:20px">
-                  닉네임 :&nbsp;
-                  <input
-                    type="text"
-                    id="user-id"
-                    placeholder="닉네임"
-                    v-model="user.nickname"
-                  />
-                </div>
-                <!-- <div style= "margin-top:10px;margin-left:25px">
+            </template>
+          </vueper-slide>
+          <vueper-slide :key="3">
+            <template v-slot:content>
+              <div class="text-center memjoin_cnt">
+                <form>
+                  <div>
+                    <p style=" font-size :x-large ; margin-top:20px">
+                      기본 정보를 입력해주세요.
+                    </p>
+                  </div>
+                  <div
+                    class="inpbx"
+                    style="font-size :x-large ; margin-top:20px"
+                  >
+                    <div style="margin-top:20px">
+                      <div style="margin-right:330px">닉네임 :</div>
+                      <!-- <input
+                        type="text"
+                        id="user-id"
+                        placeholder="닉네임"
+                        v-model="user.nickname"
+                      /> -->
+                      <fg-input
+                        v-model="user.nickname"
+                        style="width: 300px ; margin-left : 140px ; margin-top : -40px ;opacity: 2.0"
+                      ></fg-input>
+                    </div>
+                    <!-- <div style= "margin-top:10px;margin-left:25px">
                 지역 : &nbsp; &nbsp; &nbsp;
                 <input
                   type="text"
@@ -167,46 +227,73 @@ false) { // console.log('gg'); // }
                   placeholder="지역"
                   v-model="user.region"
                 /></div> -->
-                <div style="margin-top:10px;margin-right:20px">
-                  전화번호 :
-                  <input
-                    type="text"
-                    id="user-phone"
-                    placeholder="전화번호"
-                    v-model="user.phone"
-                  />
-                </div>
-                <div style="margin-top:10px;margin-right:223px">
-                  사는 곳 :             
-                  <b-button v-b-modal.modal-2>주소찾기</b-button>
-                </div>
-                <input
-                  type="text"
-                  id="user-address"
-                  placeholder="주소"
-                  v-model="user.region"
-                  style="margin-top:10px ;margin-bottom:20px;font-size:13px ;width:470px;height:45px "
-                />
+                    <!-- <div style="margin-top:10px;margin-right:20px">
+                      전화번호 :
+                      <input
+                        type="text"
+                        id="user-phone"
+                        placeholder="전화번호"
+                        v-model="user.phone"
+                      />
+                    </div> -->
+                    <div style="margin-top:20px">
+                      <div style="margin-right:355px">전화번호 :</div>
+                      <fg-input
+                        v-model="user.phone"
+                        style="width: 300px ; margin-left : 140px ; margin-top : -40px ;opacity: 2.0"
+                      ></fg-input>
+                    </div>
+                    <div style="margin-right:223px">
+                      <span style="margin-right:10px">사는 곳 :</span>
+                      <!-- <b-button v-b-modal.modal-2>주소찾기</b-button> -->
+                      <n-button
+                        type="primary"
+                        round
+                        v-b-modal.modal-2
+                        style="; height : 40px;  font-size:13px "
+                        >주소찾기</n-button
+                      >
+                    </div>
+                    <!-- <input
+                      type="text"
+                      id="user-address"
+                      placeholder="주소"
+                      v-model="user.region"
+                      style="margin-top:10px ;margin-bottom:20px;font-size:13px ;width:470px;height:45px "
+                    /> -->
+                    <fg-input
+                        v-model="user.region"
+                        style="width: 400px ; margin-left : 40px; font-size:13px ;opacity: 2.0"
+                      ></fg-input>
+                  </div>
+                </form>
               </div>
-            </form>
-          </div>
 
-          <div>
-            <button
-              class="btn btn-primary"
-              id="next_btn"
-              @click="
-                barProceeding();
-                signup();
-              "
-            >
-              회원가입 완료
-            </button>
-          </div>
-        </template>
-      </vueper-slide>
-    </vueper-slides>
-    </center>
+              <div>
+                <!-- <button
+                  class="btn btn-primary"
+                  id="next_btn"
+                  @click="
+                    barProceeding();
+                    signup();
+                  "
+                >
+                  회원가입 완료
+                </button> -->
+                <n-button
+                  type="primary"
+                  @click="
+                    barProceeding();
+                    signup();
+                  "
+                  style="width:200px ; margin-right:20px"
+                  >회원가입 완료</n-button
+                >
+              </div>
+            </template>
+          </vueper-slide>
+        </vueper-slides>
+      </center>
     </div>
     <b-modal ref="addr-modal" id="modal-2" title="주소 찾기" hide-footer>
       <FindPostCode @setAddress="setAddress" />
@@ -221,6 +308,7 @@ import VueSlideBar from 'vue-slide-bar';
 import axios from 'axios';
 import 'url-search-params-polyfill';
 import FindPostCode from './components/User/FindPostCode';
+import { Button, FormGroupInput } from '@/components';
 
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
@@ -246,7 +334,14 @@ export default {
     };
   },
 
-  components: { VueperSlides, VueperSlide, VueSlideBar, FindPostCode },
+  components: {
+    VueperSlides,
+    VueperSlide,
+    VueSlideBar,
+    FindPostCode,
+    [Button.name]: Button,
+    [FormGroupInput.name]: FormGroupInput,
+  },
   methods: {
     barProceeding() {
       this.simpleValue += 33;
@@ -400,13 +495,13 @@ export default {
 }
 
 .memjoin_cnt {
-  border-top-style: solid;
-  border-top-color: rgb(0, 0, 0);
+  /* border-top-style: solid; */
+  /* border-top-color: rgb(0, 0, 0); */
 }
 
-#slides{
-  width: 500px; 
-  height: 400px; 
+#slides {
+  width: 500px;
+  height: 400px;
   display: inline-block;
   /* background-color: #ffffff; */
   /* opacity: 0.5; */
