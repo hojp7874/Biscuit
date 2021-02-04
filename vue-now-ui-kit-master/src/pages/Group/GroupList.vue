@@ -34,6 +34,39 @@
       </div>
     </div>
     <div class="container">
+            <b-card-group
+        deck
+        class="d-flex flex-row"
+      >
+        <b-col cols="3"
+          v-for="(group, idx) in myGroups"
+          :key="idx"
+          :group="group"
+        >
+          <!-- @click="goDetail(group)" -->
+            <!-- v-b-modal.group-13 -->
+          <b-card
+            @click="goGroupPage(group)"
+            v-bind:title="group.groupName"
+            :img-src="group.img"
+            img-alt="Image"
+            img-top
+          >
+            <b-card-text>
+              {{group.groupDesc}}
+            </b-card-text>
+            <template #footer>
+              <small class="text-muted">Last updated 3 mins ago</small>
+            </template>
+          </b-card>
+          <b-modal
+            :id="'group-'+idx"
+            size="xl"
+            :title="''+group.groupName"
+          >
+          </b-modal>
+        </b-col>
+      </b-card-group>
       <card></card>
       <b-button v-show="loginStatus.email" variant="primary" @click="goCreate">그룹생성</b-button>
       <b-card-group
@@ -130,8 +163,13 @@
           word: '',
         },
         groups: Object,
+        myGroups: Object,
         permission: '',
       }
+    },
+    created() {
+      this.myGroupList();
+      this.groupList();
     },
     computed: {
       ...mapState([
@@ -249,17 +287,35 @@
           .catch(err => {
             console.log(err)
           })
-      }
+      },
+            goGroupPage: function(myGroup) {
+        this.$router.push({ path: './GroupPage', query: { gId: myGroup.gId } });
+      },
+      myGroupList: function() {
+        axios
+          .get(`${SERVER_URL}/group/member/apply/user/list`, {
+            params: {
+              email: this.loginStatus.email,
+            },
+          })
+          .then((res) => {
+            this.myGroups = res.data.list;
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      },
+      groupList: function() {
+        axios
+          .get(`${SERVER_URL}/group/list/`, { params: this.params })
+          .then((res) => {
+            this.groups = res.data.list;
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      },
     },
-    created: function () {
-      axios.get(`${SERVER_URL}/group/list/`, {params: this.params})
-        .then(res => {
-          this.groups = res.data.list
-        })
-        .catch(err => {
-          console.log(err)
-        })
-    }
   }
 </script>
 

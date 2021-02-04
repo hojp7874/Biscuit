@@ -8,7 +8,7 @@
         <div class="col-12">
           <el-carousel height="500px">
             <el-carousel-item>
-              <img class="d-block" src="img/groupstudy.jpg" alt="First slide" />
+              <img class="d-block" src="img/Frame1.png" alt="First slide" />
               <div class="carousel-caption d-none d-md-block">
                 <h5>Nature, United States</h5>
               </div>

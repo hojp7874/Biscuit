@@ -1,13 +1,15 @@
 <template>
 <div>
-<h2>나의 일정</h2>
+ <center style="font-size: 30px; margin-top:30px">나의 일정</center>
+ <center>
   <Schedule v-on:createSchedule="createSchedule" v-on:getSchedule="getSchedule" :scheduleType="mySchedule" :items="items"/>
+ </center>
 </div>
 </template>
 <script>
 
-import Schedule from '../../Schedule';
-
+import Schedule from '../../components/Schedule';
+import { Button, FormGroupInput } from '@/components';
 import axios from 'axios';
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 export default {
@@ -19,7 +21,9 @@ export default {
     }
   },
   components : {
-    Schedule
+    Schedule,
+      [Button.name]: Button,
+    [FormGroupInput.name]: FormGroupInput,
   },
 
   methods: {

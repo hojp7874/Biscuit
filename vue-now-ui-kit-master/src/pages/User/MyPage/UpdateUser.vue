@@ -1,63 +1,84 @@
-// main.js에 모달관련 import함
-<template v-slot:content>
-  <div class="memupdate">
+<template>
+  <div>
     <div>
-      <span style="font-size: x-large">회원 정보 수정</span>
-      <del-popup style="margin-left:720px" v-on:logout="logout()" />
+      <center style="font-size: 30px; margin-top:30px">개인 정보 수정</center>
+      <del-popup style="margin-left:950px ; margin-top:20px" v-on:logout="logout()" />
     </div>
+    <div id="all_info" style="margin-left:80px">
     <div id="user_info">
-      <p style="font-size: large">로그인 정보</p>
       <div id="login_info">
-        <span> 아이디(이메일) </span>
-        <p>{{ user.email }}</p>
-        <br />
-        <span> 비밀번호 </span>
-        <p id="fakePw" v-if="!show">········</p>
-        <UpdatePw v-if="show" v-on:cancel="cancel()" />
-        <button id="update_btn" @click.prevent="show_update_pw()" v-if="!show">
+        <span style="margin-left: 80px ;font-size: 30px"> 아이디(이메일) </span>
+        <span style="margin-left: 100px ; font-size: 30px">{{
+          user.email
+        }}</span>
+        <br /><br /><br />
+        <span style="margin-left:156px ;font-size: 30px "> 비밀번호 </span>
+        <span
+          id="fakePw"
+          v-if="!show"
+          style="margin-left: 100px ; font-size: 30px"
+          >********</span
+        >
+        <UpdatePw
+          v-if="show"
+          v-on:cancel="cancel()"
+          style="margin-left:390px;margin-top:-50px;"
+        />
+        <n-button
+          type="primary"
+          @click.prevent="show_update_pw()"
+          style="margin-left: 40px ;margin-top:-17px;font-size:0.5rem;border-radius: 10rem"
+          v-if="!show"
+        >
           변경
-        </button>
+        </n-button>
       </div>
-      <br /><br />
     </div>
-    <br /><br />
     <div>
-      <p style="font-size: large">회원 정보</p>
-      <div id="member_info">
+      <div style="margin-top:35px">
         <div class="inpbx" style="font-size: large">
-          <span style="margin-right :28px">닉네임</span>
-          <input
-            type="text"
-            id="user-id"
+          <span style="margin-left:185px ;font-size: 30px ;"> 닉네임 </span>
+          <fg-input
             placeholder="닉네임"
-            style="margin-left : 30px"
+            style="margin-left : 370px ; margin-top:-44px;width : 300px"
             v-model="user.nickname"
-          /><br />
-          <span style="margin-right : 20px">휴대폰 번호</span>
-          <input
-            type="text"
-            id="user-id"
+          />
+          <br />
+          <div></div>
+          <span style="margin-left:120px ;font-size: 30px ;">
+            휴대폰 번호
+          </span>
+          <fg-input
+            style="margin-left : 370px ; margin-top:-44px;width : 300px"
             placeholder="휴대폰 번호"
             v-model="user.phone"
           /><br />
 
-          <div style="margin-top:20px">
-          <span style="margin-right :250px ;">사는 곳</span>
-          <b-button v-b-modal.modal-2 style="">주소찾기</b-button>
-          <br>
-          <div>
-            <b-modal ref="addr-modal" id="modal-2" title="주소 찾기" hide-footer>
-              <FindPostCode @setAddress="setAddress"/>
-            </b-modal>
-          </div>
-          <input
-            type="text"
-            id="user-address"
-            placeholder=""
-            v-model="user.region"
-            style="margin-top:20px " 
-          />
-          <!-- <input
+          <div style="margin-top:-10px">
+            <span style="margin-left:180px ;font-size: 30px ;"> 사는 곳 </span>
+            <fg-input
+              placeholder=""
+              v-model="user.region"
+              style="margin-top:-44px ;margin-left : 370px ; width :450px"
+            />
+            <n-button
+              type="primary"
+              v-b-modal.modal-2
+              style="margin-left: 850px ;margin-top:-85px;font-size:0.5rem;border-radius: 10rem"
+              >주소찾기</n-button
+            >
+            <br />
+            <div>
+              <b-modal
+                ref="addr-modal"
+                id="modal-2"
+                title="주소 찾기"
+                hide-footer
+              >
+                <FindPostCode @setAddress="setAddress" />
+              </b-modal>
+            </div>
+            <!-- <input
             type="text"
             id="user-address"
             placeholder=""
@@ -65,31 +86,32 @@
             style="margin-top:20px " 
           /> -->
           </div>
-          
+
           <br />
         </div>
       </div>
     </div>
+    </div>
 
-    <div>
-      <button
-        class="btn btn-primary"
-        id="complete_btn"
+    <center style="margin-top :-30px">
+      <n-button
+        type="primary"
         @click.prevent="update()"
+        style="border-radius: 10rem; width :150px"
       >
         수정
-      </button>
-    </div>
+      </n-button>
+    </center>
   </div>
 </template>
 
 <script>
+import { Button, FormGroupInput } from '@/components';
 import DelPopup from './updatecomponent/DelPopup.vue';
 import UpdatePw from './updatecomponent/UpdatePw.vue';
 import FindPostCode from '../FindPostCode';
 import axios from 'axios';
 const SERVER_URL = process.env.VUE_APP_LOCAL_SERVER_URL;
-
 export default {
   data() {
     return {
@@ -104,6 +126,10 @@ export default {
       },
     };
   },
+  // components: {
+  //   [Button.name]: Button,
+  //   FgInput
+  // },
   methods: {
     show_update_pw() {
       this.show = true;
@@ -144,7 +170,7 @@ export default {
       this.$router.push('/');
       window.location.reload();
     },
-    setAddress (data) {
+    setAddress(data) {
       this.user.region = data;
       console.log(this.user.region);
       this.hideModal();
@@ -157,6 +183,8 @@ export default {
     UpdatePw,
     DelPopup,
     FindPostCode,
+    [Button.name]: Button,
+    [FormGroupInput.name]: FormGroupInput,
   },
 
   created() {
@@ -169,27 +197,18 @@ export default {
 </script>
 
 <style>
-#user_info {
-  padding-top: 18px;
-  border-top: 4px solid #000;
-  border-top-width: 4px;
-  border-top-style: solid;
-  border-top-color: rgb(0, 0, 0);
-  width: 800px;
-  margin: 0 auto;
-}
-
 #login_info,
 #member_info {
-  margin: 0 auto;
-  font-size: 18px;
-  width: 600px;
-  text-align: center;
-  padding-top: 18px;
-  border-top: 4px solid #000;
-  border-top-width: 2px;
-  border-top-style: solid;
-  border-top-color: rgb(172, 159, 159);
+  /* margin: 0 auto; */
+  margin-top: 40px;
+  /* font-size: 18px; */
+  /* width: 600px; */
+  /* text-align: center; */
+  /* padding-top: 18px; */
+  /* border-top: 4px solid #000; */
+  /* border-top-width: 2px; */
+  /* border-top-style: solid; */
+  /* border-top-color: rgb(172, 159, 159); */
 }
 
 #update_btn,
@@ -217,7 +236,7 @@ export default {
   margin: 12px 0 10px;
 }
 
-#user-address{
+#user-address {
   width: 500px;
   height: 45px;
 }
