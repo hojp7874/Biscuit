@@ -16,7 +16,6 @@
             <template #prepend>
             <b-input-group>
               <b-select name="type" v-model="params.type">
-                <b-select-option value="">전체</b-select-option>
                 <b-select-option value="groupName">그룹 이름</b-select-option>
                 <b-select-option value="groupDesc">그룹 설명</b-select-option>
                 <b-select-option value="category">카테고리</b-select-option>
@@ -34,23 +33,23 @@
       </div>
     </div>
     <div class="container">
-            <b-card-group
+      <h3 class="text-center">{{loginStatus.nickname}}님의 스터디 목록입니다</h3>
+      <b-card-group
         deck
         class="d-flex flex-row"
       >
-        <b-col cols="3"
+        <b-col cols="4"
           v-for="(group, idx) in myGroups"
           :key="idx"
           :group="group"
         >
-          <!-- @click="goDetail(group)" -->
-            <!-- v-b-modal.group-13 -->
           <b-card
             @click="goGroupPage(group)"
             v-bind:title="group.groupName"
             :img-src="group.img"
             img-alt="Image"
             img-top
+            class="my-3"
           >
             <b-card-text>
               {{group.groupDesc}}
@@ -59,16 +58,14 @@
               <small class="text-muted">Last updated 3 mins ago</small>
             </template>
           </b-card>
-          <b-modal
-            :id="'group-'+idx"
-            size="xl"
-            :title="''+group.groupName"
-          >
-          </b-modal>
         </b-col>
       </b-card-group>
       <card></card>
-      <b-button v-show="loginStatus.email" variant="primary" @click="goCreate">그룹생성</b-button>
+      <div class="d-flex justify-content-end">
+        <b-button v-show="loginStatus.email" variant="primary" @click="goCreate">그룹생성</b-button>
+      </div>
+      <hr>
+      <h3 class="text-center">새로운 스터디를 찾으세요</h3>
       <b-card-group
         deck
         class="d-flex flex-row"
@@ -159,7 +156,7 @@
     data() {
       return {
         params: {
-          type: '',
+          type: 'groupName',
           word: '',
         },
         groups: Object,
@@ -288,17 +285,17 @@
             console.log(err)
           })
       },
-            goGroupPage: function(myGroup) {
+      goGroupPage: function(myGroup) {
         this.$router.push({ path: './GroupPage', query: { gId: myGroup.gId } });
       },
       myGroupList: function() {
-        axios
-          .get(`${SERVER_URL}/group/member/apply/user/list`, {
+        axios.get(`${SERVER_URL}/group/member/apply/user/list`, {
             params: {
               email: this.loginStatus.email,
             },
           })
           .then((res) => {
+            console.log(res)
             this.myGroups = res.data.list;
           })
           .catch((err) => {
