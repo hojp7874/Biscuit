@@ -111,7 +111,7 @@ import DelPopup from './updatecomponent/DelPopup.vue';
 import UpdatePw from './updatecomponent/UpdatePw.vue';
 import FindPostCode from '../FindPostCode';
 import axios from 'axios';
-const SERVER_URL = process.env.VUE_APP_LOCAL_SERVER_URL;
+const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 export default {
   data() {
     return {
