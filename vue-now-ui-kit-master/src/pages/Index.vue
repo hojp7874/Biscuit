@@ -12,8 +12,9 @@
           
         <div class="content-center brand">
           <img class="n-logo" src="img/bisWhite.png" alt="" />
-          <h1 class="h1-seo">아직까지 혼자 공부하세요?</h1>
+          <h1 class="h1-seo" style="font-weight:bold">아직까지 혼자 공부하세요?</h1>
           <h3>비스킷에서 전국 39291개의 스터디를 찾고 함께 공부하세요</h3>
+          <div><i class="now-ui-icons arrows-1_minimal-down"></i></div>
         </div>
        
       </div>
@@ -32,14 +33,7 @@
           <div class="row">
             <div class="col-md-12">
               <div class="hero-images-container">
-                <img src="img/Group 38.png" alt="" />
-              </div>
-         
-              <div class="hero-images-container-2">
-                <h1>스터디원</h1>
-                <h2>모집부터</h2>
-                <h2>스터디 관리까지</h2>
-                <h2>한번에.</h2>
+                <img src="img/Group 44.png" alt="" />
               </div>
             </div>
 
@@ -48,30 +42,30 @@
              
          
               <div class="hero-images-container-3">
-                <h1>비대면 시대에도 편리하게 스터디.</h1>
+                <h1 style="font-weight:bold">비대면 시대에도 편리하게 스터디.</h1>
+                <div class="col-md-6">
+                  <img class="container" src="img/bisBrown.png" alt="" />
+                  </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="section section-images">
 
-      <div class="col-md-8">
-           
-              <div class="hero-images-container">
-                <img src="img/frame2md.png" alt="" />
-              </div>
-         
-              <div class="hero-images-container-2">
-                <h1>비대면 시대에도 편리하게 스터디.</h1>
-              </div>
-      </div>
-    </div>
+    
+  
 
-     <carousel-section></carousel-section>
- 
 
+<div><hr></div>
+<br>
+
+
+
+
+
+    <landing></landing>
+    <carousel-section></carousel-section>
     <basic-elements></basic-elements>
     <navigation></navigation>
     <tabs-section></tabs-section>
@@ -101,6 +95,9 @@
     <download-section></download-section>
   </div>
 </template>
+
+
+
 <script>
 import { Parallax } from '@/components';
 import BasicElements from './components/BasicElementsSection';
@@ -114,7 +111,7 @@ import CarouselSection from './components/CarouselSection';
 import NucleoIconsSection from './components/NucleoIconsSection';
 import SignupForm from './components/SignupForm';
 import ExamplesSection from './components/ExamplesSection';
-import DownloadSection from './components/DownloadSection';
+import Landing from './Landing.vue';
 
 export default {
   name: 'index',
@@ -132,8 +129,15 @@ export default {
     NucleoIconsSection,
     SignupForm,
     ExamplesSection,
-    DownloadSection
+    Landing
   }
 };
+
+
 </script>
+
+
+
+
+
 <style></style>

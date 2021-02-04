@@ -38,15 +38,14 @@
             </b-input-group>
           </div>
           <div class="listWrap">
-
-              <b-table
-                id="my-table"
-                :items="list"
-                :per-page="perPage"
-                :fields="column"
-                :current-page="currentPage"
-                @row-clicked="rowClick"
-              ></b-table>
+            <b-table
+              id="my-table"
+              :items="list"
+              :per-page="perPage"
+              :fields="column"
+              :current-page="currentPage"
+              @row-clicked="rowClick"
+            ></b-table>
 
             <b-pagination
               v-model="currentPage"
