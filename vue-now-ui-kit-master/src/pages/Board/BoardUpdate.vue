@@ -125,7 +125,7 @@ export default {
         noticeFlag: this.noticeFlag,
         category: this.category,
         bId: this.bId,
-        email: 'ssafy@ssafy.com',
+        email: this.email
       };
 
       this.$axios

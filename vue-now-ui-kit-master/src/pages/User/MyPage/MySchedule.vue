@@ -1,6 +1,6 @@
 <template>
 <div>
- <center style="font-size: 30px; margin-top:30px">나의 일정</center>
+ <center style="font-size: 30px; margin-top:30px;font-weight:bold ">나의 일정</center>
  <center>
   <Schedule v-on:createSchedule="createSchedule" v-on:getSchedule="getSchedule" :scheduleType="mySchedule" :items="items"/>
  </center>

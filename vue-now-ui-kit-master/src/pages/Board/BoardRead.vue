@@ -6,8 +6,6 @@
         <img class="n-logo" src="img/bisWhite.png" alt="" />
         <div class="container">
           <br><br>
-          <h2>게시판 상세보기</h2>
-
           <div class="AddWrap">
             <form>
               <table class="tbAdd" width="100%">
@@ -18,6 +16,10 @@
                 <tr>
                   <th>제목</th>
                   <td v-bind="title">{{ title }}</td>
+                </tr>
+                <tr>
+                  <th>작성자</th>
+                  <td v-bind="nickname">{{ nickname }}</td>
                 </tr>
                 <tr>
                   <th>내용</th>

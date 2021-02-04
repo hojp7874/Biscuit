@@ -7,8 +7,7 @@
           <br />
           <br />
           <br />
-          <h1 class="h1-seo">자유게시판 페이지 입니당</h1>
-          <h3>비스킷에서 전국 39291개의 스터디를 찾고 함께 공부하세요</h3>
+          <h1 class="h1-seo">자유게시판 페이지</h1>
         </center>
         <center>
           <div class="searchWrap">

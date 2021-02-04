@@ -1,6 +1,8 @@
 <template>
 <div>
-   <h2> 나의 스터디</h2>
+  <center>
+   <h2 style="font-weight:bold ; margin-top:30px"> 나의 스터디</h2>
+    </center>
    <b-card-group
         deck
         class="d-flex flex-row"
