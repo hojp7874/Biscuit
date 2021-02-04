@@ -1,7 +1,7 @@
 <template>
-  <div class="page-header clear-filter" filter-color="orange">
+  <div >
     <div id="app">
-      <div style="margin-top:200px">
+      <div style="margin-top:150px">
         <h2 class="findpw_title">비밀번호 찾기</h2>
         <center>
           <div class="findpw_cnt">
@@ -45,6 +45,7 @@
                   >
                     확인
                   </button>
+                  
                 </div>
               </div>
             </form>
@@ -57,6 +58,7 @@
       <div>
         <div>
           <br />
+          <center>
           <input
             type="password"
             id="cert-id"
@@ -72,12 +74,15 @@
             placeholder="새 비밀번호를 한 번 더 입력하세요"
             v-model="verify_newpassword"
           />
+          
           <br />
           &nbsp;
           <button id="findpw_btn" @click="updatePw()">확인</button>
+          </center>
         </div>
       </div>
     </div>
+    <br><br><br><br><br><br><br><br><br><br>
   </div>
 </template>
 

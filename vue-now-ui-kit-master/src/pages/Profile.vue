@@ -14,15 +14,15 @@
         <p class="category">{{loginStatus.phone}}</p>
         <div class="content">
           <div class="social-description">
-            <h2>26</h2>
+            <h2>2</h2>
             <p>내 게시글</p>
           </div>
           <div class="social-description">
-            <h2>26</h2>
+            <h2>6</h2>
             <p>내 댓글</p>
           </div>
           <div class="social-description">
-            <h2>48</h2>
+            <h2>3</h2>
             <p>가입한 스터디</p>
           </div>
         </div>
@@ -61,6 +61,7 @@ export default {
         phone: '',
       },
       active:0,
+      joinedStudyNum:0,
     };
   },
   created() {
@@ -100,6 +101,10 @@ export default {
       },
       loadUpdate(){
           this.active = 2;
+      },
+      studyNum(data){
+        console.log("데이터들들" + data);
+        this.joinedStudyNum = data;
       }
   }
 };
