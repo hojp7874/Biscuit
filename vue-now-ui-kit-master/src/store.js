@@ -12,7 +12,9 @@ export default new Vuex.Store({
       admin: localStorage.getItem("admin"),
       phone: localStorage.getItem("phone"),
       region: localStorage.getItem("region"),
-    }
+      myStudyNum: 0
+    },
+   
   },
   mutations: {
     // LOGOUT: function(state) {
