@@ -16,8 +16,8 @@
             <template #prepend>
             <b-input-group>
               <b-select name="type" v-model="params.type">
-                <b-select-option value="groupName">그룹 이름</b-select-option>
-                <b-select-option value="groupDesc">그룹 설명</b-select-option>
+                <b-select-option value="groupName">스터디 이름</b-select-option>
+                <b-select-option value="groupDesc">스터디 설명</b-select-option>
                 <b-select-option value="category">카테고리</b-select-option>
                 <b-select-option value="region">지역</b-select-option>
               </b-select>
@@ -34,9 +34,8 @@
     </div>
     <div class="container">
       <div v-if="loginStatus.nickname">
-        <div v-if="existMyGroups">
-          <h3 class="text-center">{{loginStatus.nickname}}님의 스터디 목록입니다</h3>
-        </div>
+        <h3 v-if="existMyGroups" class="text-center">{{loginStatus.nickname}}님의 스터디 목록입니다</h3>
+        <h3 v-if="!existMyGroups" class="text-center">현재 가입한 스터디가 없습니다</h3>
         <b-card-group
           deck
           class="d-flex flex-row"
@@ -66,10 +65,10 @@
       </div>
       <card></card>
       <div class="d-flex justify-content-end">
-        <b-button v-show="loginStatus.email" variant="primary" @click="goCreate">그룹생성</b-button>
+        <b-button v-show="loginStatus.email" variant="primary" @click="goCreate">스터디생성</b-button>
       </div>
       <hr>
-      <h3 class="text-center">새로운 스터디를 찾으세요</h3>
+      <h3 class="text-center">새로운 스터디를 찾아보세요</h3>
       <b-card-group
         deck
         class="d-flex flex-row"
@@ -112,11 +111,11 @@
                   <p>온라인 여부: {{ group.onoff }}</p>
                   <p>모집기간: {{ group.edate }}</p>
                   <p>지역: {{ group.region }}</p>
-                  <p>스터디 주기: {{ group.cycle }}</p>
+                  <p>모임 주기: {{ group.cycle }}</p>
                 </div>
                 <div>
-                  <b-button id="none" @click="applyGroup(group.gId)" pill variant="primary">그룹 참가하기</b-button>
-                  <b-button id="wait" @click="removeApply(group.gId)" pill variant="secondary">그룹 참가 신청 취소하기</b-button>
+                  <b-button id="none" @click="applyGroup(group.gId)" pill variant="primary">스터디 참가하기</b-button>
+                  <b-button id="wait" @click="removeApply(group.gId)" pill variant="secondary">스터디 참가 신청 취소하기</b-button>
                   <b-button id="mine" pill variant="primary">당신의 스터디 그룹입니다</b-button>
                   <b-button id="ban" pill variant="danger">당신은 이 스터디에서 추방되었습니다</b-button>
                   <b-button v-if="!loginStatus.token" pill variant="secondary">스터디에 참여하려면 로그인 해주세요</b-button>
@@ -131,10 +130,10 @@
 
               <div v-if="group.nickname == loginStatus.nickname" class="d-flex justify-content-end">
                 <form action="" method="post" @submit.prevent="updateGroup(group.gId)">
-                  <b-button type="submit" pill variant="warning">그룹 정보 수정하기</b-button>
+                  <b-button type="submit" pill variant="warning">스터디 정보 수정하기</b-button>
                 </form>
-                <form action="" method="post" @submit="deleteGroup(group.gId)">
-                  <b-button type="submit" pill variant="danger">그룹 삭제하기</b-button>
+                <form action="" method="post" @submit.prevent="deleteGroup(group.gId)">
+                  <b-button type="submit" pill variant="danger">스터디 삭제하기</b-button>
                 </form>
               </div>
             </div>
@@ -281,6 +280,8 @@
           .then(res => {
             console.log(res)
             console.log(this.idx)
+            //임시방편
+            window.location.reload();
             // 모달창 닫기
             let targetModal = document.querySelector('#group-'+this.idx)
             console.log(targetModal)
@@ -301,7 +302,7 @@
           })
           .then((res) => {
             console.log(res)
-            if (res.data.list.lengrh != 0) {
+            if (res.data.list.length != 0) {
               this.existMyGroups = true
             }
             this.myGroups = res.data.list;

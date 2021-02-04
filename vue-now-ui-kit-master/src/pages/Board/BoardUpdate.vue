@@ -1,8 +1,6 @@
 <template>
   <div>
     <div>
-
-          
       <div class="content-center brand">
         <img class="n-logo" src="img/bisWhite.png" alt="" />
         <div>
@@ -127,13 +125,15 @@ export default {
         noticeFlag: this.noticeFlag,
         category: this.category,
         bId: this.bId,
-        email: 'ssafy@ssafy.com',
+        email: this.email
       };
 
       this.$axios
         .put(`${SERVER_URL}/board/update`, this.form)
         .then((res) => {
           if (res.data.success) {
+            console.log("########################")
+            console.log(res)
             alert('수정되었습니다.');
             this.fnView();
           } else {

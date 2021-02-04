@@ -7,7 +7,7 @@
       >
       </parallax>
       <div class="container">
-        <h1 class="m-5">그룹 생성</h1>
+        <h1 class="m-5">스터디 생성</h1>
         <b-form @submit.prevent="onSubmit">
           <div class="d-flex">
             <p class="col-3">스터디 이름:</p>
@@ -21,12 +21,12 @@
           </div>
 
           <div class="d-flex">
-            <p class="col-3">그룹 인원제한:</p>
+            <p class="col-3">스터디 인원제한:</p>
             <fg-input
               class="no-border input-lg col-9"
               id="input-2"
               v-model="form.max"
-              placeholder="그룹 인원제한을 설정해주세요."
+              placeholder="스터디 인원제한을 설정해주세요."
               required
             ></fg-input>
           </div>
@@ -137,7 +137,7 @@
         axios.post(`${SERVER_URL}/group/create/`, item)
           .then(res => {
             console.log(res)
-            this.$router.push({ path: './group' });
+            this.$router.push({ path: './grouplist' });
           })
           .catch(err => {
             console.log(err)

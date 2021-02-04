@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-form @submit.prevent="write">
-      <b-row class="mb-3 mt-2">
+      <div class="mb-3 mt-2 d-flex">
         <b-col cols="11">
           <b-form-textarea
               id="contents"
@@ -11,10 +11,10 @@
               max-rows="6"
               ></b-form-textarea>
         </b-col>
-        <b-col>
-          <b-button type="submit" class="btnAdd m-1">등록</b-button>
+        <b-col class="p-0">
+          <b-button type="submit" class="btnAdd">등록</b-button>
         </b-col> 
-      </b-row>
+      </div>
     </b-form>
   </div>
 </template>
