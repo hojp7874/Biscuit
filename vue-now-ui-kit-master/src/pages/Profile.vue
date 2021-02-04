@@ -31,8 +31,10 @@
     <div class="section">
       <div class="container">
         <div class="button-container">
+          <a v-on:click="loadStudy()" class="btn btn-primary btn-round btn-lg" >나의 스터디</a>
           <a v-on:click="loadSchedule()" class="btn btn-primary btn-round btn-lg">나의 일정</a>
           <a v-on:click="loadUpdate()" class="btn btn-primary btn-round btn-lg" >개인 정보 수정</a>
+          
         </div>
         <component :is="componentLoading()"></component>
   </div>
@@ -58,7 +60,7 @@ export default {
         region: '',
         phone: '',
       },
-      active:1,
+      active:0,
     };
   },
   created() {
