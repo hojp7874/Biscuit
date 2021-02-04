@@ -135,7 +135,7 @@ export default new Router({
       name: 'join',
       components: { default: Join, header: MainNavbar, footer: MainFooter },
       props: {
-        header: { colorOnScroll: 400 },
+        header: { colorOnScroll: 0 },
         footer: { backgroundColor: 'black' }
       }
     },
@@ -153,7 +153,7 @@ export default new Router({
       name: 'findpw',
       components: { default: FindPw, header: MainNavbar, footer: MainFooter },
       props: {
-        header: { colorOnScroll: 400 },
+        header: { colorOnScroll: 0 },
         footer: { backgroundColor: 'black' }
       }
     },
