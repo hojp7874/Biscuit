@@ -1,6 +1,14 @@
 <template>
   <div>
-    <div>
+    <div v-if="isLoading === false" class="loading">
+      <b-spinner
+        class="my-5"
+        style="width: 10rem; height: 10rem; border: 1em solid currentColor; border-right-color: transparent;"
+        label="Large Spinner"
+      ></b-spinner>
+      <h2>로딩 중 ...</h2>
+    </div>
+    <div v-else>
       <p></p>
       <ul class="list-group">
         <li
@@ -9,17 +17,24 @@
           v-bind:key="item.mId"
           v-on:click="applyList()"
         >
-          {{ item.nickname }}
-          <b-button 
-          @click="accept(item.mId)"
+          <div 
+            class="d-flex justify-content-between align-items-center"
           >
-          승인
-          </b-button>
-          <b-button
-          @click="deny(item.mId)"
-          >
-          거절
-          </b-button>
+            <span>
+              {{ item.nickname }}
+            </span>
+            <span>
+              신청합니다
+            </span>
+            <div>
+              <b-button @click="accept(item.mId)">
+                승인
+              </b-button>
+              <b-button @click="deny(item.mId)">
+                거절
+              </b-button>
+            </div>
+          </div>
         </li>
       </ul>
     </div>
@@ -31,6 +46,7 @@ const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 export default {
   data() {
     return {
+      isLoading: false,
       applys: Object,
     };
   },
@@ -52,27 +68,28 @@ export default {
         .then((res) => {
           this.applys = res.data.list;
         });
+      this.isLoading = true;
     },
     accept: function(mid) {
       axios
         .put(`${SERVER_URL}/group/member/accept`, {
-          mId : mid
+          mId: mid,
         })
-        .then((res) =>{
-            if(res.data.success == "success"){
-                this.applyList();            
-            }
+        .then((res) => {
+          if (res.data.success == 'success') {
+            this.applyList();
+          }
         });
     },
     deny: function(mid) {
       axios
         .put(`${SERVER_URL}/group/member/deny`, {
-          mId : mid
+          mId: mid,
         })
-        .then((res) =>{
-            if(res.data.success == "success"){
-                this.applyList();            
-            }
+        .then((res) => {
+          if (res.data.success == 'success') {
+            this.applyList();
+          }
         });
     },
   },

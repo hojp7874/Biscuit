@@ -1,90 +1,82 @@
 <template>
-  <div class="page-header clear-filter" filter-color="orange">
-    <parallax class="page-header-image" style="background-image: url('img/login.jpg')"></parallax>
-    <center id="group-page" class="container">
-     
-       <div id="tab">
-        <button class="navButton" style="margin-top: 50px" @click.prevent="">스터디 일정</button
-        >
-        <button class="navButton" style="margin-top: 50px" @click.prevent="">스터디 공지사항</button
-        >
-        <button class="navButton" style="margin-top: 50px" @click.prevent="">스터디 참여인원</button
-        >
-        <button class="navButton" style="margin-top: 50px" @click.prevent="joinMeeting()">
-          화상 스터디 참여</button
-        >
-        <div v-if="state == 3">
-          <button class="navButton" style="margin-top: 50px" @click.prevent="loadApplyList()">
-            신청 현황
-            <p v-if="applyCount != 0">{{ applyCount }}</p></button
-          >
-          <button class="navButton" style="margin-top: 50px" @click.prevent="">그룹 관리</button
-          >
+  <div>
+    <div class="page-header clear-filter" filter-color="orange">
+      <parallax class="page-header-image" style="background-image:url('img/bg5.jpg')"> </parallax>
+      <div class="container">
+        <div class="photo-container">
+          <img src="img/ryan.jpg" alt="" />
         </div>
+        <h3 class="title">{{ group.groupName }}</h3>
+        <p class="category">{{ group.category}}</p>
+        <div class="description">{{group.groupDesc}}</div>
+       
       </div>
-<div id = "group-info" class = "row">
-        
-      <div id="group-picture" class = "col-md-2">
-          <img
-            class="rounded-circle img-fluid img-raised"
-            src="https://placekitten.com/300/300"
-            alt="group profile img"
-            />
-      </div>
-      <div id="group-profile" class = "col-md-6">
-        <p style="text-align:left;font-size:40px;margin-left:30px">
-          그룹 이름 : {{ group.groupName }}
-        </p>
-        <p style="text-align:left;font-size:14px;margin-left:30px">
-          그룹 설명 : {{ group.groupDesc }}
-        </p>
-        <p style="text-align:left;font-size:14px;margin-left:30px">
-          카테고리 : {{ group.category }}
-        </p>
-        <p style="text-align:left;font-size:14px;margin-left:30px">지역 : {{ group.region }}</p>
-        <p style="text-align:left;font-size:14px;margin-left:30px">state : {{ state }}</p>
-      </div>
-      <div id="mypage-contents">
-        <!-- <UpdateUser id="update" style="margin-top:0px;margin-left:0px" /> -->
+    </div>
+    <div class="section">
+      <div class="container">
+        <div class="button-container">
+          <!-- button -->
+          <a v-on:click="loadHome()" class="btn btn-primary btn-round btn-lg">홈</a>
+          <div v-if="state == 3">
+          <a type="primary" v-on:click="loadApplyList()" class="btn btn-primary btn-round btn-lg">
+            <span>
+              신청 현황
+            <span v-if="applyCount != 0" class="badge badge-warning badge-pill">{{applyCount}}</span>
+            </span>
+          </a>
+          </div>
+        </div>
         <component :is="componentLoading()" :gId="gId"></component>
       </div>
-</div>
- 
-
-      
-    </center>
+    </div>
   </div>
 </template>
 <script>
-import { mapState } from 'vuex';
 import axios from 'axios';
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
-import ApplyList from './ApplyList';
-import Parallax from '../../components/Parallax.vue';
-
+import GroupHome from './GroupHome.vue';
+import ApplyList from './ApplyList.vue';
+import { mapState } from 'vuex';
 export default {
+  name: 'profile',
+  bodyClass: 'profile-page',
   data() {
     return {
-      group: Object,
+       group: Object,
       gId: this.$route.query.gId,
-      active: 0,
       state: Number,
       applyCount: Number,
+      active: 0,
     };
   },
-  components: {
-    ApplyList,
-    Parallax,
+  created() {
+    this.getState();
+    this.getGroup();
+    this.getApplyCount();
   },
   computed: {
     ...mapState(['loginStatus']),
   },
-  created() {
-    this.getGroup();
-    this.getState();
-    this.getApplyCount();
+  components: {
+    GroupHome,
+    ApplyList,
   },
   methods: {
+    componentLoading() {
+      switch (this.active) {
+        case 0:
+          return 'GroupHome';
+        case 1:
+           return 'ApplyList';
+      }
+    },
+
+    loadHome() {
+      this.active = 0;
+    },
+    loadApplyList() {
+      this.active = 1;
+    },
     getState: function() {
       axios
         .get(`${SERVER_URL}/group/member/apply/state`, {
@@ -100,7 +92,7 @@ export default {
           console.log(err);
         });
     },
-    getGroup: function() {
+ getGroup: function() {
       axios
         .get(`${SERVER_URL}/group/list/`, {
           params: {
@@ -129,19 +121,6 @@ export default {
           console.log(err);
         });
     },
-    componentLoading() {
-      switch (this.active) {
-        case 0:
-          return '';
-        case 1:
-          return 'ApplyList';
-        case 2:
-          return 'UpdateUser';
-      }
-    },
-    loadApplyList() {
-      this.active = 1;
-    },
     joinMeeting() {
       var VUE_RTC_LOCAL_SERVER_URL = `http://localhost:9001/demos/dashboard/`;
       // var VUE_RTC_SERVER_URL = `http://i4a407.p.ssafy.io:9001/demos/dashboard/`;
@@ -154,5 +133,4 @@ export default {
   },
 };
 </script>
-<style scoped>
-</style>
+<style></style>
