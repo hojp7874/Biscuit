@@ -3,7 +3,7 @@
     <div class="calendar-controls">
       <div v-if="message" class="notification is-success">{{ message }}</div>
       <div style="margin-top:10px;margin-bottom:10px">
-        <n-button v-b-modal.modal-1 style="margin-left:740px;border-radius: 10rem;">일정 추가</n-button>
+        <n-button v-b-modal.modal-1 style="margin-left:740px;border-radius: 10rem;" type="primary">일정 추가</n-button>
 
         <b-modal ref="create-modal" id="modal-1" title="일정 추가" hide-footer>
           <div class="box">
@@ -19,7 +19,8 @@
               <label class="label">Start date</label>
               <div class="control">
                 <!-- <input v-model="newItemStartDate" class="input" type="date" /> -->
-                <b-form-datepicker id="example-datepicker" v-model="newItemStartDate" class="mb-2"></b-form-datepicker>
+                <!-- <b-form-datepicker id="example-datepicker" v-model="newItemStartDate" class="mb-2"></b-form-datepicker> -->
+                <input class="col-8 no-border" v-model="newItemStartDate" type="date" name="" id="">
               </div>
             </div>
 
@@ -27,7 +28,8 @@
               <label class="label">End date</label>
               <div class="control">
                 <!-- <input v-model="newItemEndDate" class="input" type="date" /> -->
-                <b-form-datepicker id="example-datepicker2" v-model="newItemEndDate" class="mb-2"></b-form-datepicker>
+                <!-- <b-form-datepicker id="example-datepicker2" v-model="newItemEndDate" class="mb-2"></b-form-datepicker> -->
+                <input class="col-8 no-border" v-model="newItemEndDate" type="date" name="" id="">
               </div>
             </div>
 
@@ -97,7 +99,7 @@
 
           <div class="box">
             <div class="field">
-              <label class="label"> &nbsp;Title</label>
+              <label class="label"> Title</label>
               <!-- <button @click="deleteSchedule()" style="margin-left:360px border">삭제</button> -->
               <b-button @click="deleteSchedule()" variant="light" style="margin-left:360px;margin-top:-60px;border-radius: 10rem;height:10px;font-size:2px">삭제</b-button>
               <div class="control">
@@ -110,7 +112,8 @@
               <label class="label">Start date</label>
               <div class="control">
                 <!-- <input v-model="detail.sdate" class="input" type="date" /> -->
-                 <b-form-datepicker id="example-datepicker" v-model="detail.sdate" class="mb-2"></b-form-datepicker>
+                 <!-- <b-form-datepicker id="example-datepicker" v-model="detail.sdate" class="mb-2"></b-form-datepicker> -->
+                 <input class="col-8 no-border" v-model="detail.sdate" type="date" name="" id="">
               </div>
             </div>
 
@@ -118,7 +121,8 @@
               <label class="label">End date</label>
               <div class="control">
                 <!-- <input v-model="detail.edate" class="input" type="date" /> -->
-                <b-form-datepicker id="example-datepicker" v-model="detail.edate" class="mb-2"></b-form-datepicker>
+                <!-- <b-form-datepicker id="example-datepicker" v-model="detail.edate" class="mb-2"></b-form-datepicker> -->
+                <input class="col-8 no-border" v-model="detail.edate" type="date" name="" id="">
               </div>
             </div>
 
