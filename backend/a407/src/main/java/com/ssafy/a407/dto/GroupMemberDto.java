@@ -6,18 +6,20 @@ public class GroupMemberDto {
 	private String email;
 	private String groupName;
 	private int permission;
+	private String img;
 	
 	public GroupMemberDto() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public GroupMemberDto(int mId, int gId, String email, String groupName, int permission) {
+	public GroupMemberDto(int mId, int gId, String email, String groupName, int permission, String img) {
 		super();
 		this.mId = mId;
 		this.gId = gId;
 		this.email = email;
 		this.groupName = groupName;
 		this.permission = permission;
+		this.img = img;
 	}
 
 	public int getmId() {
@@ -59,6 +61,13 @@ public class GroupMemberDto {
 	public void setPermission(int permission) {
 		this.permission = permission;
 	}
-	
+
+	public String getImg() {
+		return img;
+	}
+
+	public void setImg(String img) {
+		this.img = img;
+	}
 	
 }

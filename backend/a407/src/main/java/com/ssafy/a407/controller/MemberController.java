@@ -211,6 +211,7 @@ public class MemberController {
 			entity = new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
 		
 		}
+		System.out.println(list);
 		return entity;
 		
 	}
