@@ -22,6 +22,13 @@
                     <input type="text" v-model="title" ref="title" />
                   </td>
                 </tr>
+                 <tr>
+                  <th>작성자</th>
+                  <td>
+                    <!-- v-model 양뱡향데이터전송으로 상세 데이터 넣어준다 -->
+                    <input type="text" v-model="email" ref="email" />
+                  </td>
+                </tr>
                 <tr>
                   <th>내용</th>
                   <td><textarea v-model="contents" ref="contents"></textarea></td>
