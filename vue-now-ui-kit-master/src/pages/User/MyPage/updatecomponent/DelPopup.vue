@@ -1,12 +1,12 @@
 <template>
   <div>
-    <b-button v-b-modal.modal-1 id="button">회원탈퇴</b-button>
+    <n-button type="default" v-b-modal.modal-1 id="button" style="border-radius: 10rem; width:90px;">회원탈퇴</n-button>
 
     <b-modal ref="my-modal" id="modal-1" title="회원탈퇴" hide-footer>
       <p class="my-4">
         회원을 탈퇴하시면, 그동안 쌓여왔던 모든 자료와 데이터가 삭제<br />
         되며 참여하고 있던 모든 스터디 공간에 접근 할 수 없게 됩니다.<br />
-        그럼에도 꼭 탈퇴하고 싶으시다면 <br />
+        그럼에도 꼭 탈퇴하고 싶으시다면 <br />n
         탈퇴사유를 남겨주시길 부탁드립니다.
       </p>
 
@@ -45,8 +45,8 @@
 </template>
 <script>
 import axios from 'axios';
-const SERVER_URL = process.env.VUE_APP_LOCAL_SERVER_URL;
-
+const SERVER_URL = process.env.VUE_APP_SERVER_URL;
+import { Button, FormGroupInput } from '@/components';
 export default {
   data() {
     return {
@@ -57,6 +57,10 @@ export default {
       },
       
     };
+  },
+ components: {
+    [Button.name]: Button,
+    [FormGroupInput.name]: FormGroupInput,
   },
 
   methods: {
@@ -105,8 +109,8 @@ export default {
 <style>
 
 #button {
-  width: 80px;
-  height: 25px;
+  width: 100px;
+  height: 40px;
   font-size: 10px;
 }
 </style>

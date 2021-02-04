@@ -1,13 +1,15 @@
 <template>
 <div>
-<h2>나의 일정</h2>
+ <center style="font-size: 30px; margin-top:30px">나의 일정</center>
+ <center>
   <Schedule v-on:createSchedule="createSchedule" v-on:getSchedule="getSchedule" :scheduleType="mySchedule" :items="items"/>
+ </center>
 </div>
 </template>
 <script>
 
-import Schedule from '../../Schedule';
-
+import Schedule from '../../components/Schedule';
+import { Button, FormGroupInput } from '@/components';
 import axios from 'axios';
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 export default {
@@ -16,10 +18,14 @@ export default {
     mySchedule :'mySchedule',
     list:[],
     items:[],
+    color:'',
+    cnt:0,
     }
   },
   components : {
-    Schedule
+    Schedule,
+      [Button.name]: Button,
+    [FormGroupInput.name]: FormGroupInput,
   },
 
   methods: {
@@ -60,12 +66,34 @@ export default {
         // this.items[i].startDate = this.list[i].sdate;
         // this.items[i].endDate = this.list[i].edate;
         // this.items[i].title = this.list[i].title;
+        if(this.list[i].sId % 10 === 0){
+          this.color = "pink"
+        }else if(this.list[i].sId % 10 === 1){
+          this.color=""
+        }else if(this.list[i].sId % 10 === 2){
+          this.color = "purple"
+        }else if(this.list[i].sId % 10 === 3){
+          this.color = "orange"
+        }else if(this.list[i].sId % 10 === 4){
+          this.color = "mint"
+        }else if(this.list[i].sId % 10 === 5){
+          this.color = "lemon"
+        }else if(this.list[i].sId % 10 === 6){
+          this.color = "red"
+        }else if(this.list[i].sId % 10 === 7){
+          this.color = "green"
+        }else if(this.list[i].sId % 10 === 8){
+          this.color = "nureng"
+        }else if(this.list[i].sId % 10 === 9){
+          this.color = "ocean"
+        }
         this.items.push({
           id: 'e' + this.list[i].sId,
           startDate: this.list[i].sdate,
           endDate: this.list[i].edate,
           title: this.list[i].title,
-          url:'#'
+          url:'#',
+          classes: this.color
         });
       }
     },

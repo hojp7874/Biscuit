@@ -11,45 +11,51 @@
             <div slot="header" class="logo-container">
               <img v-lazy="'img/now-logo.png'" alt="" />
             </div>
+            
+              <fg-input
+                class="no-border input-lg"
+                addon-left-icon="now-ui-icons users_circle-08"
+                v-model="user.email"
+                ref="id"
+                placeholder="아이디"
+                v-on:keyup.enter="checkLogin"
+              >
+              </fg-input>
 
-            <fg-input
-              class="no-border input-lg"
-              addon-left-icon="now-ui-icons users_circle-08"
-              v-model="user.email"
-              ref="id"
-              placeholder="아이디"
-            >
-            </fg-input>
-
-            <fg-input
-              class="no-border input-lg"
-              addon-left-icon="now-ui-icons text_caps-small"
-              v-model="user.password"
-               ref="password"
-              placeholder="비밀번호"
-              type="password"
-            >
-            </fg-input>
-
-            <template slot="raw-content" id="function_button">
-              <div class="card-footer text-center">
-                <a
-                  class="btn btn-primary btn-round btn-lg btn-block"
-                  v-on:click="checkLogin"
-                  >Get Started</a
-                >
-              </div>
-              <div class="pull-left">
-                <h6>
-                  <a  href="#" v-on:click="signup()" class="link footer-link">Create Account</a>
-                </h6>
-              </div>
-              <div class="pull-right">
-                <h6>
-                  <a href="#" v-on:click="findPw()" class="link footer-link">Forgot Password?</a>
-                </h6>
-              </div>
-            </template>
+              <fg-input
+                class="no-border input-lg"
+                addon-left-icon="now-ui-icons text_caps-small"
+                v-model="user.password"
+                ref="password"
+                placeholder="비밀번호"
+                type="password"
+                v-on:keyup.enter="checkLogin"
+              >
+              </fg-input>
+              <!-- <template slot="raw-content" id="function_button"> -->
+                <div class="card-footer text-center">
+                  <a
+                    class="btn btn-primary btn-round btn-lg btn-block"
+                    v-on:click="checkLogin"
+                    >Get Started</a
+                  >
+                </div>
+                <div class="pull-left">
+                  <h6>
+                    <a v-on:click="signup()" class="link footer-link"
+                      >Create Account</a
+                    >
+                  </h6>
+                </div>
+                <div class="pull-right">
+                  <h6>
+                    <a v-on:click="findPw()" class="link footer-link"
+                      >Forgot Password?</a
+                    >
+                  </h6>
+                </div>
+              <!-- </template> -->
+            
           </card>
         </div>
       </div>
@@ -83,7 +89,6 @@ export default {
   },
   methods: {
     checkLogin() {
-
       // let err = true;
       // let msg = '';
 
@@ -97,8 +102,8 @@ export default {
       //   this.$refs.password.focus());
 
       // if (!err) alert(msg);
-      // else 
-        this.login();
+      // else
+      this.login();
     },
     login() {
       // LOGIN 액션 실행
@@ -135,4 +140,9 @@ export default {
 };
 </script>
 
-
+<style>
+.pull-left,
+.pull-right{
+  cursor: pointer;
+}
+</style>
