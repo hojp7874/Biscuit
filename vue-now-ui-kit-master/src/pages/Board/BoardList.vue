@@ -7,7 +7,7 @@
           <br />
           <br />
           <br />
-          <h1 class="h1-seo">자유게시판 페이지</h1>
+          <h1 class="h1-seo" style="font-weight: bold; color: #363636">자유게시판</h1>
         </center>
         <center>
           <div class="searchWrap">
@@ -40,7 +40,7 @@
           </div>
         </center>
         <div class="container">
-          <div class="listWrap">
+          <div class="listWrap">>
             <b-table
               id="my-table"
               :items="list"
@@ -48,18 +48,22 @@
               :fields="column"
               :current-page="currentPage"
               @row-clicked="rowClick"
+              hover
             ></b-table>
-
-            <b-pagination
-              v-model="currentPage"
-              :total-rows="this.list.length"
-              :per-page="perPage"
-              aria-controls="my-table"
-            ></b-pagination>
+            <div >
+              <b-pagination
+                v-model="currentPage"
+                :total-rows="this.list.length"
+                :per-page="perPage"
+                aria-controls="my-table"
+                class="pagination pagination-primary"
+                align="center"
+                
+              ></b-pagination>
+              <div class="btnRightWrap">
+              <b-button @click="fnAdd" class="btnAdd m-1" style="background-color: #f96332">글쓰기</b-button>
+            </div>
           </div>
-
-          <div class="btnRightWrap">
-            <b-button @click="fnAdd" class="btnAdd m-1">등록</b-button>
           </div>
         </div>
       </div>
