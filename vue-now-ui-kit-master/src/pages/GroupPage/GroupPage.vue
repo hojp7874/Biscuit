@@ -17,14 +17,15 @@
         <div class="button-container">
           <!-- button -->
           <a v-on:click="loadHome()" class="btn btn-primary btn-round btn-lg">홈</a>
-          <div v-if="state == 3">
+          <a v-on:click="joinMeeting()" class="btn btn-primary btn-round btn-lg">화상 채팅</a>
+          <tag v-if="state == 3">
           <a type="primary" v-on:click="loadApplyList()" class="btn btn-primary btn-round btn-lg">
             <span>
               신청 현황
             <span v-if="applyCount != 0" class="badge badge-warning badge-pill">{{applyCount}}</span>
             </span>
           </a>
-          </div>
+          </tag>
         </div>
         <component :is="componentLoading()" :gId="gId"></component>
       </div>
@@ -122,11 +123,11 @@ export default {
         });
     },
     joinMeeting() {
-      var VUE_RTC_LOCAL_SERVER_URL = `http://localhost:9001/demos/dashboard/`;
-      // var VUE_RTC_SERVER_URL = `http://i4a407.p.ssafy.io:9001/demos/dashboard/`;
+      //var VUE_RTC_LOCAL_SERVER_URL = `http://localhost:9001/demos/dashboard/`;
+       var VUE_RTC_SERVER_URL = `https://i4a407.p.ssafy.io:9001/demos/dashboard/`;
       // var nickname = localStorage.getItem('nickname');
       window.open(
-        `${VUE_RTC_LOCAL_SERVER_URL}?gId=${this.gId}&nickname=${this.loginStatus.nickname}`,
+        `${VUE_RTC_SERVER_URL}?gId=${this.gId}&nickname=${this.loginStatus.nickname}`,
         '_blank'
       );
     },
