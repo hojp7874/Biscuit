@@ -3,7 +3,7 @@
     <div class="calendar-controls">
       <div v-if="message" class="notification is-success">{{ message }}</div>
       <div style="margin-top:10px;margin-bottom:10px">
-        <b-button v-b-modal.modal-1 style="margin-left:690px">일정 추가</b-button>
+        <b-button v-b-modal.modal-1 style="margin-left:740px">일정 추가</b-button>
 
         <b-modal ref="create-modal" id="modal-1" title="일정 추가" hide-footer>
           <div class="box">

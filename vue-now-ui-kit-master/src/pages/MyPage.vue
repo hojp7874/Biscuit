@@ -41,9 +41,9 @@
 </template>
 
 <script>
-import MyStudy from './components/User/MyPage/MyStudy';
-import MySchedule from './components/User/MyPage/MySchedule';
-import UpdateUser from './components/User/MyPage/UpdateUser';
+import MyStudy from './User/MyPage/MyStudy';
+import MySchedule from './User/MyPage/MySchedule';
+import UpdateUser from './User/MyPage/UpdateUser';
 
 export default {
   data() {

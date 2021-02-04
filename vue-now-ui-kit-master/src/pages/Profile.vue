@@ -41,10 +41,10 @@
   
 </template>
 <script>
-import { Tabs, TabPane } from '@/components';
-import MyStudy from './components/User/MyPage/MyStudy';
-import MySchedule from './components/User/MyPage/MySchedule';
-import UpdateUser from './components/User/MyPage/UpdateUser';
+import { Tabs, TabPane,Button, FormGroupInput } from '@/components';
+import MyStudy from './User/MyPage/MyStudy';
+import MySchedule from './User/MyPage/MySchedule';
+import UpdateUser from './User/MyPage/UpdateUser';
  import {mapState} from 'vuex'
 export default {
   name: 'profile',
@@ -74,7 +74,9 @@ export default {
     },
   components: {
     Tabs,
-    TabPane,MySchedule,UpdateUser,MyStudy
+    TabPane,MySchedule,UpdateUser,MyStudy,
+    [Button.name]: Button,
+    [FormGroupInput.name]: FormGroupInput,
   },
   methods: {
     componentLoading(){
