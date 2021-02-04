@@ -137,7 +137,7 @@
         axios.post(`${SERVER_URL}/group/create/`, item)
           .then(res => {
             console.log(res)
-            this.$router.push({ path: './group' });
+            this.$router.push({ path: './grouplist' });
           })
           .catch(err => {
             console.log(err)
