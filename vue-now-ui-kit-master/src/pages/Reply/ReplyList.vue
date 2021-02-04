@@ -4,8 +4,9 @@
           <b-card border-variant="info" class="mb-2" no-body>
             <!-- <template> -->
               <b-row class="m-1">
-                <b-col class="text-left ml-3" 
-                  ><strong>{{items.nickname}}</strong> <small>({{items.date}})</small>
+                <b-col class="text-left ml-3" >
+                   <i class="now-ui-icons users_circle-08"></i>
+                   <strong>{{items.nickname}}</strong> <small>({{items.date}})</small>
                 </b-col>
                 <b-col class="text-right mr-3" v-show="user.email===items.email" >
                   <b-button @click="modifyClick" variant="link">수정</b-button>
