@@ -9,7 +9,7 @@
           <b-card
             @click="goGroupPage(group)"
             v-bind:title="group.groupName"
-            img-src="https://picsum.photos/300/300/?image=41"
+            img-src="group.img"
             img-alt="Image"
             img-top
           >
