@@ -53,7 +53,8 @@ false) { // console.log('gg'); // }
                     <n-button
                       type="primary"
                       @click.prevent="sendEmail()"
-                      style="width:150px;margin-left:320px;margin-top:-75px"
+                      style="width:150px;margin-left:320px;margin-top:-75px;border-radius: 10rem;"
+                      class="orange_btn"
                       >인증번호 받기</n-button
                     >
 
@@ -92,7 +93,8 @@ false) { // console.log('gg'); // }
                     <n-button
                       type="primary"
                       @click.prevent="checkCode()"
-                      style="width:150px;margin-left:320px;margin-top:-75px"
+                      style="width:150px;margin-left:320px;margin-top:-75px; border-radius: 10rem;"
+                      class="orange_btn"
                       >확인</n-button
                     >
                     <br />
@@ -117,7 +119,8 @@ false) { // console.log('gg'); // }
                     $refs.first.next();
                     barProceeding();
                   "
-                  style="width:200px"
+                  style="width:200px;border-radius: 10rem;"
+                  v-if="isHidden"
                   >다음</n-button
                 >
               </div>
@@ -187,7 +190,7 @@ false) { // console.log('gg'); // }
                 <n-button
                   type="primary"
                   @click="checkPw()"
-                  style="width:200px ; margin-top : -60px"
+                  style="width:200px ; margin-top : -60px;border-radius: 10rem;"
                   >다음</n-button
                 >
               </div>
@@ -286,7 +289,7 @@ false) { // console.log('gg'); // }
                     barProceeding();
                     signup();
                   "
-                  style="width:200px ; margin-right:20px"
+                  style="width:200px ; margin-right:20px;border-radius: 10rem;"
                   >회원가입 완료</n-button
                 >
               </div>
@@ -307,7 +310,7 @@ import 'vueperslides/dist/vueperslides.css';
 import VueSlideBar from 'vue-slide-bar';
 import axios from 'axios';
 import 'url-search-params-polyfill';
-import FindPostCode from './components/User/FindPostCode';
+import FindPostCode from './User/FindPostCode';
 import { Button, FormGroupInput } from '@/components';
 
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
@@ -422,9 +425,9 @@ export default {
       if (this.user.password === '') {
         alert('비밀번호를 입력해주세요');
       }
-      // else if (this.verifyValidPw(this.user.password) === false) {
-      //   console.log('gg');
-      // }
+      else if (this.verifyValidPw(this.user.password) === false) {
+        console.log('gg');
+      }
       else if (this.user.password === this.pw_certification) {
         this.$refs.first.next();
         this.barProceeding();
@@ -506,5 +509,8 @@ export default {
   /* background-color: #ffffff; */
   /* opacity: 0.5; */
   background-color: rgba(255, 255, 255, 0.075);
+}
+.orange_btn{
+  border-radius: 10rem;
 }
 </style>

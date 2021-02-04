@@ -1,33 +1,34 @@
 <template>
     <div>
-            <input
+            <fg-input
               type="password"
-              style="margin-top: 10px;"
+              style="margin-top: 10px;width:300px"
               placeholder="현재 비밀번호를 입력하세요"
               v-model="mem.password"
             />
-            <br />
-            <input
+
+            <fg-input
               type="password"
-              style="margin-top: 15px;"
+              style="margin-top: 15px;width:300px"
               placeholder="새 비밀번호를 입력하세요"
               v-model="mem.newpassword"
             />
-            <br />
-            <input
+
+            <fg-input
               type="password"
-              style="margin-top: 15px; margin-bottom: 15px;"
+              style="margin-top: 15px; margin-bottom: 15px; width:300px"
               placeholder="새 비밀번호를 한 번 더 입력하세요"
               v-model="verify_newpassword"
             />
-            <br />
-            <button id="cancel_btn" @click="cancel()">변경취소</button>
+            
+            <n-button type="primary"  @click="cancel()" style="border-radius: 10rem;">변경취소</n-button>
             &nbsp;
-            <button id="confirm_btn" @click="updatePw();">확인</button>
+            <n-button type="primary" @click="updatePw();" style="border-radius: 10rem;">확인</n-button>
     </div>
 </template>
 <script>
 import axios from 'axios';
+import { Button, FormGroupInput } from '@/components';
 const SERVER_URL = process.env.VUE_APP_LOCAL_SERVER_URL;
 
 export default {
@@ -42,6 +43,10 @@ export default {
 
       verify_newpassword:''
     };
+  },
+  components: {
+    [Button.name]: Button,
+    [FormGroupInput.name]: FormGroupInput,
   },
 
     methods: {
