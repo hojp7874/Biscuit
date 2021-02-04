@@ -6,8 +6,8 @@
         <div class="photo-container">
           <img src="img/ryan.jpg" alt="" />
         </div>
-        <h3 class="title">{{ loginStatus.nickname }}</h3>
-        <p class="category">{{ loginStatus.phone }}</p>
+        <h3 class="title">{{loginStatus.nickname}}</h3>
+        <p class="category">{{loginStatus.phone}}</p>
         <div class="content">
           <div class="social-description">
             <h2>2</h2>
