@@ -1,12 +1,6 @@
 <template>
   <div>
-    <div class="page-header clear-filter" filter-color="orange">
-      <parallax
-        class="page-header-image"
-        style="background-image:url('img/header.jpg')"
-      >
-      </parallax>
-          
+    <div>
       <div class="content-center brand">
         <img class="n-logo" src="img/bisWhite.png" alt="" />
   
