@@ -3,71 +3,78 @@
     <div class="page-header clear-filter" filter-color="orange">
       <parallax
         class="page-header-image"
-        style="background-image:url('img/header.jpg')"
+        style="background-image:url('img/bg11.jpg')"
       >
       </parallax>
       <div class="container">
         <h1 class="m-5">그룹 생성</h1>
         <b-form @submit.prevent="onSubmit">
-          <b-form-group id="input-group-1" label="스터디 이름:" label-for="input-1">
-            <b-form-input
+          <div class="d-flex">
+            <p class="col-3">스터디 이름:</p>
+            <fg-input
+              class="no-border input-lg col-9"
               id="input-1"
               v-model="form.groupName"
               placeholder="스터디그룹 이름을 작명해주세요."
               required
-            ></b-form-input>
-          </b-form-group>
+            ></fg-input>
+          </div>
 
-          <b-form-group
-            id="input-group-2"
-            label="그룹 인원제한:"
-            label-for="input-2"
-          >
-            <b-form-input
+          <div class="d-flex">
+            <p class="col-3">그룹 인원제한:</p>
+            <fg-input
+              class="no-border input-lg col-9"
               id="input-2"
               v-model="form.max"
               placeholder="그룹 인원제한을 설정해주세요."
               required
-            ></b-form-input>
-          </b-form-group>
+            ></fg-input>
+          </div>
 
-          <b-form-group id="input-group-3" label="지역:" label-for="input-3">
-            <b-form-select
+          <div class="d-flex">
+            <p class="col-3">지역:</p>
+            <fg-input
+              class="no-border input-lg col-9"
               id="input-3"
               v-model="form.region"
               :options="region"
               required
-            ></b-form-select>
-          </b-form-group>
+            ></fg-input>
+          </div>
 
-          <b-form-group id="input-group-4" label="카테고리:" label-for="input-4">
-            <b-form-select
-              id="input-4"
+          <div class="d-flex">
+            <p class="col-3">카테고리:</p>
+            <fg-input
+              class="no-border input-lg col-9"
               v-model="form.category"
               :options="category"
               required
-            ></b-form-select>
-          </b-form-group>
+            ></fg-input>
+          </div>
 
-          <b-form-group
-            id="input-group-5"
-            label="스터디원 모집 마감일:"
-            label-for="input-5"
-          >
-            <b-form-datepicker
-              id="input-5"
-              v-model="form.edate"
-              required
-            ></b-form-datepicker>
-          </b-form-group>
+          <div class="d-flex">
+            <p class="col-3">스터디원 모집 종료일:</p>
+            <div class="col-9">
+              <n-switch
+                v-model="form.onoff"
+                style="width:500px"
+                on-text="ON"
+                off-text="OFF"
+              ></n-switch>
+                <input class="col-8 no-border" v-model="form.edate" type="date" name="" id="">
+            </div>
+          </div>
 
-          <b-form-group id="input-group-6" label="스터디 설명:" label-for="input-6">
+          <div class="d-flex">
+            <p class="col-3">스터디 설명:</p>
             <b-form-textarea
               id="input-6"
               v-model="form.groupDesc"
               placeholder="스터디그룹에 대해 설명해주세요."
+              class="col-9"
+              style="height: 500px"
             ></b-form-textarea>
-          </b-form-group>
+          </div>
 
           <b-button type="submit" variant="primary">Submit</b-button>
         </b-form>
@@ -78,6 +85,7 @@
 
 <script>
   import axios from 'axios'
+  import {Switch, Button, FormGroupInput}from '@/components'
   const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
   export default {
@@ -97,6 +105,12 @@
         region:[{text:'지역을 선택해주세요.',value:null},'온라인','서울','대전','광주','구미'],
         category:[{text:'카테고리를 선택해주세요.',value:null},'한국사','프로그래머','농부','어부','광부']
       }
+    },
+    components: {
+      [Button.name]: Button,
+      [FormGroupInput.name]: FormGroupInput,
+      [Switch.name]: Switch,
+      [Option.name]: Option,
     },
     methods: {
       onSubmit: function() {
