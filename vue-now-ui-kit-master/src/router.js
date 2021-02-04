@@ -7,6 +7,7 @@ import Profile from './pages/Profile.vue';
 import GroupList from './pages/Group/GroupList.vue';
 import GroupCreate from './pages/Group/GroupCreate.vue';
 import GroupUpdate from './pages/Group/GroupUpdate.vue';
+import GroupPage from './pages/GroupPage/GroupPage.vue';
 import BoardList from './pages/Board/BoardList.vue';
 import BoardRead from './pages/Board/BoardRead.vue';
 import BoardUpdate from './pages/Board/BoardUpdate.vue';
@@ -81,6 +82,15 @@ export default new Router({
       components: { default: GroupUpdate, header: MainNavbar, footer: MainFooter },
       props: {
         header: { colorOnScroll: 400 },
+        footer: { backgroundColor: 'black' }
+      }
+    },
+    {
+      path: '/grouppage',
+      name: 'grouppage',
+      components: { default: GroupPage, header: MainNavbar, footer: MainFooter },
+      props: {
+        header: { colorOnScroll: 100 },
         footer: { backgroundColor: 'black' }
       }
     },
