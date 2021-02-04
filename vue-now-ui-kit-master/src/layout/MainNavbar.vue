@@ -26,7 +26,7 @@
     <template slot="navbar-menu">
       <router-link class="navbar-brand" to="/grouplist">
         <i class="now-ui-icons arrows-1_cloud-download-93"></i>
-        <p>그룹 찾기</p>
+        <p>스터디 찾기</p>
       </router-link>
       <drop-down
         tag="li"
