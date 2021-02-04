@@ -1,17 +1,13 @@
 <template>
   <div>
-    <div class="page-header clear-filter" filter-color="orange">
-      <parallax
-        class="page-header-image"
-        style="background-image:url('img/header.jpg')"
-      >
-      </parallax>
-          
+    <div>
       <div class="content-center brand">
         <img class="n-logo" src="img/bisWhite.png" alt="" />
         <div>
+          <br><br>
+          <center>
           <h1>게시판 수정</h1>
-          <div class="UpdateWrap">
+          <div class="UpdateWrap" style="width: 80%">
             <form>
               <table class="tbAdd" width="100%">
                 <colgroup>
@@ -37,6 +33,7 @@
             <b-button @click="fnList" class="btnList m-1">취소</b-button>
             <b-button @click="fnModProc" class="btnReset m-1">확인</b-button>
           </div>
+          </center>
         </div>
       </div>
     </div>
@@ -44,7 +41,7 @@
 </template>
 
 <script>
-const SERVER_URL = process.env.VUE_APP_LOCAL_SERVER_URL;
+const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
 export default {
   data() {
@@ -128,13 +125,15 @@ export default {
         noticeFlag: this.noticeFlag,
         category: this.category,
         bId: this.bId,
-        email: 'ssafy@ssafy.com',
+        email: this.email
       };
 
       this.$axios
         .put(`${SERVER_URL}/board/update`, this.form)
         .then((res) => {
           if (res.data.success) {
+            console.log("########################")
+            console.log(res)
             alert('수정되었습니다.');
             this.fnView();
           } else {

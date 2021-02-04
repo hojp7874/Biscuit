@@ -1,22 +1,22 @@
 <template>
   <div>
     <div>
-      <center style="font-size: 30px; margin-top:30px">개인 정보 수정</center>
-      <del-popup style="margin-left:950px ; margin-top:20px" v-on:logout="logout()" />
+      <center style="font-size: 30px; margin-top:30px;font-weight:bold">개인 정보 수정</center>
+      <!-- <del-popup style="margin-left:950px ; margin-top:20px" v-on:logout="logout()" /> -->
     </div>
     <div id="all_info" style="margin-left:80px">
     <div id="user_info">
       <div id="login_info">
-        <span style="margin-left: 80px ;font-size: 30px"> 아이디(이메일) </span>
-        <span style="margin-left: 100px ; font-size: 30px">{{
+        <span style="margin-left: 150px ;font-size: 20px"> 아이디(이메일) </span>
+        <span style="margin-left: 100px ; font-size: 20px">{{
           user.email
         }}</span>
         <br /><br /><br />
-        <span style="margin-left:156px ;font-size: 30px "> 비밀번호 </span>
+        <span style="margin-left:200px ;font-size: 20px "> 비밀번호 </span>
         <span
           id="fakePw"
           v-if="!show"
-          style="margin-left: 100px ; font-size: 30px"
+          style="margin-left: 100px ; font-size: 20px"
           >********</span
         >
         <UpdatePw
@@ -27,7 +27,7 @@
         <n-button
           type="primary"
           @click.prevent="show_update_pw()"
-          style="margin-left: 40px ;margin-top:-17px;font-size:0.5rem;border-radius: 10rem"
+          style="margin-left: 40px ;margin-top:-6px;font-size:0.5rem;border-radius: 10rem"
           v-if="!show"
         >
           변경
@@ -37,7 +37,7 @@
     <div>
       <div style="margin-top:35px">
         <div class="inpbx" style="font-size: large">
-          <span style="margin-left:185px ;font-size: 30px ;"> 닉네임 </span>
+          <span style="margin-left:220px ;font-size: 20px ;"> 닉네임 </span>
           <fg-input
             placeholder="닉네임"
             style="margin-left : 370px ; margin-top:-44px;width : 300px"
@@ -45,7 +45,7 @@
           />
           <br />
           <div></div>
-          <span style="margin-left:120px ;font-size: 30px ;">
+          <span style="margin-left:175px ;font-size: 20px ;">
             휴대폰 번호
           </span>
           <fg-input
@@ -55,7 +55,7 @@
           /><br />
 
           <div style="margin-top:-10px">
-            <span style="margin-left:180px ;font-size: 30px ;"> 사는 곳 </span>
+            <span style="margin-left:215px ;font-size: 20px ;"> 사는 곳 </span>
             <fg-input
               placeholder=""
               v-model="user.region"
@@ -102,6 +102,7 @@
         수정
       </n-button>
     </center>
+    <del-popup style="margin-left:930px ;" v-on:logout="logout()" />
   </div>
 </template>
 
@@ -111,7 +112,7 @@ import DelPopup from './updatecomponent/DelPopup.vue';
 import UpdatePw from './updatecomponent/UpdatePw.vue';
 import FindPostCode from '../FindPostCode';
 import axios from 'axios';
-const SERVER_URL = process.env.VUE_APP_LOCAL_SERVER_URL;
+const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 export default {
   data() {
     return {

@@ -7,7 +7,7 @@
       >
       </parallax>
       <div class="container">
-        <h1 class="m-5">그룹 생성</h1>
+        <h1 class="m-5">스터디 생성</h1>
         <b-form @submit.prevent="onSubmit">
           <div class="d-flex">
             <p class="col-3">스터디 이름:</p>
@@ -21,12 +21,12 @@
           </div>
 
           <div class="d-flex">
-            <p class="col-3">그룹 인원제한:</p>
+            <p class="col-3">스터디 인원제한:</p>
             <fg-input
               class="no-border input-lg col-9"
               id="input-2"
               v-model="form.max"
-              placeholder="그룹 인원제한을 설정해주세요."
+              placeholder="스터디 인원제한을 설정해주세요."
               required
             ></fg-input>
           </div>
@@ -44,23 +44,22 @@
 
           <div class="d-flex">
             <p class="col-3">카테고리:</p>
-            <fg-input
-              class="no-border input-lg col-9"
-              v-model="form.category"
-              :options="category"
-              required
-            ></fg-input>
+            <div class="col-9">
+              <b-form-radio-group v-model="form.category" :options="options" name="radio-validation">
+                <b-form-invalid-feedback>Please select one</b-form-invalid-feedback>
+              </b-form-radio-group>
+            </div>
           </div>
 
           <div class="d-flex">
             <p class="col-3">스터디원 모집 종료일:</p>
             <div class="col-9">
-              <n-switch
+              <!-- <n-switch
                 v-model="form.onoff"
                 style="width:500px"
                 on-text="ON"
                 off-text="OFF"
-              ></n-switch>
+              ></n-switch> -->
                 <input class="col-8 no-border" v-model="form.edate" type="date" name="" id="">
             </div>
           </div>
@@ -85,12 +84,19 @@
 
 <script>
   import axios from 'axios'
-  import {Switch, Button, FormGroupInput}from '@/components'
+  import {Switch, Button, Radio, FormGroupInput}from '@/components'
   const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
   export default {
     data() {
       return {
+        options: [
+          { text: '한국사', value: '한국사' },
+          { text: '프로그래머', value: '프로그래머' },
+          { text: '농부', value: '농부' },
+          { text: '어부', value: '어부' },
+          { text: '광부', value: '광부' }
+        ],
         form: {
           max: '',
           edate: '',
@@ -108,6 +114,7 @@
     },
     components: {
       [Button.name]: Button,
+      [Radio.name]: Radio,
       [FormGroupInput.name]: FormGroupInput,
       [Switch.name]: Switch,
       [Option.name]: Option,
@@ -130,7 +137,7 @@
         axios.post(`${SERVER_URL}/group/create/`, item)
           .then(res => {
             console.log(res)
-            this.$router.push({ path: './group' });
+            this.$router.push({ path: './grouplist' });
           })
           .catch(err => {
             console.log(err)

@@ -99,7 +99,7 @@ export default new Router({
       name: 'boardlist',
       components: { default: BoardList, header: MainNavbar, footer: MainFooter },
       props: {
-        header: { colorOnScroll: 400 },
+        header: { colorOnScroll: 0 },
         footer: { backgroundColor: 'black' }
       }
     },
@@ -108,7 +108,7 @@ export default new Router({
       name: 'boardread',
       components: { default: BoardRead, header: MainNavbar, footer: MainFooter },
       props: {
-        header: { colorOnScroll: 400 },
+        header: { colorOnScroll: 0 },
         footer: { backgroundColor: 'black' }
       }
     },
@@ -117,7 +117,7 @@ export default new Router({
       name: 'boardupdate',
       components: { default: BoardUpdate, header: MainNavbar, footer: MainFooter },
       props: {
-        header: { colorOnScroll: 400 },
+        header: { colorOnScroll: 0 },
         footer: { backgroundColor: 'black' }
       }
     },
@@ -126,7 +126,7 @@ export default new Router({
       name: 'boardwrite',
       components: { default: BoardWrite, header: MainNavbar, footer: MainFooter },
       props: {
-        header: { colorOnScroll: 400 },
+        header: { colorOnScroll: 0 },
         footer: { backgroundColor: 'black' }
       }
     },
@@ -135,7 +135,7 @@ export default new Router({
       name: 'join',
       components: { default: Join, header: MainNavbar, footer: MainFooter },
       props: {
-        header: { colorOnScroll: 400 },
+        header: { colorOnScroll: 0 },
         footer: { backgroundColor: 'black' }
       }
     },
@@ -153,7 +153,7 @@ export default new Router({
       name: 'findpw',
       components: { default: FindPw, header: MainNavbar, footer: MainFooter },
       props: {
-        header: { colorOnScroll: 400 },
+        header: { colorOnScroll: 0 },
         footer: { backgroundColor: 'black' }
       }
     },

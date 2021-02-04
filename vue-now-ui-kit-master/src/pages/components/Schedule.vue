@@ -3,7 +3,7 @@
     <div class="calendar-controls">
       <div v-if="message" class="notification is-success">{{ message }}</div>
       <div style="margin-top:10px;margin-bottom:10px">
-        <b-button v-b-modal.modal-1 style="margin-left:740px">일정 추가</b-button>
+        <n-button v-b-modal.modal-1 style="margin-left:740px;border-radius: 10rem;" type="primary">일정 추가</n-button>
 
         <b-modal ref="create-modal" id="modal-1" title="일정 추가" hide-footer>
           <div class="box">
@@ -19,7 +19,8 @@
               <label class="label">Start date</label>
               <div class="control">
                 <!-- <input v-model="newItemStartDate" class="input" type="date" /> -->
-                <b-form-datepicker id="example-datepicker" v-model="newItemStartDate" class="mb-2"></b-form-datepicker>
+                <!-- <b-form-datepicker id="example-datepicker" v-model="newItemStartDate" class="mb-2"></b-form-datepicker> -->
+                <input class="col-8 no-border" v-model="newItemStartDate" type="date" name="" id="">
               </div>
             </div>
 
@@ -27,12 +28,13 @@
               <label class="label">End date</label>
               <div class="control">
                 <!-- <input v-model="newItemEndDate" class="input" type="date" /> -->
-                <b-form-datepicker id="example-datepicker2" v-model="newItemEndDate" class="mb-2"></b-form-datepicker>
+                <!-- <b-form-datepicker id="example-datepicker2" v-model="newItemEndDate" class="mb-2"></b-form-datepicker> -->
+                <input class="col-8 no-border" v-model="newItemEndDate" type="date" name="" id="">
               </div>
             </div>
 
             <div class="field">
-              <label class="label">Content</label>
+              <label class="label">Contents</label>
               <div class="control">
                 <b-form-textarea v-model="newItemContents" class="input" />
               </div>
@@ -97,12 +99,12 @@
 
           <div class="box">
             <div class="field">
-              <label class="label">Title</label>
+              <label class="label"> Title</label>
               <!-- <button @click="deleteSchedule()" style="margin-left:360px border">삭제</button> -->
-              <b-button @click="deleteSchedule()" variant="light" style="margin-left:360px">삭제</b-button>
+              <b-button @click="deleteSchedule()" variant="light" style="margin-left:360px;margin-top:-60px;border-radius: 10rem;height:10px;font-size:2px">삭제</b-button>
               <div class="control">
                 <!-- <input v-model="detail.title" class="input" type="text" /> -->
-                 <b-form-input v-model="detail.title" style="width:50%"></b-form-input>
+                 <b-form-input v-model="detail.title" style="width:50%; margin-top:-25px;margin-bottom:20px"></b-form-input>
               </div>
             </div>
 
@@ -110,7 +112,8 @@
               <label class="label">Start date</label>
               <div class="control">
                 <!-- <input v-model="detail.sdate" class="input" type="date" /> -->
-                 <b-form-datepicker id="example-datepicker" v-model="detail.sdate" class="mb-2"></b-form-datepicker>
+                 <!-- <b-form-datepicker id="example-datepicker" v-model="detail.sdate" class="mb-2"></b-form-datepicker> -->
+                 <input class="col-8 no-border" v-model="detail.sdate" type="date" name="" id="">
               </div>
             </div>
 
@@ -118,7 +121,8 @@
               <label class="label">End date</label>
               <div class="control">
                 <!-- <input v-model="detail.edate" class="input" type="date" /> -->
-                <b-form-datepicker id="example-datepicker" v-model="detail.edate" class="mb-2"></b-form-datepicker>
+                <!-- <b-form-datepicker id="example-datepicker" v-model="detail.edate" class="mb-2"></b-form-datepicker> -->
+                <input class="col-8 no-border" v-model="detail.edate" type="date" name="" id="">
               </div>
             </div>
 
@@ -146,6 +150,7 @@ require('vue-simple-calendar/static/css/holidays-us.css');
 // Load CSS from the local repo
 //require("../../vue-simple-calendar/static/css/default.css")
 //require("../../vue-simple-calendar/static/css/holidays-us.css")
+import { Button, FormGroupInput } from '@/components';
 import {
   CalendarView,
   CalendarViewHeader,
@@ -159,6 +164,8 @@ export default {
   components: {
     CalendarView,
     CalendarViewHeader,
+    [Button.name]: Button,
+    [FormGroupInput.name]: FormGroupInput,
   },
   mixins: [CalendarMathMixin],
   props: ['scheduleType', 'items'],
@@ -458,5 +465,40 @@ export default {
   border: 1px solid gainsboro;
   height: 100px;
   margin-top: 10px;
+}
+
+.theme-default .cv-item.pink {
+	background-color: #ebc2e0;
+	border-color: #ebc2e0;
+}
+
+.theme-default .cv-item.mint {
+	background-color: #a4e2c0;
+	border-color: #a4e2c0;
+}
+
+.theme-default .cv-item.lemon {
+	background-color: #cfec28;
+	border-color: #cfec28;
+}
+
+.theme-default .cv-item.red {
+	background-color: #ee7b73;
+	border-color:#ee7b73;
+}
+
+.theme-default .cv-item.green {
+	background-color: #63f556;
+	border-color: #63f556;
+}
+
+.theme-default .cv-item.nureng {
+	background-color: #f1ce8b;
+	border-color: #f1ce8b;
+}
+
+.theme-default .cv-item.ocean {
+	background-color: #2b838f;
+	border-color: #2b838f;
 }
 </style>

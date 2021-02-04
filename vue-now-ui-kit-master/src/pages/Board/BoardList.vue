@@ -1,36 +1,44 @@
 <template>
   <div>
-    <div class="page-header clear-filter" filter-color="orange">
-      <parallax
-        class="page-header-image"
-        style="background-image:url('img/header.jpg')"
-      >
-      </parallax>
-          
+    <div class="">
       <div class="content-center brand">
         <img class="n-logo" src="img/bisWhite.png" alt="" />
-        <h1 class="h1-seo">자유게시판 페이지 입니당</h1>
-        <h3>비스킷에서 전국 39291개의 스터디를 찾고 함께 공부하세요</h3>
-
-        <div class="searchWrap">
-          <b-input-group>
-            <template #prepend>
-              <b-select name="type" v-model="type">
-                <b-select-option value="" selected="selected" disabled hidden
-                  >전체</b-select-option
+        <center>
+          <br />
+          <br />
+          <br />
+          <h1 class="h1-seo">자유게시판 페이지</h1>
+        </center>
+        <center>
+          <div class="searchWrap">
+            <b-input-group>
+              <template #prepend>
+                <b-select name="type" v-model="type">
+                  <b-select-option value="" selected="selected" disabled hidden
+                    >전체</b-select-option
+                  >
+                  <b-select-option value="nickname">작성자</b-select-option>
+                  <b-select-option value="title">제목</b-select-option>
+                  <b-select-option value="contents">내용</b-select-option>
+                </b-select>
+              </template>
+              <b-form-input
+                type="text"
+                v-model="word"
+                @keyup.enter="fnSearch"
+              />
+              <b-input-group-append>
+                <b-button
+                  @click="fnSearch"
+                  text="Button"
+                  variant="primary"
+                  class="btnSearch mt-0"
+                  >검색</b-button
                 >
-                <b-select-option value="nickname">작성자</b-select-option>
-                <b-select-option value="title">제목</b-select-option>
-                <b-select-option value="contents">내용</b-select-option>
-              </b-select>
-            </template>
-            <b-form-input type="text" v-model="word" @keyup.enter="fnSearch" />
-            <b-input-group-append>
-              <b-button @click="fnSearch" text="Button" variant="primary" class="btnSearch mt-0">검색</b-button>
-            </b-input-group-append>
-          </b-input-group>
-        </div>
-
+              </b-input-group-append>
+            </b-input-group>
+          </div>
+        </center>
         <div class="container">
           <div class="listWrap">
             <b-table
@@ -108,7 +116,6 @@ export default {
   mounted() {
     //페이지 시작하면은 자동 함수 실행
     this.fnGetList();
-    
   },
   methods: {
     fnGetList() {
@@ -122,8 +129,10 @@ export default {
       axios
         .get(`${SERVER_URL}/board/read`, { params: this.form })
         .then((res) => {
-          this.list = res.data.list.sort((a,b) => {return b.bid - a.bid});
-           console.log(this.list.length);
+          this.list = res.data.list.sort((a, b) => {
+            return b.bid - a.bid;
+          });
+          console.log(this.list.length);
         });
     },
 
@@ -138,9 +147,8 @@ export default {
     rowClick(record) {
       // 'record' will be the row data from items
       // `index` will be the visible row number (available in the v-model 'shownItems')
-      
-      this.fnView(record.bid);
 
+      this.fnView(record.bid);
     },
     fnSearch() {
       //검색
@@ -161,7 +169,7 @@ export default {
 
 <style scoped>
 .searchWrap {
-  width: 100%;
+  width: 80%;
   border-radius: 5px;
   text-align: center;
   padding: 20px 0;

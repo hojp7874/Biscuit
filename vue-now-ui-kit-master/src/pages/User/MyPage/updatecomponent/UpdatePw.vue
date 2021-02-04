@@ -29,7 +29,7 @@
 <script>
 import axios from 'axios';
 import { Button, FormGroupInput } from '@/components';
-const SERVER_URL = process.env.VUE_APP_LOCAL_SERVER_URL;
+const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
 export default {
 

@@ -1,12 +1,6 @@
 <template>
   <div>
-    <div class="page-header clear-filter" filter-color="orange">
-      <parallax
-        class="page-header-image"
-        style="background-image:url('img/header.jpg')"
-      >
-      </parallax>
-          
+    <div>
       <div class="content-center brand">
         <img class="n-logo" src="img/bisWhite.png" alt="" />
   
@@ -26,6 +20,13 @@
                   <td>
                     <!-- v-model 양뱡향데이터전송으로 상세 데이터 넣어준다 -->
                     <input type="text" v-model="title" ref="title" />
+                  </td>
+                </tr>
+                 <tr>
+                  <th>작성자</th>
+                  <td>
+                    <!-- v-model 양뱡향데이터전송으로 상세 데이터 넣어준다 -->
+                    <input type="text" v-model="email" ref="email" />
                   </td>
                 </tr>
                 <tr>

@@ -3,11 +3,8 @@
 false) { // console.log('gg'); // }
 
 <template>
-  <div class="page-header clear-filter" filter-color="orange">
-    <div
-      class="page-header-image"
-      style="background-image: url('img/login.jpg')"
-    ></div>
+  <div>
+
     <div class="content" style="margin-top:140px">
       <center style="margin-bottom:-50px">
         <h2 style="x">간편가입</h2>
@@ -301,6 +298,7 @@ false) { // console.log('gg'); // }
     <b-modal ref="addr-modal" id="modal-2" title="주소 찾기" hide-footer>
       <FindPostCode @setAddress="setAddress" />
     </b-modal>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br>
   </div>
 </template>
 
@@ -498,8 +496,8 @@ export default {
 }
 
 .memjoin_cnt {
-  /* border-top-style: solid; */
-  /* border-top-color: rgb(0, 0, 0); */
+  /* border-style: solid; 
+  border-color: rgb(0, 0, 0); */
 }
 
 #slides {

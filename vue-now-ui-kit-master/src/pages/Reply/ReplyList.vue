@@ -4,9 +4,12 @@
           <b-card border-variant="info" class="mb-2" no-body>
             <!-- <template> -->
               <b-row class="m-1">
-                <b-col class="text-left ml-3" >
-                   <i class="now-ui-icons users_circle-08"></i>
-                   <strong>{{items.nickname}}</strong> <small>({{items.date}})</small>
+                <b-col class="text-left ml-3" 
+                  ><div class="d-flex align-items-center">
+                    <i class="now-ui-icons users_circle-08"></i>
+                    <strong>{{items.nickname}}</strong>
+                    <small>({{items.date}})</small>
+                  </div>
                 </b-col>
                 <b-col class="text-right mr-3" v-show="user.email===items.email" >
                   <b-button @click="modifyClick" variant="link">수정</b-button>
@@ -54,24 +57,11 @@ export default {
         nickname : localStorage.getItem("nickname"),
         email : localStorage.getItem("email")  //"ssafy@ssafy.com", //로그인 되어있는 유저 이메일 -> 현재 로그인 되어있는 유저로 바꿔야함
       },
-      items2 : [],
-    }
-  },
-  computed: {
-    items: function() {
-      // console.log('props가 바꼈어요!')
-      const dummyItems = Object
-      dummyItems.rId = this.$props.reply.rId;
-      dummyItems.bId = this.$props.reply.bId;
-      dummyItems.email = this.$props.reply.email;
-      dummyItems.nickname = this.$props.reply.nickname;
-      dummyItems.contents = this.$props.reply.contents;
-      dummyItems.date = this.$props.reply.date;
-      return dummyItems
+      items : [],
     }
   },
   created() {
-    this.items2 = this.$props.reply;
+    this.items = this.$props.reply;
   },
   methods: {
     modifyClick(){

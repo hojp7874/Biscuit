@@ -1,11 +1,7 @@
 <template>
   <div>
     <div class="page-header clear-filter" filter-color="orange">
-      <parallax
-        class="page-header-image"
-        style="background-image:url('img/bg5.jpg')"
-      >
-      </parallax>
+      <parallax class="page-header-image" style="background-image:url('img/bg5.jpg')"> </parallax>
       <div class="container">
         <div class="photo-container">
           <img src="img/ryan.jpg" alt="" />
@@ -14,15 +10,15 @@
         <p class="category">{{loginStatus.phone}}</p>
         <div class="content">
           <div class="social-description">
-            <h2>26</h2>
+            <h2>2</h2>
             <p>내 게시글</p>
           </div>
           <div class="social-description">
-            <h2>26</h2>
+            <h2>6</h2>
             <p>내 댓글</p>
           </div>
           <div class="social-description">
-            <h2>48</h2>
+            <h2>3</h2>
             <p>가입한 스터디</p>
           </div>
         </div>
@@ -31,8 +27,10 @@
     <div class="section">
       <div class="container">
         <div class="button-container">
+          <a v-on:click="loadStudy()" class="btn btn-primary btn-round btn-lg" >나의 스터디</a>
           <a v-on:click="loadSchedule()" class="btn btn-primary btn-round btn-lg">나의 일정</a>
           <a v-on:click="loadUpdate()" class="btn btn-primary btn-round btn-lg" >개인 정보 수정</a>
+          
         </div>
         <component :is="componentLoading()"></component>
   </div>
@@ -58,7 +56,8 @@ export default {
         region: '',
         phone: '',
       },
-      active:1,
+      active:0,
+      joinedStudyNum:0,
     };
   },
   created() {
@@ -98,6 +97,10 @@ export default {
       },
       loadUpdate(){
           this.active = 2;
+      },
+      studyNum(data){
+        console.log("데이터들들" + data);
+        this.joinedStudyNum = data;
       }
   }
 };
