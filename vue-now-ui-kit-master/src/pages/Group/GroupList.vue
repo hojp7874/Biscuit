@@ -133,7 +133,7 @@
                 <form action="" method="post" @submit.prevent="updateGroup(group.gId)">
                   <b-button type="submit" pill variant="warning">그룹 정보 수정하기</b-button>
                 </form>
-                <form action="" method="post" @submit="deleteGroup(group.gId)">
+                <form action="" method="post" @submit.prevent="deleteGroup(group.gId)">
                   <b-button type="submit" pill variant="danger">그룹 삭제하기</b-button>
                 </form>
               </div>
@@ -281,6 +281,8 @@
           .then(res => {
             console.log(res)
             console.log(this.idx)
+            //임시방편
+            window.location.reload();
             // 모달창 닫기
             let targetModal = document.querySelector('#group-'+this.idx)
             console.log(targetModal)
