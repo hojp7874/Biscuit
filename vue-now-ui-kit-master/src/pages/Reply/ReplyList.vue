@@ -53,24 +53,11 @@ export default {
         nickname : localStorage.getItem("nickname"),
         email : localStorage.getItem("email")  //"ssafy@ssafy.com", //로그인 되어있는 유저 이메일 -> 현재 로그인 되어있는 유저로 바꿔야함
       },
-      items2 : [],
-    }
-  },
-  computed: {
-    items: function() {
-      // console.log('props가 바꼈어요!')
-      const dummyItems = Object
-      dummyItems.rId = this.$props.reply.rId;
-      dummyItems.bId = this.$props.reply.bId;
-      dummyItems.email = this.$props.reply.email;
-      dummyItems.nickname = this.$props.reply.nickname;
-      dummyItems.contents = this.$props.reply.contents;
-      dummyItems.date = this.$props.reply.date;
-      return dummyItems
+      items : [],
     }
   },
   created() {
-    this.items2 = this.$props.reply;
+    this.items = this.$props.reply;
   },
   methods: {
     modifyClick(){

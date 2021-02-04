@@ -9,7 +9,7 @@
           
       <div class="content-center brand">
         <img class="n-logo" src="img/bisWhite.png" alt="" />
-        <h1 class="h1-seo">그룹 페이지 입니당</h1>
+        <h2 class="h2-seo">스터디 그룹 페이지 입니다</h2>
         <h3>비스킷에서 전국 39291개의 스터디를 찾고 함께 공부하세요</h3>
         <div class="searchWrap">
           <b-input-group>
@@ -33,33 +33,37 @@
       </div>
     </div>
     <div class="container">
-      <h3 class="text-center">{{loginStatus.nickname}}님의 스터디 목록입니다</h3>
-      <b-card-group
-        deck
-        class="d-flex flex-row"
-      >
-        <b-col cols="4"
-          v-for="(group, idx) in myGroups"
-          :key="idx"
-          :group="group"
+      <div v-if="loginStatus.nickname">
+        <div v-if="existMyGroups">
+          <h3 class="text-center">{{loginStatus.nickname}}님의 스터디 목록입니다</h3>
+        </div>
+        <b-card-group
+          deck
+          class="d-flex flex-row"
         >
-          <b-card
-            @click="goGroupPage(group)"
-            v-bind:title="group.groupName"
-            :img-src="group.img"
-            img-alt="Image"
-            img-top
-            class="my-3"
+          <b-col cols="4"
+            v-for="(group, idx) in myGroups"
+            :key="idx"
+            :group="group"
           >
-            <b-card-text>
-              {{group.groupDesc}}
-            </b-card-text>
-            <template #footer>
-              <small class="text-muted">Last updated 3 mins ago</small>
-            </template>
-          </b-card>
-        </b-col>
-      </b-card-group>
+            <b-card
+              @click="goGroupPage(group)"
+              v-bind:title="group.groupName"
+              :img-src="group.img"
+              img-alt="Image"
+              img-top
+              class="my-3"
+            >
+              <b-card-text>
+                {{group.groupDesc}}
+              </b-card-text>
+              <template #footer>
+                <small class="text-muted">Last updated 3 mins ago</small>
+              </template>
+            </b-card>
+          </b-col>
+        </b-card-group>
+      </div>
       <card></card>
       <div class="d-flex justify-content-end">
         <b-button v-show="loginStatus.email" variant="primary" @click="goCreate">그룹생성</b-button>
@@ -162,6 +166,7 @@
         groups: Object,
         myGroups: Object,
         permission: '',
+        existMyGroups: false,
       }
     },
     created() {
@@ -296,6 +301,9 @@
           })
           .then((res) => {
             console.log(res)
+            if (res.data.list.lengrh != 0) {
+              this.existMyGroups = true
+            }
             this.myGroups = res.data.list;
           })
           .catch((err) => {
