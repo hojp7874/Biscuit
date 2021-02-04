@@ -7,18 +7,17 @@
           <br />
           <br />
           <br />
-          <h1 class="h1-seo" style="font-weight: bold; color: #363636">자유게시판</h1>
+          <h1 class="h1-seo">자유게시판 페이지</h1>
         </center>
         <center>
-          <div class="searchWrap">
+        </center>
+        <div class="container">
+          <div class="">
             <b-input-group>
               <template #prepend>
                 <b-select name="type" v-model="type">
-                  <b-select-option value="" selected="selected" disabled hidden
-                    >전체</b-select-option
-                  >
-                  <b-select-option value="nickname">작성자</b-select-option>
                   <b-select-option value="title">제목</b-select-option>
+                  <b-select-option value="nickname">작성자</b-select-option>
                   <b-select-option value="contents">내용</b-select-option>
                 </b-select>
               </template>
@@ -38,9 +37,7 @@
               </b-input-group-append>
             </b-input-group>
           </div>
-        </center>
-        <div class="container">
-          <div class="listWrap">>
+          <div class="listWrap">
             <b-table
               id="my-table"
               :items="list"
@@ -48,22 +45,18 @@
               :fields="column"
               :current-page="currentPage"
               @row-clicked="rowClick"
-              hover
             ></b-table>
-            <div >
-              <b-pagination
-                v-model="currentPage"
-                :total-rows="this.list.length"
-                :per-page="perPage"
-                aria-controls="my-table"
-                class="pagination pagination-primary"
-                align="center"
-                
-              ></b-pagination>
-              <div class="btnRightWrap">
-              <b-button @click="fnAdd" class="btnAdd m-1" style="background-color: #f96332">글쓰기</b-button>
-            </div>
+
+            <b-pagination
+              v-model="currentPage"
+              :total-rows="this.list.length"
+              :per-page="perPage"
+              aria-controls="my-table"
+            ></b-pagination>
           </div>
+
+          <div class="btnRightWrap">
+            <b-button @click="fnAdd" class="btnAdd m-1">등록</b-button>
           </div>
         </div>
       </div>
@@ -102,7 +95,7 @@ export default {
       body: '', //리스트 페이지 데이터전송
       // board_code: 'news', //게시판코드
       list: '', //리스트 데이터
-      type: '',
+      type: 'title',
       word: '',
       currentPage: this.$route.query.page ? this.$route.query.page : 1,
       category: '',
