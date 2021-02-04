@@ -135,7 +135,7 @@ export default {
             console.log("########################")
             console.log(res)
             alert('수정되었습니다.');
-            // this.fnView();
+            this.fnView();
           } else {
             alert('실행중 실패했습니다.\n다시 이용해 주세요');
           }
