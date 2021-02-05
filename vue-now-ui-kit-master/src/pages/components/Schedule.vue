@@ -101,10 +101,10 @@
             <div class="field">
               <label class="label"> Title</label>
               <!-- <button @click="deleteSchedule()" style="margin-left:360px border">삭제</button> -->
-              <b-button @click="deleteSchedule()" variant="light" style="margin-left:360px;margin-top:-60px;border-radius: 10rem;height:10px;font-size:2px">삭제</b-button>
+              <b-button @click="deleteSchedule()" variant="light" style="margin-left:380px;margin-top:-60px;border-radius: 10rem;height:10px;font-size:2px">삭제</b-button>
               <div class="control">
                 <!-- <input v-model="detail.title" class="input" type="text" /> -->
-                 <b-form-input v-model="detail.title" style="width:50%; margin-top:-25px;margin-bottom:20px"></b-form-input>
+                 <fg-input v-model="detail.title" style="width:50%; margin-top:-25px;margin-bottom:20px"></fg-input>
               </div>
             </div>
 
@@ -127,7 +127,7 @@
             </div>
 
             <div class="field">
-              <label class="label">Content</label>
+              <label class="label">Contents</label>
               <div class="control">
                 <b-form-textarea v-model="detail.contents" class="input" />
               </div>
@@ -314,36 +314,21 @@ export default {
       if (this.scheduleType === 'mySchedule') {
         this.clickTestAddItem();
       }
-      this.$refs['create-modal'].hide();
     },
     clickTestAddItem() {
       this.schedule.sdate = this.newItemStartDate;
       this.schedule.edate = this.newItemEndDate;
       this.schedule.title = this.newItemTitle;
       this.schedule.contents = this.newItemContents;
-      //   axios
-      //     .post(`${SERVER_URL}/schedule/create`, this.schedule)
-      //     .then((response) => {
-      //       if (response.data.success === 'success') {
-      //         alert('일정 등록에 성공하셨습니다.');
-      //       } else alert('일정 등록에 실패하셨습니다.');
-      //       //this.back();
-      //     })
-      //     .catch(function(error) {
-      //       console.log(error);
-      //     });
-      this.$emit('createSchedule', this.schedule);
-      // this.items.push({
-      //   startDate: this.newItemStartDate,
-      //   endDate: this.newItemEndDate,
-      //   title: this.newItemTitle,
-      //   id:
-      //     'e' +
-      //     Math.random()
-      //       .toString(36)
-      //       .substr(2, 10),
-      // });
-      // this.message = 'You added a calendar item!';
+      
+      if(this.schedule.title ===''){
+        alert("타이틀을 입력해주세요.");
+      }else if(this.schedule.sdate < this.schedule.edate){
+        alert("시작일과 종료일을 확인 해 주세요.");
+      }else{
+        this.$emit('createSchedule', this.schedule);
+        this.$refs['create-modal'].hide();
+      }
     },
     getItem() {
       this.$emit('getSchedule');
