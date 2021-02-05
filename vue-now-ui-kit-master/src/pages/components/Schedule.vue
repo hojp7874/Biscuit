@@ -323,7 +323,7 @@ export default {
       
       if(this.schedule.title ===''){
         alert("타이틀을 입력해주세요.");
-      }else if(this.schedule.sdate < this.schedule.edate){
+      }else if(this.schedule.sdate > this.schedule.edate){
         alert("시작일과 종료일을 확인 해 주세요.");
       }else{
         this.$emit('createSchedule', this.schedule);
@@ -338,6 +338,11 @@ export default {
       this.readOnly = !this.readOnly;
     },
     updateSchedule(){
+      if(this.detail.title ===''){
+        alert("타이틀을 입력해주세요.");
+      }else if(this.detail.sdate > this.detail.edate){
+        alert("시작일과 종료일을 확인 해 주세요.");
+      }else{
       axios
         .put(`${SERVER_URL}/schedule/update`, this.detail, {
           headers: {
@@ -354,6 +359,7 @@ export default {
         .catch(function(error) {
           console.log(error);
         });
+      }
     },
     deleteSchedule(){
       
