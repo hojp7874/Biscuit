@@ -7,7 +7,7 @@
       >
       </parallax>
       <div class="container">
-        <h1 class="m-5">스터디 생성</h1>
+        <h1 class="m-5">스터디 수정</h1>
         <b-form @submit.prevent="onSubmit">
           <div class="d-flex">
             <p class="col-3">스터디 이름:</p>
