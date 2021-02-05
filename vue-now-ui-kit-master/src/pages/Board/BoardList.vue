@@ -61,7 +61,7 @@
                 
               ></b-pagination>
               <div class="btnRightWrap">
-              <b-button @click="fnAdd" class="btnAdd m-1" style="background-color: #f96332">글쓰기</b-button>
+              <b-button @click="fnAdd" class="btnAdd m-1" style="background-color: #f96332" v-if="this.loginStatus.nickname">글쓰기</b-button>
             </div>
           </div>
           </div>
@@ -73,6 +73,7 @@
 
 <script>
 import axios from 'axios';
+import {mapState} from 'vuex'
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 export default {
   data() {
@@ -116,7 +117,11 @@ export default {
       },
     };
   },
-  computed: {},
+   computed: {
+    ...mapState([
+      'loginStatus'
+    ]),
+  },
   mounted() {
     //페이지 시작하면은 자동 함수 실행
     this.fnGetList();
