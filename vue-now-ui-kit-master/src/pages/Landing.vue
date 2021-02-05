@@ -1,95 +1,122 @@
 <template>
+
   <div>
   
     <div class="section section-about-us">
       <div class="container">
         <div class="row">
-          <div class="col-md-8 ml-auto mr-auto text-center">
+          
+          <div class="col-md-8 ml-auto mr-auto text-center"  style="
+    margin-bottom: 200px;
+">
+            <div data-aos="zoom-out">
+              <img src="img/path228.png" height=100px>
             <h2 class="title">비스킷은?</h2>
-            <h5 class="description">
-              비스킷은 비대면 화상회의를 지원하는 스터디 웹 페이지입니다.
-              비스킷에서 스터디 모집부터 스터디 관리, 일정 추가, 화상회의까지 다양한 기능을 체험해보세요.
-             게시판에서 다양한 주제에 대해 다른 유저들과 이야기를 나눠보세요.
-             
-            </h5>
+            </div>
+            <div data-aos="fade-left">
+            <h5 class="description">비스킷은 비대면 화상회의를 지원하는 스터디 웹 페이지입니다.</h5>
+            <h5 class="description">스터디 모집부터 스터디 관리, 일정 추가, 화상회의까지 </h5>
+            <h5 class="description">비스킷에서 다양한 기능을 체험해보세요.</h5>
+            </div>
+          </div>
           </div>
         </div>
         <div class="separator separator-primary"></div>
-        <div class="section-story-overview">
-          <div class="row">
-            <div class="col-md-6">
-              <div
-                class="image-container image-left"
-                style="background-image: url('img/threeperson.png')"
-              >
-                <!-- First image on the left side -->
-                <p class="blockquote blockquote-primary">
-                  "Over the span of the satellite record, Arctic sea ice has
-                  been declining significantly, while sea ice in the
-                  Antarctichas increased very slightly"
-                  <br />
-                  <br />
-                  <small>-NOAA</small>
-                </p>
-              </div>
-              <!-- Second image on the left side of the article -->
-              <div
-                class="image-container"
-                style="background-image: url('img/line.png')"
-              ></div>
-            </div>
-            <div class="col-md-5">
-              <!-- First image on the right side, above the article -->
-              <div
-                class="image-container image-right"
-                style="background-image: url('img/desk.png')"
-              ></div>
-              <h3>
-                So what does the new record for the lowest level of winter ice
-                actually mean
-              </h3>
-              <p>
-                The Arctic Ocean freezes every winter and much of the sea-ice
-                then thaws every summer, and that process will continue whatever
-                happens with climate change. Even if the Arctic continues to be
-                one of the fastest-warming regions of the world, it will always
-                be plunged into bitterly cold polar dark every winter. And
-                year-by-year, for all kinds of natural reasons, there’s huge
-                variety of the state of the ice.
-              </p>
-              <p>
-                For a start, it does not automatically follow that a record
-                amount of ice will melt this summer. More important for
-                determining the size of the annual thaw is the state of the
-                weather as the midnight sun approaches and temperatures rise.
-                But over the more than 30 years of satellite records, scientists
-                have observed a clear pattern of decline, decade-by-decade.
-              </p>
-         
-            </div>
-          </div>
+
+
+        <div class="row" ></div>
+  
+
+     
+
+<div class="row col-md-6 ml-auto mr-auto text-center" style="
+    margin-bottom: 200px;
+">
+      <div class="d-flex justify-content-center" data-aos="fade-left"
+     data-aos-offset="300"
+     data-aos-easing="ease-in-sine">
+         <table>
+           
+                <img src="img/line.png">
+
+                   <h3 style="font-weight:bolder">스터디원 모집의 시작은 비스킷에서</h3>
+                   <h5>스터디 찾기에서 함께 공부할 스터디원을 모집하세요.</h5>
+                   <h5>다양한 지역과 스터디에서 사람들과 교류하세요.</h5>
+                   
+          
+         </table>
+         </div>
+      
+  
+</div>
+
+<div class="row col-md-6 ml-auto mr-auto text-center" style="
+    margin-bottom: 200px;
+">
+          <div class=" d-flex justify-content-center" data-aos="fade-right"
+     data-aos-offset="300"
+     data-aos-easing="ease-in-sine">
+         <table>
+           <tr>
+                <img src="img/desk3.png"></tr>
+                <tr>
+          
+                   <h3 style="font-weight:bolder">비대면 스터디도 문제없죠</h3>
+                   <h5>공유 캔버스와 채팅, 그리고 화상회의 기능으로</h5>
+                   <h5>비대면 스터디를 편리하게 진행하세요</h5>
+                   
+             </tr>
+         </table>
+         </div>
+</div>
+<div class="row col-md-6 ml-auto mr-auto text-center" style="
+    margin-bottom: 200px;
+">
+       <div class=" d-flex justify-content-center" data-aos="fade-left"
+     data-aos-offset="300"
+     data-aos-easing="ease-in-sine">
+         <table>
+           <tr>
+                <img src="img/threeperson.png"></tr>
+                <tr>
+          
+                   <h3 style="font-weight:bolder">스터디 관리로 성공적인 결과를 만들어보세요.</h3>
+                   <h5>스터디 일정부터 공지사항까지 비스킷에서 관리하세요</h5>
+                   <h5>마이페이지에서 개인의 일정을 추가하고 게시판을 통해 목표를 공유하세요</h5>
+                   
+             </tr>
+         </table>
+         </div>
+</div>
+
+      
+
+
+
+
+
         </div>
-      </div>
-    </div>
+
+    
     <div class="section section-team text-center">
       <div class="container">
         <h2 class="title">Here is our team</h2>
-        <div class="team">
+        <div class="team" style="margin-bottom:100px">
           <div class="row">
             <div class="col-md-4">
-              <div class="team-player">
+              <div class="team-player" data-aos="flip-left">
                 <img
-                  src="img/ryan.jpg"
+                  src="img/cha.jpg"
                   alt="Thumbnail Image"
                   class="rounded-circle img-fluid img-raised"
                 />
                 <h4 class="title">하태민</h4>
                 <p class="category text-primary">Backend</p>
                 <p class="description">
-                  백엔드의 황태자 하태민입니다 반갑습니다
-                  롤 저랑 실력 대결하고 싶은 분은 롤 스터디 가입해주세요
-                  some <a href="#">links</a> for people to be able to follow
-                  them outside the site.
+                  백엔드의 황태자 하태민입니다 반갑습니다!!!!
+                  롤 실력 대결하고 싶은 분은 롤 스터디 가입해주세요
+                  실버 이하는 신청 안받습니다.
+                  
                 </p>
                 <a href="#pablo" class="btn btn-primary btn-icon btn-round"
                   ><i class="fab fa-twitter"></i
@@ -103,20 +130,19 @@
               </div>
             </div>
             <div class="col-md-4">
-              <div class="team-player">
+              <div class="team-player" data-aos="flip-left">
                 <img
-                  src="img/avatar.jpg"
+                  src="img/iu.jpg"
                   alt="Thumbnail Image"
                   class="rounded-circle img-fluid img-raised"
                 />
-                <h4 class="title">Ryan Tompson</h4>
-                <p class="category text-primary">Designer</p>
+                <h4 class="title">이소영</h4>
+                <p class="category text-primary">Team Leader</p>
                 <p class="description">
-                  You can write here details about one of your team members. You
-                  can give more details about what they do. Feel free to add
-                  some <a href="#">links</a> for people to be able to follow
-                  them outside the site.
+                  다른 조 새벽 2시까지 프로젝트 진행한다고  하네요?
+                  저희도 질 수 없습니다. 팀원들 사랑합니다.
                 </p>
+            
                 <a href="#pablo" class="btn btn-primary btn-icon btn-round"
                   ><i class="fab fa-twitter"></i
                 ></a>
@@ -126,19 +152,89 @@
               </div>
             </div>
             <div class="col-md-4">
-              <div class="team-player">
+              <div class="team-player" data-aos="flip-left">
                 <img
-                  src="img/eva.jpg"
+                  src="img/iu.jpg"
                   alt="Thumbnail Image"
                   class="rounded-circle img-fluid img-raised"
                 />
-                <h4 class="title">Eva Jenner</h4>
-                <p class="category text-primary">Fashion</p>
+                <h4 class="title">우희정</h4>
+                <p class="category text-primary">WebRTC</p>
                 <p class="description">
-                  You can write here details about one of your team members. You
-                  can give more details about what they do. Feel free to add
-                  some <a href="#">links</a> for people to be able to follow
-                  them outside the site.
+                  기업 면접 보고왔습니다. 좋은 결과가 있었으면 좋겠어요.
+                  면접 후기는 취업 게시판에서 차후 공유할게요.
+                </p>
+                <a href="#pablo" class="btn btn-primary btn-icon btn-round"
+                  ><i class="fab fa-google-plus"></i
+                ></a>
+                <a href="#pablo" class="btn btn-primary btn-icon btn-round"
+                  ><i class="fab fa-youtube"></i
+                ></a>
+                <a href="#pablo" class="btn btn-primary btn-icon btn-round"
+                  ><i class="fab fa-twitter"></i
+                ></a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+         <div class="team">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="team-player" data-aos="flip-right">
+                <img
+                  src="img/cha.jpg"
+                  alt="Thumbnail Image"
+                  class="rounded-circle img-fluid img-raised"
+                />
+                <h4 class="title">이석호</h4>
+                <p class="category text-primary">Frontend</p>
+                <p class="description">
+                  과묵하지만 할 일은 다 하고 있습니다.
+                  이상입니다.
+                </p>
+                <a href="#pablo" class="btn btn-primary btn-icon btn-round"
+                  ><i class="fab fa-twitter"></i
+                ></a>
+                <a href="#pablo" class="btn btn-primary btn-icon btn-round"
+                  ><i class="fab fa-instagram"></i
+                ></a>
+                <a href="#pablo" class="btn btn-primary btn-icon btn-round"
+                  ><i class="fab fa-facebook-square"></i
+                ></a>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="team-player" data-aos="flip-right">
+                <img
+                  src="img/cha.jpg"
+                  alt="Thumbnail Image"
+                  class="rounded-circle img-fluid img-raised"
+                />
+                <h4 class="title">홍진표</h4>
+                <p class="category text-primary">DB</p>
+                <p class="description">
+                  이젠 죄송합니다 라는 말은 안하게 된 비전공자 청일점입니다. 특화 프로젝트가 너무 기대됩니다. 
+                </p>
+                <a href="#pablo" class="btn btn-primary btn-icon btn-round"
+                  ><i class="fab fa-twitter"></i
+                ></a>
+                <a href="#pablo" class="btn btn-primary btn-icon btn-round"
+                  ><i class="fab fa-linkedin"></i
+                ></a>
+              </div>
+            </div>
+            <div class="col-md-4" >
+              <div class="team-player" data-aos="flip-right">
+                <img
+                  src="img/cha.jpg"
+                  alt="Thumbnail Image"
+                  class="rounded-circle img-fluid img-raised"
+                />
+                <h4 class="title">이원찬</h4>
+                <p class="category text-primary">Project Manager</p>
+                <p class="description">
+                  발표가 제일 쉬웠어요. 다른건 다 어렵다는 이야기입니다.
                 </p>
                 <a href="#pablo" class="btn btn-primary btn-icon btn-round"
                   ><i class="fab fa-google-plus"></i
@@ -158,6 +254,11 @@
 
   </div>
 </template>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <script>
+      AOS.init();
+    </script>
 <script>
 import { Button, FormGroupInput } from '@/components';
 export default {

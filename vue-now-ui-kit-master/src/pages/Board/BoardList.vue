@@ -1,6 +1,5 @@
 <template>
   <div>
-    <div class="">
       <div class="content-center brand">
         <img class="n-logo" src="img/bisWhite.png" alt="" />
         <center>
