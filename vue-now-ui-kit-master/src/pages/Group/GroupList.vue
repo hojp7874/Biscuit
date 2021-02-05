@@ -89,7 +89,11 @@
             class="my-3"
           >
             <b-card-text>
-              {{group.groupDesc}}
+              <b>모집인원: {{ group.max }}명</b><br>
+              <!-- <b>온라인 여부: {{ group.onoff }}</b><br> -->
+              <!-- <b>모집기간: {{ group.edate }}</b><br> -->
+              <b>지역: {{ group.region }}</b><br>
+              <!-- <b>모임 주기: {{ group.cycle }}</b> -->
             </b-card-text>
             <template #footer>
               <small class="text-muted">Last updated 3 mins ago</small>
