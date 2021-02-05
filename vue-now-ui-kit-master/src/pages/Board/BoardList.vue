@@ -14,7 +14,7 @@
             <template #prepend>
               <b-select name="type" v-model="type">
                 <b-select-option value="title">제목</b-select-option>
-                <b-select-option value="nickname">작성자</b-select-option>
+                <b-select-option value="name">작성자</b-select-option>
                 <b-select-option value="contents">내용</b-select-option>
               </b-select>
             </template>
@@ -130,6 +130,7 @@ export default {
       axios
         .get(`${SERVER_URL}/board/read`, { params: this.form })
         .then((res) => {
+          console.log(res)
           this.list = res.data.list.sort((a, b) => {
             return b.bid - a.bid;
           });
