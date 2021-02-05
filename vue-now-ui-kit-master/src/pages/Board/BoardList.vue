@@ -2,12 +2,8 @@
   <div>
     <div class="">
       <div class="content-center brand">
-        <img class="n-logo" src="img/bisWhite.png" alt="" />
         <center>
-          <br />
-          <br />
-          <br />
-          <h1 class="h1-seo" style="font-weight: bold; color: #363636">자유게시판</h1>
+          <h1 class="h1-seo" style="margin-top:150px; font-weight: bold; color: #363636">자유게시판</h1>
         </center>
         <div class="container">
           <b-input-group>

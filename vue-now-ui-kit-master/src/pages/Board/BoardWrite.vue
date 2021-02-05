@@ -1,11 +1,10 @@
 <template>
   <div>
-    <div>
+    <div style="height: 760px">
       <div class="content-center brand">
-        <img class="n-logo" src="img/bisWhite.png" alt="" />
   
         <div class="container">
-          <h1 class="h1-seo text-center my-5" style="font-weight: bold; color: #363636">게시글 작성</h1>
+          <h1 class="h1-seo text-center" style="margin-top:150px; font-weight: bold; color: #363636">게시글 작성</h1>
           <!-- num 값에 따라 제목 변경 -->
 
           <div class="AddWrap">
