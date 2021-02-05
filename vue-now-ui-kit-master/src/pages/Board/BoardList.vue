@@ -9,35 +9,30 @@
           <br />
           <h1 class="h1-seo">자유게시판 페이지</h1>
         </center>
-        <center>
-        </center>
         <div class="container">
-          <div class="">
-            <b-input-group>
-              <template #prepend>
-                <b-select name="type" v-model="type">
-                  <b-select-option value="title">제목</b-select-option>
-                  <b-select-option value="nickname">작성자</b-select-option>
-                  <b-select-option value="contents">내용</b-select-option>
-                </b-select>
-              </template>
-              <b-form-input
-                type="text"
-                v-model="word"
-                @keyup.enter="fnSearch"
-              />
-              <b-input-group-append>
-                <b-button
-                  @click="fnSearch"
-                  text="Button"
-                  variant="primary"
-                  class="btnSearch mt-0"
-                  >검색</b-button
-                >
-              </b-input-group-append>
-            </b-input-group>
-          </div>
-          <div class="listWrap">
+          <b-input-group>
+            <template #prepend>
+              <b-select name="type" v-model="type">
+                <b-select-option value="title">제목</b-select-option>
+                <b-select-option value="nickname">작성자</b-select-option>
+                <b-select-option value="contents">내용</b-select-option>
+              </b-select>
+            </template>
+            <b-form-input
+              type="text"
+              v-model="word"
+              @keyup.enter="fnSearch"
+            />
+            <b-input-group-append>
+              <b-button
+                @click="fnSearch"
+                text="Button"
+                variant="primary"
+                class="btnSearch mt-0"
+                >검색</b-button>
+            </b-input-group-append>
+          </b-input-group>
+          <div class="listWrap"><br>
             <b-table
               id="my-table"
               :items="list"
@@ -46,13 +41,19 @@
               :current-page="currentPage"
               @row-clicked="rowClick"
             ></b-table>
-
-            <b-pagination
-              v-model="currentPage"
-              :total-rows="this.list.length"
-              :per-page="perPage"
-              aria-controls="my-table"
-            ></b-pagination>
+            <div >
+              <b-pagination
+                v-model="currentPage"
+                :total-rows="this.list.length"
+                :per-page="perPage"
+                aria-controls="my-table"
+                class="pagination pagination-primary"
+                align="center"
+                
+              ></b-pagination>
+              <div class="btnRightWrap">
+              <b-button @click="fnAdd" class="btnAdd m-1" style="background-color: #f96332" v-if="this.loginStatus.nickname">글쓰기</b-button>
+            </div>
           </div>
 
           <div class="btnRightWrap">
@@ -66,6 +67,7 @@
 
 <script>
 import axios from 'axios';
+import {mapState} from 'vuex'
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 export default {
   data() {
@@ -109,7 +111,11 @@ export default {
       },
     };
   },
-  computed: {},
+   computed: {
+    ...mapState([
+      'loginStatus'
+    ]),
+  },
   mounted() {
     //페이지 시작하면은 자동 함수 실행
     this.fnGetList();
