@@ -9,38 +9,30 @@
           <br />
           <h1 class="h1-seo" style="font-weight: bold; color: #363636">자유게시판</h1>
         </center>
-        <center>
-          <div class="searchWrap">
-            <b-input-group>
-              <template #prepend>
-                <b-select name="type" v-model="type">
-                  <b-select-option value="" selected="selected" disabled hidden
-                    >전체</b-select-option
-                  >
-                  <b-select-option value="nickname">작성자</b-select-option>
-                  <b-select-option value="title">제목</b-select-option>
-                  <b-select-option value="contents">내용</b-select-option>
-                </b-select>
-              </template>
-              <b-form-input
-                type="text"
-                v-model="word"
-                @keyup.enter="fnSearch"
-              />
-              <b-input-group-append>
-                <b-button
-                  @click="fnSearch"
-                  text="Button"
-                  variant="primary"
-                  class="btnSearch mt-0"
-                  >검색</b-button
-                >
-              </b-input-group-append>
-            </b-input-group>
-          </div>
-        </center>
         <div class="container">
-          <div class="listWrap">>
+          <b-input-group>
+            <template #prepend>
+              <b-select name="type" v-model="type">
+                <b-select-option value="title">제목</b-select-option>
+                <b-select-option value="nickname">작성자</b-select-option>
+                <b-select-option value="contents">내용</b-select-option>
+              </b-select>
+            </template>
+            <b-form-input
+              type="text"
+              v-model="word"
+              @keyup.enter="fnSearch"
+            />
+            <b-input-group-append>
+              <b-button
+                @click="fnSearch"
+                text="Button"
+                variant="primary"
+                class="btnSearch mt-0"
+                >검색</b-button>
+            </b-input-group-append>
+          </b-input-group>
+          <div class="listWrap"><br>
             <b-table
               id="my-table"
               :items="list"
@@ -102,7 +94,7 @@ export default {
       body: '', //리스트 페이지 데이터전송
       // board_code: 'news', //게시판코드
       list: '', //리스트 데이터
-      type: '',
+      type: 'title',
       word: '',
       currentPage: this.$route.query.page ? this.$route.query.page : 1,
       category: '',
