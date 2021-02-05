@@ -9,16 +9,16 @@
         <h3 class="title">{{loginStatus.nickname}}</h3>
         <p class="category">{{loginStatus.phone}}</p>
         <div class="content">
-          <!-- <div class="social-description">
+          <div class="social-description">
             <h2>2</h2>
             <p>내 게시글</p>
           </div>
           <div class="social-description">
             <h2>6</h2>
             <p>내 댓글</p>
-          </div> -->
+          </div>
           <div class="social-description">
-            <h2>{{this.loginStatus.myStudyNum}}</h2>
+            <h2>3</h2>
             <p>가입한 스터디</p>
           </div>
         </div>
@@ -27,7 +27,7 @@
     <div class="section">
       <div class="container">
         <div class="button-container">
-          <a v-on:click="loadStudy()" v-on:studyNum='studyNum()' class="btn btn-primary btn-round btn-lg" >나의 스터디</a>
+          <a v-on:click="loadStudy()" class="btn btn-primary btn-round btn-lg" >나의 스터디</a>
           <a v-on:click="loadSchedule()" class="btn btn-primary btn-round btn-lg">나의 일정</a>
           <a v-on:click="loadUpdate()" class="btn btn-primary btn-round btn-lg" >개인 정보 수정</a>
           
@@ -68,7 +68,7 @@ export default {
   },
   computed: {
       ...mapState([
-        'loginStatus','myStudyNum'
+        'loginStatus',
       ]),
     },
   components: {

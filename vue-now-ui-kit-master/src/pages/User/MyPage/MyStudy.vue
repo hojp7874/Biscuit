@@ -62,7 +62,7 @@ export default {
     },
     computed: {
       ...mapState([
-        'loginStatus','myStudyNum'
+        'loginStatus',
       ]),
     },
    created() {
@@ -79,9 +79,7 @@ export default {
           .then((res) => {
             this.myGroups = res.data.list;
             console.log("길이길이: " + res.data.list.length);
-            // this.$emit('studyNum',res.data.list.length);
-            this.loginStatus.myStudyNum = res.data.list.length;
-            //console.log("dd" + loginStatus.myStudyNum);
+            this.$emit('studyNum',res.data.list.length);
           })
           .catch((err) => {
             console.log(err);
