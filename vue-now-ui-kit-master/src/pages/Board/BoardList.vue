@@ -7,7 +7,7 @@
           <br />
           <br />
           <br />
-          <h1 class="h1-seo">자유게시판 페이지</h1>
+          <h1 class="h1-seo" style="font-weight: bold; color: #363636">자유게시판</h1>
         </center>
         <div class="container">
           <b-input-group>
@@ -40,6 +40,7 @@
               :fields="column"
               :current-page="currentPage"
               @row-clicked="rowClick"
+              hover
             ></b-table>
             <div >
               <b-pagination
@@ -55,9 +56,6 @@
               <b-button @click="fnAdd" class="btnAdd m-1" style="background-color: #f96332" v-if="this.loginStatus.nickname">글쓰기</b-button>
             </div>
           </div>
-
-          <div class="btnRightWrap">
-            <b-button @click="fnAdd" class="btnAdd m-1">등록</b-button>
           </div>
         </div>
       </div>
