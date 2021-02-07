@@ -21,6 +21,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class SwaggerConfiguration {
 
 //http://localhost:8877/a407/swagger-ui.html
+//https://i4a407.p.ssafy.io:8877/a407/swagger-ui.html
 
 	private String version = "V1";
 	private String title = "A407 API " + version;
