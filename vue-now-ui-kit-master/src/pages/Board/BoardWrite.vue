@@ -23,9 +23,10 @@
                 </tr>
                 <tr>
                   <th>내용</th>
-                  <td><textarea v-model="contents" ref="contents"></textarea></td>
+                  <td><textarea v-model="contents" ref="contents" @input="counting()"></textarea></td>
                 </tr>
               </table>
+              <div >글자수 : <span>{{count}}</span> / 5000</div>
             </form>
           </div>
 
@@ -51,11 +52,9 @@ export default {
       contents: '',
       id: 'admin',
       body: this.$route.query,
-      form: {
-
-        
-      },
+      form: {},
       num: this.$route.query.num,
+      count : 0,
     };
   },
   mounted() {
@@ -81,8 +80,12 @@ export default {
         title: this.title,
         contents: this.contents,
       };
-
-      this.$axios
+      if(this.form.title=='' || this.form.title.trim()==""){
+        alert('작성된 게시글의 제목이 존재하지 않습니다.');
+      }else if(this.form.contents==''|| this.form.contents.trim()==""){
+        alert('작성된 게시글의 내용이 존재하지 않습니다.');
+      }else{
+        this.$axios
         .post(`${SERVER_URL}/board/create`, this.form)
         .then((res) => {
           if (res.data.success) {
@@ -95,7 +98,12 @@ export default {
         .catch((err) => {
           console.log(err);
         });
+      }
     },
+    counting(){
+      this.count = this.contents.length;
+      console.log(this.count);
+    }
 
   },
 };
