@@ -23,9 +23,10 @@
                 </tr>
                 <tr>
                   <th>내용</th>
-                  <td><textarea v-model="contents" ref="contents"></textarea></td>
+                  <td><textarea v-model="contents" ref="contents"  @input="counting()" ></textarea></td>
                 </tr>
               </table>
+              <div >글자수 : <span>{{count}}</span> / 5000</div>
             </form>
           </div>
 
@@ -54,6 +55,7 @@ export default {
       noticeFlag: 0,
       date: this.$route.query.date,
       category: this.$route.query.category,
+      count : 0,
     };
   },
 
@@ -144,6 +146,10 @@ export default {
           console.log(err);
         });
     },
+    counting(){
+      this.count = this.contents.length;
+      console.log(this.count);
+    }
   },
 };
 </script>

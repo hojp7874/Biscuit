@@ -23,9 +23,10 @@
                 </tr>
                 <tr>
                   <th>내용</th>
-                  <td><textarea v-model="contents" ref="contents"></textarea></td>
+                  <td><textarea v-model="contents" ref="contents" @input="counting()"></textarea></td>
                 </tr>
               </table>
+              <div >글자수 : <span>{{count}}</span> / 5000</div>
             </form>
           </div>
 
@@ -51,11 +52,9 @@ export default {
       contents: '',
       id: 'admin',
       body: this.$route.query,
-      form: {
-
-        
-      },
+      form: {},
       num: this.$route.query.num,
+      count : 0,
     };
   },
   mounted() {
@@ -101,6 +100,10 @@ export default {
         });
       }
     },
+    counting(){
+      this.count = this.contents.length;
+      console.log(this.count);
+    }
 
   },
 };
