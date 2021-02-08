@@ -11,21 +11,9 @@ CREATE TABLE `a407`.`gBoard` (
   PRIMARY KEY (`bId`),
   UNIQUE INDEX `bId_UNIQUE` (`bId` ASC) VISIBLE,
   INDEX `fk_gboard_gId_idx` (`gId` ASC) VISIBLE,
-  INDEX `fk_gboard_email_idx` (`email` ASC) VISIBLE,
-  INDEX `fk_gboard_nickname_idx` (`nickname` ASC) VISIBLE,
   CONSTRAINT `fk_gboard_gId`
     FOREIGN KEY (`gId`)
     REFERENCES `a407`.`group` (`gId`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_gboard_email`
-    FOREIGN KEY (`email`)
-    REFERENCES `a407`.`user` (`email`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_gboard_nickname`
-    FOREIGN KEY (`nickname`)
-    REFERENCES `a407`.`user` (`nickname`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
