@@ -81,9 +81,9 @@ export default {
         title: this.title,
         contents: this.contents,
       };
-      if(this.form.title==''){
+      if(this.form.title=='' || this.form.title.trim()==""){
         alert('작성된 게시글의 제목이 존재하지 않습니다.');
-      }else if(this.form.contents==''){
+      }else if(this.form.contents==''|| this.form.contents.trim()==""){
         alert('작성된 게시글의 내용이 존재하지 않습니다.');
       }else{
         this.$axios

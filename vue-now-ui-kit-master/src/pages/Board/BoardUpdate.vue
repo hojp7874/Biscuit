@@ -92,7 +92,7 @@ export default {
         category: this.category,
       };
 
-      this.$axios
+        this.$axios
         .post(`${SERVER_URL}/board/update`, this.form)
         .then((res) => {
           if (res.data.success) {
@@ -108,13 +108,13 @@ export default {
     },
     fnModProc() {
       this.temptitle = this.title.replace(/ /g, '');
-      if (!this.temptitle) {
+      if (!this.temptitle || !this.temptitle.trim()) {
         alert('제목을 입력해 주세요');
         this.$refs.title.focus(); //방식으로 선택자를 찾는다.
         return;
       }
-      if (!this.contents) {
-        alert('제목을 입력해 주세요');
+      if (!this.contents || !this.contents.trim()) {
+        alert('내용을 입력해 주세요');
         this.$refs.contents.focus(); //방식으로 선택자를 찾는다.
         return;
       }
