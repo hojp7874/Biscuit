@@ -4,9 +4,9 @@
 
     <b-modal ref="my-modal" id="modal-1" title="회원탈퇴" hide-footer>
       <p class="my-4">
-        회원을 탈퇴하시면, 그동안 쌓여왔던 모든 자료와 데이터가 삭제<br />
-        되며 참여하고 있던 모든 스터디 공간에 접근 할 수 없게 됩니다.<br />
-        그럼에도 꼭 탈퇴하고 싶으시다면 <br />n
+        회원을 탈퇴하시면, 그동안 쌓여왔던 모든 자료와 데이터가 삭제
+        되며 참여하고 있던 모든 스터디 공간에 접근 할 수 <br>없게 됩니다.
+        그럼에도 꼭 탈퇴하고 싶으시다면 
         탈퇴사유를 남겨주시길 부탁드립니다.
       </p>
 
@@ -33,11 +33,11 @@
         <div style="margin-top:20px;">
           <b-button
             variant="outline-primary"
-            style="margin-left:310px;"
+            style="margin-left:0px;border-radius:10rem"
             @click="deleteUser()"
             >탈퇴하기</b-button
-          >&nbsp;
-          <b-button variant="danger" @click="hideModal">취소</b-button>
+          >
+          <b-button variant="danger" @click="hideModal" style="margin-top:10px;margin-left:10px;border-radius:10rem">취소</b-button>
         </div>
       </div>
     </b-modal>

@@ -25,6 +25,7 @@
             <span v-if="applyCount != 0" class="badge badge-warning badge-pill">{{applyCount}}</span>
             </span>
           </a>
+          <a v-on:click="loadSchedule()" class="btn btn-primary btn-round btn-lg">그룹 일정</a>
           </tag>
         </div>
         <component :is="componentLoading()" :gId="gId"></component>
@@ -37,6 +38,7 @@ import axios from 'axios';
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 import GroupHome from './GroupHome.vue';
 import ApplyList from './ApplyList.vue';
+import GroupSchedule from './GroupSchedule.vue';
 import { mapState } from 'vuex';
 export default {
   name: 'profile',
@@ -61,6 +63,7 @@ export default {
   components: {
     GroupHome,
     ApplyList,
+    GroupSchedule
   },
   methods: {
     componentLoading() {
@@ -69,6 +72,8 @@ export default {
           return 'GroupHome';
         case 1:
            return 'ApplyList';
+        case 2:
+           return 'GroupSchedule';
       }
     },
 
@@ -77,6 +82,9 @@ export default {
     },
     loadApplyList() {
       this.active = 1;
+    },
+    loadSchedule(){
+      this.active = 2;
     },
     getState: function() {
       axios
