@@ -70,23 +70,28 @@ export default {
     onSubmit(event) {
       event.preventDefault();
       console.log("수정 : "+this.user.email +" / "+this.modicontents+" / "+this.rId);
-      this.$axios
-      .put(`${SERVER_URL}/reply/update`, {
-        email : this.user.email,
-        contents : this.modicontents,
-        rId : this.items.rId
-      })
-      .then((res) => {
-        if (res.data.success) {
-          alert('수정되었습니다.');
-          this.$router.go(this.$router.currentRoute);
-        } else {
-          alert('실행중 실패했습니다.\n다시 이용해 주세요');
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+
+      if(this.modicontents == '' || this.modicontents.trim() ==""){
+         alert('작성된 댓글 내용이 존재하지 않습니다.');
+      }else{
+        this.$axios
+        .put(`${SERVER_URL}/reply/update`, {
+          email : this.user.email,
+          contents : this.modicontents,
+          rId : this.items.rId
+        })
+        .then((res) => {
+          if (res.data.success) {
+            alert('수정되었습니다.');
+            this.$router.go(this.$router.currentRoute);
+          } else {
+            alert('실행중 실패했습니다.\n다시 이용해 주세요');
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      }
     },
     deleteReplyConfirm() {
       if(confirm("정말로 삭제하시겠습니까?")){

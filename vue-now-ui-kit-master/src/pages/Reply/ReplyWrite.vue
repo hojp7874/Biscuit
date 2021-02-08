@@ -46,7 +46,7 @@ export default {
   },
   methods: {
     write() {
-      if(this.comments.contents == ''){
+      if(this.comments.contents == '' || this.comments.contents.trim() ==""){
          alert('작성된 댓글 내용이 존재하지 않습니다.');
       }else{
         this.$axios
