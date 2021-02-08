@@ -28,7 +28,7 @@
  		select member.mId, user.nickname, user.picture, member.permission
  		from member, user
  		where gId = #{gId} and user.email = member.email
- 		and (a407.group.permission = 1 or a407.group.permission = 2 or a407.group.permission = 3)
+ 		and (a407.member.permission = 1 or a407.member.permission = 2 or a407.member.permission = 3)
  	</select>
  	
  	<select id="selectGroupList" parameterType = "String" resultType="GroupMemberDto">

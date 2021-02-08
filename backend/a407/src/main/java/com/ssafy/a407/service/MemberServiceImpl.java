@@ -53,12 +53,13 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public Map applyState(Map map) throws Exception {
 		// TODO Auto-generated method stub
-		System.out.println("service: " + map);
+		System.out.println("service.applyState.Map :  " + map);
 		return dao.applyState(map);
 	}
 	
 	@Override
 	public Map getApplyCount(int gId) throws Exception{
+		System.out.println("service.getApplyCount.gId :  " + gId);
 		return dao.selectApplyCount(gId);
 	}
 }

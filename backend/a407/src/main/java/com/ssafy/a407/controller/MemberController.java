@@ -184,6 +184,38 @@ public class MemberController {
 		
 	}
 	
+	//멤버 추방
+	@PutMapping(value = "/kick")
+	private ResponseEntity kick(@RequestBody Map map)
+	{
+		
+		ResponseEntity entity = null;
+		Map result = new HashMap();
+		Map input = new HashMap();
+		input.put("mId", map.get("mId"));
+		input.put("permission", 5);
+		
+		try {
+			if(member.updateMemberPermission(input) == 1) {
+				result.put("success", "success");
+				entity = new ResponseEntity<>(result, HttpStatus.OK);	
+			}
+			else {
+				result.put("success", "fail");
+				entity = new ResponseEntity<>(result, HttpStatus.OK);
+			
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.put("success", "error");
+			entity = new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+		
+		}
+		return entity;
+		
+	}
+	
+	
 	//신청 목록 조회(유저)
 	@GetMapping(value = "/apply/user/list")
 	private ResponseEntity groupList(@RequestParam String email) {
