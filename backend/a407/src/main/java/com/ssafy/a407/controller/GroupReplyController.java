@@ -122,7 +122,6 @@ public class GroupReplyController {
 			
 			List<GroupReplyDto> list = service.getReplyList(pageMap);
 			if(list != null) {
-//				System.out.println("return reply >> " + list.toString());
 			
 				result.put("success", "success");
 				result.put("pagination", pagination);
@@ -138,7 +137,6 @@ public class GroupReplyController {
 			result.put("success", "error"); 
 	        entity = new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
 		}		
-		//System.out.println(entity.getBody().toString());
 		return entity;
 	}
 }
