@@ -18,6 +18,7 @@
           <!-- button -->
           <a v-on:click="loadHome()" class="btn btn-primary btn-round btn-lg">홈</a>
           <a v-on:click="joinMeeting()" class="btn btn-primary btn-round btn-lg">화상 채팅</a>
+          <a v-on:click="loadSchedule()" class="btn btn-primary btn-round btn-lg">그룹 일정</a>
           <tag v-if="state == 3">
           <a type="primary" v-on:click="loadApplyList()" class="btn btn-primary btn-round btn-lg">
             <span>
@@ -25,7 +26,6 @@
             <span v-if="applyCount != 0" class="badge badge-warning badge-pill">{{applyCount}}</span>
             </span>
           </a>
-          <a v-on:click="loadSchedule()" class="btn btn-primary btn-round btn-lg">그룹 일정</a>
           </tag>
         </div>
         <component :is="componentLoading()" :gId="gId"></component>
