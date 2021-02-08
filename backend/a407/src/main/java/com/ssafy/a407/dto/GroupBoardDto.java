@@ -1,6 +1,6 @@
 package com.ssafy.a407.dto;
 
-public class gBoardDto {
+public class GroupBoardDto {
 	private int gId;
 	private int bId;
 	private String email;
@@ -11,11 +11,11 @@ public class gBoardDto {
 	private String date;
 	private int category;
 	
-	public gBoardDto() {
+	public GroupBoardDto() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public gBoardDto(int gId, int bId, String email, String nickname, String title, String contents, boolean noticeFlag,
+	public GroupBoardDto(int gId, int bId, String email, String nickname, String title, String contents, boolean noticeFlag,
 			String date, int category) {
 		super();
 		this.gId = gId;
