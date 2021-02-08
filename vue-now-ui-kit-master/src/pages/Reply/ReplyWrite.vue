@@ -47,7 +47,7 @@ export default {
   methods: {
     write() {
       if(this.comments.contents == ''){
-         alert('작성된 댓글 내용이 없습니다.');
+         alert('작성된 댓글 내용이 존재하지 않습니다.');
       }else{
         this.$axios
         .post(`${SERVER_URL}/reply/create`, {

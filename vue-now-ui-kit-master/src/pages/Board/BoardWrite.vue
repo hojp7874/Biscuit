@@ -81,8 +81,12 @@ export default {
         title: this.title,
         contents: this.contents,
       };
-
-      this.$axios
+      if(this.form.title==''){
+        alert('작성된 게시글의 제목이 존재하지 않습니다.');
+      }else if(this.form.contents==''){
+        alert('작성된 게시글의 내용이 존재하지 않습니다.');
+      }else{
+        this.$axios
         .post(`${SERVER_URL}/board/create`, this.form)
         .then((res) => {
           if (res.data.success) {
@@ -95,6 +99,7 @@ export default {
         .catch((err) => {
           console.log(err);
         });
+      }
     },
 
   },
