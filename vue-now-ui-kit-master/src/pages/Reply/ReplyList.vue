@@ -65,6 +65,7 @@ export default {
   },
   methods: {
     modifyClick(){
+      this.modicontents = this.items.contents;
       this.isView = !this.isView;
     },
     onSubmit(event) {
