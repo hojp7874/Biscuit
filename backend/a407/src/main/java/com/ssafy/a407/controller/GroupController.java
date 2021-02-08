@@ -72,6 +72,7 @@ public class GroupController {
 		return "test";
 	}
 	
+	//그룹 검색
 	@GetMapping(value = "/list")
 	private ResponseEntity list(@RequestParam String type, @RequestParam String word) {
 		//type을 어레이로 받으면 여러개로 받을 수 있을까요?
