@@ -17,18 +17,21 @@
         <div class="button-container">
           <!-- button -->
           <a v-on:click="loadHome()" class="btn btn-primary btn-round btn-lg">홈</a>
+          <a v-on:click="loadSchedule()" class="btn btn-primary btn-round btn-lg">일정</a>
+          <a v-on:click="loadSchedule()" class="btn btn-primary btn-round btn-lg">게시판</a>
           <a v-on:click="joinMeeting()" class="btn btn-primary btn-round btn-lg">화상 채팅</a>
-          <a v-on:click="loadSchedule()" class="btn btn-primary btn-round btn-lg">그룹 일정</a>
-          <tag v-if="state == 3">
-          <a type="primary" v-on:click="loadApplyList()" class="btn btn-primary btn-round btn-lg">
+          <span v-if="state == 3">
+          <a type="primary" v-on:click="loadMemberList()" class="btn btn-primary btn-round btn-lg">
             <span>
-              신청 현황
-            <span v-if="applyCount != 0" class="badge badge-warning badge-pill">{{applyCount}}</span>
+              스터디원 관리 
             </span>
           </a>
-          </tag>
+          
+            <span v-if="applyCount != 0" class="badge badge-warning badge-pill" style="position: relative; right:45px">{{applyCount}}</span>
+            <!-- <span v-if="applyCount != 0" class="badge badge-warning badge-pill" style="position: relative; right:45px; bottom:20px">1</span> -->
+          </span>
         </div>
-        <component :is="componentLoading()" :gId="gId"></component>
+        <component :is="componentLoading()" :gId="gId" :state="state"></component>
       </div>
     </div>
   </div>
@@ -37,11 +40,12 @@
 import axios from 'axios';
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 import GroupHome from './GroupHome.vue';
-import ApplyList from './ApplyList.vue';
+// import ApplyList from './ApplyList.vue';
 import GroupSchedule from './GroupSchedule.vue';
+import MemberList from './MemberList.vue';
 import { mapState } from 'vuex';
 export default {
-  name: 'profile',
+  name: 'group-page',
   bodyClass: 'profile-page',
   data() {
     return {
@@ -62,8 +66,9 @@ export default {
   },
   components: {
     GroupHome,
-    ApplyList,
-    GroupSchedule
+    // ApplyList,
+    GroupSchedule,
+    MemberList,
   },
   methods: {
     componentLoading() {
@@ -74,6 +79,8 @@ export default {
            return 'ApplyList';
         case 2:
            return 'GroupSchedule';
+           case 3:
+             return 'MemberList';
       }
     },
 
@@ -85,6 +92,9 @@ export default {
     },
     loadSchedule(){
       this.active = 2;
+    },
+     loadMemberList() {
+      this.active = 3;
     },
     getState: function() {
       axios
