@@ -14,16 +14,6 @@ CREATE TABLE `a407`.`gReply` (
     FOREIGN KEY (`bId`)
     REFERENCES `a407`.`gBoard` (`bId`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_gReply_email`
-    FOREIGN KEY (`email`)
-    REFERENCES `a407`.`user` (`email`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_gReply_nickname`
-    FOREIGN KEY (`nickname`)
-    REFERENCES `a407`.`user` (`nickname`)
-    ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
