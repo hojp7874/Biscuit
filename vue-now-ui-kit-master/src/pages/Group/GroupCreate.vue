@@ -64,6 +64,13 @@
             </div>
           </div>
 
+          <div>
+            <p class="col-3">스터디 이미지:</p>
+            <div class="col-9">
+              <input type="file" id="img">
+            </div>
+          </div>
+
           <div class="d-flex">
             <p class="col-3">스터디 설명:</p>
             <b-form-textarea
@@ -121,7 +128,6 @@
     },
     methods: {
       onSubmit: function() {
-        // 일단 로그인여부는 구현 ㄴ
         const item = {
           max: this.form.max,
           edate: this.form.edate,
@@ -130,18 +136,41 @@
           groupName: this.form.groupName,
           groupDesc: this.form.groupDesc,
           category: this.form.category,
-          region: this.form.region,
-          img: "null"
+          region: this.form.region
         }
-        // const data = [item]
-        axios.post(`${SERVER_URL}/group/create/`, item)
-          .then(res => {
-            console.log(res)
-            this.$router.push({ path: './grouplist' });
+        const frm = new FormData()
+        var img = document.getElementById("img")
+        if (img.Files) {
+          frm.append('file', img.files[0])
+          axios.post(`${SERVER_URL}/file/upload/`, frm)
+            .then(res => {
+              console.log(res.data.message)
+              item.push({img: SERVER_URL + "/file/read/" + res.data.message})
+              
+              // DB에 저장
+              axios.post(`${SERVER_URL}/group/create/`, item)
+                .then(res => {
+                  console.log(res)
+                  this.$router.push({ path: './grouplist'});
+                })
+                .catch(err => {
+                  console.log(err)
+                })
+            .catch(err => {
+              console.log(err)
+            })
           })
-          .catch(err => {
-            console.log(err)
-          })
+        } else {
+          // DB에 저장
+          axios.post(`${SERVER_URL}/group/create/`, item)
+            .then(res => {
+              console.log(res)
+              this.$router.push({ path: './grouplist'});
+            })
+            .catch(err => {
+              console.log(err)
+            })
+        }
       }
     }
   }
