@@ -11,6 +11,7 @@
       :img="img"
       alt="">
       <img :src="img.url" alt="">
+      <!-- <img src="http://localhost:8877/a407/file/read/20210209T131738323.jpg" alt=""> -->
     </p>
   </div>
 </template>
