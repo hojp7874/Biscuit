@@ -23,9 +23,10 @@
                 </tr>
                 <tr>
                   <th>내용</th>
-                  <td><textarea v-model="contents" ref="contents"></textarea></td>
+                  <td><textarea v-model="contents" ref="contents"  @input="counting()" ></textarea></td>
                 </tr>
               </table>
+              <div >글자수 : <span>{{count}}</span> / 5000</div>
             </form>
           </div>
 
@@ -54,6 +55,7 @@ export default {
       noticeFlag: 0,
       date: this.$route.query.date,
       category: this.$route.query.category,
+      count : 0,
     };
   },
 
@@ -92,7 +94,7 @@ export default {
         category: this.category,
       };
 
-      this.$axios
+        this.$axios
         .post(`${SERVER_URL}/board/update`, this.form)
         .then((res) => {
           if (res.data.success) {
@@ -108,13 +110,13 @@ export default {
     },
     fnModProc() {
       this.temptitle = this.title.replace(/ /g, '');
-      if (!this.temptitle) {
+      if (!this.temptitle || !this.temptitle.trim()) {
         alert('제목을 입력해 주세요');
         this.$refs.title.focus(); //방식으로 선택자를 찾는다.
         return;
       }
-      if (!this.contents) {
-        alert('제목을 입력해 주세요');
+      if (!this.contents || !this.contents.trim()) {
+        alert('내용을 입력해 주세요');
         this.$refs.contents.focus(); //방식으로 선택자를 찾는다.
         return;
       }
@@ -144,6 +146,10 @@ export default {
           console.log(err);
         });
     },
+    counting(){
+      this.count = this.contents.length;
+      console.log(this.count);
+    }
   },
 };
 </script>

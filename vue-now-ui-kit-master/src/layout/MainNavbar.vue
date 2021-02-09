@@ -25,8 +25,7 @@
     </template>
     <template slot="navbar-menu">
       <router-link class="navbar-brand" to="/grouplist">
-        <i class="now-ui-icons arrows-1_cloud-download-93"></i>
-        <p>스터디 찾기</p>
+        <i class="now-ui-icons arrows-1_cloud-download-93"> 스터디 찾기</i>
       </router-link>
       <drop-down
         tag="li"
@@ -38,7 +37,7 @@
           <i class="now-ui-icons business_chart-pie-36"></i> 공지사항
         </nav-link>
         <nav-link to="/boardlist">
-          <i class="now-ui-icons business_chart-pie-36"></i> All components 자유 게시판
+          <i class="now-ui-icons business_chart-pie-36"></i> 자유 게시판
         </nav-link>
         <a
           target="_blank"

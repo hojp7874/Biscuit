@@ -168,7 +168,7 @@ export default {
     [FormGroupInput.name]: FormGroupInput,
   },
   mixins: [CalendarMathMixin],
-  props: ['scheduleType', 'items'],
+  props: ['scheduleType', 'items','gId'],
   data() {
     return {
       /* Show the current month, and give it some fake items to show */
@@ -191,13 +191,13 @@ export default {
       useHolidayTheme: true,
       useTodayIcons: false,
       schedule: {
-        gid: '',
+        gId: 0,
         email: localStorage.getItem('email'),
         sdate: '',
         edate: '',
         title: '',
         content: '',
-        pgflag: '',
+        pgFlag: 0,
       },
       detail: '',
       form: '',
@@ -245,7 +245,10 @@ export default {
     console.log("처음값" + this.newItemStartDate);
     if (this.scheduleType === 'mySchedule') {
       this.getItem();
+    }else if (this.scheduleType === 'groupSchedule'){
+      this.getGroupItem();
     }
+    console.log("아디디" + this.gId);
     // this.schedule.email = localStorage.getItem('email');
     //console.log("아이템" + this.items);
   },
@@ -312,10 +315,12 @@ export default {
     },
     addSchedule() {
       if (this.scheduleType === 'mySchedule') {
-        this.clickTestAddItem();
+        this.userAddItem();
+      }else if(this.scheduleType === 'groupSchedule') {
+        this.groupAddItem();
       }
     },
-    clickTestAddItem() {
+    userAddItem() {
       this.schedule.sdate = this.newItemStartDate;
       this.schedule.edate = this.newItemEndDate;
       this.schedule.title = this.newItemTitle;
@@ -330,9 +335,30 @@ export default {
         this.$refs['create-modal'].hide();
       }
     },
+    groupAddItem(){
+      console.log("df" + this.gId);
+      this.schedule.sdate = this.newItemStartDate;
+      this.schedule.edate = this.newItemEndDate;
+      this.schedule.title = this.newItemTitle;
+      this.schedule.contents = this.newItemContents;
+      this.schedule.email = '';
+      this.schedule.gId = this.gId;
+      this.schedule.pgFlag = 1;
+       if(this.schedule.title ===''){
+        alert("타이틀을 입력해주세요.");
+      }else if(this.schedule.sdate > this.schedule.edate){
+        alert("시작일과 종료일을 확인 해 주세요.");
+      }else{
+        this.$emit('createSchedule', this.schedule);
+        this.$refs['create-modal'].hide();
+      }
+    },
     getItem() {
       this.$emit('getSchedule');
       //  this.insertItems();
+    },
+    getGroupItem(){
+      this.$emit('getSchedule');
     },
     changeReadOnly(){
       this.readOnly = !this.readOnly;
