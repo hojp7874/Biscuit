@@ -46,7 +46,10 @@ export default {
   },
   methods: {
     write() {
-      this.$axios
+      if(this.comments.contents == '' || this.comments.contents.trim() ==""){
+         alert('작성된 댓글 내용이 존재하지 않습니다.');
+      }else{
+        this.$axios
         .post(`${SERVER_URL}/reply/create`, {
           email : this.comments.email,
           nickname : this.comments.nickname,
@@ -65,6 +68,7 @@ export default {
         .catch((err) => {
           console.log(err);
         });
+      }
     },
   },
 };

@@ -113,10 +113,7 @@
                 <h4 class="title">하태민</h4>
                 <p class="category text-primary">Backend</p>
                 <p class="description">
-                  백엔드의 황태자 하태민입니다 반갑습니다!!!!
-                  롤 실력 대결하고 싶은 분은 롤 스터디 가입해주세요
-                  실버 이하는 신청 안받습니다.
-                  
+                  백엔드, devOps를 맡고 있는 하태민입니다 반갑습니다!!!!                  
                 </p>
                 <a href="#pablo" class="btn btn-primary btn-icon btn-round"
                   ><i class="fab fa-twitter"></i
