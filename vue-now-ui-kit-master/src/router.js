@@ -17,12 +17,22 @@ import MainFooter from './layout/MainFooter.vue';
 import Join from './pages/Join.vue';
 import MyPage from './pages/MyPage.vue';
 import FindPw from './pages/FindPw.vue';
+import test from './pages/ImageUpload.vue';
 
 Vue.use(Router);
 
 export default new Router({
   linkExactActiveClass: 'active',
   routes: [
+    {
+      path: '/test',
+      name: 'test',
+      components: { default: test },
+      props: {
+        header: { colorOnScroll: 400 },
+        footer: { backgroundColor: 'black' }
+      }
+    },
     {
       path: '/',
       name: 'index',
