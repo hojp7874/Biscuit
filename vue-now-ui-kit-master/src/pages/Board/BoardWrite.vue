@@ -21,11 +21,14 @@
                     <input type="text" v-model="title" ref="title" />
                   </td>
                 </tr>
-                <tr>
+                <!-- <tr>
                   <th>내용</th>
                   <td><textarea v-model="contents" ref="contents"></textarea></td>
-                </tr>
+                </tr> -->
+                  <!-- <Editor ref="editor" style="width=100%"/> -->
               </table>
+                <editor  :initialValue="contents" ref="toastuiEditor" style="width: 100%"/>
+
             </form>
           </div>
 
@@ -41,8 +44,17 @@
 
 <script>
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
+import 'codemirror/lib/codemirror.css'; // codemirror 스타일
+import '@toast-ui/editor/dist/toastui-editor.css'; // Editor's Style
+import Editor from '@/../node_modules/@toast-ui/vue-editor/src/Editor.vue'
+
+//import Editor from '@toast-ui/vue-editor/src/Editor';
 
 export default {
+    components: {
+    'editor': Editor
+  },
+
   data() {
     return {
       temptitle: '',
@@ -66,6 +78,9 @@ export default {
     }
   },
   methods: {
+    // async save() {
+    //   var content = this.$refs.editor.getContent()
+    // },
     fnList() {
       delete this.body.num;
       this.$router.push({ path: './BoardList', query: this.body });
@@ -75,6 +90,22 @@ export default {
       this.$router.push({ path: './view', query: this.body });
     },
     fnAddProc() {
+      this.temptitle = this.title.replace(/ /g, '');
+      if (!this.temptitle) {
+        alert('제목을 입력해 주세요');
+        this.$refs.title.focus(); //방식으로 선택자를 찾는다.
+        return;
+      }
+      // this.tmpcontents = this.contents.replace(/ /g, '');
+      // if (!this.contents) {
+      //   alert('내용을 입력해 주세요');
+      //   this.$refs.contents.focus(); //방식으로 선택자를 찾는다.
+      //   return;
+      // }
+      // this.$refs.toastuiEditor.invoke('getHtml');
+     this.contents = this.$refs.toastuiEditor.invoke("getMarkdown");
+      console.log("########");
+    console.log(this.contents);
       this.form = {
         email: localStorage.getItem("email"),
         nickname: localStorage.getItem("nickname"),

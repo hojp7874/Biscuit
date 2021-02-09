@@ -23,7 +23,7 @@ import NowUiKit from './plugins/now-ui-kit';
 import {BootstrapVue, BootstrapVueIcons} from 'bootstrap-vue'
 import axios from 'axios'; //axios 호출
 import 'core-js'
-
+import Editor from '@toast-ui/vue-editor/src/Editor';
 
 Vue.use(BootstrapVue)
 Vue.use(BootstrapVueIcons)
@@ -33,7 +33,7 @@ Vue.config.productionTip = false;
 Vue.prototype.$axios = axios;
 
 Vue.use(NowUiKit);
-
+Vue.use(Editor);
 new Vue({
   router,
   store,

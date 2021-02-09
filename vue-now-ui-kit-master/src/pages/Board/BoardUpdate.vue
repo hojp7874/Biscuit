@@ -21,11 +21,13 @@
                     <input type="text" v-model="title" ref="title" />
                   </td>
                 </tr>
-                <tr>
+                <!-- <tr>
                   <th>내용</th>
                   <td><textarea v-model="contents" ref="contents"></textarea></td>
-                </tr>
+                </tr> -->
               </table>
+              <editor  :initialValue="contents" ref="toastuiEditor" style="width: 100%"/>
+
             </form>
           </div>
 
@@ -43,7 +45,14 @@
 <script>
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
+import 'codemirror/lib/codemirror.css'; // codemirror 스타일
+import '@toast-ui/editor/dist/toastui-editor.css'; // Editor's Style
+import Editor from '@/../node_modules/@toast-ui/vue-editor/src/Editor.vue'
+   
 export default {
+   components: {
+    'editor': Editor
+  },
   data() {
     return {
       temptitle: '',
@@ -91,6 +100,7 @@ export default {
         noticeFlag: this.noticeFlag,
         category: this.category,
       };
+     this.contents = this.$refs.toastuiEditor.invoke("getMarkdown");
 
       this.$axios
         .post(`${SERVER_URL}/board/update`, this.form)
@@ -114,7 +124,7 @@ export default {
         return;
       }
       if (!this.contents) {
-        alert('제목을 입력해 주세요');
+        alert('내용을 입력해 주세요');
         this.$refs.contents.focus(); //방식으로 선택자를 찾는다.
         return;
       }
@@ -132,8 +142,6 @@ export default {
         .put(`${SERVER_URL}/board/update`, this.form)
         .then((res) => {
           if (res.data.success) {
-            console.log("########################")
-            console.log(res)
             alert('수정되었습니다.');
             this.fnView();
           } else {

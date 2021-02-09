@@ -1,11 +1,10 @@
 <template>
   <div>
     <div>
-       
       <div class="content-center brand">
         <img class="n-logo" src="img/bisWhite.png" alt="" />
         <div class="container">
-          <br><br>
+          <br /><br />
           <div class="AddWrap">
             <form>
               <table class="tbAdd" width="100%">
@@ -21,29 +20,48 @@
                   <th>작성자</th>
                   <td v-bind="nickname">{{ nickname }}</td>
                 </tr>
-                <tr>
+                <!-- <tr>
                   <th>내용</th>
                   <td class="txt_cont" v-bind="contents">{{ contents }}</td>
-                </tr>
+                </tr> -->
               </table>
+                            <Viewer v-if="contents != null" :initialValue="contents" />
+
             </form>
           </div>
 
           <div class="btnWrap d-flex justify-content-center">
             <b-button @click="fnList" class="btn btnList m-1">목록</b-button>
             <div v-if="loginStatus.nickname == nickname">
-              <b-button v-if="email" @click="fnUpdate" class="btn-info btnUpdate m-1"
+              <b-button
+                v-if="email"
+                @click="fnUpdate"
+                class="btn-info btnUpdate m-1"
                 >수정</b-button
               >
-              <b-button v-if="email" @click="fnDelete" class="btn-danger btnDelete m-1"
+              <b-button
+                v-if="email"
+                @click="fnDelete"
+                class="btn-danger btnDelete m-1"
                 >삭제</b-button
               >
             </div>
           </div>
-          <ReplyWrite :bId="bId"  v-if="this.loginStatus.nickname"/>
+          <ReplyWrite :bId="bId" v-if="this.loginStatus.nickname" />
           <div>
-            <ReplyList v-for="(reply,index) in showList" :reply="reply" :key="index" />
-            <b-pagination v-model="replyPage" pills :total-rows="pageCnt" per-page="10" align="center" ></b-pagination><!--여깁니다-->
+            <ReplyList
+              v-for="(reply, index) in showList"
+              :reply="reply"
+              :key="index"
+            />
+            <b-pagination
+              v-model="replyPage"
+              pills
+              :total-rows="pageCnt"
+              per-page="10"
+              align="center"
+            ></b-pagination
+            ><!--여깁니다-->
           </div>
         </div>
       </div>
@@ -52,16 +70,22 @@
 </template>
 
 <script>
-import {mapState} from 'vuex'
+import { mapState } from 'vuex';
 import axios from 'axios';
 import ReplyWrite from '../Reply/ReplyWrite.vue';
 import ReplyList from '../Reply/ReplyList.vue';
+import "codemirror/lib/codemirror.css"; 
+import "@toast-ui/editor/dist/toastui-editor.css";
+import { Viewer } from "@toast-ui/vue-editor";
+
+// import { getBoardDetailAPI } from '@/api/index';
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
 export default {
   components: {
     ReplyWrite,
     ReplyList,
+    Viewer,
   },
   data() {
     return {
@@ -70,34 +94,46 @@ export default {
       email: '',
       nickname: '',
       title: '',
-      contents: '',
+      contents: null,
       noticeFlag: '',
       date: '',
       category: '',
-            
-      list : [],
-      replyPage : '',
-      pageCnt : '',
+
+      list: [],
+      replyPage: '',
+      pageCnt: '',
     };
   },
   computed: {
-    ...mapState([
-      'loginStatus'
-    ]),
+    ...mapState(['loginStatus']),
     showList: function() {
-      return this.list.slice(10*(this.replyPage-1), 10*this.replyPage)
+      return this.list.slice(10 * (this.replyPage - 1), 10 * this.replyPage);
     },
   },
   created() {
     this.getList();
-    this.getPage();
+    // this.getPage();
   },
   mounted() {
     this.fnGetView();
+    //   getBoardDetailAPI({
+    //   params: {
+    //     docNo: this.$route.query.docNo,
+    //   },
+    // })
+    //   .then(response => {
+    //     this.$refs.viewer.setContent(response.data.content)
+    //   })
+    //   .catch(error => {
+    //     console.log(error)
+    //   })
   },
   methods: {
     changePage: function() {
-      this.showList = this.list.slice(10*(this.replyPage-1), 10*this.replyPage)
+      this.showList = this.list.slice(
+        10 * (this.replyPage - 1),
+        10 * this.replyPage
+      );
       // console.log(this.replyPage)
       // console.log(temporaryList)
     },
@@ -145,34 +181,34 @@ export default {
           })
           .then((res) => {
             if (res.data.success === 'success') {
-              // alert('게시글이 삭제 되었습니다.');
+              alert('게시글이 삭제 되었습니다.');
               this.fnList();
             } else {
               alert('게시글 삭제에 실패하셨습니다.');
             }
           })
-          .catch(function (error) {
+          .catch(function(error) {
             console.log(error);
           });
       }
     },
     getList() {
-      console.log("getList IN : "+this.$route.query.bId);
+      console.log('getList IN : ' + this.$route.query.bId);
       this.$axios
         .get(`${SERVER_URL}/reply/list`, {
-          params: {page: 1, bId: this.$route.query.bId},
+          params: { page: 1, bId: this.$route.query.bId },
         })
         .then((res) => {
-          console.log('######')
+          console.log('######');
           console.log(res.data);
-          this.list = res.data["list"];
+          this.list = res.data['list'];
           // console.log(res.data["list"]);
-          this.pageCnt = this.list.length
+          this.pageCnt = this.list.length;
         })
         .catch((err) => {
           console.log(err);
         });
-    }
+    },
   },
 };
 </script>
