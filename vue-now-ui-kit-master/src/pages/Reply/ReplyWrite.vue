@@ -26,7 +26,7 @@ const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
 export default {
   name: "replywrite",
-  props : ['bId'],
+  props : ['bId','boardEmail'],
   data() {
       return {
         comments : {
@@ -43,6 +43,7 @@ export default {
   },
   mounted() {
     this.bId = this.$props.bId;
+    this.boardEmail = this.$props.boardEmail;
   },
   methods: {
     write() {
@@ -65,7 +66,30 @@ export default {
         .catch((err) => {
           console.log(err);
         });
+
+        this.$axios
+        .post(`${SERVER_URL}/notification/create`, {
+          receiveEmail : this.boardEmail,
+          sendEmail :  this.comments.email,
+          isRead : 0,
+          type : 'reply',
+          contentId : this.bId,
+          message : '당신의 게시글에 댓글이 달렸습니다.',
+          notiUrl : '/BoardRead?bId=' + this.bId,
+        })
+        .then((res) => {
+          if (res.data.success) {
+            console.log("receiveEmail >>> "+this.boardEmail);
+            // alert('등록되었습니다.');
+          } else {
+            console.log('알림 전송 실패');
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
+
   },
 };
 </script>

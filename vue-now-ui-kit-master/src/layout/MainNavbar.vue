@@ -8,8 +8,7 @@
   >
     <template>
       <router-link v-popover:popover1 class="navbar-brand" to="/">
-      <img class="n-logo" src="img/bisWhite.png" height="30px" alt="" />
-      
+        <img class="n-logo" src="img/bisWhite.png" height="30px" alt="" />
       </router-link>
       <el-popover
         ref="popover1"
@@ -19,7 +18,7 @@
         trigger="hover"
       >
         <div class="popover-body">
-         서울 4반 7팀
+          서울 4반 7팀
         </div>
       </el-popover>
     </template>
@@ -38,21 +37,20 @@
           <i class="now-ui-icons business_chart-pie-36"></i> 공지사항
         </nav-link>
         <nav-link to="/boardlist">
-          <i class="now-ui-icons business_chart-pie-36"></i> All components 자유 게시판
+          <i class="now-ui-icons business_chart-pie-36"></i> All components 자유
+          게시판
         </nav-link>
-        <a
-          target="_blank"
-          class="dropdown-item"
-        >
-          <i class="now-ui-icons design_bullet-list-67"></i> Documentation 취업 게시판
+        <a target="_blank" class="dropdown-item">
+          <i class="now-ui-icons design_bullet-list-67"></i> Documentation 취업
+          게시판
         </a>
       </drop-down>
       <drop-down
-              tag="li"
-              title="마이페이지"
-              icon="now-ui-icons design_image"
-              class="nav-item"
-               v-if="this.token !== ''"
+        tag="li"
+        title="마이페이지"
+        icon="now-ui-icons design_image"
+        class="nav-item"
+        v-if="this.token !== ''"
       >
         <!-- <nav-link to="/landing">
           <i class="now-ui-icons education_paper"></i> Landing
@@ -61,6 +59,39 @@
           <i class="now-ui-icons users_single-02"></i> MyPage
         </nav-link>
       </drop-down>
+      <!-- <div class="alert-icon">
+        <i class="now-ui-icons ui-1_bell-53" style="background-color:white"></i>
+      </div> -->
+      <drop-down>
+        <b-icon-bell-fill
+          slot="title"
+          class="dropdown-toggle"
+          data-toggle="dropdown"
+          font-scale="1.3"
+          style="margin-top:10px;margin-right:15px;margin-left:-5px"
+          @click="readNotification"
+        />
+
+      <!-- <a target="_blank" class="dropdown-item">
+        댓글이 작성되었습니다~~~
+        </a><a target="_blank" class="dropdown-item"> 
+          그룹 신청 왔습니다~~~
+        </a><a target="_blank" class="dropdown-item">
+          그룹 승인 되었습니다~~
+        </a> -->
+        
+        <!-- <button class="dropdown-item" v-for="item in items" v-bind:key="item" @click="goNoti(item)">
+          {{item.message}}
+        </button><i class="now-ui-icons ui-1_simple-remove" style="margin-left:10px ;margin-top:-3px" @click="deleteNoti(item)"/> -->
+
+        <div class="dropdown-item" v-for="item in items" v-bind:key="item">
+          <button style = "background-color:white ; border:0;outline:0;" @click="goNoti(item)">{{item.message}}</button>
+          <i class="now-ui-icons ui-1_simple-remove" style="margin-left:10px ;margin-top:-3px" @click.prevent="deleteNoti(item)"/>
+        </div>
+        
+      </drop-down>
+      <!-- <drop-down icon="now-ui-icons ui-1_bell-53"  style="margin-left:-20px"  > </drop-down> -->
+
       <li class="nav-item">
         <a
           class="nav-link btn btn-neutral"
@@ -81,7 +112,7 @@
           <p>로그아웃</p>
         </a>
       </li>
-<!-- 
+      <!-- 
       <li class="nav-item">
         <a
           class="nav-link"
@@ -128,6 +159,8 @@
 <script>
 import { DropDown, Navbar, NavLink } from '@/components';
 import { Popover } from 'element-ui';
+import axios from 'axios';
+const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 export default {
   name: 'main-navbar',
   data() {
@@ -136,22 +169,23 @@ export default {
       name: '',
       admin: '',
       type: '',
-      token:''
+      token: '',
+      items:[],
     };
   },
   props: {
     transparent: Boolean,
-    colorOnScroll: Number
+    colorOnScroll: Number,
   },
   components: {
     DropDown,
     Navbar,
     NavLink,
-    [Popover.name]: Popover
+    [Popover.name]: Popover,
   },
-  methods:{
+  methods: {
     onClickLogout() {
-      console.log("onclicklogout확인" + this.token +"gd" );
+      console.log('onclicklogout확인' + this.token + 'gd');
       localStorage.removeItem('token');
       localStorage.removeItem('email');
       localStorage.removeItem('nickname');
@@ -160,8 +194,36 @@ export default {
       localStorage.removeItem('region');
       this.$emit('logout');
     },
-    goToLogin(){
+    goToLogin() {
       this.$router.replace(`/login`);
+    },
+    readNotification(){
+      this.form = { receiveEmail: localStorage.getItem('email') };
+      axios
+        .get(`${SERVER_URL}/notification/read`, {
+          params: this.form,
+        })
+        .then((res) => {
+          this.items = res.data.list;
+        });
+    },
+    goNoti(item){
+      this.$router.replace(item.notiUrl);
+      item.notiUrl
+    },
+    deleteNoti(item){
+      this.delForm = { nId: item.nId };
+      axios
+        .delete(`${SERVER_URL}/notification/delete`, {
+          params: this.delForm,
+        })
+        .then((res) => {
+          if (res.data.success === 'success') {
+            console.log('삭제하였습니다.');
+          }else{
+            console.log('실패');
+          }
+        });
     }
   },
   created() {

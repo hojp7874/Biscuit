@@ -17,6 +17,7 @@ import MainFooter from './layout/MainFooter.vue';
 import Join from './pages/Join.vue';
 import MyPage from './pages/MyPage.vue';
 import FindPw from './pages/FindPw.vue';
+import Notifications from './pages/components/Notifications.vue';
 
 Vue.use(Router);
 
