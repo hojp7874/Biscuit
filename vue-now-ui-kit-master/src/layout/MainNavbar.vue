@@ -61,7 +61,7 @@
       <!-- <div class="alert-icon">
         <i class="now-ui-icons ui-1_bell-53" style="background-color:white"></i>
       </div> -->
-      <drop-down>
+      <drop-down v-if="this.token !== ''">
         <b-icon-bell-fill
           slot="title"
           class="dropdown-toggle"

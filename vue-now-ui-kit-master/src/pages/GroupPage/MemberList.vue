@@ -9,63 +9,61 @@
       <h2>로딩 중 ...</h2>
     </div>
     <div v-else>
-        <div class="row">
+      <div class="row">
         <div class="col-md-6">
-      <h3>신청자 목록</h3>
-      <ul class="list-group">
-        <li
-          class="list-group-item list-group-item-action"
-          v-for="item in applys"
-          v-bind:key="item.mId"
-        >
-          <div 
-            class="d-flex justify-content-between align-items-center"
-          >
-            <span>
-              {{ item.nickname }}
-            </span>
-            <span>
-              신청합니다
-            </span>
-            <div>
-              <b-button @click="accept(item.mId)">
-                승인
-              </b-button>
-              <b-button @click="deny(item.mId)">
-                거절
-              </b-button>
-            </div>
-          </div>
-        </li>
-      </ul>
-      </div>
-      <div class="col-md-6">
-      <h3>스터디원 목록</h3>
-      <ul class="list-group">
-        <li
-          class="list-group-item list-group-item-action"
-          v-for="item in members"
-          v-bind:key="item.mId"
-        >
-          <div 
-            class="d-flex justify-content-between align-items-center"
-          >
-            <span>
-              {{ item.nickname }}
-            </span>            
-            <div v-if="item.permission != 3"> 
-              <b-button @click="[updateState(item.mId, 3), updateState(mId, 1)]">
-                그룹장 위임
-              </b-button>
-              <b-button @click="kick(item.mId)">
-                추방
-              </b-button>
-            </div>
-          </div>
-        </li>
-      </ul>
-      </div>
+          <h3>신청자 목록</h3>
+          <ul class="list-group">
+            <li
+              class="list-group-item list-group-item-action"
+              v-for="item in applys"
+              v-bind:key="item.mId"
+            >
+              <div class="d-flex justify-content-between align-items-center">
+                <span>
+                  {{ item.nickname }}
+                </span>
+                <span>
+                  신청합니다
+                </span>
+                <div>
+                  <b-button @click="accept(item.mId, item.email)">
+                    승인
+                  </b-button>
+                  <b-button @click="deny(item.mId)">
+                    거절
+                  </b-button>
+                </div>
+              </div>
+            </li>
+          </ul>
         </div>
+        <div class="col-md-6">
+          <h3>스터디원 목록</h3>
+          <ul class="list-group">
+            <li
+              class="list-group-item list-group-item-action"
+              v-for="item in members"
+              v-bind:key="item.mId"
+            >
+              <div class="d-flex justify-content-between align-items-center">
+                <span>
+                  {{ item.nickname }}
+                </span>
+                <div v-if="item.permission != 3">
+                  <b-button
+                    @click="[updateState(item.mId, 3), updateState(mId, 1)]"
+                  >
+                    그룹장 위임
+                  </b-button>
+                  <b-button @click="kick(item.mId)">
+                    추방
+                  </b-button>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -80,20 +78,20 @@ export default {
       isLoading: false,
       applys: Object,
       members: Object,
-       groupPagePath : "/grouppage?gId=" + this.gId,
-       mId: Number
+      groupPagePath: '/grouppage?gId=' + this.gId,
+      mId: Number,
     };
   },
   created() {
     this.applyList();
     this.memberList();
   },
-  
+
   computed: {
     ...mapState(['loginStatus']),
   },
   props: {
-    gId: String,
+    gId: String, 
   },
   methods: {
     memberList: function() {
@@ -105,16 +103,15 @@ export default {
           },
         })
         .then((res) => {
-            if(res.data.success == 'success'){
-
-            for(const item in res.data.list){
-                if(res.data.list[item].nickname == this.loginStatus.nickname){
-                    this.mId = res.data.list[item].mId;
-                    console.log(this.mId);
-                }
+          if (res.data.success == 'success') {
+            for (const item in res.data.list) {
+              if (res.data.list[item].nickname == this.loginStatus.nickname) {
+                this.mId = res.data.list[item].mId;
+                console.log(this.mId);
+              }
             }
-          this.members = res.data.list;
-            }
+            this.members = res.data.list;
+          }
         });
       this.isLoading = true;
     },
@@ -122,11 +119,11 @@ export default {
       axios
         .put(`${SERVER_URL}/group/member/permission`, {
           mId: mid,
-          permission : state
+          permission: state,
         })
         .then((res) => {
           if (res.data.success == 'success') {
-               this.$router.go(this.$router.currentRoute);
+            this.$router.go(this.$router.currentRoute);
           }
         });
     },
@@ -137,7 +134,7 @@ export default {
         })
         .then((res) => {
           if (res.data.success == 'success') {
-               this.$router.go(this.$router.currentRoute);
+            this.$router.go(this.$router.currentRoute);
           }
         });
     },
@@ -150,21 +147,44 @@ export default {
           },
         })
         .then((res) => {
-            
           if (res.data.success == 'success') {
-          this.applys = res.data.list;
+            this.applys = res.data.list;
           }
         });
       this.isLoading = true;
     },
-    accept: function(mid) {
+    accept: function(mid, email) {
       axios
         .put(`${SERVER_URL}/group/member/accept`, {
           mId: mid,
         })
         .then((res) => {
           if (res.data.success == 'success') {
-               this.$router.go(this.$router.currentRoute);
+            //알림보내기 코드 추가
+            this.$axios
+              .post(`${SERVER_URL}/notification/create`, {
+                receiveEmail: email,
+                sendEmail: this.loginStatus.email,
+                isRead: 0,
+                type: 'accept',
+                contentId: this.gId,
+                message: '스터디 가입이 승인되었습니다!',
+                notiUrl: '/GroupPage?gId=' + this.gId,
+              })
+              .then((res) => {
+                if (res.data.success) {
+                  console.log('receiveEmail >>> ' + this.email);
+                  // alert('등록되었습니다.');
+                } else {
+                  console.log('알림 전송 실패');
+                }
+              })
+              .catch((err) => {
+                console.log(err);
+              });
+
+
+            this.$router.go(this.$router.currentRoute);
           }
         });
     },
@@ -175,7 +195,7 @@ export default {
         })
         .then((res) => {
           if (res.data.success == 'success') {
-               this.$router.go(this.$router.currentRoute);
+            this.$router.go(this.$router.currentRoute);
           }
         });
     },
