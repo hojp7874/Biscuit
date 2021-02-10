@@ -147,7 +147,6 @@ export default {
 
     updatePw() {
       if (this.mem.newpassword === this.verify_newpassword) {
-        if(this.verifyValidPw(this.mem.newpassword)){
         axios
           .put(`${SERVER_URL}/user/pwupdate`, this.mem)
           .then((response) => {
@@ -163,32 +162,10 @@ export default {
             console.log(error);
             alert('오류');
           });
-        }
       } else {
         alert('비밀번호 확인이 일치하지 않습니다.');
       }
     },
-
-    verifyValidPw(str) {
-      console.log('확인작업');
-      var pw = str;
-      //var num = pw.search(/[0-9]/g);
-      // var eng = pw.search(/[a-z]/gi);
-      //var spe = pw.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
-
-      if (pw.length < 8 || pw.length > 20) {
-        alert('8자리 ~ 20자리 이내로 입력해주세요.');
-        return false;
-      }
-      if (pw.search(/₩s/) != -1) {
-        alert('비밀번호는 공백업이 입력해주세요.');
-        return false;
-      }
-
-      return true;
-    },
-
-
   },
 };
 </script>

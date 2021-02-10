@@ -6,55 +6,28 @@
         <div class="photo-container">
           <img src="img/ryan.jpg" alt="" />
         </div>
-        <div class="row">
-        <div class="col-md-8"></div>
-        <div class="col-md-2" v-if="state == 3">
-            <i v-on:click="updateGroup(group.gId)" style="width:200%; height:200%" class="now-ui-icons ui-1_settings-gear-63">
-              Edit
-            </i>
-        </div>
-        </div>
-        <h3>{{ group.groupName }}</h3>
-        <p class="category">{{ group.category }}</p>
-        <div class="description">{{ group.groupDesc }}</div>
-
-        <br />
-        <div v-if="state == 3">
-          <p style="font-size: 14px; margin-left: 30px">스터디 모집 종료일 : {{ group.edate }}</p>
-          <p style="font-size: 14px; margin-left: 30px">스터디 인원 제한 : {{ group.max }}</p>
-          <p style="font-size: 14px; margin-left: 30px">지역 : {{ group.region }}</p>
-        </div>
+        <h3 class="title">{{ group.groupName }}</h3>
+        <p class="category">{{ group.category}}</p>
+        <div class="description">{{group.groupDesc}}</div>
+       
       </div>
     </div>
     <div class="section">
       <div class="container">
         <div class="button-container">
           <!-- button -->
-          <!-- <a v-on:click="loadHome()" class="btn btn-primary btn-round btn-lg">홈</a> -->
-          <a v-on:click="loadSchedule()" class="btn btn-primary btn-round btn-lg">일정</a>
-          <a v-on:click="loadSchedule()" class="btn btn-primary btn-round btn-lg">게시판</a>
+          <a v-on:click="loadHome()" class="btn btn-primary btn-round btn-lg">홈</a>
           <a v-on:click="joinMeeting()" class="btn btn-primary btn-round btn-lg">화상 채팅</a>
-          <span v-if="state == 3">
-            <a
-              type="primary"
-              v-on:click="loadMemberList()"
-              class="btn btn-primary btn-round btn-lg"
-            >
-              <span>
-                스터디원 관리
-              </span>
-            </a>
-
-            <span
-              v-if="applyCount != 0"
-              class="badge badge-warning badge-pill"
-              style="position: relative; right:45px"
-              >{{ applyCount }}</span
-            >
-            <!-- <span v-if="applyCount != 0" class="badge badge-warning badge-pill" style="position: relative; right:45px; bottom:20px">1</span> -->
-          </span>
+          <tag v-if="state == 3">
+          <a type="primary" v-on:click="loadApplyList()" class="btn btn-primary btn-round btn-lg">
+            <span>
+              신청 현황
+            <span v-if="applyCount != 0" class="badge badge-warning badge-pill">{{applyCount}}</span>
+            </span>
+          </a>
+          </tag>
         </div>
-        <component :is="componentLoading()" :gId="gId" :state="state"></component>
+        <component :is="componentLoading()" :gId="gId"></component>
       </div>
     </div>
   </div>
@@ -63,20 +36,18 @@
 import axios from 'axios';
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 import GroupHome from './GroupHome.vue';
-// import ApplyList from './ApplyList.vue';
-import GroupSchedule from './GroupSchedule.vue';
-import MemberList from './MemberList.vue';
+import ApplyList from './ApplyList.vue';
 import { mapState } from 'vuex';
 export default {
-  name: 'group-page',
+  name: 'profile',
   bodyClass: 'profile-page',
   data() {
     return {
-      group: Object,
+       group: Object,
       gId: this.$route.query.gId,
       state: Number,
       applyCount: Number,
-      active: 1,
+      active: 0,
     };
   },
   created() {
@@ -89,30 +60,23 @@ export default {
   },
   components: {
     GroupHome,
-    // ApplyList,
-    GroupSchedule,
-    MemberList,
+    ApplyList,
   },
   methods: {
     componentLoading() {
       switch (this.active) {
-          case 1:
-            return 'GroupSchedule';
-        case 2:
-          return 'ApplyList';
-        case 3:
-          return 'MemberList';
+        case 0:
+          return 'GroupHome';
+        case 1:
+           return 'ApplyList';
       }
     },
 
-    loadSchedule() {
-      this.active = 1;
+    loadHome() {
+      this.active = 0;
     },
-      loadApplyList() {
-        this.active = 2;
-      },
-    loadMemberList() {
-      this.active = 3;
+    loadApplyList() {
+      this.active = 1;
     },
     getState: function() {
       axios
@@ -129,7 +93,7 @@ export default {
           console.log(err);
         });
     },
-    getGroup: function() {
+ getGroup: function() {
       axios
         .get(`${SERVER_URL}/group/list/`, {
           params: {
@@ -160,16 +124,13 @@ export default {
     },
     joinMeeting() {
       //var VUE_RTC_LOCAL_SERVER_URL = `http://localhost:9001/demos/dashboard/`;
-      var VUE_RTC_SERVER_URL = `https://i4a407.p.ssafy.io:9001/demos/dashboard/`;
+       var VUE_RTC_SERVER_URL = `https://i4a407.p.ssafy.io:9001/demos/dashboard/`;
       // var nickname = localStorage.getItem('nickname');
       window.open(
         `${VUE_RTC_SERVER_URL}?gId=${this.gId}&nickname=${this.loginStatus.nickname}`,
         '_blank'
       );
     },
-    updateGroup: function(gId) {
-        this.$router.push({path: './GroupUpdate', query: { gId: gId}})
-      },
   },
 };
 </script>

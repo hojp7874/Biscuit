@@ -8,7 +8,7 @@
       </parallax>
       <div class="container">
         <h1 class="m-5">스터디 수정</h1>
-        <b-form @submit.prevent="onEdit()">
+        <b-form @submit.prevent="onSubmit">
           <div class="d-flex">
             <p class="col-3">스터디 이름:</p>
             <fg-input
@@ -60,7 +60,7 @@
                 on-text="ON"
                 off-text="OFF"
               ></n-switch> -->
-                <input class="col-8 no-border" v-model="this.edate" type="date">
+                <input class="col-8 no-border" v-model="form.edate" type="date" name="" id="">
             </div>
           </div>
 
@@ -74,6 +74,7 @@
               style="height: 500px"
             ></b-form-textarea>
           </div>
+
           <b-button type="submit" variant="primary">Submit</b-button>
         </b-form>
       </div>
@@ -85,6 +86,7 @@
   import axios from 'axios'
   import {Switch, Button, Radio, FormGroupInput}from '@/components'
   const SERVER_URL = process.env.VUE_APP_SERVER_URL
+
   export default {
     data() {
       return {
@@ -100,8 +102,6 @@
           word: this.$route.query.gId,
         },
         form: Object,
-        edate: Date,
-        groupPagePath : "/grouppage?gId=" + this.$route.query.gId,
         region:[{text:'지역을 선택해주세요.',value:null},'온라인','서울','대전','광주','구미'],
         category:[{text:'카테고리를 선택해주세요.',value:null},'한국사','프로그래머','농부','어부','광부']
       }
@@ -113,20 +113,15 @@
       [Switch.name]: Switch,
       [Option.name]: Option,
     },
-    mounted(){
-      this.edate = this.convertDate(this.form.edate)
-      console.log("edate : " + this.edate)
-    },
     methods: {
-      onEdit(){
+      onEdit: function() {
         // 일단 로그인여부는 구현 ㄴ
-        console.log("===update")
         const item = {
           max: this.form.max,
-          edate: this.edate,
+          edate: this.form.edate,
           groupName: this.form.groupName,
           groupDesc: this.form.groupDesc,
-          img: this.form.img,
+          img: "null",
           category: this.form.category,
           region: this.form.region,
           onoff: this.form.onoff,
@@ -135,19 +130,14 @@
           gId: this.form.gId
         }
         // const data = [item]
-        console.log("update===")
         axios.put(`${SERVER_URL}/group/update/`, item)
           .then(res => {
             console.log(res)
-            this.$router.push({ path: this.groupPagePath});
+            this.$router.push({ path: './' });
           })
           .catch(err => {
             console.log(err)
           })
-      },
-      convertDate(date){
-        var moment = require('moment');
-        return(moment(date).format('YYYY-MM-DD'));
       }
     },
     created: function () {
