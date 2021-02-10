@@ -30,9 +30,26 @@
             </b-input-group-append>
           </b-input-group>
         </div>
+
+         <div><i class="now-ui-icons arrows-1_minimal-down"></i></div>
       </div>
     </div>
-    <div class="container">
+
+
+
+    <div class="col-md-8">
+       
+    </div>
+   
+
+
+    <div class="container" style="margin-top:50px">
+
+
+
+
+
+    
       <div v-if="loginStatus.nickname">
         <h3 v-if="existMyGroups" class="text-center">{{loginStatus.nickname}}님의 스터디 목록입니다</h3>
         <h3 v-if="!existMyGroups" class="text-center">현재 가입한 스터디가 없습니다</h3>
@@ -68,19 +85,22 @@
         <b-button v-show="loginStatus.email" variant="primary" @click="goCreate">스터디생성</b-button>
       </div>
       <hr>
-      <h3 class="text-center">새로운 스터디를 찾아보세요</h3>
-      <b-card-group
-        deck
-        class="d-flex flex-row"
-      >
-        <b-col cols="4"
+      <h3 class="text-center"> <i class="now-ui-icons loader_refresh"></i>새로운 스터디를 찾아보세요</h3>
+
+
+      <div class="container">
+        <div class="row">
+    
+        <div class="col-12 col-sm-6 col-md-4 col-lg-4"
           v-for="(group, idx) in groups"
           :key="idx"
           :group="group"
         >
           <!-- @click="goDetail(group)" -->
             <!-- v-b-modal.group-13 -->
+            
           <b-card
+            data-aos="flip-left"
             @click="$bvModal.show(`group-${idx}`), getPermission(group.gId)"
             v-bind:title="group.groupName"
             :img-src="group.img"
@@ -89,7 +109,7 @@
             class="my-3"
           >
             <b-card-text>
-              <b>모집인원: {{ group.max }}명</b><br>
+              <h5 style="font-size:14px">모집인원: {{ group.max }}명</h5><br>
               <!-- <b>온라인 여부: {{ group.onoff }}</b><br> -->
               <!-- <b>모집기간: {{ group.edate }}</b><br> -->
               <b>지역: {{ group.region }}</b><br>
@@ -142,8 +162,13 @@
               </div>
             </div>
           </b-modal>
-        </b-col>
-      </b-card-group>
+        </div>
+        </div>
+     </div> 
+
+
+
+
     </div>
   </div>
 </template>
@@ -155,10 +180,12 @@
   const SERVER_URL = process.env.VUE_APP_SERVER_URL
 
 
+
+
+
   export default {
     name: "Group",
-    components: {
-      card
+    components: { card
     },
     data() {
       return {

@@ -9017,6 +9017,14 @@ vm-browserify@^1.0.1:
   resolved "https://registry.yarnpkg.com/vm-browserify/-/vm-browserify-1.1.2.tgz#78641c488b8e6ca91a75f511e7a3b32a86e5dda0"
   integrity sha512-2ham8XPWTONajOR0ohOKOHXkm3+gaBmGut3SRuu75xLd/RRaY6vqgh8NBYYk7+RW3u5AtzPQZG8F10LHkl0lAQ==
 
+vue-carousel-card@^1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/vue-carousel-card/-/vue-carousel-card-1.0.6.tgz#1e00444ae914e943a8bffb683a50e6eed4ed46eb"
+  integrity sha512-fduzclb/ChpWk6pxinJ0IDsx/zftgpfmsC+l/0feYGOEJdlJJiKkklknW0jedt1pWBH6Izwxua6a0TU2SBxSxQ==
+  dependencies:
+    resize-observer-polyfill "^1.5.0"
+    throttle-debounce "^1.0.1"
+
 vue-eslint-parser@^7.0.0:
   version "7.4.1"
   resolved "https://registry.yarnpkg.com/vue-eslint-parser/-/vue-eslint-parser-7.4.1.tgz#e4adcf7876a7379758d9056a72235af18a587f92"

@@ -52,7 +52,7 @@
                 <div class="row">
                   <div class="col-md-6 ml-auto mr-auto text-center">
                
-                <div class=" d-flex justify-content-center" data-aos="flip-left"
+                <div class=" d-flex justify-content-center" data-aos="zoom-in"
      data-aos-easing="ease-out-cubic"
      data-aos-duration="1000">
                   <img  src="img/path225.png" alt="" />
