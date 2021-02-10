@@ -23,6 +23,8 @@ import NowUiKit from './plugins/now-ui-kit';
 import {BootstrapVue, BootstrapVueIcons} from 'bootstrap-vue'
 import axios from 'axios'; //axios 호출
 import 'core-js'
+import { CarouselCard, CarouselCardItem } from 'vue-carousel-card'
+import 'vue-carousel-card/styles/index.css'
 
 
 Vue.use(BootstrapVue)
