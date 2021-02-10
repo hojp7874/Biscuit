@@ -41,8 +41,8 @@
           <group-reply-write :info="info" @wirtereply="changeMode" v-if="this.loginStatus.nickname" />
           <div>
             <!-- <ReplyList v-for="(reply,index) in showList" :reply="reply" :key="index" /> -->
-            <group-reply-list v-for="(reply,index) in showList" :reply="reply" :key="index"></group-reply-list>
-            <b-pagination v-model="replyPage" pills :total-rows="pageCnt" per-page="10" align="center" ></b-pagination>
+            <group-reply-list v-for="(reply,index) in list" :reply="reply" :key="index"></group-reply-list>
+            <b-pagination-nav v-model="currentPage" pills :total-rows="pageCnt" per-page="10" align="center" @page-click="getList(page)" ></b-pagination-nav>
           </div>
         </div>
         <div class="container" v-if="mode==1">
@@ -81,10 +81,12 @@ export default {
       noticeFlag: '',
       date: '',
       category: '',
-            
+      
+      //for reply
       list : [],
       replyPage : '',
-      pageCnt : '',
+      pageCnt : 1,
+      currentPage : 1,
 
       mode : 0,
       forupdate : [],
@@ -94,9 +96,9 @@ export default {
     ...mapState([
       'loginStatus'
     ]),
-    showList: function() {
-      return this.list.slice(10*(this.replyPage-1), 10*this.replyPage)
-    },
+    // showList: function() {
+    //   return this.list.slice(10*(this.replyPage-1), 10*this.replyPage)
+    // },
   },
   created() {
     this.bId = this.$props['info'].bId;
@@ -104,20 +106,21 @@ export default {
   },
   mounted() {
     this.fnGetView();
-    this.getList();
+    this.getList(1);
   },
   methods: {
     changeMode(num){
       console.log("IN CHANGE MODE");
       this.fnGetView();
-      this.getList();
+      this.getList(1);
+      // this.mode = 5;
       this.mode = num;
     },
-    changePage: function() {
-      this.showList = this.list.slice(10*(this.replyPage-1), 10*this.replyPage)
-      // console.log(this.replyPage)
-      // console.log(temporaryList)
-    },
+    // changePage: function() {
+    //   this.showList = this.list.slice(10*(this.replyPage-1), 10*this.replyPage)
+    //   // console.log(this.replyPage)
+    //   // console.log(temporaryList)
+    // },
     fnGetView() {
       this.$axios
         .get(`${SERVER_URL}/gboard/read`, {
@@ -181,20 +184,23 @@ export default {
           });
       }
     },
-    getList() {
+    getList(num) {
       console.log("REPLY GET LIST");
       this.$axios
         .get(`${SERVER_URL}/greply/list`, {
           params: {
-            page: 1, 
+            page: num, 
             bId: this.bId,
           },
         })
         .then((res) => {
-          this.list = [];
-          this.pageCnt = 0;
+          console.log(res);
+          this.list = null;
+          // this.pageCnt = 0;
           this.list = res.data["list"];
-          this.pageCnt = this.list.length
+          this.currentPage = res.data["pagination"].curPage;          
+          this.pageCnt = res.data["pagination"].pageCnt;
+          console.log("cnt " +res.data["pagination"].pageCnt);
         })
         .catch((err) => {
           console.log(err);
