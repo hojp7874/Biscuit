@@ -6,5 +6,8 @@ CREATE DEFINER = CURRENT_USER TRIGGER `a407`.`group_BEFORE_DELETE` BEFORE DELETE
 BEGIN
     delete from member
     where gId = old.gId;
+    
+    delete from gBoard
+    where gId = old.gId;
 END$$
 DELIMITER ;
