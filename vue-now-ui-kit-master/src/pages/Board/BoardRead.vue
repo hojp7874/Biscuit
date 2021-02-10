@@ -40,7 +40,7 @@
               >
             </div>
           </div>
-          <ReplyWrite :bId="bId"  v-if="this.loginStatus.nickname"/>
+          <ReplyWrite :bId="bId" :boardEmail="email"  v-if="this.loginStatus.nickname"/>
           <div>
             <ReplyList v-for="(reply,index) in showList" :reply="reply" :key="index" />
             <b-pagination v-model="replyPage" pills :total-rows="pageCnt" per-page="10" align="center" ></b-pagination><!--여깁니다-->

@@ -1,5 +1,6 @@
 <template>
   <div>
+    <div class="">
       <div class="content-center brand">
         <center>
           <h1 class="h1-seo" style="margin-top:150px; font-weight: bold; color: #363636">자유게시판</h1>
@@ -55,7 +56,7 @@
         </div>
       </div>
     </div>
-  
+  </div>
 </template>
 
 <script>
