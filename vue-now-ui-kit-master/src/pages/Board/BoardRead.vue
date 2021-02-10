@@ -40,10 +40,10 @@
               >
             </div>
           </div>
-          <ReplyWrite :bId="bId" :boardEmail="email"  v-if="this.loginStatus.nickname"/>
+            <ReplyWrite :bId="bId" :boardEmail="email" v-if="this.loginStatus.nickname"/>
           <div>
-            <ReplyList v-for="(reply,index) in showList" :reply="reply" :key="index" />
-            <b-pagination v-model="replyPage" pills :total-rows="pageCnt" per-page="10" align="center" ></b-pagination><!--여깁니다-->
+            <ReplyList v-for="(items,index) in showList" :items="items" :key="index" />
+            <b-pagination v-model="replyPage" pills :total-rows="pageCnt" per-page="10" align="center" ></b-pagination>
           </div>
         </div>
       </div>
@@ -90,17 +90,17 @@ export default {
   },
   created() {
     this.getList();
-    this.getPage();
+    // this.getPage();
   },
   mounted() {
     this.fnGetView();
   },
   methods: {
-    changePage: function() {
-      this.showList = this.list.slice(10*(this.replyPage-1), 10*this.replyPage)
+    // changePage: function() {
+    //   this.showList = this.list.slice(10*(this.replyPage-1), 10*this.replyPage)
       // console.log(this.replyPage)
       // console.log(temporaryList)
-    },
+    // },
     fnGetView() {
       this.$axios
         .get(`${SERVER_URL}/board/read`, {
