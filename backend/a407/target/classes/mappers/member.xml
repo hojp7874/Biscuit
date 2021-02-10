@@ -11,7 +11,7 @@
  	</select>
   	
   	<select id="selectApplyList" parameterType="int" resultType="UserMemberDto">
- 		select member.mId, user.nickname, user.picture, member.permission
+ 		select member.mId, user.nickname, user.email, user.picture, member.permission
  		from member, user
  		where gId = #{gId} and user.email = member.email
  		and permission = 0
