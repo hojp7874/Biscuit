@@ -32,7 +32,7 @@
           <!-- button -->
           <!-- <a v-on:click="loadHome()" class="btn btn-primary btn-round btn-lg">홈</a> -->
           <a v-on:click="loadSchedule()" class="btn btn-primary btn-round btn-lg">일정</a>
-          <a v-on:click="loadSchedule()" class="btn btn-primary btn-round btn-lg">게시판</a>
+          <a v-on:click="loadSBoardList()" class="btn btn-primary btn-round btn-lg">게시판</a>
           <a v-on:click="joinMeeting()" class="btn btn-primary btn-round btn-lg">화상 채팅</a>
           <span v-if="state == 3">
             <a
@@ -55,6 +55,7 @@
           </span>
         </div>
         <component :is="componentLoading()" :gId="gId" :state="state"></component>
+        <group-board-list v-if="active==4" :gId ="gId"></group-board-list>
       </div>
     </div>
   </div>
@@ -66,6 +67,8 @@ import GroupHome from './GroupHome.vue';
 // import ApplyList from './ApplyList.vue';
 import GroupSchedule from './GroupSchedule.vue';
 import MemberList from './MemberList.vue';
+import GroupBoardList from './GroupBoard/BoardList.vue';
+
 import { mapState } from 'vuex';
 export default {
   name: 'group-page',
@@ -92,11 +95,12 @@ export default {
     // ApplyList,
     GroupSchedule,
     MemberList,
+    GroupBoardList,
   },
   methods: {
     componentLoading() {
       switch (this.active) {
-          case 1:
+        case 1:
             return 'GroupSchedule';
         case 2:
           return 'ApplyList';
@@ -108,11 +112,15 @@ export default {
     loadSchedule() {
       this.active = 1;
     },
-      loadApplyList() {
-        this.active = 2;
-      },
+    loadApplyList() {
+       this.active = 2;
+    },
     loadMemberList() {
       this.active = 3;
+    },
+    loadSBoardList(){
+      // getBoardList();
+      this.active = 4;
     },
     getState: function() {
       axios
@@ -161,15 +169,20 @@ export default {
     joinMeeting() {
       //var VUE_RTC_LOCAL_SERVER_URL = `http://localhost:9001/demos/dashboard/`;
       var VUE_RTC_SERVER_URL = `https://i4a407.p.ssafy.io:9001/demos/dashboard/`;
-      // var nickname = localStorage.getItem('nickname');
+      var nickname = localStorage.getItem('nickname');
+      //새창에 띄우는 코드
       window.open(
         `${VUE_RTC_SERVER_URL}?gId=${this.gId}&nickname=${this.loginStatus.nickname}`,
-        '_blank'
+        'win0','status=no,toolbar=no' //,scrollbars=no'
       );
+      // window.open(
+      //   `${VUE_RTC_SERVER_URL}?gId=${this.gId}&nickname=${this.loginStatus.nickname}`,
+      //   '_blank'
+      // );
     },
     updateGroup: function(gId) {
         this.$router.push({path: './GroupUpdate', query: { gId: gId}})
-      },
+    },
   },
 };
 </script>
