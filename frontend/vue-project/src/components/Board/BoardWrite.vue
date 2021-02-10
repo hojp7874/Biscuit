@@ -33,9 +33,10 @@
 </template>
 
 <script>
+const SERVER_URL = process.env.VUE_APP_SERVER_URL;
+
 export default {
   data() {
-
     return {
       temptitle: '',
       board_code: 'news',
@@ -47,10 +48,9 @@ export default {
 
         
       },
-	  num: this.$route.query.num,
-	};
+      num: this.$route.query.num,
+    };
   },
-  
   mounted() {
     //최초 로딩 시 실행
     if (this.num) {
@@ -63,32 +63,20 @@ export default {
       delete this.body.num;
       this.$router.push({ path: './BoardList', query: this.body });
     },
-    fnGetView() {
-      this.$axios
-        .get('http://localhost:3000/api/board/' + this.body.num, {
-          params: this.body,
-        })
-        .then((res) => {
-          this.view = res.data.view[0];
-          this.title = this.view.title;
-          this.contents = this.view.contents;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
+  
     fnView() {
       this.$router.push({ path: './view', query: this.body });
     },
     fnAddProc() {
       this.form = {
-        email: 'ssafy@ssafy.com',
+        email: localStorage.getItem("email"),
+        nickname: localStorage.getItem("nickname"),
         title: this.title,
         contents: this.contents,
       };
 
       this.$axios
-        .post('http://localhost:8877/a407/board/create', this.form)
+        .post(`${SERVER_URL}/board/create`, this.form)
         .then((res) => {
           if (res.data.success) {
             alert('등록되었습니다.');
