@@ -47,7 +47,7 @@
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
 export default {
-  props : { reply : {} },
+  props : ['items'],
   data() {
     return {
       isView : true,
@@ -56,11 +56,9 @@ export default {
         nickname : localStorage.getItem("nickname"),
         email : localStorage.getItem("email")  //"ssafy@ssafy.com", //로그인 되어있는 유저 이메일 -> 현재 로그인 되어있는 유저로 바꿔야함
       },
-      items : [],
     }
   },
   created() {
-    this.items = this.$props.reply;
   },
   methods: {
     modifyClick(){
