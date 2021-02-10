@@ -15,7 +15,6 @@
           class="list-group-item list-group-item-action"
           v-for="item in applys"
           v-bind:key="item.mId"
-          v-on:click="applyList()"
         >
           <div 
             class="d-flex justify-content-between align-items-center"
