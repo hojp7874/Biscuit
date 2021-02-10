@@ -57,11 +57,18 @@ export default {
         nickname : localStorage.getItem("nickname"),
         email : localStorage.getItem("email")  //"ssafy@ssafy.com", //로그인 되어있는 유저 이메일 -> 현재 로그인 되어있는 유저로 바꿔야함
       },
-      items : [],
+      // items : [],
     }
   },
+  props: ['items'],
+  computed: {
+    // itmes: function() {
+    //   return this.$props.reply;
+    // }
+  },
   created() {
-    this.items = this.$props.reply;
+    // console.log(this.$props.reply)
+    // this.items = this.$props.reply;
   },
   methods: {
     modifyClick(){

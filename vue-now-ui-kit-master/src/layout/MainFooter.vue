@@ -8,8 +8,8 @@
       <nav>
         <ul>
           <li>
-            <a href="https://www.creative-tim.com">
-              Creative Tim
+            <a href="https://www.ssafy.com/ksp/jsp/swp/swpMain.jsp">
+              SSAFY 4th
             </a>
           </li>
           <li>
@@ -29,12 +29,8 @@
         <a href="https:///www.invisionapp.com" target="_blank" rel="noopener"
           >Invision</a
         >. Coded by
-        <a href="https://binarcode.com" target="_blank" rel="noopener"
-          >BinarCode</a
-        >
-        and
         <a href="https://www.creative-tim.com" target="_blank" rel="noopener"
-          >Creative Tim</a
+          >공소시효조</a
         >.
       </div>
     </div>

@@ -140,12 +140,13 @@
         }
         const frm = new FormData()
         var img = document.getElementById("img")
-        if (img.Files) {
+        if (img.files.length != 0) {
           frm.append('file', img.files[0])
           axios.post(`${SERVER_URL}/file/upload/`, frm)
             .then(res => {
               console.log(res.data.message)
-              item.push({img: SERVER_URL + "/file/read/" + res.data.message})
+              // item.push({img: SERVER_URL + "/file/read/" + res.data.message})
+              item["img"] = SERVER_URL + "/file/read/" + res.data.message
               
               // DB에 저장
               axios.post(`${SERVER_URL}/group/create/`, item)

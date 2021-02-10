@@ -14,7 +14,7 @@
             
               <fg-input
                 class="no-border input-lg"
-                addon-left-icon="now-ui-icons users_circle-08"
+                addon-left-icon="now-ui-icons users_single-02"
                 v-model="user.email"
                 ref="id"
                 placeholder="아이디"
@@ -24,7 +24,7 @@
 
               <fg-input
                 class="no-border input-lg"
-                addon-left-icon="now-ui-icons text_caps-small"
+                addon-left-icon="now-ui-icons objects_key-25"
                 v-model="user.password"
                 ref="password"
                 placeholder="비밀번호"
@@ -37,20 +37,20 @@
                   <a
                     class="btn btn-primary btn-round btn-lg btn-block"
                     v-on:click="checkLogin"
-                    >Get Started</a
+                    >로그인</a
                   >
                 </div>
                 <div class="pull-left">
                   <h6>
                     <a v-on:click="signup()" class="link footer-link"
-                      >Create Account</a
+                      >새로운 계정 만들기</a
                     >
                   </h6>
                 </div>
                 <div class="pull-right">
                   <h6>
                     <a v-on:click="findPw()" class="link footer-link"
-                      >Forgot Password?</a
+                      >비밀번호 찾기</a
                     >
                   </h6>
                 </div>
