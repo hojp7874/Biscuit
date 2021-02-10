@@ -64,6 +64,13 @@
             </div>
           </div>
 
+          <div>
+            <p class="col-3">스터디 이미지:</p>
+            <div class="col-9">
+              <input type="file" id="img">
+            </div>
+          </div>
+
           <div class="d-flex">
             <p class="col-3">스터디 설명:</p>
             <b-form-textarea
@@ -119,9 +126,8 @@
     },
     methods: {
       onEdit(){
-        // 일단 로그인여부는 구현 ㄴ
         console.log("===update")
-        const item = {
+        let item = {
           max: this.form.max,
           edate: this.edate,
           groupName: this.form.groupName,
@@ -134,9 +140,29 @@
           cycle: this.form.cycle,
           gId: this.form.gId
         }
-        // const data = [item]
-        console.log("update===")
-        axios.put(`${SERVER_URL}/group/update/`, item)
+        const frm = new FormData()
+        var img = document.getElementById("img")
+        if(img.files[0] == item.img) {
+          frm.append('file', img.files[0])
+          axios.post(`${SERVER_URL}/file/upload/`, frm)
+            .then(res => {
+              console.log(res.data.message)
+              item.img = SERVER_URL + "/file/read/" + res.data.message
+            })
+
+            //DB수정 (수정해야됨)
+            axios.put(`${SERVER_URL}/group/update/`, item)
+              .then(res => {
+                console.log(res)
+                this.$router.push({ path: this.groupPagePath});
+              })
+              .catch(err => {
+                console.log(err)
+              })
+
+
+        } else {
+          axios.put(`${SERVER_URL}/group/update/`, item)
           .then(res => {
             console.log(res)
             this.$router.push({ path: this.groupPagePath});
@@ -144,6 +170,7 @@
           .catch(err => {
             console.log(err)
           })
+        }
       },
       convertDate(date){
         var moment = require('moment');
