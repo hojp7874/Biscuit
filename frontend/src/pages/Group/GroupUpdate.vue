@@ -8,7 +8,7 @@
       </parallax>
       <div class="container">
         <h1 class="m-5">스터디 수정</h1>
-        <b-form @submit.prevent="onEdit()">
+        <b-form @submit.prevent="onEdit">
           <div class="d-flex">
             <p class="col-3">스터디 이름:</p>
             <fg-input
@@ -81,7 +81,7 @@
               style="height: 500px"
             ></b-form-textarea>
           </div>
-          <b-button type="submit" variant="primary">Submit</b-button>
+          <b-button class="mt-5" type="submit" variant="primary">Submit</b-button>
         </b-form>
       </div>
     </div>
@@ -125,9 +125,9 @@
       console.log("edate : " + this.edate)
     },
     methods: {
-      onEdit(){
-        console.log("===update")
-        let item = {
+      onEdit: function() {
+        // console.log("===update")
+        const item = {
           max: this.form.max,
           edate: this.edate,
           groupName: this.form.groupName,
@@ -142,26 +142,28 @@
         }
         const frm = new FormData()
         var img = document.getElementById("img")
-        if(img.files[0] == item.img) {
+        if(img.files.length != 0) {
           frm.append('file', img.files[0])
           axios.post(`${SERVER_URL}/file/upload/`, frm)
             .then(res => {
-              console.log(res.data.message)
-              item.img = SERVER_URL + "/file/read/" + res.data.message
+              item["img"] = SERVER_URL + "/file/read/" + res.data.message
+              console.log(item)
+
+              //DB수정 (데이터 용량 관리 차원에서 수정 권유)
+              axios.put(`${SERVER_URL}/group/update/`, item)
+                .then(res => {
+                  console.log(res)
+                  this.$router.push({ path: this.groupPagePath});
+                })
+                .catch(err => {
+                  console.log(err)
+                })
             })
-
-            //DB수정 (수정해야됨)
-            axios.put(`${SERVER_URL}/group/update/`, item)
-              .then(res => {
-                console.log(res)
-                this.$router.push({ path: this.groupPagePath});
-              })
-              .catch(err => {
-                console.log(err)
-              })
-
-
+            .catch(err => {
+              console.log(err)
+            })
         } else {
+          //DB에 저장 (수정권유)
           axios.put(`${SERVER_URL}/group/update/`, item)
           .then(res => {
             console.log(res)
