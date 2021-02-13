@@ -41,7 +41,7 @@
           <group-reply-write :info="info" @wirtereply="changeMode" v-if="this.loginStatus.nickname" />
           <div>
             <!-- <ReplyList v-for="(reply,index) in showList" :reply="reply" :key="index" /> -->
-            <group-reply-list v-for="(reply,index) in list" :reply="reply" :key="index"></group-reply-list>
+            <group-reply-list v-for="(items,index) in list" :items="items" :key="index"></group-reply-list>
             <b-pagination-nav v-model="currentPage" pills :total-rows="pageCnt" per-page="10" align="center" @page-click="getList(page)" ></b-pagination-nav>
           </div>
         </div>

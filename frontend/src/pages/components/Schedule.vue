@@ -80,6 +80,8 @@
           slot-scope="{ headerProps }"
           :header-props="headerProps"
           @input="setShowDate"
+          style="background-color:black; border-radius:15px 15px 0px 0px; color:white"
+
         />
       </calendar-view>
     </div>
@@ -417,6 +419,13 @@ export default {
 <style>
 @import url(https://fonts.googleapis.com/css?family=BenchNine:700);
 
+.cv-day-number{
+  background-color: "orange";
+  border-radius: 10px;
+  font-size: 20px;
+}
+
+
 .snip1535 {
   background-color: #c47135;
   border: none;
@@ -518,4 +527,6 @@ export default {
 	background-color: #2b838f;
 	border-color: #2b838f;
 }
+
+
 </style>
