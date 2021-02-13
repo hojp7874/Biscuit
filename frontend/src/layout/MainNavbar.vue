@@ -61,7 +61,7 @@
       <!-- <div class="alert-icon">
         <i class="now-ui-icons ui-1_bell-53" style="background-color:white"></i>
       </div> -->
-      <drop-down>
+      <drop-down v-if="this.token !== ''">
         <b-icon-bell-fill
           slot="title"
           class="dropdown-toggle"
@@ -82,12 +82,17 @@
         <!-- <button class="dropdown-item" v-for="item in items" v-bind:key="item" @click="goNoti(item)">
           {{item.message}}
         </button><i class="now-ui-icons ui-1_simple-remove" style="margin-left:10px ;margin-top:-3px" @click="deleteNoti(item)"/> -->
+        <div v-for="item in items" v-bind:key="item">
+          <div class="dropdown-item" v-if="item.isRead == 1" id="readNoti">
+            <button style = "background-color: white; border:0;outline:0;" @click="goNoti(item)">{{item.message}}</button>
+            <i class="now-ui-icons ui-1_simple-remove" style="margin-left:10px ;margin-top:-3px" @click.prevent="deleteNoti(item)"/>
+          </div>
 
-        <div class="dropdown-item" v-for="item in items" v-bind:key="item">
-          <button style = "background-color:white ; border:0;outline:0;" @click="goNoti(item)">{{item.message}}</button>
-          <i class="now-ui-icons ui-1_simple-remove" style="margin-left:10px ;margin-top:-3px" @click.prevent="deleteNoti(item)"/>
+          <div class="dropdown-item" v-if="item.isRead == 0" id="notReadNoti">
+            <button style = "background-color:white ; border:0;outline:0;font-weight:bold" @click="goNoti(item)">{{item.message}}</button>
+            <i class="now-ui-icons ui-1_simple-remove" style="margin-left:10px ;margin-top:-3px" @click.prevent="deleteNoti(item)"/>
+          </div>
         </div>
-        
       </drop-down>
       <!-- <drop-down icon="now-ui-icons ui-1_bell-53"  style="margin-left:-20px"  > </drop-down> -->
 
@@ -207,8 +212,23 @@ export default {
         });
     },
     goNoti(item){
+      this.form = {isRead:1 , nId:item.nId};
+      axios
+        .put(`${SERVER_URL}/notification/update`, this.form , {
+          headers: {
+            'x-access-token': localStorage.getItem('token'),
+          },
+        })
+        .then((response) => {
+          if (response.data.success === 'success') {
+            console.log('정보 수정에 성공하셨습니다.');
+          } else console.log('정보 수정에 실패하셨습니다.');
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+
       this.$router.replace(item.notiUrl);
-      item.notiUrl
     },
     deleteNoti(item){
       this.delForm = { nId: item.nId };
@@ -236,4 +256,9 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style>
+#readNoti{
+  /* background-color: rgb(240, 240, 240); */
+  opacity: 0.5;
+}
+</style>
