@@ -29,9 +29,11 @@ public class FilesStorageServiceImpl implements FilesStorageService {
   public void init() {
     try {
       File d = new File(System.getProperty("user.dir") + "/uploads");
+      System.out.println(d);
       if (d.isDirectory()) {
     	  System.out.println("폴더가 이미 있습니다.");
       } else {
+    	  System.out.println("폴더를 생성합니다.");
     	  Files.createDirectory(root);
       }
     } catch (IOException e) {
