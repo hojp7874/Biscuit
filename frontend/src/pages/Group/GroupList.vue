@@ -138,7 +138,7 @@
                   <p>모임 주기: {{ group.cycle }}</p>
                 </div>
                 <div>
-                  <b-button id="none" @click="applyGroup(group.gId)" pill variant="primary">스터디 참가하기</b-button>
+                  <b-button id="none" @click="applyGroup(group.gId,group.email,group.groupName)" pill variant="primary">스터디 참가하기</b-button>
                   <b-button id="wait" @click="removeApply(group.gId)" pill variant="secondary">스터디 참가 신청 취소하기</b-button>
                   <b-button id="mine" pill variant="primary">당신의 스터디 그룹입니다</b-button>
                   <b-button id="ban" pill variant="danger">당신은 이 스터디에서 추방되었습니다</b-button>
@@ -282,7 +282,7 @@
            console.log(err)
          })
       },
-      applyGroup: function(gId) {
+      applyGroup: function(gId,email,groupname) {
         axios.post(`${SERVER_URL}/group/member/apply`,
         {gId: gId, email: this.loginStatus.email, nickname: this.loginStatus.nickname})
           .then(res => {
@@ -295,6 +295,28 @@
           .catch(err => {
             console.log(err)
           })
+
+        this.$axios
+          .post(`${SERVER_URL}/notification/create`, {
+            receiveEmail : email,
+            sendEmail :  this.loginStatus.email,
+            isRead : 0,
+            type : 'apply',
+            contentId : gId,
+            message : this.loginStatus.nickname + ' 님이 [' + groupname + ']에 참가 신청을 하였습니다.',
+            notiUrl : '/GroupPage?gId=' + gId,
+          })
+          .then((res) => {
+            if (res.data.success) {
+              console.log("receiveEmail >>> "+email);
+              // alert('등록되었습니다.');
+            } else {
+              console.log('알림 전송 실패');
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       },
       goCreate: function() {
         // const data = [item]

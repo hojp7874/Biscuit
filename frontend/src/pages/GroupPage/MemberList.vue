@@ -28,10 +28,10 @@
               신청합니다
             </span>
             <div v-if="state == 3">
-              <b-button @click="accept(item.mId, index)">
+              <b-button @click="accept(item.mId, item.email, index)">
                 승인
               </b-button>
-              <b-button @click="deny(item.mId, index)">
+              <b-button @click="deny(item.mId, item.email, index)">
                 거절
               </b-button>
             </div>
@@ -96,6 +96,7 @@ export default {
   props: {
     gId: String,
     state: Number,
+    groupName: String,
   },
   methods: {
     memberList: function() {
@@ -159,7 +160,7 @@ export default {
         });
       this.isLoading = true;
     },
-    accept: function(mid, index) {
+    accept: function(mid, email,index) {
       axios
         .put(`${SERVER_URL}/group/member/accept`, {
           mId: mid,
@@ -170,8 +171,30 @@ export default {
             this.applys.splice(index,1);
           }
         });
+
+      axios
+        .post(`${SERVER_URL}/notification/create`, {
+          receiveEmail: email,
+          sendEmail: this.loginStatus.email,
+          isRead: 0,
+          type: 'accept',
+          contentId: this.gId,
+          message: '[' + this.groupName + '] 스터디 가입이 승인되었습니다!',
+          notiUrl: '/GroupPage?gId=' + this.gId,
+        })
+        .then((res) => {
+          if (res.data.success) {
+            console.log('receiveEmail >>> ' + this.email);
+            // alert('등록되었습니다.');
+          } else {
+            console.log('알림 전송 실패');
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
-    deny: function(mid, index) {
+    deny: function(mid, email, index) {
       axios
         .put(`${SERVER_URL}/group/member/deny`, {
           mId: mid,
@@ -179,6 +202,28 @@ export default {
         .then((res) => {
           if (res.data.success == 'success') {
               this.applys.splice(index,1); }
+        });
+
+      axios
+        .post(`${SERVER_URL}/notification/create`, {
+          receiveEmail: email,
+          sendEmail: this.loginStatus.email,
+          isRead: 0,
+          type: 'deny',
+          contentId: this.gId,
+          message: '[' + this.groupName + '] 스터디 가입이 거절되었습니다',
+          //notiUrl: '/GroupPage?gId=' + this.gId,
+        })
+        .then((res) => {
+          if (res.data.success) {
+            console.log('receiveEmail >>> ' + this.email);
+            // alert('등록되었습니다.');
+          } else {
+            console.log('알림 전송 실패');
+          }
+        })
+        .catch((err) => {
+          console.log(err);
         });
     },
   },
