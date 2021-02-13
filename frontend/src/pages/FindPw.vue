@@ -14,7 +14,7 @@
               </div>
               <div v-if="emailVeify">
                 <div>
-                  <input
+                  <b-form-input
                     type="text"
                     id="cert-id"
                     placeholder="아이디 (이메일)"
@@ -22,8 +22,9 @@
                   />
                 </div>
                 <div class="cert-wrap">
-                  <input
+                  <b-form-input
                     type="text"
+                  
                     id="certinum"
                     placeholder="인증번호를 입력하세요"
                     style="width:270px; margin-right:20px"
@@ -230,11 +231,10 @@ export default {
 #certinum_btn {
   width: 120px;
   height: 40px;
-  background-color: black;
   border: none;
+  background-color: #474747;
   font-size: 1em;
   color: white;
-  outline: none;
   display: inline;
   margin-left: -10px;
   box-sizing: border-box;
@@ -243,8 +243,7 @@ export default {
 #findpw_btn {
   width: 100px;
   height: 45px;
-  background: #000;
-  border-radius: 2px;
+  border-radius: 30px;
   color: #fff;
   font-size: 16px;
   text-align: center;

@@ -15,7 +15,7 @@
           <b-input-group>
             <template #prepend>
             <b-input-group>
-              <b-select name="type" v-model="params.type">
+              <b-select name="type" style="border-radius:30px" v-model="params.type">
                 <b-select-option value="groupName">스터디 이름</b-select-option>
                 <b-select-option value="groupDesc">스터디 설명</b-select-option>
                 <b-select-option value="category">카테고리</b-select-option>
@@ -24,9 +24,9 @@
             </b-input-group>
             </template>
 
-            <b-form-input type="text" v-model="params.word" @keypress.enter="searchGroup"></b-form-input>
+            <b-form-input type="text" style="border-radius:10px" v-model="params.word" @keypress.enter="searchGroup"></b-form-input>
             <b-input-group-append>
-              <b-button class="mt-0" text="Button" variant="primary" @click="searchGroup">검색</b-button>
+              <b-button class="mt-0" style="border-radius:10px" text="Button" variant="primary" @click="searchGroup">검색<i class="now-ui-icons ui-1_zoom-bold" style="margin-left:10px"></i></b-button>
             </b-input-group-append>
           </b-input-group>
         </div>
@@ -44,6 +44,16 @@
 
 
     <div class="container" style="margin-top:50px">
+      <div class="row">
+        <div class="col-md-8">
+
+          <button class="btn col-md-8">wowwow</button>
+        </div>
+
+
+
+
+      </div>
 
 
 
@@ -51,8 +61,21 @@
 
     
       <div v-if="loginStatus.nickname">
-        <h3 v-if="existMyGroups" class="text-center">{{loginStatus.nickname}}님의 스터디 목록입니다</h3>
+        <div role="alert" class="alert alert-info">
+          <div class="container">
+            <div class="alert-icon"><i class="now-ui-icons travel_info"></i></div>
+              <h3 class="btn-lg" v-if="existMyGroups">{{loginStatus.nickname}}님의 스터디 목록입니다</h3>
+          </div>
+        </div>
+        <button class="btn-lg" v-if="existMyGroups">{{loginStatus.nickname}}님의 스터디 목록입니다</button>
         <h3 v-if="!existMyGroups" class="text-center">현재 가입한 스터디가 없습니다</h3>
+
+
+          
+
+
+
+
         <b-card-group
           deck
           class="d-flex flex-row"
@@ -102,17 +125,20 @@
           <b-card
             data-aos="flip-left"
             @click="$bvModal.show(`group-${idx}`), getPermission(group.gId)"
-            v-bind:title="group.groupName"
             :img-src="group.img"
             img-alt="Image"
             img-top
             class="my-3"
           >
             <b-card-text>
-              <h5 style="font-size:14px">모집인원: {{ group.max }}명</h5><br>
+              <h3 style="font-size:20px; color:#000000; margin-right:5px">{{group.groupName}}</h3>
+              <h5 style="font-size:14px;  color:#000000; margin-right:5px"><i style="margin-right:5px" class="now-ui-icons business_badge"></i> {{group.nickname}}</h5>
+              <span class="badge badge-info" style="font-size:12px; font-weight:bold; color:#FFFFFF; margin-right:5px"><i class="now-ui-icons users_single-02"></i> {{ group.max }}</span>
               <!-- <b>온라인 여부: {{ group.onoff }}</b><br> -->
-              <!-- <b>모집기간: {{ group.edate }}</b><br> -->
-              <b>지역: {{ group.region }}</b><br>
+              <!-- <b>모집기간: {{ group.edate }}</b><br> group.nickname-->
+              <span class="badge badge-success" style="font-size:12px; color:#FFFFFF; margin-right:5px"><i class="now-ui-icons location_pin"></i> {{ group.region }}</span>
+              <span class="badge badge-primary" style="font-size:12px; color:#FFFFFF; margin-right:5px"><i class="now-ui-icons location_bookmark"></i> {{ group.category }}</span>
+              <span class="badge badge-danger" style="font-size:12px; color:#FFFFFF; margin-right:5px"><i class="now-ui-icons ui-1_calendar-60"></i> {{ group.edate }}</span>
               <!-- <b>모임 주기: {{ group.cycle }}</b> -->
             </b-card-text>
             <template #footer>
@@ -121,17 +147,30 @@
           </b-card>
           <b-modal
             :id="'group-'+idx"
-            size="xl"
+            size="lg"
           >
             <!-- :title="''+group.groupName" -->
             <div>
-              <h1 class="text-center">{{group.groupName}}</h1>
+             
+             <div class="bannerImg jumbotron-image clear-filter" filter-color="black" style="position:relative">
               <img :src="group.img" alt="">
-
-              <b-jumbotron>
-              <div class="d-flex justify-content-between">
-                <div>
-                  <p>모집인원: {{ group.max }}명</p>
+                  <div style=" font-size: 1.8em; font-weight: bold; color:white; position: absolute;">
+                     {{group.groupName}}
+                  </div>
+              </div>
+               <h3 class="text-center">{{group.groupName}}</h3>
+                <div class="content-center brand">
+              <div class="jumbotron text-white jumbotron-image shadow">
+                
+              <div class="content-center brand">
+                <div class="content-center">
+                  <div class="col-md-4"><img class="rounded-circle" src="img/ryan.jpg" alt="">
+                  <div class="col-md-4"><h4>{{group.nickname}}</h4>
+                </div>
+                  
+                  </div>
+                  
+                  <h5>모집인원: {{ group.max }}명</h5>
                   <p>온라인 여부: {{ group.onoff }}</p>
                   <p>모집기간: {{ group.edate }}</p>
                   <p>지역: {{ group.region }}</p>
@@ -142,13 +181,14 @@
                   <b-button id="wait" @click="removeApply(group.gId)" pill variant="secondary">스터디 참가 신청 취소하기</b-button>
                   <b-button id="mine" pill variant="primary">당신의 스터디 그룹입니다</b-button>
                   <b-button id="ban" pill variant="danger">당신은 이 스터디에서 추방되었습니다</b-button>
-                  <b-button v-if="!loginStatus.token" pill variant="secondary">스터디에 참여하려면 로그인 해주세요</b-button>
+                  <b-button v-if="!loginStatus.token" @click="goLogIn()" pill variant="secondary">스터디에 참여하려면 로그인 해주세요</b-button>
                 </div>
 
               </div>
               <hr style="height:50px">
               <p>{{ group.groupDesc }}</p>
-              </b-jumbotron>
+              </div>
+                </div>
 
               <hr>
 
@@ -177,10 +217,12 @@
   import {mapState} from 'vuex'
   import axios from 'axios'
   import card from '@/components/Cards/Card'
+  
   const SERVER_URL = process.env.VUE_APP_SERVER_URL
 
 
-
+  import VueMoment from 'vue-moment'
+ 
 
 
   export default {
@@ -202,6 +244,7 @@
     created() {
       this.myGroupList();
       this.groupList();
+       Vue.use(VueMoment);
     },
     computed: {
       ...mapState([
@@ -352,9 +395,21 @@
             console.log(err);
           });
       },
+      goLogIn: function(){
+         this.$router.push({ path: './login' });
+      }
     },
   }
 </script>
 
 <style scoped>
+.jumbotron{
+  background-image: url(https://images.unsplash.com/photo-1552152974-19b9caf99137?fit=crop&w=1350&q=80) ;
+}
+
+.bannerImg{
+  width: 100%;
+  height: 300px;
+  overflow: hidden;
+}
 </style>
