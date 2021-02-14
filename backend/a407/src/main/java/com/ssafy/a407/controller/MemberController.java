@@ -44,7 +44,7 @@ public class MemberController {
 	@GetMapping(value = "/apply/state")
 	private ResponseEntity state(@RequestParam Map map) {
 		//gId, nickname을 주고 state를 받음
-		System.out.println(map);
+//		System.out.println(map);
 		ResponseEntity entity = null;
 		Map result = new HashMap();
 		try {
@@ -53,7 +53,7 @@ public class MemberController {
 			if(applyState != null) {
 				state = (Integer) applyState.get("permission");				
 			}
-			System.out.println(state);
+//			System.out.println(state);
 			result.put("success", "success");
 			result.put("state", state);
 			entity = new ResponseEntity<>(result, HttpStatus.OK);
@@ -73,13 +73,13 @@ public class MemberController {
 		ResponseEntity entity = null;
 		Map result = new HashMap();
 		MemberDto dto = new MemberDto();
-		System.out.println(map);
+//		System.out.println(map);
 		dto.setEmail((String) map.get("email"));
 		dto.setNickname((String) map.get("nickname"));
 		dto.setgId((int)map.get("gId"));
 		dto.setPermission(0);
-		System.out.println(dto);
-		System.out.println((String) map.get("email"));
+//		System.out.println(dto);
+//		System.out.println((String) map.get("email"));
 		
 		try {
 			if(member.joinMember(dto) == 1) {
@@ -131,7 +131,7 @@ public class MemberController {
 	//멤버 신청 취소
 	@DeleteMapping(value = "/cancel")
 	private ResponseEntity cancel(@RequestBody Map map) {
-		System.out.println(map);
+//		System.out.println(map);
 		ResponseEntity entity = null;
 		Map result = new HashMap();
 		try {
@@ -229,7 +229,7 @@ public class MemberController {
 			if(list != null) {
 				result.put("success", "success");
 				result.put("list", list);
-				System.out.println("### /apply/user/list . num : " + list.size());
+//				System.out.println("### /apply/user/list . num : " + list.size());
 				entity = new ResponseEntity<>(result, HttpStatus.OK);	
 			}
 			else {
@@ -243,7 +243,7 @@ public class MemberController {
 			entity = new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
 		
 		}
-		System.out.println(list);
+//		System.out.println(list);
 		return entity;
 		
 	}
@@ -253,7 +253,7 @@ public class MemberController {
 		ResponseEntity entity = null;
 		Map result = new HashMap();
 		List list = new ArrayList();
-		System.out.println("MemberController. apply/group/list. gId : " + gId);
+//		System.out.println("MemberController. apply/group/list. gId : " + gId);
 		try {
 			list = member.getApplyList(gId);
 		
@@ -282,7 +282,7 @@ public class MemberController {
 	private ResponseEntity applyCount(@RequestParam int gId) {
 		ResponseEntity entity = null;
 		Map result = new HashMap();
-		System.out.println("MemberController. apply/group/count. gId : " + gId);
+//		System.out.println("MemberController. apply/group/count. gId : " + gId);
 		try {
 			Map applyCount = member.getApplyCount(gId);
 			Long count = null;
