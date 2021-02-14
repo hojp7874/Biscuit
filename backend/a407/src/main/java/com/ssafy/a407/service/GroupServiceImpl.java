@@ -66,7 +66,6 @@ public class GroupServiceImpl implements GroupService{
 
 	@Override
 	public int createGroup(GroupDto group) throws Exception {
-		System.out.println("group create service : "+ group.toString());
 		return dao.insertGroup(group);
 	}
 
