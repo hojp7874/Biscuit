@@ -30,7 +30,7 @@ public class MemberServiceImpl implements MemberService{
 
 	@Override
 	public List<GroupMemberDto> getGroupList(String email) throws Exception {
-		System.out.println("service. getGroupList. email: " + email);
+//		System.out.println("service. getGroupList. email: " + email);
 		return dao.selectGroupList(email);
 	}
 	
@@ -52,14 +52,13 @@ public class MemberServiceImpl implements MemberService{
 
 	@Override
 	public Map applyState(Map map) throws Exception {
-		// TODO Auto-generated method stub
-		System.out.println("service.applyState.Map :  " + map);
+//		System.out.println("service.applyState.Map :  " + map);
 		return dao.applyState(map);
 	}
 	
 	@Override
 	public Map getApplyCount(int gId) throws Exception{
-		System.out.println("service.getApplyCount.gId :  " + gId);
+//		System.out.println("service.getApplyCount.gId :  " + gId);
 		return dao.selectApplyCount(gId);
 	}
 }

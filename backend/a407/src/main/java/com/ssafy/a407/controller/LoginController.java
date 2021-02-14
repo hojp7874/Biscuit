@@ -53,7 +53,7 @@ public class LoginController{
 	@PostMapping(value = "/login")
     private ResponseEntity login(@RequestBody Map mem) {
         Map result = new HashMap();
-        System.out.println("email : " + mem.get("email") + " pw : " + mem.get("password"));
+//        System.out.println("email : " + mem.get("email") + " pw : " + mem.get("password"));
         ResponseEntity entity = null;
         try {
         	String pw = getHashPassword((String)mem.get("password"));
@@ -61,13 +61,13 @@ public class LoginController{
         	
             UserDto member = login.login(mem);
             if (member == null) {
-            	System.out.println("if");
+//            	System.out.println("if");
             	result.put("success", "fail"); 
                 entity = new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
             }
             else {
                 String token = jwtService.create(member);
-                System.out.println(token);
+//                System.out.println(token);
                 logger.trace("token " , token);
                 result.put("user", member);
                 result.put("x-access-token", token);
@@ -95,7 +95,7 @@ public class LoginController{
         ResponseEntity entity = null;
         try {
         	user.setPassword(getHashPassword(user.getPassword())); //비밀번호 암호화
-        	System.out.println(user.getPassword());
+//        	System.out.println(user.getPassword());
         	if (login.join(user) == 1) {
         		result.put("success", "success");
         		entity = new ResponseEntity<>(result, HttpStatus.OK);
@@ -118,7 +118,6 @@ public class LoginController{
 	@PostMapping(value = "/delete")
 	private ResponseEntity delete(@RequestBody Map mem) {
 		ResponseEntity entity = null;
-		System.out.println("delete =========");
 		Map result = new HashMap();
 		try {
 			mem.put("password",(getHashPassword((String)mem.get("password"))));
@@ -145,7 +144,6 @@ public class LoginController{
 	@PutMapping(value = "/update")
 	private ResponseEntity update(@RequestBody Map user) {
 		ResponseEntity entity = null;
-		System.out.println("update ========");
 		Map result = new HashMap();
 		try {
 			if (login.update(user) == 1) {
@@ -171,7 +169,6 @@ public class LoginController{
 	@PutMapping(value = "/pwupdate")
 	private ResponseEntity pwupdate(@RequestBody Map mem) {
 		ResponseEntity entity = null;
-		System.out.println("update ========");
 		Map result = new HashMap();
 		try {
 			String pw = getHashPassword((String) mem.get("password"));
@@ -199,7 +196,6 @@ public class LoginController{
 	@GetMapping(value = "/profile")
 	private ResponseEntity profile(@RequestParam String email) {
 		ResponseEntity entity = null;
-		System.out.println("profile ========");
 		Map result = new HashMap();
 		try {
 			UserDto member = login.profile(email);
