@@ -80,7 +80,7 @@ export default {
             alert('회원탈퇴에 성공하셨습니다.');
             this.logout();
           } else {
-            alert('회원탈퇴에 실패하셨습니다.');
+            alert('비밀번호를 정확히 입력해주세요.');
           }
         })
         .catch(function(error) {

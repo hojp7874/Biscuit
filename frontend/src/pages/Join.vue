@@ -3,11 +3,14 @@
 false) { // console.log('gg'); // }
 
 <template>
-  <div>
-
-    <div class="content" style="margin-top:140px">
+  <div
+    class="section section-signup"
+    style="background-image: url('img/bg11.jpg'); background-size: cover; background-position: top center; min-height: 700px;"
+    filter-color="orange"
+  >
+    <div class="content" style="margin-top:0px">
       <center style="margin-bottom:-50px">
-        <h2 style="x">간편가입</h2>
+        <h2 style="x" font-weight:bold>간편가입</h2>
       </center>
     </div>
     <vue-slide-bar
@@ -16,6 +19,7 @@ false) { // console.log('gg'); // }
       :lineHeight="5"
       :style="{ width: '500px', margin: 'auto' }"
       :showTooltip="false"
+      :isDisabled="true"
     />
     <br />
     <div>
@@ -28,14 +32,21 @@ false) { // console.log('gg'); // }
           :arrows="false"
           :fixed-height="setSliderHeight()"
           ref="first"
-          style="width: 500px; height: 400px; display: inline-block; border:0;outline:0 "
+          style="width: 500px; height: 400px; display: inline-block; border:0;outline:0;border-radius:1rem'"
         >
-          <vueper-slide :key="1">
+          <vueper-slide
+            :key="1"
+            :style="
+              'background-color: rgb(255 255 255 / 20%); ;border-radius:1rem'
+            "
+          >
             <template v-slot:content>
               <div class="text-center memjoin_cnt">
                 <form>
                   <div>
-                    <p style=" font-size :x-large ; margin-top:20px">
+                    <p
+                      style=" font-size :x-large ; margin-top:20px;font-weight:bold"
+                    >
                       로그인에 사용할<br />
                       아이디를 입력해주세요.
                     </p>
@@ -43,14 +54,14 @@ false) { // console.log('gg'); // }
                   <div class="inpbx">
                     <fg-input
                       placeholder="아이디(이메일) 입력"
-                      style="width: 300px ; margin-left : 20px ; opacity: 2.0"
+                      style="width: 300px ; margin-left : 20px ; opacity: 2.0;background-color:white;border-radius: 10rem;"
                       v-model="user.email"
                     >
                     </fg-input>
                     <n-button
                       type="primary"
-                      @click.prevent="sendEmail()"
-                      style="width:150px;margin-left:320px;margin-top:-75px;border-radius: 10rem;"
+                      @click.prevent="chkEmail()"
+                      style="width:150px;margin-left:320px;margin-top:-75px;border-radius: 10rem; background-color:#2c2c2c"
                       class="orange_btn"
                       >인증번호 받기</n-button
                     >
@@ -74,7 +85,7 @@ false) { // console.log('gg'); // }
                     /> -->
                     <fg-input
                       placeholder="인증번호를 입력하세요"
-                      style="width: 300px ; margin-left : 20px"
+                      style="width: 300px ; margin-left : 20px;background-color:white;border-radius: 10rem;"
                       v-model="code"
                     >
                     </fg-input>
@@ -90,7 +101,7 @@ false) { // console.log('gg'); // }
                     <n-button
                       type="primary"
                       @click.prevent="checkCode()"
-                      style="width:150px;margin-left:320px;margin-top:-75px; border-radius: 10rem;"
+                      style="width:150px;margin-left:320px;margin-top:-75px; border-radius: 10rem;background-color:#2c2c2c"
                       class="orange_btn"
                       >확인</n-button
                     >
@@ -116,36 +127,43 @@ false) { // console.log('gg'); // }
                     $refs.first.next();
                     barProceeding();
                   "
-                  style="width:200px;border-radius: 10rem;"
+                  style="width:200px;border-radius: 10rem;background-color:#2c2c2c"
                   v-if="isHidden"
                   >다음</n-button
                 >
               </div>
             </template>
           </vueper-slide>
-          <vueper-slide :key="2">
+          <vueper-slide
+            :key="2"
+            :style="
+              'background-color: rgb(255 255 255 / 20%); ;border-radius:1rem'
+            "
+          >
             <template v-slot:content>
               <div>
                 <div class="text-center memjoin_cnt">
                   <form>
                     <div>
-                      <p style=" font-size :x-large ; margin-top:20px">
+                      <p
+                        style=" font-size :x-large ; margin-top:20px ;font-weight:bold"
+                      >
                         로그인에 사용할<br />
                         비밀번호를 입력해주세요.
                       </p>
-                      <p style="font-size :medium">
-                        8~20자 이내
+                      <p style="font-size :medium ; font-weight:bold">
+                       영문,숫자,특수문자 포함 8~20자 이내
                       </p>
                     </div>
                     <div class="inpbx">
-                      <fg-input
+                      <b-input
                         type="password"
                         class="col-12"
                         placeholder="비밀번호 입력"
-                        style="width: 300px ; margin-left : 95px ;"
+                        style="width: 300px ; margin-left : 95px ;background-color:white;border-radius: 10rem;"
                         v-model="user.password"
                       >
-                      </fg-input>
+                      </b-input>
                       <!-- <input
                         type="password"
                         id="pw"
@@ -165,14 +183,14 @@ false) { // console.log('gg'); // }
                         placeholder="비밀번호 확인"
                         v-model="pw_certification"
                       /> -->
-                      <fg-input
+                      <b-input
                         type="password"
                         class="col-12"
                         placeholder="비밀번호 확인"
-                        style="width: 300px ; margin-left : 95px ;"
+                        style="width: 300px ; margin-left : 95px ;background-color:white;border-radius: 40rem;"
                         v-model="pw_certification"
                       >
-                      </fg-input>
+                      </b-input>
                       <br />
                     </div>
                   </form>
@@ -187,18 +205,25 @@ false) { // console.log('gg'); // }
                 <n-button
                   type="primary"
                   @click="checkPw()"
-                  style="width:200px ; margin-top : -60px;border-radius: 10rem;"
+                  style="width:200px ; margin-top : -60px;border-radius: 10rem;background-color:#2c2c2c"
                   >다음</n-button
                 >
               </div>
             </template>
           </vueper-slide>
-          <vueper-slide :key="3">
+          <vueper-slide
+            :key="3"
+            :style="
+              'background-color: rgb(255 255 255 / 20%); ;border-radius:1rem'
+            "
+          >
             <template v-slot:content>
               <div class="text-center memjoin_cnt">
                 <form>
                   <div>
-                    <p style=" font-size :x-large ; margin-top:20px">
+                    <p
+                      style=" font-size :x-large ; margin-top:20px;font-weight:bold"
+                    >
                       기본 정보를 입력해주세요.
                     </p>
                   </div>
@@ -216,7 +241,7 @@ false) { // console.log('gg'); // }
                       /> -->
                       <fg-input
                         v-model="user.nickname"
-                        style="width: 300px ; margin-left : 140px ; margin-top : -40px ;opacity: 2.0"
+                        style="width: 300px ; margin-left : 140px ; margin-top : -40px ;opacity: 2.0;background-color:white;border-radius: 10rem;"
                       ></fg-input>
                     </div>
                     <!-- <div style= "margin-top:10px;margin-left:25px">
@@ -240,7 +265,7 @@ false) { // console.log('gg'); // }
                       <div style="margin-right:355px">전화번호 :</div>
                       <fg-input
                         v-model="user.phone"
-                        style="width: 300px ; margin-left : 140px ; margin-top : -40px ;opacity: 2.0"
+                        style="width: 300px ; margin-left : 140px ; margin-top : -40px ;opacity: 2.0;background-color:white;border-radius: 10rem;"
                       ></fg-input>
                     </div>
                     <div style="margin-right:223px">
@@ -250,7 +275,7 @@ false) { // console.log('gg'); // }
                         type="primary"
                         round
                         v-b-modal.modal-2
-                        style="; height : 40px;  font-size:13px "
+                        style="; height : 40px;  font-size:13px ;background-color:#2c2c2c"
                         >주소찾기</n-button
                       >
                     </div>
@@ -262,9 +287,9 @@ false) { // console.log('gg'); // }
                       style="margin-top:10px ;margin-bottom:20px;font-size:13px ;width:470px;height:45px "
                     /> -->
                     <fg-input
-                        v-model="user.region"
-                        style="width: 400px ; margin-left : 40px; font-size:13px ;opacity: 2.0"
-                      ></fg-input>
+                      v-model="user.region"
+                      style="width: 400px ; margin-left : 40px; font-size:13px ;opacity: 2.0;background-color:white;border-radius: 10rem;"
+                    ></fg-input>
                   </div>
                 </form>
               </div>
@@ -286,7 +311,7 @@ false) { // console.log('gg'); // }
                     barProceeding();
                     signup();
                   "
-                  style="width:200px ; margin-right:20px;border-radius: 10rem;"
+                  style="width:200px ; margin-right:20px;border-radius: 10rem;background-color:#2c2c2c"
                   >회원가입 완료</n-button
                 >
               </div>
@@ -298,7 +323,7 @@ false) { // console.log('gg'); // }
     <b-modal ref="addr-modal" id="modal-2" title="주소 찾기" hide-footer>
       <FindPostCode @setAddress="setAddress" />
     </b-modal>
-    <br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
   </div>
 </template>
 
@@ -422,11 +447,9 @@ export default {
       console.log(this.pw_certification);
       if (this.user.password === '') {
         alert('비밀번호를 입력해주세요');
-      }
-      else if (this.verifyValidPw(this.user.password) === false) {
+      } else if (this.verifyValidPw(this.user.password) === false) {
         console.log('gg');
-      }
-      else if (this.user.password === this.pw_certification) {
+      } else if (this.user.password === this.pw_certification) {
         this.$refs.first.next();
         this.barProceeding();
       } else {
@@ -436,15 +459,19 @@ export default {
     verifyValidPw(str) {
       console.log('확인작업');
       var pw = str;
-      //var num = pw.search(/[0-9]/g);
-      // var eng = pw.search(/[a-z]/gi);
-      //var spe = pw.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
-
-      if (pw.length < 8 || pw.length > 20) {
+      var num = pw.search(/[0-9]/g);
+       var eng = pw.search(/[a-z]/gi);
+      var spe = pw.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
+      console.log("영문" + eng);
+      if(eng < 0 || num < 0 || spe < 0){
+        alert('영문,숫자,특수문자 포함 8자리 ~ 20자리 이내로 입력해주세요.');
+        return false;
+      }
+      else if (pw.length < 8 || pw.length > 20) {
         alert('8자리 ~ 20자리 이내로 입력해주세요.');
         return false;
       }
-      if (pw.search(/₩s/) != -1) {
+      else if (pw.search(/₩s/) != -1) {
         alert('비밀번호는 공백업이 입력해주세요.');
         return false;
       }
@@ -458,6 +485,26 @@ export default {
     },
     hideModal() {
       this.$refs['addr-modal'].hide();
+    },
+    chkEmail() {
+      var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+      if (regExp.test(this.user.email)) {
+        this.form = { email: this.user.email };
+      axios
+        .get(`${SERVER_URL}/user/checkemail`, {
+          params: this.form,
+        })
+        .then((res) => {
+          if (res.data.success === 'success'){
+            this.sendEmail();
+          } else alert('이미 존재하는 이메일입니다.');
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+      } else {
+        alert('이메일 형식에 맞추어 다시 입력 해 주세요.');
+      }
     },
   },
 };
@@ -508,7 +555,7 @@ export default {
   /* opacity: 0.5; */
   background-color: rgba(255, 255, 255, 0.075);
 }
-.orange_btn{
+.orange_btn {
   border-radius: 10rem;
 }
 </style>
