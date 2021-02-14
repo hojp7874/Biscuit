@@ -31,6 +31,7 @@
                         v-model="modicontents"
                         placeholder="댓글 입력을 입력하세요."
                         rows="2"
+                        @input="counting()"
                       ></b-form-textarea>
                     </b-col>
                     <b-col><b-button type="submit" variant="dark">수정</b-button> </b-col> 
@@ -56,6 +57,7 @@ export default {
         nickname : localStorage.getItem("nickname"),
         email : localStorage.getItem("email")  //"ssafy@ssafy.com", //로그인 되어있는 유저 이메일 -> 현재 로그인 되어있는 유저로 바꿔야함
       },
+      count : 0,
     }
   },
   created() {
@@ -63,11 +65,12 @@ export default {
   methods: {
     modifyClick(){
       this.modicontents = this.items.contents;
+      this.count = this.modicontents.length;
       this.isView = !this.isView;
     },
     onSubmit(event) {
       event.preventDefault();
-      console.log("수정 : "+this.user.email +" / "+this.modicontents+" / "+this.rId);
+      // console.log("수정 : "+this.user.email +" / "+this.modicontents+" / "+this.rId);
 
       if(this.modicontents == '' || this.modicontents.trim() ==""){
          alert('작성된 댓글 내용이 존재하지 않습니다.');
@@ -82,7 +85,8 @@ export default {
         .then((res) => {
           if (res.data.success) {
             alert('수정되었습니다.');
-            this.$router.go(this.$router.currentRoute);
+            this.isView = !this.isView;
+            this.$emit('listbtn',0);
           } else {
             alert('실행중 실패했습니다.\n다시 이용해 주세요');
           }
@@ -98,13 +102,12 @@ export default {
       }
     },
     deleteReply(){
-      console.log("삭제 메소드");
       this.$axios
       .delete(`${SERVER_URL}/greply/delete`, {params: {rId : this.items.rId}})
       .then((res) => {
         if (res.data.success) {
           alert('삭제되었습니다.');
-          this.$router.go(this.$router.currentRoute);
+          this.$emit('listbtn',0);
         } else {
           alert('실행중 실패했습니다.\n다시 이용해 주세요');
         }
@@ -112,7 +115,13 @@ export default {
       .catch((err) => {
         console.log(err);
       })
-    }
+    },
+    counting(){
+      this.count = this.modicontents.length;
+      if(this.count >300){
+        this.modicontents = this.modicontents.substr(0,299);
+      }
+    },
   },
 };
 </script>
