@@ -56,8 +56,10 @@ export default {
       },
 
       updatePw(){
+
+        if(this.mem.newpassword === this.verify_newpassword){
         axios
-        .put(`${SERVER_URL}/user/pwupdate`,  this.mem,{
+        .put(`${SERVER_URL}/user/pwupdate2`,  this.mem,{
           headers:{
             "x-access-token" : localStorage.getItem("token")
           }
@@ -68,14 +70,17 @@ export default {
             this.isHidden = true;
             this.cancel();
           }else{
-            alert('현재 비밀번호를 다시 한 번 확인 해 주세요!');
+            alert('현재 비밀번호를 틀리게 입력하셨습니다!');
           }
         }).catch(function(error) {
           console.log(error);
           alert('오류');
         });
-
+        }else{
+          alert('새 비밀번호와 비밀번호 확인이 일치하지 않습니다!');
+        }
       }
+
     },
     mounted(){
       this.mem.email = localStorage.getItem("email");
