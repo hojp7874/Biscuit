@@ -62,12 +62,12 @@
         <i class="now-ui-icons ui-1_bell-53" style="background-color:white"></i>
       </div> -->
       <drop-down v-if="this.token !== ''">
-        <b-icon-bell-fill
+        <b-icon-bell
           slot="title"
           class="dropdown-toggle"
           data-toggle="dropdown"
           font-scale="1.3"
-          style="margin-top:10px;margin-right:15px;margin-left:-5px"
+          style="margin-top:10px;margin-right:15px;margin-left:-5px;color:white"
           @click="readNotification"
         />
 

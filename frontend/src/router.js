@@ -18,6 +18,7 @@ import Join from './pages/Join.vue';
 import MyPage from './pages/MyPage.vue';
 import FindPw from './pages/FindPw.vue';
 import test from './pages/ImageUpload.vue';
+import SignUpForm from './pages/components/SignupForm.vue';
 
 Vue.use(Router);
 
@@ -162,6 +163,15 @@ export default new Router({
       path: '/findpw',
       name: 'findpw',
       components: { default: FindPw, header: MainNavbar, footer: MainFooter },
+      props: {
+        header: { colorOnScroll: 0 },
+        footer: { backgroundColor: 'black' }
+      }
+    },
+    {
+      path: '/signup',
+      name: 'signup',
+      components: { default: SignUpForm, header: MainNavbar, footer: MainFooter },
       props: {
         header: { colorOnScroll: 0 },
         footer: { backgroundColor: 'black' }
