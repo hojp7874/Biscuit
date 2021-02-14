@@ -48,6 +48,11 @@ public class LoginServiceImpl implements LoginService {
 		// TODO Auto-generated method stub
 		return dao.pwupdateUser(mem);
 	}
+	@Override
+	public int pwupdate2(Map mem) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.pwupdateUser2(mem);
+	}
 
 	@Override
 	public UserDto profile(String email) throws Exception {
