@@ -16,6 +16,7 @@ public interface LoginDao {
 	public int removeUser(Map mem) throws Exception;
 	public int updateUser(Map mem) throws Exception;
 	public int pwupdateUser(Map mem) throws Exception;
+	public int pwupdateUser2(Map mem) throws Exception;
 	public UserDto profileUser(String email) throws Exception;
 	public int updateAdmin(Map user) throws Exception;
 	
