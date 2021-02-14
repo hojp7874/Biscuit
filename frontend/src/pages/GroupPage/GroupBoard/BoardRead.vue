@@ -24,7 +24,7 @@
                 </tr>
                 <tr>
                   <th>내용</th>
-                  <td class="txt_cont" v-bind="contents">{{ contents }}</td>
+                  <td class="txt_cont" v-bind="contents" v-html="contents.replace(/(?:\r\n|\r|\n)/g, '<br />')"></td>
                 </tr>
               </table>
             </form>
@@ -114,6 +114,7 @@ export default {
       // console.log("IN CHANGE MODE");
       this.fnGetView();
       this.getList();
+      this.pageCnt = 1;
       // this.mode = 5;
       this.mode = num;
     },
@@ -132,7 +133,7 @@ export default {
           },
         })
         .then((res) => {
-          // console.log(res.data);
+          console.log(res.data);
           this.title = res.data.list[0].title;
           this.contents = res.data.list[0].contents;
           this.email = res.data.list[0].email;

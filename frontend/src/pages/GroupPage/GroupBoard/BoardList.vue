@@ -1,7 +1,7 @@
 <template>
   <div>
       <div class="content-center brand">
-        <center v-if="active==1" style="font-size: 30px; margin-top:30px;margin-bottom:10px;font-weight:bold ">스터디 게시판</center>
+        <center v-if="active==1" style="font-size: 30px; margin-top:30px;margin-bottom:10px;font-weight:bold; font-family : GongGothicMedium">스터디 게시판</center>
 
         <div class="container" v-if="active==1">
           <b-input-group>
@@ -253,5 +253,12 @@ export default {
   display: inline-blcok;
   padding: 0 5px;
   color: #666;
+}
+
+@font-face {
+    font-family: 'GongGothicMedium';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10@1.0/GongGothicMedium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
 }
 </style>
