@@ -25,7 +25,6 @@
                   <td><textarea v-model="contents" ref="contents"  @input="counting()" ></textarea></td>
                 </tr>
               </table>
-              <div >글자수 : <span>{{count}}</span> / 5000</div>
             </form>
           </div>
 
@@ -102,7 +101,6 @@ export default {
           if (res.data.success) {
             alert('수정되었습니다.');
             // this.fnView();
-            // console.log("바로 반영이 안되나요?");
             this.fnList();
             return;
           } else {
@@ -115,7 +113,9 @@ export default {
     },
     counting(){
       this.count = this.contents.length;
-      console.log(this.count);
+      if(this.count >5000){
+        this.contents = this.contents.substr(0,5000);
+      }
     }
   },
 };

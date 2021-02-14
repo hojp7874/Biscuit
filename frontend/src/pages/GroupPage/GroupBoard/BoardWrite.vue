@@ -26,7 +26,6 @@
                   <td><textarea v-model="contents" ref="contents" @input="counting()"></textarea></td>
                 </tr>
               </table>
-              <div >글자수 : <span>{{count}}</span> / 5000</div>
             </form>
           </div>
 
@@ -103,7 +102,7 @@ export default {
     counting(){
       this.count = this.contents.length;
       if(this.count >5000){
-        this.contents = this.contents.substring(0,5000);
+        this.contents = this.contents.substr(0,5000);
       }
     }
 
