@@ -31,7 +31,7 @@ public class A407BootApplication implements WebMvcConfigurer{
     public void addInterceptors(InterceptorRegistry registry) {
         registry
         .addInterceptor(jwtInterceptor).addPathPatterns("/user/**") // 기본 적용 경로
-        .excludePathPatterns(Arrays.asList("/user/login", "/user/join", "/user/findId", "/user/pwupdate", "/user/admin", "/user/profile"));// 적용 제외 경로
+        .excludePathPatterns(Arrays.asList("/user/login", "/user/join", "/user/findId", "/user/pwupdate", "/user/admin", "/user/profile","/user/checkemail"));// 적용 제외 경로
 //                .excludePathPatterns(Arrays.asList("/user/confirm/**", "/board/list"));// 적용 제외 경로
     }
 
