@@ -5,16 +5,22 @@
         <center>
           <h1 class="h1-seo" style="margin-top:150px; font-weight: bold; color: #363636">자유게시판</h1>
         </center>
+
+
         <div class="container">
+          <div class="row">
+          <div class="col-md-2"></div>
+          <div class="col-md-8">
           <b-input-group>
             <template #prepend>
-              <b-select name="type" v-model="type">
+              <b-select name="type" style="border-radius:10px" v-model="type">
                 <b-select-option value="title">제목</b-select-option>
                 <b-select-option value="name">작성자</b-select-option>
                 <b-select-option value="contents">내용</b-select-option>
               </b-select>
             </template>
             <b-form-input
+            style="border-radius:10px"
               type="text"
               v-model="word"
               @keyup.enter="fnSearch"
@@ -25,9 +31,16 @@
                 text="Button"
                 variant="primary"
                 class="btnSearch mt-0"
-                >검색</b-button>
+                style="border-radius:10px; font-weight: bold"
+
+                >
+                검색<i class="now-ui-icons ui-1_zoom-bold" style="margin-left:10px"></i></b-button>
             </b-input-group-append>
           </b-input-group>
+          </div>
+          </div>
+
+
           <div class="listWrap"><br>
             <b-table
               id="my-table"
@@ -49,7 +62,7 @@
                 
               ></b-pagination>
               <div class="btnRightWrap">
-              <b-button @click="fnAdd" class="btnAdd m-1" style="background-color: #f96332" v-if="this.loginStatus.nickname">글쓰기</b-button>
+              <b-button @click="fnAdd" class="btnAdd m-1" style="border-radius:10px; background-color: #f96332; " v-if="this.loginStatus.nickname">글쓰기</b-button>
             </div>
           </div>
           </div>
