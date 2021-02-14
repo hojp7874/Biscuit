@@ -1,13 +1,16 @@
 <template>
-  <div >
+  <div 
+  class="section section-signup"
+    style="background-image: url('img/bg11.jpg'); background-size: cover; background-position: top center; min-height: 700px;"
+  >
     <div id="app">
-      <div style="margin-top:150px">
+      <div style="margin-top:0px">
         <h2 class="findpw_title">비밀번호 찾기</h2>
         <center>
           <div class="findpw_cnt">
             <form>
               <div>
-                <p>
+                <p style="font-weight:bold">
                   본인인증을 통해 아이디(이메일) 확인 및<br />
                   비밀번호를 변경하실 수 있습니다.
                 </p>
@@ -18,6 +21,7 @@
                     type="text"
                     id="cert-id"
                     placeholder="아이디 (이메일)"
+                    style="background-color:white"
                     v-model="mem.email"
                   />
                 </div>
@@ -27,13 +31,14 @@
                   
                     id="certinum"
                     placeholder="인증번호를 입력하세요"
-                    style="width:270px; margin-right:20px"
+                    style="width:270px; margin-right:20px;; background-color:white"
                     v-model="code"
                   />
                   <input
                     type="button"
                     id="certinum_btn"
                     value="인증번호 받기"
+                    style="border-radius: 10rem; background-color:#2c2c2c"
                     @click.prevent="sendEmail()"
                   />
                 </div>
@@ -43,6 +48,7 @@
                     class="btn btn-primary"
                     id="findpw_btn"
                     @click.prevent="checkCode()"
+                    style="border-radius: 10rem; background-color:#2c2c2c"
                   >
                     확인
                   </button>
@@ -60,25 +66,25 @@
         <div>
           <br />
           <center>
-          <input
+          <b-form-input
             type="password"
             id="cert-id"
-            style=" width: 300px"
+            style=" width: 300px ; background-color:white"
             placeholder="새 비밀번호를 입력하세요"
             v-model="mem.newpassword"
           />
           <br />
-          <input
+          <b-form-input
             type="password"
             id="cert-id"
-            style="margin-top: 5px; margin-bottom: 15px; width: 300px"
+            style="margin-top: px; margin-bottom: px; width: 300px;background-color:white"
             placeholder="새 비밀번호를 한 번 더 입력하세요"
             v-model="verify_newpassword"
           />
           
           <br />
           &nbsp;
-          <button id="findpw_btn" @click="updatePw()">확인</button>
+          <button class="btn btn-primary"  style="border-radius: 10rem; background-color:#2c2c2c" id="findpw_btn" @click="updatePw()">확인</button>
           </center>
         </div>
       </div>

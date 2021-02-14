@@ -249,6 +249,35 @@ public class LoginController{
 		return entity;
 	}
 	
+	@GetMapping(value = "/checkemail")
+	private ResponseEntity checkEmail(@RequestParam String email) {
+		ResponseEntity entity = null;
+		//System.out.println("profile ========");
+		Map result = new HashMap();
+		try {
+			int num = login.checkEmail(email);
+			if (num == 0) {
+				result.put("success", "success");
+				result.put("valid", num);
+				entity = new ResponseEntity<>(result, HttpStatus.OK);
+				
+			}
+			else {
+				result.put("success", "fail");
+				entity = new ResponseEntity<>(result, HttpStatus.OK);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.put("success", "error");
+			entity = new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+			
+		}
+		return entity;
+	}
+	
+	
+	
 	//관리자 권한 변경
 	@PutMapping(value = "/admin")
 	private ResponseEntity updateAdmin(@RequestBody Map user) {

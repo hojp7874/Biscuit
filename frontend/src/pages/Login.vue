@@ -33,7 +33,7 @@
               >
               </fg-input>
               <!-- <template slot="raw-content" id="function_button"> -->
-                <div class="card-footer text-center">
+                <div class="card-footer " style="margin-right:px;margin-top:0px;margin-left:-2px">
                   <a
                     class="btn btn-primary btn-round btn-lg btn-block"
                     v-on:click="checkLogin"
