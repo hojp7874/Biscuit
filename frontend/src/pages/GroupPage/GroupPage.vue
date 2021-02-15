@@ -194,6 +194,7 @@ export default {
         this.getApplyCount();
         this.active = 3;
         this.componentLoading();
+        
       }
     }
   },
