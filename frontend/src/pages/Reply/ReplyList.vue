@@ -1,55 +1,52 @@
 <template>
-      <b-row class="mb-1">
-        <b-col>
-          <div border-variant="info" class="row" no-body style="background-color:#f0f0f0; min-height:80px; border-radius:10px;">
-            <div class="col-md-1 col-sm-1"> <img src="img/ryan.jpg" class="rounded-circle" style="margin-top:15px" alt="" /> </div>
-            <div class="col-md-11" style="padding:0px"> 
-                <div class="text-left" 
-                  ><div class="d-flex align-items-center" style="margin-top:10px; padding:0">
-                   
-                    <strong style="margin-right:10px">{{items.nickname}}</strong>
-                    <small>({{items.date}})</small>
-                  </div>
-                </div>
-                <b-col class="text-right" v-show="user.email===items.email" >
-                  <b-button @click="modifyClick" variant="link">수정</b-button>
-                  <b-button @click="deleteReplyConfirm" variant="link">삭제</b-button>
-                </b-col>
-          
-            <!-- </template> -->
-            <hr style="margin:0px;">
-            <div class="text-left">
-              <div id="viewcomment" v-show="isView" v-html="items.contents.replace(/(?:\r\n|\r|\n)/g, '<br />')" style=" margin-top:10px; margin-right:30px; margin-bottom:10px; font-size:10pt">
-                {{items.contents}}
-              </div>
-
-              <div id="modifyinput" v-show="!isView">
-                <b-form @submit="onSubmit">
-                  <b-row class="mb-3 mt-2">
-                    <b-col cols="11">
-                      <b-form-textarea
-                        id="modicontents"
-                        v-model="modicontents"
-                        placeholder="댓글을 입력하세요."
-                        rows="2"
-                      ></b-form-textarea>
-                    </b-col>
-                    <b-col><b-button type="submit" variant="dark">수정</b-button> </b-col> 
-                  </b-row>
-                </b-form>
-              </div>
+  <b-row class="mb-1">
+    <b-col>
+      <div border-variant="info" class="row" no-body style="background-color:#f0f0f0; min-height:80px; border-radius:10px;">
+        <div class=""><img :src="user.picture" class="rounded-circle" style="margin-top:15px; width:65px; height:65px" alt="" /></div>
+        <div class="col" style="padding:0px">
+          <div class="text-left" 
+            ><div class="d-flex align-items-center" style="margin-top:10px; padding:0">
+            
+              <strong style="margin-right:10px">{{items.nickname}}</strong>
+              <small>({{items.date}})</small>
             </div>
-            </div>
-
-            <!-- <template> -->
-               
-             
           </div>
-        </b-col>
-      </b-row>
+          <b-col class="text-right" v-show="user.email===items.email" >
+            <b-button @click="modifyClick" variant="link">수정</b-button>
+            <b-button @click="deleteReplyConfirm" variant="link">삭제</b-button>
+          </b-col>
+      
+          <!-- </template> -->
+          <hr style="margin:0px;">
+          <div class="text-left">
+            <div id="viewcomment" v-show="isView" v-html="items.contents.replace(/(?:\r\n|\r|\n)/g, '<br />')" style=" margin-top:10px; margin-right:30px; margin-bottom:10px; font-size:10pt">
+              {{items.contents}}
+            </div>
+
+            <div id="modifyinput" v-show="!isView">
+              <b-form @submit="onSubmit">
+                <b-row class="mb-3 mt-2">
+                  <b-col cols="11">
+                    <b-form-textarea
+                      id="modicontents"
+                      v-model="modicontents"
+                      placeholder="댓글을 입력하세요."
+                      rows="2"
+                    ></b-form-textarea>
+                  </b-col>
+                  <b-col><b-button type="submit" variant="dark">수정</b-button> </b-col> 
+                </b-row>
+              </b-form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </b-col>
+  </b-row>
 </template>
 
 <script>
+import axios from 'axios';
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
 export default {
@@ -61,7 +58,8 @@ export default {
       modicontents : "",
       user : {
         nickname : localStorage.getItem("nickname"),
-        email : localStorage.getItem("email")  //"ssafy@ssafy.com", //로그인 되어있는 유저 이메일 -> 현재 로그인 되어있는 유저로 바꿔야함
+        email : localStorage.getItem("email"),  //"ssafy@ssafy.com", //로그인 되어있는 유저 이메일 -> 현재 로그인 되어있는 유저로 바꿔야함
+        picture: '',
       },
       // items : [],
     }
@@ -73,10 +71,22 @@ export default {
     // }
   },
   created() {
+    this.getPicture(this.items.email)
+    axios.get(`${SERVER_URL}/user/profile`, {params: {email: this.items.email}})
+      .then(res => {
+        console.log(res.data.User.picture)
+        this.user.picture = res.data.User.picture
+      })
+      .catch(err => {
+        console.log(err)
+      })
     // console.log(this.$props.reply)
     // this.items = this.$props.reply;
   },
   methods: {
+    getPicture: function(items) {
+      console.log(items)
+    },
     modifyClick(){
       this.modicontents = this.items.contents;
       this.isView = !this.isView;

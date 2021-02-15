@@ -126,8 +126,8 @@
           >
             <!-- hide-header -->
             <div>
-             
-             <div class="bannerImg jumbotron-image clear-filter" filter-color="black" style="position:relative">
+            
+              <div class="bannerImg jumbotron-image clear-filter" filter-color="black" style="position:relative">
               <img :src="group.img" alt="">
                   <div style=" font-size: 1.8em; font-weight: bold; color:white; position: absolute;">
                      {{group.groupName}}

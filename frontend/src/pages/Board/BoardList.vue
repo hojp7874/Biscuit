@@ -47,40 +47,40 @@
           </div>
 
          
+        </div>
       </div>
-    </div>
-      <div class="content-center brand">
+        <div class="content-center brand">
       
 
 
-        <div class="container">
+          <div class="container">
           
 
 
-          <div class="listWrap"><br>
-            <b-table
-              id="my-table"
-              :items="list"
-              :per-page="perPage"
-              :fields="column"
-              :current-page="currentPage"
-              @row-clicked="rowClick"
-              hover
-            ></b-table>
-            <div >
-              <b-pagination
-                v-model="currentPage"
-                :total-rows="this.list.length"
+            <div class="listWrap"><br>
+              <b-table
+                id="my-table"
+                :items="list"
                 :per-page="perPage"
-                aria-controls="my-table"
-                class="pagination pagination-primary"
-                align="center"
-                
-              ></b-pagination>
-              <div class="btnRightWrap">
-              <b-button @click="fnAdd" class="btnAdd m-1" style="border-radius:10px; background-color: #f96332; " v-if="this.loginStatus.nickname">글쓰기</b-button>
+                :fields="column"
+                :current-page="currentPage"
+                @row-clicked="rowClick"
+                hover
+              ></b-table>
+              <div >
+                <b-pagination
+                  v-model="currentPage"
+                  :total-rows="this.list.length"
+                  :per-page="perPage"
+                  aria-controls="my-table"
+                  class="pagination pagination-primary"
+                  align="center"
+                  
+                ></b-pagination>
+                <div class="btnRightWrap">
+                <b-button @click="fnAdd" class="btnAdd m-1" style="border-radius:10px; background-color: #f96332; " v-if="this.loginStatus.nickname">글쓰기</b-button>
+              </div>
             </div>
-          </div>
           </div>
         </div>
       </div>
