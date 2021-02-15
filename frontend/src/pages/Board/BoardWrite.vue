@@ -80,11 +80,16 @@ export default {
         title: this.title,
         contents: this.contents,
       };
+
       if(this.form.title=='' || this.form.title.trim()==""){
         alert('작성된 게시글의 제목이 존재하지 않습니다.');
       }else if(this.form.contents==''|| this.form.contents.trim()==""){
         alert('작성된 게시글의 내용이 존재하지 않습니다.');
       }else{
+        if(this.form.contents.length > 5000){
+          // console.log("5000자 이상");
+          this.from.contents = this.from.contents.substr(0,5000);
+        }
         this.$axios
         .post(`${SERVER_URL}/board/create`, this.form)
         .then((res) => {

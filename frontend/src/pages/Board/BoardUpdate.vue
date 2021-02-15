@@ -26,7 +26,7 @@
                   <td><textarea v-model="contents" ref="contents"  @input="counting()" ></textarea></td>
                 </tr>
               </table>
-              <div >글자수 : <span>{{count}}</span> / 5000</div>
+              <!-- <div >글자수 : <span>{{count}}</span> / 5000</div> -->
             </form>
           </div>
 
@@ -130,11 +130,15 @@ export default {
         email: this.email
       };
 
+      if(this.form.contents.length > 5000){
+        this.form.contents = this.form.contents.substr(0,5000);
+      }
+
       this.$axios
         .put(`${SERVER_URL}/board/update`, this.form)
         .then((res) => {
           if (res.data.success) {
-            console.log("########################")
+            // console.log("########################")
             console.log(res)
             alert('수정되었습니다.');
             this.fnView();
@@ -148,7 +152,9 @@ export default {
     },
     counting(){
       this.count = this.contents.length;
-      console.log(this.count);
+      if(this.count >5000){
+        this.contents = this.contents.substr(0,5000);
+      }
     }
   },
 };
