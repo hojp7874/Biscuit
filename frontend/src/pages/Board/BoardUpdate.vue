@@ -123,17 +123,12 @@ export default {
 
       this.form = {
         title: this.title,
-        contents: this.contents,
+        contents: this.contents.length>5000? this.contents.substr(0,5000): this.contents,
         noticeFlag: this.noticeFlag,
         category: this.category,
         bId: this.bId,
         email: this.email
       };
-
-      if(this.form.contents.length > 5000){
-        this.form.contents = this.form.contents.substr(0,5000);
-      }
-
       this.$axios
         .put(`${SERVER_URL}/board/update`, this.form)
         .then((res) => {

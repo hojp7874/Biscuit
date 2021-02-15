@@ -78,7 +78,7 @@ export default {
         email: localStorage.getItem("email"),
         nickname: localStorage.getItem("nickname"),
         title: this.title,
-        contents: this.contents,
+        contents: this.contents.length>5000? this.contents.substr(0,5000): this.contents,
       };
 
       if(this.form.title=='' || this.form.title.trim()==""){
@@ -86,10 +86,6 @@ export default {
       }else if(this.form.contents==''|| this.form.contents.trim()==""){
         alert('작성된 게시글의 내용이 존재하지 않습니다.');
       }else{
-        if(this.form.contents.length > 5000){
-          // console.log("5000자 이상");
-          this.from.contents = this.from.contents.substr(0,5000);
-        }
         this.$axios
         .post(`${SERVER_URL}/board/create`, this.form)
         .then((res) => {
