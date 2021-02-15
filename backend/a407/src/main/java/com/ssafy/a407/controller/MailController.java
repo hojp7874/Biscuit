@@ -40,21 +40,18 @@ public class MailController {
 		userId = userId.substring(0, userId.length()-1);
 		userId= userId.replace("%40", "@");	
 		
-		System.out.println("전달 받은 이메일 : " + userId);
+//		System.out.println("전달 받은 이메일 : " + userId);
 		try {
 			service.sendSimpleMessage(userId);
 			result.put("success", "success");
 			entity = new ResponseEntity(result, HttpStatus.OK);
-			System.out.println("case1");
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			result.put("success", "error"); 
 	        entity = new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
-	        System.out.println("case2");
 		}
-		System.out.println("case3");
 		return entity;
 	}
 
@@ -67,8 +64,8 @@ public class MailController {
 		Map result = new HashMap();
 		code = code.substring(0, code.length()-1);
 //		int result = 0;
-		System.out.println("code : " + code);
-		System.out.println("code match : " + EmailServiceImpl.ePw.equals(code));
+//		System.out.println("code : " + code);
+//		System.out.println("code match : " + EmailServiceImpl.ePw.equals(code));
 		if (EmailServiceImpl.ePw.equals(code)) {
 			result.put("success", "success");
 			entity = new ResponseEntity(result, HttpStatus.OK);

@@ -53,7 +53,6 @@ public class GroupBoardController {
 		//게시글 보기
 		@GetMapping(value = "/read")
 		private ResponseEntity read(@RequestParam int gId ,@RequestParam String type, @RequestParam String word, @RequestParam(defaultValue="0") int currentPage, @RequestParam(defaultValue="0") int category) {
-//			System.out.println("read==========");
 			ResponseEntity entity = null;
 			Map result = new HashMap();
 			try {
@@ -75,7 +74,6 @@ public class GroupBoardController {
 				}
 				//bId로 검색
 				else if(type.equals("bId")) {
-//					System.out.println("tetetetetete");
 					List<GroupBoardDto> list = board.searchBId(word, gId);
 //					System.out.println(list);
 					if(list != null) {
@@ -140,10 +138,9 @@ public class GroupBoardController {
 		@PutMapping(value = "/update")
 		private ResponseEntity update(@RequestBody Map mem) {
 			ResponseEntity entity = null;
-//			System.out.println("update ========");
 			Map result = new HashMap();
 			try {
-				System.out.println(mem);
+//				System.out.println(mem);
 				if (board.update(mem) == 1) {
 					result.put("success", "success");
 					entity = new ResponseEntity<>(result, HttpStatus.OK);
@@ -167,7 +164,6 @@ public class GroupBoardController {
 		@DeleteMapping(value = "/delete")
 		private ResponseEntity delete(@RequestHeader int bId) {
 			ResponseEntity entity = null;
-//			System.out.println("delete =========");
 			Map result = new HashMap();
 			try {
 				if (board.delete(bId) == 1) {

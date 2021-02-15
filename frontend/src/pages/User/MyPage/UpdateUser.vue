@@ -44,7 +44,16 @@
             v-model="user.nickname"
           />
           <br />
-          <div></div>
+
+          <div>
+            
+          </div>
+
+          <span style="margin-left:175px ;font-size: 20px ;">
+            프로필 사진
+          </span>
+          <input class="ml-5 pl-5 mb-5" type="file" id="img"><br />
+
           <span style="margin-left:175px ;font-size: 20px ;">
             휴대폰 번호
           </span>
@@ -141,8 +150,42 @@ export default {
     },
 
     update() {
-      console.log('토큰 : ' + localStorage.getItem('token'));
-      axios
+      // console.log('토큰 : ' + localStorage.getItem('token'));
+      var img = document.getElementById("img")
+      if (img.files.length != 0) {
+        const frm = new FormData()
+        frm.append('file', img.files[0])
+        axios.post(`${SERVER_URL}/file/upload/`, frm)
+          .then(res => {
+            console.log(res.data.message)
+            this.user.picture = SERVER_URL + "/file/read/" + res.data.message
+            axios
+            .put(`${SERVER_URL}/user/update`, this.user, {
+              headers: {
+                'x-access-token': localStorage.getItem('token'),
+              },
+            })
+            .then((response) => {
+              if (response.data.success === 'success') {
+                console.log(this.user.region);
+                alert('정보 수정에 성공하셨습니다.');
+                localStorage.setItem('region', this.user.region);
+                localStorage.setItem('nickname', this.user.nickname);
+                localStorage.setItem('phone', this.user.phone);
+                this.$router.push('/');
+              } else alert('정보 수정에 실패하셨습니다.');
+            })
+            .catch(function(error) {
+              console.log(error);
+            });
+
+          })
+          .catch(err => {
+            console.log(err)
+          })
+
+      } else {
+        axios
         .put(`${SERVER_URL}/user/update`, this.user, {
           headers: {
             'x-access-token': localStorage.getItem('token'),
@@ -161,6 +204,7 @@ export default {
         .catch(function(error) {
           console.log(error);
         });
+      }
     },
 
     handleClickButton() {
@@ -193,6 +237,7 @@ export default {
     this.user.email = localStorage.getItem('email');
     this.user.nickname = localStorage.getItem('nickname');
     this.user.phone = localStorage.getItem('phone');
+    this.user.picture = localStorage.getItem('picture');
   },
 };
 </script>

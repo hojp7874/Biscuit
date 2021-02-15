@@ -52,7 +52,7 @@ public class FilesController {
     try {
       File newfile = new File(System.getProperty("user.dir") + "/uploads/" + newName);
       file.transferTo(newfile);
-      System.out.print(newfile.getPath());
+//      System.out.print(newfile.getPath());
       return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage(newfile.getName()));
     } catch (Exception e) {
       System.out.print(e);
@@ -76,7 +76,7 @@ public class FilesController {
       String filename = path.getFileName().toString();
       String url = MvcUriComponentsBuilder
           .fromMethodName(FilesController.class, "getFile", path.getFileName().toString()).build().toString();
-      System.out.println(url);
+//      System.out.println(url);
       return new FileInfo(filename, url);
     }).collect(Collectors.toList());
 
