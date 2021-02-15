@@ -4,7 +4,7 @@
 
  <mapper namespace="com.ssafy.a407Chat.dao.ChatRoomDao">	
 	<insert id="insertRoom" parameterType="ChatRoomDto">
-		insert into chatRoom (roomId,roomName) values (#{roomId},#{roomName})
+		insert into chatRoom (roomId,roomName,gId) values (#{roomId},#{roomName},#{gId})
 	</insert>
 	
 	<select id="selectAllRoom" resultType="ChatRoomDto">

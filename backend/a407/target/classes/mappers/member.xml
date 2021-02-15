@@ -38,6 +38,18 @@
 	 	and (a407.member.permission = 1 or a407.member.permission = 2 or a407.member.permission = 3);
  	</select>
  	
+ 	<select id="selectGroupId" parameterType = "String" resultType="Map">
+		select gId from member
+		where email = #{email};
+	</select>
+	
+	<select id="selectFriends" parameterType = "String" resultType="Map">
+		select distinct email, nickname from member
+		where gId = ANY(
+		select gId from member
+		where email = #{email});
+	</select>
+ 	
  	<insert id="insertMember" parameterType="MemberDto">
  		insert into a407.member (gId, email, nickname, permission) values (#{gId}, #{email}, #{nickname}, #{permission})
  	</insert>

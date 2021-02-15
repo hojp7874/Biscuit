@@ -62,4 +62,16 @@ public class MemberServiceImpl implements MemberService{
 		System.out.println("service.getApplyCount.gId :  " + gId);
 		return dao.selectApplyCount(gId);
 	}
+
+	@Override
+	public List<Map> getGroupId(String email) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.selectGroupId(email);
+	}
+
+	@Override
+	public List<Map> getFriends(String email) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.selectFriends(email);
+	}
 }
