@@ -1,16 +1,22 @@
 <template>
   <div>
     <div class="">
+
+        <div class="page-header clear-filter" filter-color="orange" style=" min-height:45vh" >
+      <parallax
+        class="page-header-image"
+
+        style="background-image:url('img/bg5.jpg'); height:600px"
+      >
+      </parallax>
+          
       <div class="content-center brand">
-        <center>
-          <h1 class="h1-seo" style="margin-top:150px; font-weight: bold; color: #363636">자유게시판</h1>
-        </center>
+        <img class="n-logo" src="img/bisWhite.png" alt="" style="margin-top:100px" />
+        <h2 class="h2-seo" style="font-weight:bold">자유게시판</h2>
 
-
-        <div class="container">
-          <div class="row">
-          <div class="col-md-2"></div>
-          <div class="col-md-8">
+        <div class="row">
+          <div class="col-md-1"></div>
+          <div class="col-md-10">
           <b-input-group>
             <template #prepend>
               <b-select name="type" style="border-radius:10px" v-model="type">
@@ -20,7 +26,7 @@
               </b-select>
             </template>
             <b-form-input
-            style="border-radius:10px"
+            style="border-radius:10px; color:white; background-color:#11111155"
               type="text"
               v-model="word"
               @keyup.enter="fnSearch"
@@ -39,6 +45,16 @@
           </b-input-group>
           </div>
           </div>
+
+         
+      </div>
+    </div>
+      <div class="content-center brand">
+      
+
+
+        <div class="container">
+          
 
 
           <div class="listWrap"><br>

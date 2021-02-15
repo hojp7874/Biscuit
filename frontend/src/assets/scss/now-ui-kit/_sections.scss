@@ -109,7 +109,11 @@
     }
 
     &[filter-color="orange"]{
-        @include linear-gradient(rgba(200,120,35,.90), rgba(8, 8, 8, 0.6));
+        @include linear-gradient(rgba(54, 54, 54, 0.9), rgba(8, 8, 8, 0.6));
+        
+    }
+    &[filter-color="grey"]{
+        @include linear-gradient(rgba(59, 59, 59, 0.9), rgba(8, 8, 8, 0.6));
         
     }
 }
