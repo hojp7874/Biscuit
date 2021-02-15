@@ -1,63 +1,156 @@
 <template>
-<div>
- <center style="font-size: 30px; margin-top:30px;font-weight:bold ">나의 일정</center>
- <center>
-  <Schedule v-on:createSchedule="createSchedule" v-on:getSchedule="getSchedule" :scheduleType="mySchedule" :items="items"/>
- </center>
-</div>
+  <div>
+    <center>
+      <div style="font-size: 30px; margin-top:30px;font-weight:bold">
+        나의 일정
+      </div>
+    </center>
+    <div>
+      <!-- <n-checkbox  v-model="personal" style="margin-left: 180px ; color:#F96332"  @change="getSchedule">개인 일정</n-checkbox> -->
+      <div style="margin-top:20px; margin-left:200px; margin-right:730px;margin-bottom:-20px">
+      <div style="color:#F96332">
+      개인 일정<input
+        type="checkbox"
+        v-model="personal"
+        @change.prevent="getSchedule"
+        style="margin-left:5px;"
+      /></div>
+      <drop-down
+        tag="div"
+        title="그룹 일정"
+        style="margin-left: 80px; margin-top:-30px;"
+      >
+
+      <div class="dropdown-item" v-for="(item , idx) in myGroups" v-bind:item="item" v-bind:key="idx">
+        {{item.groupName}}<input
+        type="checkbox"
+        @change.prevent="getSchedule"
+        v-model = checked[idx]
+        style="margin-left:10px"
+      /></div>
+      </drop-down>
+      </div>
+    </div>
+    <center style="margin-top:0px">
+      <Schedule
+        v-on:createSchedule="createSchedule"
+        v-on:getSchedule="getSchedule"
+        :scheduleType="mySchedule"
+        :items="items"
+      />
+    </center>
+  </div>
 </template>
 <script>
-
 import Schedule from '../../components/Schedule';
-import { Button, FormGroupInput } from '@/components';
+import { Button, FormGroupInput, Checkbox, DropDown } from '@/components';
 import axios from 'axios';
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 export default {
-  data:function(){
-    return{
-    mySchedule :'mySchedule',
-    list:[],
-    items:[],
-    color:'',
-    cnt:0,
-    }
+  data: function() {
+    return {
+      mySchedule: 'mySchedule',
+      list: [],
+      list2: [],
+      items: [],
+      color: '',
+      cnt: 0,
+      myGroups: Object,
+      personal: true,
+      checked:[],
+    };
   },
-  components : {
+  components: {
     Schedule,
-      [Button.name]: Button,
+    [Button.name]: Button,
     [FormGroupInput.name]: FormGroupInput,
+    [Checkbox.name]: Checkbox,
+    DropDown,
   },
 
-  methods: {
-    getSchedule(){
-      this.form = { email: localStorage.getItem('email') };
-      axios
-        .get(`${SERVER_URL}/schedule/perlist`, {
-          params: this.form,
+mounted() {
+   axios
+        .get(`${SERVER_URL}/group/member/apply/user/list`, {
+          params: {
+            email: localStorage.getItem('email'),
+          },
         })
         .then((res) => {
-          this.list = res.data.list;
-          this.items =[];
-          this.insertItems();
-          console.log('ㅎㅇ');
-          console.log('아이템' + this.list.length);
+          this.myGroups = res.data.list;
+
+          for (var i in this.myGroups) {
+            checked[i] = false;
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+},
+  methods: {
+    getSchedule() {
+      console.log('받아와');
+      this.items = [];
+      if (this.personal) {
+        
+        this.form = { email: localStorage.getItem('email') };
+        axios
+          .get(`${SERVER_URL}/schedule/perlist`, {
+            params: this.form,
+          })
+          .then((res) => {
+            this.list = res.data.list;
+            this.insertItems();
+            console.log('ㅎㅇ');
+            console.log('아이템' + this.list.length);
+          });
+      }
+
+      axios
+        .get(`${SERVER_URL}/group/member/apply/user/list`, {
+          params: {
+            email: localStorage.getItem('email'),
+          },
+        })
+        .then((res) => {
+          this.myGroups = res.data.list;
+
+          for (var i in this.myGroups) {
+            if(this.checked[i] === true){
+            console.log('지아디' + this.myGroups[i].gId);
+            this.form2 = { gId: this.myGroups[i].gId };
+            axios
+              .get(`${SERVER_URL}/schedule/grouplist`, {
+                params: this.form2,
+              })
+              .then((res) => {
+                this.list2 = res.data.list;
+                this.insertGroupItems();
+                console.log('ㅎㅇ');
+                console.log('아이템' + this.list.length);
+                myGroups[i].checked = false;
+              });
+            }
+          }
+        })
+        .catch((err) => {
+          console.log(err);
         });
     },
-    createSchedule(data){
+    createSchedule(data) {
       console.log(data);
       axios
-          .post(`${SERVER_URL}/schedule/create`, data)
-          .then((response) => {
-            if (response.data.success === 'success') {
-              alert('일정 등록에 성공하셨습니다.');
-              this.getSchedule();
-            } else alert('일정 등록에 실패하셨습니다.');
-            //window.location.reload();
-            //this.back();
-          })
-          .catch(function(error) {
-            console.log(error);
-          });
+        .post(`${SERVER_URL}/schedule/create`, data)
+        .then((response) => {
+          if (response.data.success === 'success') {
+            alert('일정 등록에 성공하셨습니다.');
+            this.getSchedule();
+          } else alert('일정 등록에 실패하셨습니다.');
+          //window.location.reload();
+          //this.back();
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
     },
     insertItems() {
       console.log('아이템z' + this.list.length);
@@ -66,37 +159,76 @@ export default {
         // this.items[i].startDate = this.list[i].sdate;
         // this.items[i].endDate = this.list[i].edate;
         // this.items[i].title = this.list[i].title;
-        if(this.list[i].sId % 10 === 0){
-          this.color = "pink"
-        }else if(this.list[i].sId % 10 === 1){
-          this.color=""
-        }else if(this.list[i].sId % 10 === 2){
-          this.color = "purple"
-        }else if(this.list[i].sId % 10 === 3){
-          this.color = "orange"
-        }else if(this.list[i].sId % 10 === 4){
-          this.color = "mint"
-        }else if(this.list[i].sId % 10 === 5){
-          this.color = "lemon"
-        }else if(this.list[i].sId % 10 === 6){
-          this.color = "red"
-        }else if(this.list[i].sId % 10 === 7){
-          this.color = "green"
-        }else if(this.list[i].sId % 10 === 8){
-          this.color = "nureng"
-        }else if(this.list[i].sId % 10 === 9){
-          this.color = "ocean"
+        if (this.list[i].sId % 10 === 0) {
+          this.color = 'pink';
+        } else if (this.list[i].sId % 10 === 1) {
+          this.color = '';
+        } else if (this.list[i].sId % 10 === 2) {
+          this.color = 'purple';
+        } else if (this.list[i].sId % 10 === 3) {
+          this.color = 'orange';
+        } else if (this.list[i].sId % 10 === 4) {
+          this.color = 'mint';
+        } else if (this.list[i].sId % 10 === 5) {
+          this.color = 'lemon';
+        } else if (this.list[i].sId % 10 === 6) {
+          this.color = 'red';
+        } else if (this.list[i].sId % 10 === 7) {
+          this.color = 'green';
+        } else if (this.list[i].sId % 10 === 8) {
+          this.color = 'nureng';
+        } else if (this.list[i].sId % 10 === 9) {
+          this.color = 'ocean';
         }
         this.items.push({
           id: 'e' + this.list[i].sId,
           startDate: this.list[i].sdate,
           endDate: this.list[i].edate,
           title: this.list[i].title,
-          url:'#',
-          classes: this.color
+          url: '#',
+          classes: this.color,
+        });
+      }
+    },
+
+    insertGroupItems() {
+      console.log('아이템z' + this.list2.length);
+      for (var i in this.list2) {
+        // this.items[i].id = 'e' + this.list[i].sId;
+        // this.items[i].startDate = this.list[i].sdate;
+        // this.items[i].endDate = this.list[i].edate;
+        // this.items[i].title = this.list[i].title;
+        if (this.list2[i].sId % 10 === 0) {
+          this.color = 'pink';
+        } else if (this.list2[i].sId % 10 === 1) {
+          this.color = '';
+        } else if (this.list2[i].sId % 10 === 2) {
+          this.color = 'purple';
+        } else if (this.list2[i].sId % 10 === 3) {
+          this.color = 'orange';
+        } else if (this.list2[i].sId % 10 === 4) {
+          this.color = 'mint';
+        } else if (this.list2[i].sId % 10 === 5) {
+          this.color = 'lemon';
+        } else if (this.list2[i].sId % 10 === 6) {
+          this.color = 'red';
+        } else if (this.list2[i].sId % 10 === 7) {
+          this.color = 'green';
+        } else if (this.list2[i].sId % 10 === 8) {
+          this.color = 'nureng';
+        } else if (this.list2[i].sId % 10 === 9) {
+          this.color = 'ocean';
+        }
+        this.items.push({
+          id: 'e' + this.list2[i].sId,
+          startDate: this.list2[i].sdate,
+          endDate: this.list2[i].edate,
+          title: this.list2[i].title,
+          url: '#',
+          classes: this.color,
         });
       }
     },
   },
-}
+};
 </script>

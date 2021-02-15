@@ -84,6 +84,7 @@ export default {
           }
         })
         .catch(function(error) {
+          alert("그룹장인 경우 탈퇴가 불가능합니다.");
           console.log(error);
         });
     },

@@ -190,4 +190,33 @@ public class BoardController {
 		}
 		return entity;
 	}
+	
+	@GetMapping(value = "/countboard")
+	private ResponseEntity countBoard(@RequestParam String email) {
+		ResponseEntity entity = null;
+		//System.out.println("profile ========");
+		Map result = new HashMap();
+		try {
+			int num = board.countBoard(email);
+			if (num > -1) {
+				result.put("success", "success");
+				result.put("count", num);
+				entity = new ResponseEntity<>(result, HttpStatus.OK);
+				
+			}
+			else {
+				result.put("success", "fail");
+				entity = new ResponseEntity<>(result, HttpStatus.OK);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.put("success", "error");
+			entity = new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+			
+		}
+		return entity;
+	}
+	
+
 }

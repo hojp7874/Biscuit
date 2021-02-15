@@ -206,6 +206,7 @@ export default {
           window.location.reload();
         })
         .catch(function(error) {
+          alert("그룹장인 경우 닉네임 변경이 불가능합니다.");
           console.log(error);
         });
       }

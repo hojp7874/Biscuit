@@ -40,4 +40,6 @@
 	<update id="updateBoard" parameterType="map">update a407.board set title = #{title}, contents = #{contents}, noticeFlag = #{noticeFlag}, category= #{category} where bId = #{bId} and email = #{email}</update>
 	
 	<delete id="deleteBoard" parameterType="int">delete from a407.board where bId = #{bId}</delete>
+	
+	<select id="countBoard" parameterType="String" resultType="int">select count(*) from a407.board where email = #{email}</select>
 </mapper>
