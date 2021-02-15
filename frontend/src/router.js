@@ -18,12 +18,9 @@ import Join from './pages/Join.vue';
 import MyPage from './pages/MyPage.vue';
 import FindPw from './pages/FindPw.vue';
 import test from './pages/ImageUpload.vue';
-<<<<<<< Updated upstream
-=======
 import SignUpForm from './pages/components/SignupForm.vue';
 import ChatRoomList from './pages/Chat/ChatRoomList.vue';
 import ChatRoom from './pages/Chat/ChatRoom.vue';
->>>>>>> Stashed changes
 
 Vue.use(Router);
 
@@ -173,8 +170,6 @@ export default new Router({
         footer: { backgroundColor: 'black' }
       }
     },
-<<<<<<< Updated upstream
-=======
     {
       path: '/signup',
       name: 'signup',
@@ -202,7 +197,6 @@ export default new Router({
         footer: { backgroundColor: 'black' }
       }
     },
->>>>>>> Stashed changes
   ],
   scrollBehavior: to => {
     if (to.hash) {

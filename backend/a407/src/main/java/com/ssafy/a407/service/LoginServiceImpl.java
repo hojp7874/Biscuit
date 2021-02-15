@@ -18,40 +18,41 @@ public class LoginServiceImpl implements LoginService {
 	
 	@Override
 	public UserDto login(Map<String, String> map) throws Exception {
-		System.out.println("service : " + map);
+//		System.out.println("service : " + map);
 		return dao.login(map);
 	}
 
 	@Override
 	public int join(UserDto user) throws Exception {
-		System.out.println("service : " + user);
+//		System.out.println("service : " + user);
 		return dao.insertUser(user);
 	}
 
 	@Override
 	public int remove(Map mem) throws Exception {
-		// TODO Auto-generated method stub
-		System.out.println("service : " + mem);
+//		System.out.println("service : " + mem);
 		return dao.removeUser(mem);
 		
 	}
 
 	@Override
 	public int update(Map mem) throws Exception {
-		// TODO Auto-generated method stub
-		System.out.println("service : " + mem);
+//		System.out.println("service : " + mem);
 		return dao.updateUser(mem);
 	}
 
 	@Override
 	public int pwupdate(Map mem) throws Exception {
-		// TODO Auto-generated method stub
 		return dao.pwupdateUser(mem);
+	}
+	@Override
+	public int pwupdate2(Map mem) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.pwupdateUser2(mem);
 	}
 
 	@Override
 	public UserDto profile(String email) throws Exception {
-		// TODO Auto-generated method stub
 		return dao.profileUser(email);
 	}
 
@@ -62,8 +63,13 @@ public class LoginServiceImpl implements LoginService {
 
 	@Override
 	public List<String> profileName(String nickname) throws Exception {
-		// TODO Auto-generated method stub
 		return dao.profileUserName(nickname);
+	}
+
+	@Override
+	public int checkEmail(String email) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.checkEmail(email);
 	}
 
 }

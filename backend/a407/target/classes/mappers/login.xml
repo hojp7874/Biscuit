@@ -15,7 +15,9 @@
 	<delete id="removeUser" parameterType="map">delete from user where email = #{email} and password = #{password}</delete>
 	<update id="updateUser" parameterType="map">update user set nickname = #{nickname}, picture = #{picture}, phone = #{phone}, region = #{region} where email = #{email}</update>
 	<update id="pwupdateUser" parameterType="map">update user set password = #{newpassword} where email = #{email}</update>
+	<update id="pwupdateUser2" parameterType="map">update user set password = #{newpassword} where email = #{email} and password = #{password}</update>
 	<select id="profileUser" parameterType="String" resultType="UserDto">select * from user where email = #{email}</select>
+	<select id="checkEmail" parameterType="String" resultType="int">select count(*) from user where email = #{email}</select>
 	
 	<update id="updateAdmin" parameterType="map">
 		update user set admin = #{admin}

@@ -38,7 +38,7 @@ public class NotificationController {
 
 		ResponseEntity entity = null;
 		Map result = new HashMap();
-		System.out.println("hi " + notification.getReceiveEmail());
+//		System.out.println("hi " + notification.getReceiveEmail());
 		try {
 			if (service.createNotification(notification) == 1) {
 				result.put("success", "success");

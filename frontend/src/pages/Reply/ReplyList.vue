@@ -1,24 +1,25 @@
 <template>
       <b-row class="mb-1">
         <b-col>
-          <b-card border-variant="info" class="mb-2" no-body>
-            <!-- <template> -->
-              <b-row class="m-1">
-                <b-col class="text-left ml-3" 
-                  ><div class="d-flex align-items-center">
-                    <i class="now-ui-icons users_circle-08"></i>
-                    <strong>{{items.nickname}}</strong>
+          <div border-variant="info" class="row" no-body style="background-color:#f0f0f0; min-height:80px; border-radius:10px;">
+            <div class="col-md-1 col-sm-1"> <img src="img/ryan.jpg" class="rounded-circle" style="margin-top:15px" alt="" /> </div>
+            <div class="col-md-11" style="padding:0px"> 
+                <div class="text-left" 
+                  ><div class="d-flex align-items-center" style="margin-top:10px; padding:0">
+                   
+                    <strong style="margin-right:10px">{{items.nickname}}</strong>
                     <small>({{items.date}})</small>
                   </div>
-                </b-col>
-                <b-col class="text-right mr-3" v-show="user.email===items.email" >
+                </div>
+                <b-col class="text-right" v-show="user.email===items.email" >
                   <b-button @click="modifyClick" variant="link">수정</b-button>
                   <b-button @click="deleteReplyConfirm" variant="link">삭제</b-button>
                 </b-col>
-              </b-row>
+          
             <!-- </template> -->
-            <b-card-body class="text-left">
-              <div id="viewcomment" v-show="isView">
+            <hr style="margin:0px;">
+            <div class="text-left">
+              <div id="viewcomment" v-show="isView" v-html="items.contents.replace(/(?:\r\n|\r|\n)/g, '<br />')" style=" margin-top:10px; margin-right:30px; margin-bottom:10px; font-size:10pt">
                 {{items.contents}}
               </div>
 
@@ -29,7 +30,7 @@
                       <b-form-textarea
                         id="modicontents"
                         v-model="modicontents"
-                        placeholder="댓글 입력을 입력하세요."
+                        placeholder="댓글을 입력하세요."
                         rows="2"
                       ></b-form-textarea>
                     </b-col>
@@ -37,8 +38,13 @@
                   </b-row>
                 </b-form>
               </div>
-            </b-card-body>
-          </b-card>
+            </div>
+            </div>
+
+            <!-- <template> -->
+               
+             
+          </div>
         </b-col>
       </b-row>
 </template>
@@ -125,3 +131,10 @@ export default {
   },
 };
 </script>
+
+<style>
+#viewcomment {
+  margin-left: 30px;
+  margin-bottom: 10px;
+}
+</style>

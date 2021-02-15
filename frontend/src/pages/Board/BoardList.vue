@@ -1,20 +1,32 @@
 <template>
   <div>
     <div class="">
+
+        <div class="page-header clear-filter" filter-color="orange" style=" min-height:45vh" >
+      <parallax
+        class="page-header-image"
+
+        style="background-image:url('img/bg5.jpg'); height:600px"
+      >
+      </parallax>
+          
       <div class="content-center brand">
-        <center>
-          <h1 class="h1-seo" style="margin-top:150px; font-weight: bold; color: #363636">자유게시판</h1>
-        </center>
-        <div class="container">
+        <img class="n-logo" src="img/bisWhite.png" alt="" style="margin-top:100px" />
+        <h2 class="h2-seo" style="font-weight:bold">자유게시판</h2>
+
+        <div class="row">
+          <div class="col-md-1"></div>
+          <div class="col-md-10">
           <b-input-group>
             <template #prepend>
-              <b-select name="type" v-model="type">
+              <b-select name="type" style="border-radius:10px" v-model="type">
                 <b-select-option value="title">제목</b-select-option>
                 <b-select-option value="name">작성자</b-select-option>
                 <b-select-option value="contents">내용</b-select-option>
               </b-select>
             </template>
             <b-form-input
+            style="border-radius:10px; color:white; background-color:#11111155"
               type="text"
               v-model="word"
               @keyup.enter="fnSearch"
@@ -25,9 +37,26 @@
                 text="Button"
                 variant="primary"
                 class="btnSearch mt-0"
-                >검색</b-button>
+                style="border-radius:10px; font-weight: bold"
+
+                >
+                검색<i class="now-ui-icons ui-1_zoom-bold" style="margin-left:10px"></i></b-button>
             </b-input-group-append>
           </b-input-group>
+          </div>
+          </div>
+
+         
+      </div>
+    </div>
+      <div class="content-center brand">
+      
+
+
+        <div class="container">
+          
+
+
           <div class="listWrap"><br>
             <b-table
               id="my-table"
@@ -49,7 +78,7 @@
                 
               ></b-pagination>
               <div class="btnRightWrap">
-              <b-button @click="fnAdd" class="btnAdd m-1" style="background-color: #f96332" v-if="this.loginStatus.nickname">글쓰기</b-button>
+              <b-button @click="fnAdd" class="btnAdd m-1" style="border-radius:10px; background-color: #f96332; " v-if="this.loginStatus.nickname">글쓰기</b-button>
             </div>
           </div>
           </div>

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="page-header clear-filter" filter-color="orange">
-      <parallax class="page-header-image" style="background-image:url('img/bg5.jpg')"> </parallax>
+      <parallax class="page-header-image" :style="`background-image:url('${group.img}')`"> </parallax>
       <div class="container">
         <div class="photo-container">
           <img src="img/ryan.jpg" alt="" />
@@ -59,7 +59,7 @@
             <!-- <span v-if="applyCount != 0" class="badge badge-warning badge-pill" style="position: relative; right:45px; bottom:20px">1</span> -->
           </span>
         </div>
-        <component :is="componentLoading()" :gId="gId" :state="state"></component>
+        <component :is="componentLoading()" :gId="gId" :state="state" :groupName="group.groupName"></component>
         <group-board-list v-if="active==4" :gId ="gId"></group-board-list>
       </div>
     </div>

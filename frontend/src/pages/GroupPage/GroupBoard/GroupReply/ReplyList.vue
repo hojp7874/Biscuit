@@ -18,8 +18,8 @@
               </b-row>
             <!-- </template> -->
             <b-card-body class="text-left">
-              <div id="viewcomment" v-show="isView">
-                {{items.contents}}
+              <div id="viewcomment" v-show="isView" v-html="items.contents.replace(/(?:\r\n|\r|\n)/g, '<br />')"> <!-- v-html="description" -->
+                <!-- {{items.contents}} -->
               </div>
 
               <div id="modifyinput" v-show="!isView">
@@ -31,6 +31,7 @@
                         v-model="modicontents"
                         placeholder="댓글 입력을 입력하세요."
                         rows="2"
+                        @input="counting()"
                       ></b-form-textarea>
                     </b-col>
                     <b-col><b-button type="submit" variant="dark">수정</b-button> </b-col> 
@@ -47,7 +48,7 @@
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
 export default {
-  props : { reply : {} },
+  props : ['items'],
   data() {
     return {
       isView : true,
@@ -56,20 +57,26 @@ export default {
         nickname : localStorage.getItem("nickname"),
         email : localStorage.getItem("email")  //"ssafy@ssafy.com", //로그인 되어있는 유저 이메일 -> 현재 로그인 되어있는 유저로 바꿔야함
       },
-      items : [],
+      count : 0,
+      // description : '',
     }
   },
   created() {
-    this.items = this.$props.reply;
+    // console.log(this.$props['items'].contents);
+    // this.description = this.$props['items'].contents.replace(/(?:\r\n|\r|\n)/g, '<br />');
+  },
+  mounted() {
+    // this.description = this.$props['items'].contents.replace(/(?:\r\n|\r|\n)/g, '<br />');
   },
   methods: {
     modifyClick(){
       this.modicontents = this.items.contents;
+      this.count = this.modicontents.length;
       this.isView = !this.isView;
     },
     onSubmit(event) {
       event.preventDefault();
-      console.log("수정 : "+this.user.email +" / "+this.modicontents+" / "+this.rId);
+      // console.log("수정 : "+this.user.email +" / "+this.modicontents+" / "+this.rId);
 
       if(this.modicontents == '' || this.modicontents.trim() ==""){
          alert('작성된 댓글 내용이 존재하지 않습니다.');
@@ -84,7 +91,9 @@ export default {
         .then((res) => {
           if (res.data.success) {
             alert('수정되었습니다.');
-            this.$router.go(this.$router.currentRoute);
+            this.isView = !this.isView;
+            // this.description = this.modicontents.contents.replace(/(?:\r\n|\r|\n)/g, '<br />');
+            this.$emit('listbtn',0);
           } else {
             alert('실행중 실패했습니다.\n다시 이용해 주세요');
           }
@@ -100,13 +109,12 @@ export default {
       }
     },
     deleteReply(){
-      console.log("삭제 메소드");
       this.$axios
       .delete(`${SERVER_URL}/greply/delete`, {params: {rId : this.items.rId}})
       .then((res) => {
         if (res.data.success) {
           alert('삭제되었습니다.');
-          this.$router.go(this.$router.currentRoute);
+          this.$emit('listbtn',0);
         } else {
           alert('실행중 실패했습니다.\n다시 이용해 주세요');
         }
@@ -114,7 +122,20 @@ export default {
       .catch((err) => {
         console.log(err);
       })
-    }
+    },
+    counting(){
+      this.count = this.modicontents.length;
+      if(this.count >300){
+        this.modicontents = this.modicontents.substr(0,299);
+      }
+    },
   },
 };
 </script>
+
+<style>
+#viewcomment {
+  margin-left: 30px;
+  margin-bottom: 10px;
+}
+</style>

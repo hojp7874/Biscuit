@@ -38,10 +38,9 @@ public class BoardController {
 	//게시글 작성
 	@PostMapping(value = "/create")
 	private ResponseEntity create(@RequestBody BoardDto boardDto) {
-		System.out.println("create ========");
 		ResponseEntity entity = null;
 		Map result = new HashMap();
-		System.out.println(boardDto);
+//		System.out.println(boardDto);
 		try {
 			if(board.createBoard(boardDto) == 1) {
 				result.put("success", "success");
@@ -61,21 +60,20 @@ public class BoardController {
 	//게시글 보기
 	@GetMapping(value = "/read")
 	private ResponseEntity read(@RequestParam String type, @RequestParam String word, @RequestParam(defaultValue="0") int currentPage, @RequestParam(defaultValue="0") int category) {
-		System.out.println("read==========");
 		ResponseEntity entity = null;
 		Map result = new HashMap();
 		try {
-			System.out.println("controller. type : " + type + " word : " + word);
+//			System.out.println("controller. type : " + type + " word : " + word);
 			currentPage = currentPage * 10;
 			//전체 조회
 			if(type.equals("")) {
 				List<BoardDto> list = board.searchAll(currentPage, category);
-		        System.out.println(list);
+//		        System.out.println(list);
 		        if(list != null) {
 		            result.put("list", list);
 		            result.put("success", "success");
 		            entity = new ResponseEntity(result, HttpStatus.OK);
-		            System.out.println(entity);
+//		            System.out.println(entity);
 		        } else {
 		        	result.put("success", "fail");
 		        	entity = new ResponseEntity(result, HttpStatus.OK);
@@ -83,9 +81,8 @@ public class BoardController {
 			}
 			//bId로 검색
 			else if(type.equals("bId")) {
-//				System.out.println("tetetetetete");
 				List<BoardDto> list = board.searchBId(word);
-				System.out.println(list);
+//				System.out.println(list);
 				if(list != null) {
 					result.put("list", list);
 					result.put("success", "success");
@@ -98,7 +95,7 @@ public class BoardController {
 			//title로 검색
 			else if(type.equals("title")) {
 				List<BoardDto> list = board.searchTitle(word, currentPage, category);
-				System.out.println(list);
+//				System.out.println(list);
 				if(list != null) {
 					result.put("list", list);
 					result.put("success", "success");
@@ -112,7 +109,7 @@ public class BoardController {
 			else if(type.equals("name")) {
 				List<BoardDto> list = new ArrayList<BoardDto>();
 				list.addAll(board.searchName(word, currentPage, category));
-				System.out.println(list);
+//				System.out.println(list);
 				if(list != null) {
 					result.put("list", list);
 					result.put("success", "success");
@@ -125,7 +122,7 @@ public class BoardController {
 			//내용으로 검색
 			else if(type.equals("contents")) {
 				List<BoardDto> list = board.searchContents(word, currentPage, category);
-				System.out.println(list);
+//				System.out.println(list);
 				if(list != null) {
 					result.put("list", list);
 					result.put("success", "success");
@@ -148,10 +145,9 @@ public class BoardController {
 	@PutMapping(value = "/update")
 	private ResponseEntity update(@RequestBody Map mem) {
 		ResponseEntity entity = null;
-		System.out.println("update ========");
 		Map result = new HashMap();
 		try {
-			System.out.println(mem);
+//			System.out.println(mem);
 			if (board.update(mem) == 1) {
 				result.put("success", "success");
 				entity = new ResponseEntity<>(result, HttpStatus.OK);
@@ -175,7 +171,6 @@ public class BoardController {
 	@DeleteMapping(value = "/delete")
 	private ResponseEntity delete(@RequestHeader int bId) {
 		ResponseEntity entity = null;
-		System.out.println("delete =========");
 		Map result = new HashMap();
 		try {
 			if (board.delete(bId) == 1) {

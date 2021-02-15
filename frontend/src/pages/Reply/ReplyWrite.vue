@@ -77,7 +77,7 @@ export default {
           isRead : 0,
           type : 'reply',
           contentId : this.bId,
-          message : '당신의 게시글에 댓글이 달렸습니다.',
+          message : this.comments.nickname + '님이 당신의 게시글에 댓글을 달았습니다.',
           notiUrl : '/BoardRead?bId=' + this.bId,
         })
         .then((res) => {
