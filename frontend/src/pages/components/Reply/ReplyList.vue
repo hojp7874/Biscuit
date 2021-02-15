@@ -14,7 +14,7 @@
               </b-row>
             <!-- </template> -->
             <b-card-body class="text-left">
-              <div id="viewcomment" v-show="isView">
+              <div id="viewcomment" style="margin-left:30px" v-show="isView">
                 {{items.contents}}
               </div>
 
@@ -25,7 +25,7 @@
                       <b-form-textarea
                         id="modicontents"
                         v-model="modicontents"
-                        placeholder="댓글 입력을 입력하세요."
+                        placeholder="댓글을 입력하세요."
                         rows="2"
                       ></b-form-textarea>
                     </b-col>

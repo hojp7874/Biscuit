@@ -15,7 +15,7 @@
                 </colgroup>
                 <tr>
                   <th>제목</th>
-                  <td v-bind="title">{{ title }}</td>
+                  <td v-bind="title"><h5>{{ title }}</h5></td>
                 </tr>
                 <tr>
                   <th>작성자</th>

@@ -23,7 +23,8 @@
               </b-select>
             </b-input-group>
             </template>
-            <b-form-input type="text" style="border-radius:10px" v-model="params.word" @keypress.enter="searchGroup"></b-form-input>
+
+            <b-form-input type="text" style="border-radius:10px; color:white; background-color:#11111155" v-model="params.word" @keypress.enter="searchGroup"></b-form-input>
             <b-input-group-append>
               <b-button class="mt-0" style="border-radius:10px" text="Button" variant="primary" @click="searchGroup">검색<i class="now-ui-icons ui-1_zoom-bold" style="margin-left:10px"></i></b-button>
             </b-input-group-append>
@@ -47,7 +48,7 @@
               <h3 class="btn-lg" v-if="existMyGroups">{{loginStatus.nickname}}님의 스터디 목록입니다</h3>
           </div>
         </div>
-        <button class="btn-lg" v-if="existMyGroups">{{loginStatus.nickname}}님의 스터디 목록입니다</button>
+        <button class="btn-lg" v-if="existMyGroups">{{loginStatus.nickname}}님의 스터디 목록입니다!!</button>
         <h3 v-if="!existMyGroups" class="text-center">현재 가입한 스터디가 없습니다</h3>
         <b-card-group
           deck
@@ -111,7 +112,7 @@
               <!-- <b>모집기간: {{ group.edate }}</b><br> group.nickname-->
               <span class="badge badge-success" style="font-size:12px; color:#FFFFFF; margin-right:5px"><i class="now-ui-icons location_pin"></i> {{ group.region }}</span>
               <span class="badge badge-primary" style="font-size:12px; color:#FFFFFF; margin-right:5px"><i class="now-ui-icons location_bookmark"></i> {{ group.category }}</span>
-              <span class="badge badge-danger" style="font-size:12px; color:#FFFFFF; margin-right:5px"><i class="now-ui-icons ui-1_calendar-60"></i> {{ group.edate }}</span>
+              <span class="badge badge-danger" style="font-size:12px; color:#FFFFFF; margin-right:5px"><i class="now-ui-icons ui-1_calendar-60" id="dday"></i> {{ group.edate }}</span>
               <!-- <b>모임 주기: {{ group.cycle }}</b> -->
             </b-card-text>
             <template #footer>
@@ -212,7 +213,7 @@
     created() {
       this.myGroupList();
       this.groupList();
-      Vue.use(VueMoment);
+
     },
     computed: {
       ...mapState([
@@ -399,16 +400,57 @@
               res.data.list[i].edate = res.data.list[i].edate.split(' ')[0];
             }
             this.groups = res.data.list;
+
+            for(var group in this.groups){
+             //document.write({{group.edate}});
+            }
           })
           .catch((err) => {
             console.log(err);
           });
+
+    
       },
       goLogIn: function(){
         this.$router.push({ path: './login' });
       },
     }
   }
+
+  function counter(dates){
+    var dday2=dates;
+//var dday = new Date("Apr 7,2018,09:00:00").getTime(); //디데이
+		var dday = new Date("Jun 10,2020,23:59:59").getTime(); //디데이
+		setInterval(function(){
+			var now = new Date(); //현재 날짜 가져오기
+			var distance = dday - now;
+			var d = Math.floor(distance / (1000 * 60 * 60 * 24));
+			var h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+			var m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+			var s = Math.floor((distance % (1000 * 60)) / 1000);
+			var view = '';
+			if(s < 10){
+				s = '0'+s;
+			}
+			if (distance<0) {
+				//$('#dday-view').html('마감되었습니다.');
+			//	$('#dday-div').hide();
+			} else {
+				if (d>0) {
+					view = view+d+'일 ';
+				}
+				if (h>0) {
+					view = view+h+'시간 ';
+				}
+				if (m>0) {
+					view = view+m+'분 ';
+				}
+				$('#dday-view').html(view);
+        document.getElementById('dday').value = view;
+			}
+		}, 1000);
+	}
+	counter();
 </script>
 
 <style scoped>

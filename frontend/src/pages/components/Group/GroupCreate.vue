@@ -1,11 +1,23 @@
 <template>
-  <div>
-    <h1 class="m-5">그룹 생성</h1>
+  
+
+
+  <div class="container">
+
+<h1 class="m-5">그룹 생성!!</h1>
+    <div class="row">
+
+
+    </div>
+
+
+    <h1 class="m-5">그룹 생성!!</h1>
     <b-form @submit.prevent="onSubmit">
       <b-form-group id="input-group-1" label="스터디 이름:" label-for="input-1">
         <b-form-input
           id="input-1"
           v-model="form.groupName"
+          style="background-color:white"
           placeholder="스터디그룹 이름을 작명해주세요."
           required
         ></b-form-input>
@@ -62,7 +74,7 @@
         ></b-form-textarea>
       </b-form-group>
 
-      <b-button type="submit" variant="primary">Submit</b-button>
+      <b-button type="submit" variant="primary">스터디 생성하기</b-button>
     </b-form>
   </div>
 </template>
