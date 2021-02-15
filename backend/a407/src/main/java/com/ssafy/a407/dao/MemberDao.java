@@ -28,4 +28,7 @@ public interface MemberDao {
 	public Map applyState(Map map) throws Exception;
 	
 	public Map selectApplyCount(int gId) throws Exception;
+	
+	public List<Map> selectGroupId(String email) throws Exception;
+	public List<Map> selectFriends(String email) throws Exception;
 }

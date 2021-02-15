@@ -19,6 +19,8 @@ import MyPage from './pages/MyPage.vue';
 import FindPw from './pages/FindPw.vue';
 import test from './pages/ImageUpload.vue';
 import SignUpForm from './pages/components/SignupForm.vue';
+import ChatRoomList from './pages/Chat/ChatRoomList.vue';
+import ChatRoom from './pages/Chat/ChatRoom.vue';
 
 Vue.use(Router);
 
@@ -172,6 +174,24 @@ export default new Router({
       path: '/signup',
       name: 'signup',
       components: { default: SignUpForm, header: MainNavbar, footer: MainFooter },
+      props: {
+        header: { colorOnScroll: 0 },
+        footer: { backgroundColor: 'black' }
+      }
+    },
+    {
+      path: '/chatroomlist',
+      name: 'chatroomlist',
+      components: { default: ChatRoomList, header: MainNavbar, footer: MainFooter },
+      props: {
+        header: { colorOnScroll: 0 },
+        footer: { backgroundColor: 'black' }
+      }
+    },
+    {
+      path: '/chatroom',
+      name: 'chatroom',
+      components: { default: ChatRoom, header: MainNavbar, footer: MainFooter },
       props: {
         header: { colorOnScroll: 0 },
         footer: { backgroundColor: 'black' }
