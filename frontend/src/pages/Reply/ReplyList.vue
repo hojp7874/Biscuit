@@ -18,8 +18,7 @@
               </b-row>
             <!-- </template> -->
             <b-card-body class="text-left">
-              <div id="viewcomment" v-show="isView">
-                {{items.contents}}
+              <div id="viewcomment" v-show="isView" v-html="items.contents.replace(/(?:\r\n|\r|\n)/g, '<br />')">
               </div>
 
               <div id="modifyinput" v-show="!isView">

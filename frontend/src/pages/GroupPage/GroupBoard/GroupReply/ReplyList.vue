@@ -18,8 +18,8 @@
               </b-row>
             <!-- </template> -->
             <b-card-body class="text-left">
-              <div id="viewcomment" v-show="isView">
-                {{items.contents}}
+              <div id="viewcomment" v-show="isView" v-html="items.contents.replace(/(?:\r\n|\r|\n)/g, '<br />')"> <!-- v-html="description" -->
+                <!-- {{items.contents}} -->
               </div>
 
               <div id="modifyinput" v-show="!isView">
@@ -58,9 +58,15 @@ export default {
         email : localStorage.getItem("email")  //"ssafy@ssafy.com", //로그인 되어있는 유저 이메일 -> 현재 로그인 되어있는 유저로 바꿔야함
       },
       count : 0,
+      // description : '',
     }
   },
   created() {
+    // console.log(this.$props['items'].contents);
+    // this.description = this.$props['items'].contents.replace(/(?:\r\n|\r|\n)/g, '<br />');
+  },
+  mounted() {
+    // this.description = this.$props['items'].contents.replace(/(?:\r\n|\r|\n)/g, '<br />');
   },
   methods: {
     modifyClick(){
@@ -86,6 +92,7 @@ export default {
           if (res.data.success) {
             alert('수정되었습니다.');
             this.isView = !this.isView;
+            // this.description = this.modicontents.contents.replace(/(?:\r\n|\r|\n)/g, '<br />');
             this.$emit('listbtn',0);
           } else {
             alert('실행중 실패했습니다.\n다시 이용해 주세요');

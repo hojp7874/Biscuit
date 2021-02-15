@@ -24,7 +24,7 @@
                 </tr>
                 <tr>
                   <th>내용</th>
-                  <td class="txt_cont" v-bind="contents">{{ contents }}</td>
+                  <td class="txt_cont" v-bind="contents" v-html="contents.replace(/(?:\r\n|\r|\n)/g, '<br />')"></td>
                 </tr>
               </table>
             </form>
@@ -42,7 +42,7 @@
           <div>
             <!-- <ReplyList v-for="(reply,index) in showList" :reply="reply" :key="index" /> -->
             <group-reply-list v-for="(items,index) in showList" :items="items" :key="index" @listbtn="changeMode" ></group-reply-list>
-            <b-pagination v-model="replyPage" pills :total-rows="pageCnt" per-page="10" align="center" @page-click="getList(page)"></b-pagination>
+            <b-pagination  class="pagination pagination-primary" v-model="replyPage" pills :total-rows="pageCnt" per-page="10" align="center" @page-click="getList(page)"></b-pagination>
           </div>
         </div>
         <div class="container" v-if="mode==1">
@@ -114,6 +114,7 @@ export default {
       // console.log("IN CHANGE MODE");
       this.fnGetView();
       this.getList();
+      this.pageCnt = 1;
       // this.mode = 5;
       this.mode = num;
     },
@@ -132,7 +133,7 @@ export default {
           },
         })
         .then((res) => {
-          // console.log(res.data);
+          console.log(res.data);
           this.title = res.data.list[0].title;
           this.contents = res.data.list[0].contents;
           this.email = res.data.list[0].email;
