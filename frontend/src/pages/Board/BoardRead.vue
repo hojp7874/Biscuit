@@ -15,15 +15,15 @@
                 </colgroup>
                 <tr>
                   <th>제목</th>
-                  <td v-bind="title">{{ title }}</td>
+                  <td v-bind="title"><h5>{{ title }}</h5></td>
                 </tr>
                 <tr>
                   <th>작성자</th>
                   <td v-bind="nickname">{{ nickname }}</td>
                 </tr>
                 <tr>
-                  <th>내용</th>
-                  <td class="txt_cont" v-bind="contents">{{ contents }}</td>
+                  
+                  <td colspan="2" class="txt_cont" v-bind="contents">{{ contents }}</td>
                 </tr>
               </table>
             </form>

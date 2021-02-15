@@ -67,7 +67,7 @@
               <h3 class="btn-lg" v-if="existMyGroups">{{loginStatus.nickname}}님의 스터디 목록입니다</h3>
           </div>
         </div>
-        <button class="btn-lg" v-if="existMyGroups">{{loginStatus.nickname}}님의 스터디 목록입니다</button>
+        <button class="btn-lg" v-if="existMyGroups">{{loginStatus.nickname}}님의 스터디 목록입니다!!</button>
         <h3 v-if="!existMyGroups" class="text-center">현재 가입한 스터디가 없습니다</h3>
 
 

@@ -12,7 +12,7 @@
               ></b-form-textarea>
         </b-col>
         <b-col>
-          <b-button type="submit" class="btnAdd m-1">등록</b-button>
+          <b-button type="submit" class="btnAdd col-md-2 col-sm-4">등록</b-button>
         </b-col> 
       </b-row>
     </b-form>
