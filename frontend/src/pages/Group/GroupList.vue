@@ -23,43 +23,23 @@
               </b-select>
             </b-input-group>
             </template>
-
             <b-form-input type="text" style="border-radius:10px" v-model="params.word" @keypress.enter="searchGroup"></b-form-input>
             <b-input-group-append>
               <b-button class="mt-0" style="border-radius:10px" text="Button" variant="primary" @click="searchGroup">검색<i class="now-ui-icons ui-1_zoom-bold" style="margin-left:10px"></i></b-button>
             </b-input-group-append>
           </b-input-group>
         </div>
-
          <div><i class="now-ui-icons arrows-1_minimal-down"></i></div>
       </div>
     </div>
-
-
-
     <div class="col-md-8">
-       
     </div>
-   
-
-
     <div class="container" style="margin-top:50px">
       <div class="row">
         <div class="col-md-8">
-
           <button class="btn col-md-8">wowwow</button>
         </div>
-
-
-
-
       </div>
-
-
-
-
-
-    
       <div v-if="loginStatus.nickname">
         <div role="alert" class="alert alert-info">
           <div class="container">
@@ -69,13 +49,6 @@
         </div>
         <button class="btn-lg" v-if="existMyGroups">{{loginStatus.nickname}}님의 스터디 목록입니다</button>
         <h3 v-if="!existMyGroups" class="text-center">현재 가입한 스터디가 없습니다</h3>
-
-
-          
-
-
-
-
         <b-card-group
           deck
           class="d-flex flex-row"
@@ -124,7 +97,7 @@
             
           <b-card
             data-aos="flip-left"
-            @click="$bvModal.show(`group-${idx}`), getPermission(group.gId)"
+            @click="$bvModal.show(`group-${idx}`), getPermission(group.gId), getPicture(group.email)"
             :img-src="group.img"
             img-alt="Image"
             img-top
@@ -160,35 +133,29 @@
               </div>
                <h3 class="text-center">{{group.groupName}}</h3>
                 <div class="content-center brand">
-              <div class="jumbotron text-white jumbotron-image shadow">
-                
-              <div class="content-center brand">
-                <div class="content-center">
-                  <div class="col-md-4"><img class="rounded-circle" src="img/ryan.jpg" alt="">
-                  <div class="col-md-4"><h4>{{group.nickname}}</h4>
+                  <div class="jumbotron text-white jumbotron-image shadow">
+                    <div class="content-center brand">
+                      <div class="content-center">
+                        <div class="col-md-4"><img class="rounded-circle" :src="picture" alt="" id="pic"></div>
+                        <div class="col-md-5"><h4>{{group.nickname}}</h4></div>
+                        <h5>모집인원: {{ group.max }}명</h5>
+                        <p>온라인 여부: {{ group.onoff }}</p>
+                        <p>모집기간: {{ group.edate }}</p>
+                        <p>지역: {{ group.region }}</p>
+                        <p>모임 주기: {{ group.cycle }}</p>
+                      </div>
+                      <div>
+                        <b-button id="none" @click="applyGroup(group.gId,group.email,group.groupName)" pill variant="primary">스터디 참가하기</b-button>
+                        <b-button id="wait" @click="removeApply(group.gId)" pill variant="secondary">스터디 참가 신청 취소하기</b-button>
+                        <b-button id="mine" pill variant="primary">당신의 스터디 그룹입니다</b-button>
+                        <b-button id="ban" pill variant="danger">당신은 이 스터디에서 추방되었습니다</b-button>
+                        <b-button v-if="!loginStatus.token" @click="goLogIn()" pill variant="secondary">스터디에 참여하려면 로그인 해주세요</b-button>
+                      </div>
+                    </div>
+                  <hr style="height:50px">
+                  <p>{{ group.groupDesc }}</p>
                 </div>
-                  
-                  </div>
-                  
-                  <h5>모집인원: {{ group.max }}명</h5>
-                  <p>온라인 여부: {{ group.onoff }}</p>
-                  <p>모집기간: {{ group.edate }}</p>
-                  <p>지역: {{ group.region }}</p>
-                  <p>모임 주기: {{ group.cycle }}</p>
-                </div>
-                <div>
-                  <b-button id="none" @click="applyGroup(group.gId,group.email,group.groupName)" pill variant="primary">스터디 참가하기</b-button>
-                  <b-button id="wait" @click="removeApply(group.gId)" pill variant="secondary">스터디 참가 신청 취소하기</b-button>
-                  <b-button id="mine" pill variant="primary">당신의 스터디 그룹입니다</b-button>
-                  <b-button id="ban" pill variant="danger">당신은 이 스터디에서 추방되었습니다</b-button>
-                  <b-button v-if="!loginStatus.token" @click="goLogIn()" pill variant="secondary">스터디에 참여하려면 로그인 해주세요</b-button>
-                </div>
-
               </div>
-              <hr style="height:50px">
-              <p>{{ group.groupDesc }}</p>
-              </div>
-                </div>
 
               <hr>
 
@@ -231,6 +198,7 @@
     },
     data() {
       return {
+        picture: '',
         params: {
           type: 'groupName',
           word: '',
@@ -244,7 +212,7 @@
     created() {
       this.myGroupList();
       this.groupList();
-       Vue.use(VueMoment);
+      Vue.use(VueMoment);
     },
     computed: {
       ...mapState([
@@ -310,6 +278,22 @@
             mine.style.display = "none"
             ban.style.display = "none"
           })
+      },
+      getPicture(email) {
+        axios.get(`${SERVER_URL}/user/profile`, {params: {email: email}})
+          .then(res => {
+            const picture = res.data.User.picture
+            if(picture == null) {
+              this.picture = "https://images.unsplash.com/photo-1519400197429-404ae1a1e184?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=80"
+            } else {
+              this.picture = picture
+            }
+
+         })
+         .catch(err => {
+           console.log(err)
+         })
+
       },
       removeApply: function(gId) {
         axios.delete(`${SERVER_URL}/group/member/cancel`,
@@ -397,7 +381,7 @@
             },
           })
           .then((res) => {
-            console.log(res)
+            // console.log(res)
             if (res.data.list.length != 0) {
               this.existMyGroups = true
             }
@@ -411,6 +395,9 @@
         axios
           .get(`${SERVER_URL}/group/list/`, { params: this.params })
           .then((res) => {
+            for (let i = 0; i < res.data.list.length; i++) {
+              res.data.list[i].edate = res.data.list[i].edate.split(' ')[0];
+            }
             this.groups = res.data.list;
           })
           .catch((err) => {
@@ -418,9 +405,9 @@
           });
       },
       goLogIn: function(){
-         this.$router.push({ path: './login' });
-      }
-    },
+        this.$router.push({ path: './login' });
+      },
+    }
   }
 </script>
 
