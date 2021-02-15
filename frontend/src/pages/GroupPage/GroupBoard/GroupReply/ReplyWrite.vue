@@ -58,7 +58,7 @@ export default {
         .post(`${SERVER_URL}/greply/create`, {
           email : this.comments.email,
           nickname : this.comments.nickname,
-          contents : this.comments.contents,
+          contents : this.comments.contents.length>300?this.comments.contents.substr(0,300):this.comments.contents,
           bId : this.bId
         })
         .then((res) => {
@@ -80,7 +80,7 @@ export default {
     counting(){
       this.count = this.comments.contents.length;
       if(this.count >300){
-        this.comments.contents = this.comments.contents.substr(0,299);
+        this.comments.contents = this.comments.contents.substr(0,300);
       }
     },
   },

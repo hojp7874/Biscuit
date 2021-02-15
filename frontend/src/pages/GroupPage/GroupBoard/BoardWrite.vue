@@ -75,7 +75,7 @@ export default {
         email: localStorage.getItem("email"),
         nickname: localStorage.getItem("nickname"),
         title: this.title,
-        contents: this.contents,
+        contents: this.contents.length>5000? this.contents.substr(0,5000):this.contents,
         gId : this.$props.gId,
       };
       if(this.form.title=='' || this.form.title.trim()==""){
