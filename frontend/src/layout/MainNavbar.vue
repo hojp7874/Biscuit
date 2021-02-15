@@ -24,11 +24,12 @@
     </template>
     <template slot="navbar-menu">
       <router-link class="navbar-brand" to="/grouplist">
-        <i class="now-ui-icons arrows-1_cloud-download-93"> 스터디 찾기</i>
+        <i class="now-ui-icons arrows-1_cloud-download-93" style="font-size: 15px"> 스터디 찾기</i>
       </router-link>
       <drop-down
         tag="li"
         title="게시판"
+        style="font-size: 21px"
         icon="now-ui-icons design_app"
         class="nav-item"
       >
@@ -46,10 +47,12 @@
       </drop-down>
 
       <div class="d-flex align-items-center">
-        <img :src="loginStatus.picture" alt="" class="rounded-circle" style="width:30px; height:30px">
+        <img v-if="this.token" :src="loginStatus.picture" alt="" class="rounded-circle" style="width:40px; height:40px">
+        
         <drop-down
           tag="li"
           :title="loginStatus.nickname + ' 님'"
+          style="font-size: 21px"
           class="nav-item"
           v-if="this.token !== ''"
         >
@@ -102,7 +105,7 @@
 
       <li class="nav-item">
         <a
-          class="nav-link btn btn-neutral"
+          class="nav-link btn btn-primary"
           v-on:click="goToLogin()"
           target="_blank"
           v-if="this.token === ''"
@@ -111,7 +114,7 @@
           <p>로그인</p>
         </a>
         <a
-          class="nav-link btn btn-neutral"
+          class="nav-link btn btn-primary"
           v-on:click="onClickLogout()"
           target="_blank"
           v-else

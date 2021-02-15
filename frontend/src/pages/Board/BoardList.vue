@@ -139,7 +139,7 @@ export default {
       'loginStatus'
     ]),
   },
-  mounted() {
+  created() {
     //페이지 시작하면은 자동 함수 실행
     this.fnGetList();
   },
@@ -155,7 +155,20 @@ export default {
       axios
         .get(`${SERVER_URL}/board/read`, { params: this.form })
         .then((res) => {
-          console.log(res)
+          let today = new Date()
+          let year = today.getFullYear()
+          let month = ("0" + (today.getMonth()+1)).slice(-2)
+          let day = ("0" + today.getDate()).slice(-2)
+          today = year + '-' + month + '-' + day
+          for (let i = 0; i < res.data.list.length; i++) {
+            const datetime = res.data.list[i].date;
+            if(datetime.split(' ')[0] == today) {
+              res.data.list[i].date = datetime.split(' ')[1].slice(0, 5)
+            } else {
+              res.data.list[i].date = datetime.split(' ')[0]
+            }
+          }
+
           this.list = res.data.list.sort((a, b) => {
             return b.bid - a.bid;
           });
