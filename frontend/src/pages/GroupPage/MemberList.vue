@@ -130,7 +130,8 @@ export default {
         })
         .then((res) => {
           if (res.data.success == 'success') {
-               this.$router.go(this.$router.currentRoute);
+            //  this.$router.go(this.$router.currentRoute);
+            this.$emit('changemember',5);
           }
         });
     },
@@ -187,6 +188,7 @@ export default {
           if (res.data.success) {
             console.log('receiveEmail >>> ' + this.email);
             // alert('등록되었습니다.');
+            this.$emit('changemember',3);
           } else {
             console.log('알림 전송 실패');
           }
