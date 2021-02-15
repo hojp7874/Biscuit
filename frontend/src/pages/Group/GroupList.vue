@@ -71,7 +71,7 @@
                 {{group.groupDesc}}
               </b-card-text>
               <template #footer>
-                <small class="text-muted">Last updated 3 mins ago</small>
+                <small class="text-muted"></small>
               </template>
             </b-card>
           </b-col>
@@ -116,7 +116,7 @@
               <!-- <b>모임 주기: {{ group.cycle }}</b> -->
             </b-card-text>
             <template #footer>
-              <small class="text-muted">Last updated 3 mins ago</small>
+              <!-- <small class="text-muted">Last updated 3 mins ago</small> -->
             </template>
           </b-card>
           <b-modal
