@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="page-header clear-filter" filter-color="orange">
-      <parallax class="page-header-image" style="background-image:url('img/bg5.jpg')"> </parallax>
+      <parallax class="page-header-image" :style="`background-image:url('${group.img}')`"> </parallax>
       <div class="container">
         <div class="photo-container">
           <img src="img/ryan.jpg" alt="" />
