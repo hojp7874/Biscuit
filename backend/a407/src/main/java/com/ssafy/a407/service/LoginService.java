@@ -13,6 +13,7 @@ public interface LoginService {
 	public int pwupdate(Map mem) throws Exception;
 	public int pwupdate2(Map mem) throws Exception;
 	public int updateAdmin(Map mem) throws Exception;
+	public int checkEmail(String email) throws Exception;
 	
 	public UserDto profile(String email) throws Exception;
 	// nickname으로 User 호출하기
