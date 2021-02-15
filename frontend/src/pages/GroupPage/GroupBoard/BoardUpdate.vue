@@ -87,7 +87,7 @@ export default {
 
       this.form = {
         title: this.title,
-        contents: this.contents,
+        contents: this.contents.length>5000? this.contents.substr(0,5000):this.contents,
         noticeFlag: this.noticeFlag,
         category: this.category,
         bId: this.bId,
