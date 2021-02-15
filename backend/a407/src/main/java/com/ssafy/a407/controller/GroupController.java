@@ -43,7 +43,6 @@ public class GroupController {
 	@DeleteMapping(value = "/delete")
 	private ResponseEntity delete(@RequestHeader int gId) {
 		ResponseEntity entity = null;
-		System.out.println("delete =========");
 		Map result = new HashMap();
 		try {
 			if (group.remove(gId) == 1) {
@@ -79,10 +78,10 @@ public class GroupController {
 		ResponseEntity entity = null;
 		Map result = new HashMap();
 		try {
-			System.out.println("controller. type : " + type + " word : " + word);
+//			System.out.println("controller. type : " + type + " word : " + word);
 			if(type.equals("")) {
 				List<GroupDto> list = group.searchList();
-		        System.out.println(list);
+//		        System.out.println(list);
 		        if(list != null) {
 		            result.put("list", list);
 		            result.put("success", "success");
@@ -94,7 +93,7 @@ public class GroupController {
 			}
 			else if(type.equals("groupName")) {
 				List<GroupDto> list = group.searchGroupName(word);
-				System.out.println(list);
+//				System.out.println(list);
 				if(list != null) {
 					result.put("list", list);
 					result.put("success", "success");
@@ -106,7 +105,7 @@ public class GroupController {
 			}
 			else if(type.equals("groupDesc")) {
 				List<GroupDto> list = group.searchGroupDesc(word);
-				System.out.println(list);
+//				System.out.println(list);
 				if(list != null) {
 					result.put("list", list);
 					result.put("success", "success");
@@ -118,7 +117,7 @@ public class GroupController {
 			}
 			else if(type.equals("category")) {
 				List<GroupDto> list = group.searchCategory(word);
-				System.out.println(list);
+//				System.out.println(list);
 				if(list != null) {
 					result.put("list", list);
 					result.put("success", "success");
@@ -130,7 +129,7 @@ public class GroupController {
 			}
 			else if(type.equals("region")) {
 				List<GroupDto> list = group.searchRegion(word);
-				System.out.println(list);
+//				System.out.println(list);
 				if(list != null) {
 					result.put("list", list);
 					result.put("success", "success");
@@ -163,7 +162,6 @@ public class GroupController {
 	@PutMapping(value = "/update")
 	private ResponseEntity update(@ApiParam(value = "필요한 정보 : email, max, ...", required = true) @RequestBody Map mem) {
 		ResponseEntity entity = null;
-		System.out.println("update ========");
 		Map result = new HashMap();
 		try {
 			if (group.update(mem) == 1) {
@@ -194,7 +192,7 @@ public class GroupController {
 	//group 생성할 때 member에도 추가해야됨
 	@PostMapping(value = "/create")
     private ResponseEntity register(@RequestBody GroupDto groupDto) {
-		System.out.println("controller >> " + groupDto.toString());
+//		System.out.println("controller >> " + groupDto.toString());
 		ResponseEntity entity = null;
 		Map result = new HashMap();
 		String ctg = groupDto.getCategory();

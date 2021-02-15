@@ -12,6 +12,7 @@ export default new Vuex.Store({
       admin: localStorage.getItem("admin"),
       phone: localStorage.getItem("phone"),
       region: localStorage.getItem("region"),
+      picture: localStorage.getItem("picture"),
       myStudyNum:0
     },
   },
