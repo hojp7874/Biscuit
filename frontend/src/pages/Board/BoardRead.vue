@@ -23,7 +23,7 @@
                 </tr>
                 <tr>
                   <th>내용</th>
-                  <td class="txt_cont" v-bind="contents">{{ contents }}</td>
+                  <td class="txt_cont" v-bind="contents" v-html="contents.replace(/(?:\r\n|\r|\n)/g, '<br />')"></td>
                 </tr>
               </table>
             </form>
