@@ -77,7 +77,6 @@
           </b-col>
         </b-card-group>
       </div>
-      <card></card>
       <div class="d-flex justify-content-end">
         <b-button v-show="loginStatus.email" variant="primary" @click="goCreate">스터디생성</b-button>
       </div>
@@ -89,7 +88,7 @@
         <div class="row">
     
         <div class="col-12 col-sm-6 col-md-4 col-lg-4"
-          v-for="(group, idx) in groups"
+          v-for="(group, idx) in groups.slice().reverse()"
           :key="idx"
           :group="group"
         >
@@ -121,6 +120,8 @@
           </b-card>
           <b-modal
             :id="'group-'+idx"
+            hide-footer
+            hide-header
             size="lg"
           >
             <!-- :title="''+group.groupName" -->
@@ -184,7 +185,6 @@
 <script>
   import {mapState} from 'vuex'
   import axios from 'axios'
-  import card from '@/components/Cards/Card'
   
   const SERVER_URL = process.env.VUE_APP_SERVER_URL
 
@@ -195,7 +195,7 @@
 
   export default {
     name: "Group",
-    components: { card
+    components: {
     },
     data() {
       return {

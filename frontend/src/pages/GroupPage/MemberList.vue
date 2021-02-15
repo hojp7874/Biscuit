@@ -12,7 +12,7 @@
         <div class="row">
         <div class="col-md-6">
       <h3>신청자 목록</h3>
-      <ul class="list-group">
+      <ul class="list-group" v-if="applys.length != 0">
         <li
           class="list-group-item list-group-item-action"
           v-for="(item, index) in applys"
@@ -38,6 +38,7 @@
           </div>
         </li>
       </ul>
+      <p v-if="applys.length == 0">아직 스터디 신청자가 없습니다.</p>
       </div>
       <div class="col-md-6">
       <h3>스터디원 목록</h3>

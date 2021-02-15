@@ -44,20 +44,24 @@
           게시판
         </a>
       </drop-down>
-      <drop-down
-        tag="li"
-        title="마이페이지"
-        icon="now-ui-icons design_image"
-        class="nav-item"
-        v-if="this.token !== ''"
-      >
-        <!-- <nav-link to="/landing">
-          <i class="now-ui-icons education_paper"></i> Landing
-        </nav-link> -->
-        <nav-link to="/profile">
-          <i class="now-ui-icons users_single-02"></i> MyPage
-        </nav-link>
-      </drop-down>
+
+      <div class="d-flex align-items-center">
+        <img :src="loginStatus.picture" alt="" class="rounded-circle" style="width:30px; height:30px">
+        <drop-down
+          tag="li"
+          :title="loginStatus.nickname + ' 님'"
+          class="nav-item"
+          v-if="this.token !== ''"
+        >
+          <!-- icon="now-ui-icons design_image" -->
+          <!-- <nav-link to="/landing">
+            <i class="now-ui-icons education_paper"></i> Landing
+          </nav-link> -->
+          <nav-link to="/profile">
+            <i class="now-ui-icons users_single-02"></i> MyPage
+          </nav-link>
+        </drop-down>
+      </div>
       <!-- <div class="alert-icon">
         <i class="now-ui-icons ui-1_bell-53" style="background-color:white"></i>
       </div> -->
@@ -164,6 +168,7 @@
 import { DropDown, Navbar, NavLink } from '@/components';
 import { Popover } from 'element-ui';
 import axios from 'axios';
+import { mapState } from 'vuex';
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 export default {
   name: 'main-navbar',
@@ -180,6 +185,11 @@ export default {
   props: {
     transparent: Boolean,
     colorOnScroll: Number,
+  },
+  computed: {
+    ...mapState([
+      'loginStatus'
+    ])
   },
   components: {
     DropDown,
