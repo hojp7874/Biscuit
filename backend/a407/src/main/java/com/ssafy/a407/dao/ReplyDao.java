@@ -14,4 +14,6 @@ public interface ReplyDao {
 	public int deleteReply(int rId) throws Exception;
 	public int getReplyListCnt(int bId) throws Exception;
 	public List<ReplyDto> getReplyList(Map map) throws Exception;
+	public int countReply(String email) throws Exception;
+	
 }
