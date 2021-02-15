@@ -159,29 +159,32 @@ export default {
           .then(res => {
             console.log(res.data.message)
             this.user.picture = SERVER_URL + "/file/read/" + res.data.message
-            axios
-            .put(`${SERVER_URL}/user/update`, this.user, {
-              headers: {
-                'x-access-token': localStorage.getItem('token'),
-              },
-            })
-            .then((response) => {
-              if (response.data.success === 'success') {
-                console.log(this.user.region);
-                alert('정보 수정에 성공하셨습니다.');
-                localStorage.setItem('region', this.user.region);
-                localStorage.setItem('nickname', this.user.nickname);
-                localStorage.setItem('phone', this.user.phone);
-                this.$router.push('/');
-              } else alert('정보 수정에 실패하셨습니다.');
-            })
-            .catch(function(error) {
-              console.log(error);
-            });
-
+            axios.put(`${SERVER_URL}/user/update`, this.user, {
+                headers: {
+                  'x-access-token': localStorage.getItem('token'),
+                },
+              })
+              .then((response) => {
+                if (response.data.success === 'success') {
+                  console.log(this.user.region);
+                  alert('정보 수정에 성공하셨습니다.');
+                  localStorage.setItem('picture', this.user.picture);
+                  localStorage.setItem('region', this.user.region);
+                  localStorage.setItem('nickname', this.user.nickname);
+                  localStorage.setItem('phone', this.user.phone);
+                } else {
+                  alert('정보 수정에 실패하셨습니다.');
+                }
+              })
+              .catch(err => {
+                console.log(err);
+              });
+            this.$router.push('/');
+            window.location.reload();
           })
           .catch(err => {
             console.log(err)
+            alert('이미지 용량이 너무 큽니다.');
           })
 
       } else {
@@ -198,8 +201,9 @@ export default {
             localStorage.setItem('region', this.user.region);
             localStorage.setItem('nickname', this.user.nickname);
             localStorage.setItem('phone', this.user.phone);
-            this.$router.push('/');
           } else alert('정보 수정에 실패하셨습니다.');
+          this.$router.push('/');
+          window.location.reload();
         })
         .catch(function(error) {
           console.log(error);
