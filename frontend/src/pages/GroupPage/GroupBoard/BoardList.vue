@@ -159,7 +159,7 @@ export default {
           this.list = res.data.list.sort((a, b) => {
             return b.bId - a.bId;
           });
-          console.log(this.list.length);
+          // console.log(this.list.length);
         });
     },
 
@@ -177,13 +177,13 @@ export default {
     rowClick(record) {
       // 'record' will be the row data from items
       // `index` will be the visible row number (available in the v-model 'shownItems')
-      console.log(record.bId);
+      // console.log(record.bId);
       this.fnView(record.bId);
     },
     fnSearch() {
       //검색
-      console.log(this.type);
-      console.log(this.word);
+      // console.log(this.type);
+      // console.log(this.word);
       this.fnGetList();
     },
     fnPage(n) {

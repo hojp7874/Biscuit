@@ -41,8 +41,8 @@
           <group-reply-write :info="info" @wirtereply="changeMode" v-if="this.loginStatus.nickname" />
           <div>
             <!-- <ReplyList v-for="(reply,index) in showList" :reply="reply" :key="index" /> -->
-            <group-reply-list v-for="(items,index) in list" :items="items" :key="index"></group-reply-list>
-            <b-pagination-nav v-model="currentPage" pills :total-rows="pageCnt" per-page="10" align="center" @page-click="getList(page)" ></b-pagination-nav>
+            <group-reply-list v-for="(items,index) in showList" :items="items" :key="index" @listbtn="changeMode" ></group-reply-list>
+            <b-pagination v-model="replyPage" pills :total-rows="pageCnt" per-page="10" align="center" @page-click="getList(page)"></b-pagination>
           </div>
         </div>
         <div class="container" v-if="mode==1">
@@ -59,6 +59,7 @@ import axios from 'axios';
 import GroupReplyWrite from './GroupReply/ReplyWrite.vue';
 import GroupReplyList from './GroupReply/ReplyList.vue';
 import GroupBoardUpdate from './BoardUpdate.vue';
+
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
 export default {
@@ -68,7 +69,7 @@ export default {
   components: {
     GroupReplyWrite,
     GroupReplyList,
-    GroupBoardUpdate
+    GroupBoardUpdate,
   },
   data() {
     return {
@@ -96,9 +97,9 @@ export default {
     ...mapState([
       'loginStatus'
     ]),
-    // showList: function() {
-    //   return this.list.slice(10*(this.replyPage-1), 10*this.replyPage)
-    // },
+    showList: function() {
+      return this.list.slice(10*(this.replyPage-1), 10*this.replyPage)
+    },
   },
   created() {
     this.bId = this.$props['info'].bId;
@@ -106,13 +107,13 @@ export default {
   },
   mounted() {
     this.fnGetView();
-    this.getList(1);
+    this.getList();
   },
   methods: {
     changeMode(num){
-      console.log("IN CHANGE MODE");
+      // console.log("IN CHANGE MODE");
       this.fnGetView();
-      this.getList(1);
+      this.getList();
       // this.mode = 5;
       this.mode = num;
     },
@@ -131,7 +132,7 @@ export default {
           },
         })
         .then((res) => {
-          console.log(res.data);
+          // console.log(res.data);
           this.title = res.data.list[0].title;
           this.contents = res.data.list[0].contents;
           this.email = res.data.list[0].email;
@@ -184,23 +185,18 @@ export default {
           });
       }
     },
-    getList(num) {
-      console.log("REPLY GET LIST");
+    getList() {
+      // console.log("REPLY GET LIST");
       this.$axios
         .get(`${SERVER_URL}/greply/list`, {
           params: {
-            page: num, 
+            page: 1, 
             bId: this.bId,
           },
         })
         .then((res) => {
-          console.log(res);
-          this.list = null;
-          // this.pageCnt = 0;
-          this.list = res.data["list"];
-          this.currentPage = res.data["pagination"].curPage;          
-          this.pageCnt = res.data["pagination"].pageCnt;
-          console.log("cnt " +res.data["pagination"].pageCnt);
+          this.list = res.data["list"];     
+          this.pageCnt = this.list.length;
         })
         .catch((err) => {
           console.log(err);
@@ -232,4 +228,36 @@ export default {
   text-align: center;
   margin: 20px 0 0 0;
 }
+
+
+.pagination {
+  margin: 20px 0 0 0;
+  text-align: center;
+}
+.first,
+.prev,
+.next,
+.last {
+  border: 1px solid #666;
+  margin: 0 5px;
+}
+.pagination span {
+  display: inline-block;
+  padding: 0 5px;
+  color: #333;
+}
+.pagination a {
+  text-decoration: none;
+  display: inline-blcok;
+  padding: 0 5px;
+  color: #666;
+}
+.pagination .page-item.active>.page-link{
+  background-color: #f96332 !important;
+}
+/* 
+.pagination .page-item.active > .page-link, .pagination .page-item.active > .page-link:focus, .pagination .page-item.active > .page-link:hover{
+  background-color:#f96332;
+} */
+
 </style>

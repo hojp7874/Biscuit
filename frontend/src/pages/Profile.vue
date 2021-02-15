@@ -4,7 +4,7 @@
       <parallax class="page-header-image" style="background-image:url('img/bg5.jpg')"> </parallax>
       <div class="container">
         <div class="photo-container">
-          <img src="img/ryan.jpg" alt="" />
+          <img :src="loginStatus.picture" alt="" />
         </div>
         <h3 class="title">{{loginStatus.nickname}}</h3>
         <p class="category">{{loginStatus.phone}}</p>

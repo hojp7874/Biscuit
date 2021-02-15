@@ -93,6 +93,7 @@ public class LoginController{
 //		System.out.println("email : "+user.getEmail()+"/ nickname : "+user.getNickname()+" / password : "+user.getPassword());
 		Map result = new HashMap();
         ResponseEntity entity = null;
+        user.setPicture("https://images.unsplash.com/photo-1559219276-b32ba1bf5bad?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=667&q=80");
         try {
         	user.setPassword(getHashPassword(user.getPassword())); //비밀번호 암호화
 //        	System.out.println(user.getPassword());
