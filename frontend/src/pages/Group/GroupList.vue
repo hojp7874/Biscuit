@@ -121,10 +121,10 @@
           <b-modal
             :id="'group-'+idx"
             hide-footer
-            hide-header
             size="lg"
+            :title="''+group.groupName"
           >
-            <!-- :title="''+group.groupName" -->
+            <!-- hide-header -->
             <div>
              
              <div class="bannerImg jumbotron-image clear-filter" filter-color="black" style="position:relative">
@@ -204,8 +204,8 @@
           type: 'groupName',
           word: '',
         },
-        groups: Object,
-        myGroups: Object,
+        groups: [],
+        myGroups: [],
         permission: '',
         existMyGroups: false,
       }
@@ -225,7 +225,10 @@
         console.log('searchGroup')
         axios.get(`${SERVER_URL}/group/list/`, {params: this.params})
           .then(res => {
-            this.groups = res.data.list
+            for (let i = 0; i < res.data.list.length; i++) {
+              res.data.list[i].edate = res.data.list[i].edate.split(' ')[0];
+            }
+            this.groups = res.data.list;
           })
           .catch(err => {
             console.log(err)
@@ -400,10 +403,6 @@
               res.data.list[i].edate = res.data.list[i].edate.split(' ')[0];
             }
             this.groups = res.data.list;
-
-            for(var group in this.groups){
-             //document.write({{group.edate}});
-            }
           })
           .catch((err) => {
             console.log(err);
