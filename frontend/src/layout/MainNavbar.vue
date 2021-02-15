@@ -84,13 +84,13 @@
         </button><i class="now-ui-icons ui-1_simple-remove" style="margin-left:10px ;margin-top:-3px" @click="deleteNoti(item)"/> -->
         <div v-for="item in items" v-bind:key="item">
           <div class="dropdown-item" v-if="item.isRead == 1" id="readNoti">
-            <button style = "background-color: white; border:0;outline:0;" @click="goNoti(item)">{{item.message}}</button>
-            <i class="now-ui-icons ui-1_simple-remove" style="margin-left:10px ;margin-top:-3px" @click.prevent="deleteNoti(item)"/>
+            <button style = "background-color: white; border:0;outline:0; font-size:10px;margin-left:-20px" @click="goNoti(item)">{{item.message}}</button>
+            <i class="now-ui-icons ui-1_simple-remove" style="margin-left:5px ;margin-top:-3px" @click.prevent="deleteNoti(item)"/>
           </div>
 
           <div class="dropdown-item" v-if="item.isRead == 0" id="notReadNoti">
-            <button style = "background-color:white ; border:0;outline:0;font-weight:bold" @click="goNoti(item)">{{item.message}}</button>
-            <i class="now-ui-icons ui-1_simple-remove" style="margin-left:10px ;margin-top:-3px" @click.prevent="deleteNoti(item)"/>
+            <button style = "background-color:white ; border:0;outline:0;font-weight:bold;font-size:10px;;margin-left:-20px" @click="goNoti(item)">{{item.message}}</button>
+            <i class="now-ui-icons ui-1_simple-remove" style="margin-left:5px ;margin-top:-3px" @click.prevent="deleteNoti(item)"/>
           </div>
         </div>
       </drop-down>

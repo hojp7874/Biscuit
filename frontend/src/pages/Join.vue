@@ -542,10 +542,7 @@ export default {
   margin: 12px 0 10px;
 }
 
-.memjoin_cnt {
-  /* border-style: solid; 
-  border-color: rgb(0, 0, 0); */
-}
+
 
 #slides {
   width: 500px;

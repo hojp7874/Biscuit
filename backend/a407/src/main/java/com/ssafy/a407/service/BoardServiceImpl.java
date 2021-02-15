@@ -62,5 +62,11 @@ public class BoardServiceImpl implements BoardService{
 		// TODO Auto-generated method stub
 		return dao.deleteBoard(bId);
 	}
+
+	@Override
+	public int countBoard(String email) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.countBoard(email);
+	}
 	
 }

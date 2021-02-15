@@ -39,6 +39,12 @@ public class ReplyServiceImpl implements ReplyService {
 	public List<ReplyDto> getReplyList(Map map) throws Exception {
 		return dao.getReplyList(map);
 	}
+
+	@Override
+	public int countReply(String email) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.countReply(email);
+	}
 	
 	
 }
