@@ -42,7 +42,7 @@
           <div>
             <!-- <ReplyList v-for="(reply,index) in showList" :reply="reply" :key="index" /> -->
             <group-reply-list v-for="(items,index) in showList" :items="items" :key="index" @listbtn="changeMode" ></group-reply-list>
-            <b-pagination v-model="replyPage" pills :total-rows="pageCnt" per-page="10" align="center" @page-click="getList(page)"></b-pagination>
+            <b-pagination  class="pagination pagination-primary" v-model="replyPage" pills :total-rows="pageCnt" per-page="10" align="center" @page-click="getList(page)"></b-pagination>
           </div>
         </div>
         <div class="container" v-if="mode==1">

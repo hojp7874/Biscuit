@@ -43,7 +43,7 @@
             <ReplyWrite :bId="bId" :boardEmail="email" v-if="this.loginStatus.nickname"/>
           <div>
             <ReplyList v-for="(items,index) in showList" :items="items" :key="index" />
-            <b-pagination v-model="replyPage" pills :total-rows="pageCnt" per-page="10" align="center" ></b-pagination>
+            <b-pagination class="pagination pagination-primary" v-model="replyPage" pills :total-rows="pageCnt" per-page="10" align="center" ></b-pagination>
           </div>
         </div>
       </div>
