@@ -30,6 +30,7 @@
           <a v-on:click="loadStudy()" v-on:studyNum='studyNum()' class="btn btn-primary btn-round btn-lg" >나의 스터디</a>
           <a v-on:click="loadSchedule()" class="btn btn-primary btn-round btn-lg">나의 일정</a>
           <a v-on:click="loadUpdate()" class="btn btn-primary btn-round btn-lg" >개인 정보 수정</a>
+          <a v-on:click="loadChatMain()" class="btn btn-primary btn-round btn-lg" >채팅</a>
           
         </div>
         <component :is="componentLoading()"></component>
@@ -43,6 +44,7 @@ import { Tabs, TabPane,Button, FormGroupInput } from '@/components';
 import MyStudy from './User/MyPage/MyStudy';
 import MySchedule from './User/MyPage/MySchedule';
 import UpdateUser from './User/MyPage/UpdateUser';
+import ChatMain from './Chat/ChatMain';
  import {mapState} from 'vuex'
 export default {
   name: 'profile',
@@ -73,7 +75,7 @@ export default {
     },
   components: {
     Tabs,
-    TabPane,MySchedule,UpdateUser,MyStudy,
+    TabPane,MySchedule,UpdateUser,MyStudy,ChatMain,
     [Button.name]: Button,
     [FormGroupInput.name]: FormGroupInput,
   },
@@ -86,6 +88,8 @@ export default {
                   return 'MySchedule';
               case 2 :
                   return 'UpdateUser';    
+              case 3 : 
+                  return 'ChatMain';
           }
       },
 
@@ -97,6 +101,9 @@ export default {
       },
       loadUpdate(){
           this.active = 2;
+      },      
+      loadChatMain(){
+        this.active = 3;
       },
       studyNum(data){
         console.log("데이터들들" + data);

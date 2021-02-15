@@ -27,6 +27,7 @@ import axios from 'axios';
 import SockJS from 'sockjs-client';
 import Stomp from 'stomp-websocket';
 
+const CHAT_SERVER_URL = process.env.VUE_APP_CHAT_SERVER_URL;
 export default {
   data() {
     return {
@@ -51,7 +52,7 @@ export default {
   methods: {
     loadMessages: function() {
       axios
-        .get('http://localhost:7788/a407/chat/messages', {
+        .get(`${CHAT_SERVER_URL}/chat/messages`, {
           params: {
             roomId: this.roomId,
           },
@@ -63,7 +64,7 @@ export default {
     },
     findRoom: function() {
       axios
-        .get('http://localhost:7788/a407/chat/search', {
+        .get(`${CHAT_SERVER_URL}/chat/search`, {
           params: {
             roomId: this.roomId,
           },
@@ -101,7 +102,7 @@ export default {
     },
     // {"Access-Control-Allow-Credentials" : true}
     connect: function() {
-      this.sock = new SockJS('http://localhost:7788/a407/ws-stomp');
+      this.sock = new SockJS(`${CHAT_SERVER_URL}/ws-stomp`);
       this.ws = Stomp.over(this.sock);
       this.reconnect = 0;
       console.log('a');

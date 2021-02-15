@@ -359,4 +359,63 @@ public class MemberController {
 		}
 		return entity;
 	}
+	
+	//속해있는 그룹 ID 검색
+	@GetMapping(value = "/gid")
+	private ResponseEntity groupId(@RequestParam String email) {
+		ResponseEntity entity = null;
+		Map result = new HashMap();
+		List list = new ArrayList();
+		try {
+			list = member.getGroupId(email);
+		
+			if(list != null) {
+				result.put("success", "success");
+				result.put("list", list);
+				entity = new ResponseEntity<>(result, HttpStatus.OK);	
+			}
+			else {
+				result.put("success", "fail");
+				entity = new ResponseEntity<>(result, HttpStatus.OK);
+			
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.put("success", "error");
+			entity = new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+		
+		}
+		return entity;
+		
+	}
+	
+	//속해있는 그룹 멤버들 검색
+	@GetMapping(value = "/friends")
+	private ResponseEntity friends(@RequestParam String email) {
+		ResponseEntity entity = null;
+		Map result = new HashMap();
+		List list = new ArrayList();
+		try {
+			list = member.getFriends(email);
+		
+			if(list != null) {
+				result.put("success", "success");
+				result.put("list", list);
+				entity = new ResponseEntity<>(result, HttpStatus.OK);	
+			}
+			else {
+				result.put("success", "fail");
+				entity = new ResponseEntity<>(result, HttpStatus.OK);
+			
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.put("success", "error");
+			entity = new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+		
+		}
+		return entity;
+		
+	}
+	
 }
