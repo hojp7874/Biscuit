@@ -32,7 +32,7 @@
 
           <div class="btnWrap d-flex justify-content-center">
             <b-button @click="fnList" class="btn btnList m-1">목록</b-button>
-            <div v-if="loginStatus.nickname == nickname">
+            <div v-if="loginStatus.email == email">
               <b-button v-if="email" @click="fnUpdate" class="btn-info btnUpdate m-1">수정</b-button>
               <b-button v-if="email" @click="fnDelete" class="btn-danger btnDelete m-1">삭제</b-button>
             </div>
