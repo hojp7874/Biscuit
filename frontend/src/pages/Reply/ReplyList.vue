@@ -124,3 +124,10 @@ export default {
   },
 };
 </script>
+
+<style>
+#viewcomment {
+  margin-left: 30px;
+  margin-bottom: 10px;
+}
+</style>
