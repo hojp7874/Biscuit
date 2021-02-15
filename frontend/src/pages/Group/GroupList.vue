@@ -155,7 +155,7 @@
                       </div>
                     </div>
                   <hr style="height:50px">
-                  <p>{{ group.groupDesc }}</p>
+                  <p v-html="group.groupDesc.replace(/(?:\r\n|\r|\n)/g, '<br />')"></p><!--{{ group.groupDesc }}-->
                 </div>
               </div>
 
