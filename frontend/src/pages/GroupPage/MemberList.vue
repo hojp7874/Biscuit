@@ -130,7 +130,11 @@ export default {
         })
         .then((res) => {
           if (res.data.success == 'success') {
-               this.$router.go(this.$router.currentRoute);
+            //  this.$router.go(this.$router.currentRoute);
+            this.$emit('changemember',5);
+            // this.$props.state = 1;
+            // this.applyList();
+            // this.memberList();
           }
         });
     },

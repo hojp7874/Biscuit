@@ -194,7 +194,13 @@ export default {
         this.getApplyCount();
         this.active = 3;
         this.componentLoading();
-        
+
+      }else if(num == 5){
+        this.getState();
+        this.loadMemberList();
+        this.getApplyCount();
+        this.active = 3;
+        this.componentLoading();
       }
     }
   },
