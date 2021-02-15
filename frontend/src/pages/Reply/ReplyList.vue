@@ -17,15 +17,10 @@
                 </b-col>
           
             <!-- </template> -->
-<<<<<<< frontend/src/pages/Reply/ReplyList.vue
             <hr style="margin:0px;">
             <div class="text-left">
               <div id="viewcomment" v-show="isView" v-html="items.contents.replace(/(?:\r\n|\r|\n)/g, '<br />')" style=" margin-top:10px; margin-right:30px; margin-bottom:10px; font-size:10pt">
                 {{items.contents}}
-=======
-            <b-card-body class="text-left">
-              <div id="viewcomment" v-show="isView" v-html="items.contents.replace(/(?:\r\n|\r|\n)/g, '<br />')">
->>>>>>> frontend/src/pages/Reply/ReplyList.vue
               </div>
 
               <div id="modifyinput" v-show="!isView">
