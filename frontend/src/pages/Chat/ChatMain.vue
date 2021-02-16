@@ -4,8 +4,8 @@
     <div class="section">
       <div class="container">
         <div class="button-container">
-        <button v-on:click="loadChatRoomList();" class="btn btn-primary" type="button">방 목록</button>
-        <button v-on:click="loadChatFriendList()" class="btn btn-primary" type="button" >멤버 목록</button>
+        <button v-on:click="loadChatRoomList();" class="btn btn-primary" type="button" style="background-color:rgb(40, 24, 83)">방 목록</button>
+        <button v-on:click="loadChatFriendList()" class="btn btn-primary" type="button" style="background-color:rgb(40, 24, 83)">멤버 목록</button>
         </div>
         <component :is="componentLoading()" v-bind:mode="mode"></component>
       </div>
