@@ -127,8 +127,8 @@ false) { // console.log('gg'); // }
                     $refs.first.next();
                     barProceeding();
                   "
-                  style="width:200px;border-radius: 10rem;background-color:#2c2c2c"
                   v-if="isHidden"
+                  style="width:200px;border-radius: 10rem;background-color:#2c2c2c"
                   >다음</n-button
                 >
               </div>
@@ -152,7 +152,7 @@ false) { // console.log('gg'); // }
                         비밀번호를 입력해주세요.
                       </p>
                       <p style="font-size :medium ; font-weight:bold">
-                       영문,숫자,특수문자 포함 8~20자 이내
+                        영문,숫자,특수문자 포함 8~20자 이내
                       </p>
                     </div>
                     <div class="inpbx">
@@ -232,7 +232,9 @@ false) { // console.log('gg'); // }
                     style="font-size :x-large ; margin-top:20px"
                   >
                     <div style="margin-top:20px">
-                      <div style="margin-right:330px">닉네임 :</div>
+                      <div style="margin-right:330px">
+                        닉네임<span style="color:red">* </span>:
+                      </div>
                       <!-- <input
                         type="text"
                         id="user-id"
@@ -240,6 +242,7 @@ false) { // console.log('gg'); // }
                         v-model="user.nickname"
                       /> -->
                       <fg-input
+                        placeholder="10자 이내"
                         v-model="user.nickname"
                         style="width: 300px ; margin-left : 140px ; margin-top : -40px ;opacity: 2.0;background-color:white;border-radius: 10rem;"
                       ></fg-input>
@@ -262,7 +265,9 @@ false) { // console.log('gg'); // }
                       />
                     </div> -->
                     <div style="margin-top:20px">
-                      <div style="margin-right:355px">전화번호 :</div>
+                      <div style="margin-right:355px">
+                        전화번호<span style="color:red">* </span>:
+                      </div>
                       <fg-input
                         v-model="user.phone"
                         style="width: 300px ; margin-left : 140px ; margin-top : -40px ;opacity: 2.0;background-color:white;border-radius: 10rem;"
@@ -307,10 +312,7 @@ false) { // console.log('gg'); // }
                 </button> -->
                 <n-button
                   type="primary"
-                  @click="
-                    barProceeding();
-                    signup();
-                  "
+                  @click="signup()"
                   style="width:200px ; margin-right:20px;border-radius: 10rem;background-color:#2c2c2c"
                   >회원가입 완료</n-button
                 >
@@ -380,17 +382,39 @@ export default {
     },
     signup() {
       console.log(this.user.email);
-      axios
-        .post(`${SERVER_URL}/user/join`, this.user)
-        .then((response) => {
-          if (response.data.success === 'success') {
-            alert('회원가입에 성공하셨습니다.');
-          } else alert('회원가입에 실패하셨습니다.');
-          this.back();
+      if(this.user.nickname === ''){
+        alert("닉네임을 입력 해 주세요.");
+      }else if(this.user.nickname.length > 10){
+        alert("닉네임은 10자 이내로 입력 해 주세요.");
+      }else if(this.user.phone === ''){
+        alert("전화번호를 입력 해 주세요.");
+      }else{
+        this.form2 = { nickname: this.user.nickname };
+        axios
+          .get(`${SERVER_URL}/user/checknickname`, {
+            params: this.form2,
+          })
+          .then((res) => {
+            if (res.data.success === 'success'){
+              console.log("타당" + res.data.valid);
+              axios
+                .post(`${SERVER_URL}/user/join`, this.user)
+                .then((response) => {
+                  if (response.data.success === 'success') {
+                    this.barProceeding();
+                    alert('회원가입에 성공하셨습니다.');
+                  } else alert('회원가입에 실패하셨습니다.');
+                  this.back();
+                })
+                .catch(function(error) {
+                  console.log(error);
+                });
+          }else alert('이미 존재하는 닉네임입니다.');
         })
         .catch(function(error) {
           console.log(error);
         });
+    }
     },
     back() {
       this.$router.replace('/login');
@@ -540,11 +564,6 @@ export default {
   font-weight: 600;
   text-align: center;
   margin: 12px 0 10px;
-}
-
-.memjoin_cnt {
-  /* border-style: solid; 
-  border-color: rgb(0, 0, 0); */
 }
 
 #slides {

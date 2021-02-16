@@ -19,7 +19,7 @@
                 </tr>
                 <tr>
                   <th>작성자</th>
-                  <td v-bind="nickname">{{ nickname }}</td>
+                  <td v-bind="nickname"><img :src="picture" class="rounded-circle" style="margin-top:15px; width:65px; height:65px" alt="" />{{ nickname }}</td>
                 </tr>
                 <tr>
                   <th>내용</th>
@@ -30,8 +30,8 @@
           </div>
 
           <div class="btnWrap d-flex justify-content-center">
-            <b-button @click="fnList" class="btn btnList m-1">목록</b-button>
-            <div v-if="loginStatus.nickname == nickname">
+            <b-button href="javascript:history.back()" class="btn btnList m-1">목록</b-button>
+            <div v-if="loginStatus.email == email">
               <b-button v-if="email" @click="fnUpdate" class="btn-info btnUpdate m-1"
                 >수정</b-button
               >
@@ -43,7 +43,7 @@
             <ReplyWrite :bId="bId" :boardEmail="email" v-if="this.loginStatus.nickname"/>
           <div>
             <ReplyList v-for="(items,index) in showList" :items="items" :key="index" />
-            <b-pagination class="pagination pagination-primary" v-model="replyPage" pills :total-rows="pageCnt" per-page="10" align="center" ></b-pagination>
+            <b-pagination class="pagination pagination-primary" v-model="replyPage" :total-rows="pageCnt" per-page="10" align="center" ></b-pagination>
           </div>
         </div>
       </div>
@@ -65,6 +65,7 @@ export default {
   },
   data() {
     return {
+      picture: '',
       form: '',
       bId: this.$route.query.bId,
       email: '',
@@ -89,15 +90,13 @@ export default {
     },
   },
   created() {
+    this.fnGetView();
     this.getList();
     // this.getPage();
   },
-  mounted() {
-    this.fnGetView();
-  },
   methods: {
     // changePage: function() {
-    //   this.showList = this.list.slice(10*(this.replyPage-1), 10*this.replyPage)
+      //   this.showList = this.list.slice(10*(this.replyPage-1), 10*this.replyPage)
       // console.log(this.replyPage)
       // console.log(temporaryList)
     // },
@@ -114,13 +113,19 @@ export default {
           this.noticeFlag = res.data.list[0].noticeFlag;
           this.date = res.data.list[0].date;
           this.category = res.data.list[0].category;
+          axios.get(`${SERVER_URL}/user/profile`, {params: {email: this.email}})
+            .then(resp => {
+              // console.log(res.data.User.picture)
+              this.picture = resp.data.User.picture
+            })
+            .catch(err => {
+              console.log(err)
+            })
+
         })
         .catch((err) => {
           console.log(err);
         });
-    },
-    fnList() {
-      this.$router.push({ path: './BoardList' });
     },
     fnUpdate() {
       this.form = {
@@ -163,8 +168,6 @@ export default {
           params: {page: 1, bId: this.$route.query.bId},
         })
         .then((res) => {
-          console.log('######')
-          console.log(res.data);
           this.list = res.data["list"];
           // console.log(res.data["list"]);
           this.pageCnt = this.list.length

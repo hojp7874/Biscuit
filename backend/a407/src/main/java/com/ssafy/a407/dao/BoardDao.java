@@ -12,14 +12,13 @@ public interface BoardDao {
 
 	public int createBoard(BoardDto board) throws Exception;
 
-	public List<BoardDto> searchAll(int currentPage, int category) throws Exception;
+	public List<BoardDto> searchAll(int currentPage, int noticeFlag) throws Exception;
 	public List<BoardDto> searchBId(String word) throws Exception;
-	public List<BoardDto> searchTitle(String word, int currentPage, int category) throws Exception;
-	public List<BoardDto> searchName(String word, int currentPage, int category) throws Exception;
-	public List<BoardDto> searchContents(String word, int currentPage, int category) throws Exception;
-
+	public List<BoardDto> searchTitle(String word, int currentPage, int noticeFlag) throws Exception;
+	public List<BoardDto> searchName(String word, int currentPage, int noticeFlag) throws Exception;
+	public List<BoardDto> searchContents(String word, int currentPage, int noticeFlag) throws Exception;
 	public int updateBoard(Map mem) throws Exception;
-
 	public int deleteBoard(int bId) throws Exception;
+	public int countBoard(String email) throws Exception;
 
 }

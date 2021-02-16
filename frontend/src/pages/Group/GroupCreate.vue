@@ -28,7 +28,7 @@
               placeholder="스터디그룹 이름을 작성해주세요."
               required
             ></fg-input>
-        </div>
+          </div>
 
                 <div class="row">
            <h5 class="col-4" style="text-align:right">스터디 인원</h5>
@@ -40,8 +40,9 @@
               v-model="form.max"
               placeholder="스터디 인원제한을 설정해주세요."
               required
+              type ='number'
             ></fg-input>
-        </div>
+          </div>
 
         <div class="row">
            <h5 class="col-4" style="text-align:right;">스터디 지역</h5>
@@ -129,6 +130,7 @@
           region: '',
           onoff: ''
         },
+        today : '',
         // region:[{text:'지역을 선택해주세요.',value:null},'온라인','서울','대전','광주','구미'],
         // category:[{text:'카테고리를 선택해주세요.',value:null},'취업','자격증','공무원','','취미','기타']
       }
@@ -139,6 +141,9 @@
       [FormGroupInput.name]: FormGroupInput,
       [Switch.name]: Switch,
       [Option.name]: Option,
+    },
+    created() {
+      this.setToday();
     },
     methods: {
       onSubmit: function() {
@@ -186,6 +191,21 @@
               console.log(err)
             })
         }
+      },
+      setToday(){
+        var date = new Date(); 
+        var year = date.getFullYear(); 
+        var month = new String(date.getMonth()+1); 
+        var day = new String(date.getDate()); 
+
+        // 한자리수일 경우 0을 채워준다. 
+        if(month.length == 1){ 
+          month = "0" + month; 
+        } 
+        if(day.length == 1){ 
+          day = "0" + day; 
+        } 
+        this.today = year + '-' + month + '-' + day;
       }
     }
   }

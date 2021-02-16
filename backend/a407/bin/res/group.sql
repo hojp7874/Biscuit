@@ -6,7 +6,7 @@ CREATE TABLE `group` (
   `sdate` datetime NOT NULL,
   `edate` datetime NOT NULL,
   `groupName` varchar(20) NOT NULL,
-  `groupDesc` varchar(300) DEFAULT NULL,
+  `groupDesc` varchar(3000) DEFAULT NULL,
   `category` varchar(10) NOT NULL,
   `onoff` int NOT NULL,
   `region` varchar(10) DEFAULT NULL,

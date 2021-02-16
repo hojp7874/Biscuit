@@ -29,7 +29,8 @@
     <div id="tab">
         <button class="navButton" style="margin-top: 50px" @click.prevent="loadStudy()">나의 스터디</button><br/>
         <button class="navButton" style="margin-top: 200px" @click.prevent="loadSchedule()">나의 일정</button><br/>
-        <button class="navButton" style="margin-top: 200px" @click.prevent="loadUpdate()">개인 정보 수정</button>
+        <button class="navButton" style="margin-top: 200px" @click.prevent="loadUpdate()">개인 정보 수정</button><br/>
+        <button class="navButton" style="margin-top: 200px" @click.prevent="loadChatRoomList()">채팅</button>
     </div>
 
     <div id="mypage-contents">
@@ -44,6 +45,7 @@
 import MyStudy from './User/MyPage/MyStudy';
 import MySchedule from './User/MyPage/MySchedule';
 import UpdateUser from './User/MyPage/UpdateUser';
+import ChatRoomList from './Chat/ChatRoomList';
 
 export default {
   data() {
@@ -59,7 +61,7 @@ export default {
     };
   },
   components: {
-    UpdateUser,MySchedule,MyStudy
+    UpdateUser,MySchedule,MyStudy,ChatRoomList
   },
   created() {
     this.user.region = localStorage.getItem('region');
@@ -76,6 +78,8 @@ export default {
                   return 'MySchedule';
               case 2 :
                   return 'UpdateUser';    
+              case 3 : 
+                  return 'ChatRoomList';
           }
       },
 
@@ -87,6 +91,9 @@ export default {
       },
       loadUpdate(){
           this.active = 2;
+      },
+      loadChatRoomList(){
+        this.active = 3;
       }
   },
 };

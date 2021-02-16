@@ -47,40 +47,40 @@
           </div>
 
          
+        </div>
       </div>
-    </div>
-      <div class="content-center brand">
+        <div class="content-center brand">
       
 
 
-        <div class="container">
+          <div class="container">
           
 
 
-          <div class="listWrap"><br>
-            <b-table
-              id="my-table"
-              :items="list"
-              :per-page="perPage"
-              :fields="column"
-              :current-page="currentPage"
-              @row-clicked="rowClick"
-              hover
-            ></b-table>
-            <div >
-              <b-pagination
-                v-model="currentPage"
-                :total-rows="this.list.length"
+            <div class="listWrap" style="height:700px"><br>
+              <b-table
+                id="my-table"
+                :items="list"
                 :per-page="perPage"
-                aria-controls="my-table"
-                class="pagination pagination-primary"
-                align="center"
-                
-              ></b-pagination>
-              <div class="btnRightWrap">
-              <b-button @click="fnAdd" class="btnAdd m-1" style="border-radius:10px; background-color: #f96332; " v-if="this.loginStatus.nickname">글쓰기</b-button>
+                :fields="column"
+                :current-page="currentPage"
+                @row-clicked="rowClick"
+                hover
+              ></b-table>
+              <div >
+                <b-pagination
+                  v-model="currentPage"
+                  :total-rows="this.list.length"
+                  :per-page="perPage"
+                  aria-controls="my-table"
+                  class="pagination pagination-primary"
+                  align="center"
+                  
+                ></b-pagination>
+                <div class="btnRightWrap">
+                <b-button @click="fnAdd" class="btnAdd m-1" style="border-radius:10px; background-color: #f96332; " v-if="this.loginStatus.nickname">글쓰기</b-button>
+              </div>
             </div>
-          </div>
           </div>
         </div>
       </div>
@@ -123,7 +123,7 @@ export default {
       type: 'title',
       word: '',
       currentPage: this.$route.query.page ? this.$route.query.page : 1,
-      category: '',
+      noticeFlag: '',
       paginavigation: function() {
         //페이징 처리 for문 커스텀
         var pageNumber = [];
@@ -139,7 +139,7 @@ export default {
       'loginStatus'
     ]),
   },
-  mounted() {
+  created() {
     //페이지 시작하면은 자동 함수 실행
     this.fnGetList();
   },
@@ -149,13 +149,26 @@ export default {
         type: this.type,
         word: this.word,
         currentPage: '',
-        category: '',
+        noticeFlag: 0,
       };
 
       axios
         .get(`${SERVER_URL}/board/read`, { params: this.form })
         .then((res) => {
-          console.log(res)
+          let today = new Date()
+          let year = today.getFullYear()
+          let month = ("0" + (today.getMonth()+1)).slice(-2)
+          let day = ("0" + today.getDate()).slice(-2)
+          today = year + '-' + month + '-' + day
+          for (let i = 0; i < res.data.list.length; i++) {
+            const datetime = res.data.list[i].date;
+            if(datetime.split(' ')[0] == today) {
+              res.data.list[i].date = datetime.split(' ')[1].slice(0, 5)
+            } else {
+              res.data.list[i].date = datetime.split(' ')[0]
+            }
+          }
+
           this.list = res.data.list.sort((a, b) => {
             return b.bid - a.bid;
           });

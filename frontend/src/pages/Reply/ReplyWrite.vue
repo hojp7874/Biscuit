@@ -9,6 +9,7 @@
               placeholder="댓글을 입력하세요."
               rows="3"
               max-rows="6"
+              @input="counting()"
               ></b-form-textarea>
         </b-col>
         <b-col class="p-0">
@@ -54,7 +55,7 @@ export default {
         .post(`${SERVER_URL}/reply/create`, {
           email : this.comments.email,
           nickname : this.comments.nickname,
-          contents : this.comments.contents,
+          contents : this.comments.contents.length>300?this.comments.contents.substr(0,300):this.comments.contents,
           bId : this.bId
         })
         .then((res) => {
@@ -91,6 +92,12 @@ export default {
         .catch((err) => {
           console.log(err);
         });
+      }
+    },
+    counting(){
+      this.count = this.comments.contents.length;
+      if(this.count >300){
+        this.comments.contents = this.comments.contents.substr(0,300);
       }
     },
   },

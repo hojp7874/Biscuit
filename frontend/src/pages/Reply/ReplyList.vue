@@ -40,17 +40,43 @@
                 </b-form>
               </div>
             </div>
+          </div>
+          <b-col class="text-right" v-show="user.email===items.email" >
+            <b-button @click="modifyClick" variant="link">수정</b-button>
+            <b-button @click="deleteReplyConfirm" variant="link">삭제</b-button>
+          </b-col>
+      
+          <!-- </template> -->
+          <hr style="margin:0px;">
+          <div class="text-left">
+            <div id="viewcomment" v-show="isView" v-html="items.contents.replace(/(?:\r\n|\r|\n)/g, '<br />')" style=" margin-top:10px; margin-right:30px; margin-bottom:10px; font-size:10pt">
+              {{items.contents}}
             </div>
 
-            <!-- <template> -->
-               
-             
+            <div id="modifyinput" v-show="!isView">
+              <b-form @submit="onSubmit">
+                <b-row class="mb-3 mt-2">
+                  <b-col cols="11">
+                    <b-form-textarea
+                      id="modicontents"
+                      v-model="modicontents"
+                      placeholder="댓글을 입력하세요."
+                      rows="2"
+                    ></b-form-textarea>
+                  </b-col>
+                  <b-col><b-button type="submit" variant="dark">수정</b-button> </b-col> 
+                </b-row>
+              </b-form>
+            </div>
           </div>
-        </b-col>
-      </b-row>
+        </div>
+      </div>
+    </b-col>
+  </b-row>
 </template>
 
 <script>
+import axios from 'axios';
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
 export default {
@@ -62,7 +88,8 @@ export default {
       modicontents : "",
       user : {
         nickname : localStorage.getItem("nickname"),
-        email : localStorage.getItem("email")  //"ssafy@ssafy.com", //로그인 되어있는 유저 이메일 -> 현재 로그인 되어있는 유저로 바꿔야함
+        email : localStorage.getItem("email"),  //"ssafy@ssafy.com", //로그인 되어있는 유저 이메일 -> 현재 로그인 되어있는 유저로 바꿔야함
+        picture: '',
       },
       // items : [],
     }
@@ -74,6 +101,14 @@ export default {
     // }
   },
   created() {
+    axios.get(`${SERVER_URL}/user/profile`, {params: {email: this.items.email}})
+      .then(res => {
+        // console.log(res.data.User.picture)
+        this.user.picture = res.data.User.picture
+      })
+      .catch(err => {
+        console.log(err)
+      })
     // console.log(this.$props.reply)
     // this.items = this.$props.reply;
   },
@@ -92,7 +127,7 @@ export default {
         this.$axios
         .put(`${SERVER_URL}/reply/update`, {
           email : this.user.email,
-          contents : this.modicontents,
+          contents : this.modicontents.length>300? this.modicontents.substr(0,300): this.modicontents,
           rId : this.items.rId
         })
         .then((res) => {

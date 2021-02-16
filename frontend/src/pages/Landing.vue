@@ -212,7 +212,9 @@
                 <h4 class="title">홍진표</h4>
                 <p class="category text-primary">DB</p>
                 <p class="description">
-                  이젠 죄송합니다 라는 말은 안하게 된 비전공자 청일점입니다. 특화 프로젝트가 너무 기대됩니다. 
+                  프론트의 황태자입니다. 
+                  이 이상 말이 더 필요한가요?
+                  <!-- 이젠 죄송합니다 라는 말은 안하게 된 비전공자 청일점입니다. 특화 프로젝트가 너무 기대됩니다.  -->
                 </p>
                 <a href="#pablo" class="btn btn-primary btn-icon btn-round"
                   ><i class="fab fa-twitter"></i

@@ -84,7 +84,7 @@ export default {
         this.$axios
         .put(`${SERVER_URL}/greply/update`, {
           email : this.user.email,
-          contents : this.modicontents,
+          contents : this.modicontents.length>300? this.modicontents.substr(0,300): this.modicontents,
           rId : this.items.rId,
           gId : this.items.gId,
         })

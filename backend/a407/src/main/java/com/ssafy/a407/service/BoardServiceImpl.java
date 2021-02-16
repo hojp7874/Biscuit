@@ -22,9 +22,9 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public List<BoardDto> searchAll(int currentPage, int category) throws Exception {
+	public List<BoardDto> searchAll(int currentPage, int noticeFlag) throws Exception {
 		// TODO Auto-generated method stub
-		return dao.searchAll(currentPage, category);
+		return dao.searchAll(currentPage, noticeFlag);
 	}
 
 	@Override
@@ -34,21 +34,21 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public List<BoardDto> searchTitle(String word, int currentPage, int category) throws Exception {
+	public List<BoardDto> searchTitle(String word, int currentPage, int noticeFlag) throws Exception {
 		// TODO Auto-generated method stub
-		return dao.searchTitle(word, currentPage, category);
+		return dao.searchTitle(word, currentPage, noticeFlag);
 	}
 
 	@Override
-	public List<BoardDto> searchName(String word, int currentPage, int category) throws Exception {
+	public List<BoardDto> searchName(String word, int currentPage, int noticeFlag) throws Exception {
 		// TODO Auto-generated method stub
-		return dao.searchName(word, currentPage, category);
+		return dao.searchName(word, currentPage, noticeFlag);
 	}
 
 	@Override
-	public List<BoardDto> searchContents(String word, int currentPage, int category) throws Exception {
+	public List<BoardDto> searchContents(String word, int currentPage, int noticeFlag) throws Exception {
 		// TODO Auto-generated method stub
-		return dao.searchContents(word, currentPage, category);
+		return dao.searchContents(word, currentPage, noticeFlag);
 	}
 
 	@Override
@@ -61,6 +61,12 @@ public class BoardServiceImpl implements BoardService{
 	public int delete(int bId) throws Exception {
 		// TODO Auto-generated method stub
 		return dao.deleteBoard(bId);
+	}
+
+	@Override
+	public int countBoard(String email) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.countBoard(email);
 	}
 	
 }

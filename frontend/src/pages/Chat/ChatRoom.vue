@@ -1,0 +1,230 @@
+<template>
+  <div class="container" id="app" v-cloak>
+    <div>
+      <h2>{{ room.roomName }}</h2>
+    </div>
+    <ul class="list-group">
+      <li class="list-group-item" v-for="message in messages" v-bind:key="message.id">
+        <a>{{ message.nickname }} - {{ message.message }}</a>
+      </li>
+    </ul>
+    <!-- <div class="input-group">
+      <input type="text" class="form-control" v-model="message" v-on:keypress.enter="sendMessage" />
+      <div class="input-group-append">
+        <button class="btn btn-primary" type="button" @click="sendMessage">보내기</button>
+      </div>
+    </div> -->
+
+    <br/><br/>
+    <div>
+
+      <b-input-group>
+          <b-form-input
+            style="border-radius:10px"
+            type="text"
+            v-model="message"
+            v-on:keyup.enter="sendMessage()"
+          />
+          <b-input-group-append>
+            <b-button
+              text="Button"
+              variant="primary"
+              class="btnSearch mt-0"
+              style="border-radius:10px; font-weight: bold"
+              v-on:click="sendMessage()"
+            >
+              확인
+            </b-button>
+          </b-input-group-append>
+        </b-input-group>
+    </div>
+  </div>
+</template>
+
+<script>
+import axios from 'axios';
+import SockJS from 'sockjs-client';
+import Stomp from 'stomp-websocket';
+
+const CHAT_SERVER_URL = process.env.VUE_APP_CHAT_SERVER_URL;
+export default {
+  data() {
+    return {
+      roomId: '',
+      room: {},
+      email: '',
+      messages: [],
+      message: null,
+      reconnect: '',
+      nickname: '',
+    };
+  },
+  created() {
+    this.reconnect = 0;
+    this.roomId = localStorage.getItem('wschat.roomId');
+    this.email = localStorage.getItem('email');
+    this.nickname = localStorage.getItem('nickname');
+    this.findRoom();
+    this.loadMessages();
+    this.connect();
+  },
+  methods: {
+    loadMessages: function() {
+      axios
+        .get(`${CHAT_SERVER_URL}/chat/messages`, {
+          params: {
+            roomId: this.roomId,
+          },
+        })
+        .then((res) => {
+          this.messages = res.data.data;
+        });
+
+    },
+    findRoom: function() {
+      axios
+        .get(`${CHAT_SERVER_URL}/chat/search`, {
+          params: {
+            roomId: this.roomId,
+          },
+        })
+        .then((res) => {
+          this.room = res.data.data;
+          console.log('###room : ' + res.data.data);
+        });
+    },
+    sendMessage: function() {
+      console.log('###sendMsg start');
+      this.ws.send(
+        '/pub/chat/message',
+        {},
+        JSON.stringify({
+          type: 'TALK',
+          roomId: this.roomId,
+          email: this.email,
+          nickname: this.nickname,
+          message: this.message,
+        })
+      );
+
+      console.log('###sendMsg end');
+      this.message = '';
+    },
+    recvMessage: function(recv) {
+      console.log('###recv msg : ' + recv.message);
+      // this.messages.unshift({
+      //   type: recv.type,
+      //   email: recv.type == 'ENTER' ? '[알림]' : recv.email,
+      //   message: recv.message,
+      // });
+      this.messages.push(recv)
+    },
+    // {"Access-Control-Allow-Credentials" : true}
+    connect: function() {
+      this.sock = new SockJS(`${CHAT_SERVER_URL}/ws-stomp`);
+      this.ws = Stomp.over(this.sock);
+      this.reconnect = 0;
+      console.log('a');
+      // pub/sub event
+      this.ws.connect(
+        {},
+        (frame) => {
+          console.log('###connect start');
+          this.ws.subscribe(
+            '/sub/chat/room/' + this.roomId,
+            function(message) {
+              var recv = JSON.parse(message.body);
+              console.log('###receive start. recv : ' + recv);
+              console.log('###frame : ' + frame);
+              this.recvMessage(recv);
+              console.log('###received.');
+            }.bind(this)
+          );
+          console.log(
+            '###send start. json msg : ' +
+              JSON.stringify({ type: 'ENTER', roomId: this.roomId, email: this.email, nickname: this.nickname })
+          );
+          this.ws.send(
+            '/pub/chat/message',
+            {},
+            JSON.stringify({ type: 'ENTER', roomId: this.roomId, email: this.email, nickname: this.nickname, message: null })
+          );
+          console.log('###send end');
+        },
+        function(error) {
+          if (this.reconnect++ <= 5) {
+            setTimeout(function() {
+              console.log('##connection reconnect' + error);
+              this.sock = new SockJS('/ws-stomp');
+              this.ws = Stomp.over(this.sock);
+              this.connect();
+            }, 10 * 1000);
+          }
+        }
+      );
+    },
+  },
+  mounted() {},
+};
+</script>
+<style scoped>
+body {
+  margin:50px auto;
+  width: 600px;
+}
+#row {
+  white-space: nowrap;/* 가로스크롤시 중요한 속성 */
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 10px 10px 5px;
+  background: #efefef;
+  width: 600px;
+}
+
+#row .items {
+  display: inline-block;
+  margin-left: 10px;
+  width: 160px;
+}
+
+#row .items:first-child {
+  margin-left: 0;
+}
+
+#row .items p {
+  margin-bottom: 8px;
+  text-indent: 7px;
+}
+
+#row .items ul {
+  border-radius: 3px;
+  border: 1px solid #b5b5b5;
+  height: 135px;
+  overflow-y: scroll;
+  padding: 3px 3px 8px;
+  background: #fff;
+}
+
+#row .items ul li {}
+
+#row .items ul li a {
+  display: block;
+  overflow: hidden;
+  margin-top: 8px;
+  padding: 3px;
+  color:black;
+  font-size:12px;
+  text-decoration:none;
+}
+
+#row .items ul li:first-child a {
+  margin-top: 3px;
+}
+
+#row .items ul li.on a {
+  border: 1px solid #c9cccf;
+  border-radius: 3px;
+  font-weight: bold;
+  background-color: #efefef;
+}
+</style>

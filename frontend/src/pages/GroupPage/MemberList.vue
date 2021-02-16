@@ -12,7 +12,7 @@
         <div class="row">
         <div class="col-md-6">
       <h3>신청자 목록</h3>
-      <ul class="list-group">
+      <ul class="list-group" v-if="applys.length != 0">
         <li
           class="list-group-item list-group-item-action"
           v-for="(item, index) in applys"
@@ -38,6 +38,7 @@
           </div>
         </li>
       </ul>
+      <p v-if="applys.length == 0">아직 스터디 신청자가 없습니다.</p>
       </div>
       <div class="col-md-6">
       <h3>스터디원 목록</h3>
@@ -52,7 +53,10 @@
           >
             <span>
               <img v-if="item.permission == 3" src="img/crown.png" alt="group master" width="7%" height="7%"/>
-              {{ item.nickname }}              
+              {{ item.nickname }} 
+              <b-button v-if="item.nickname == loginStatus.nickname && item.permission != 3" style="margin-left : 220px" @click="deleteUser">
+                스터디 탈퇴
+              </b-button>             
             </span>            
             <div v-if="item.permission != 3 && state == 3"> 
               <b-button @click="[updateState(item.mId, 3), updateState(mId, 1)]">
@@ -65,8 +69,11 @@
           </div>
         </li>
       </ul>
+      <form action="" method="post" @submit.prevent="deleteGroup(gId)">
+        <b-button type="submit" pill variant="danger">스터디 삭제하기</b-button>
+      </form>
       </div>
-        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -99,6 +106,24 @@ export default {
     groupName: String,
   },
   methods: {
+    deleteGroup: function(gId) {
+      axios.delete(`${SERVER_URL}/group/delete/`, {headers: {gId: gId}})
+        .then(res => {
+          console.log(res)
+          console.log(this.idx)
+          alert('스터디가 삭제되었습니다.')
+          //임시방편
+          this.$router.push({ path: './grouplist' });
+          // window.location.reload();
+          // // 모달창 닫기
+          // let targetModal = document.querySelector('#group-'+this.idx)
+          // console.log(targetModal)
+          // // 리스트에서 해당 스터디
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
     memberList: function() {
       console.log('gId : ' + this.gId);
       axios
@@ -129,7 +154,8 @@ export default {
         })
         .then((res) => {
           if (res.data.success == 'success') {
-               this.$router.go(this.$router.currentRoute);
+            //  this.$router.go(this.$router.currentRoute);
+            this.$emit('changemember',5);
           }
         });
     },
@@ -186,6 +212,7 @@ export default {
           if (res.data.success) {
             console.log('receiveEmail >>> ' + this.email);
             // alert('등록되었습니다.');
+            this.$emit('changemember',3);
           } else {
             console.log('알림 전송 실패');
           }
@@ -225,6 +252,19 @@ export default {
         .catch((err) => {
           console.log(err);
         });
+    },
+    deleteUser: function(){
+      if(confirm("해당 스터디에서 탈퇴하시겠습니까?")== true){
+      axios.delete(`${SERVER_URL}/group/member/cancel`,
+        {data: {gId: this.gId, nickname: this.loginStatus.nickname}})
+         .then(res => {
+           console.log(res);
+           this.$router.push('/grouplist');
+         })
+         .catch(err => {
+           console.log(err)
+         })
+      }
     },
   },
 };

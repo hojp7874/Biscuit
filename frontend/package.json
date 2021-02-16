@@ -19,6 +19,7 @@
     "eslint-plugin-vue": "^6.2.2",
     "moment": "^2.29.1",
     "nouislider": "^14.6.0",
+    "stomp-websocket": "^2.3.4-next",
     "url-search-params-polyfill": "^8.1.0",
     "vue": "^2.6.12",
     "vue-carousel-card": "^1.0.6",

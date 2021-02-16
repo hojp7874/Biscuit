@@ -4,7 +4,7 @@
       <parallax class="page-header-image" :style="`background-image:url('${group.img}')`"> </parallax>
       <div class="container">
         <div class="photo-container">
-          <img src="img/ryan.jpg" alt="" />
+          <!-- <img src="img/ryan.jpg" alt="" /> -->
         </div>
         <div class="row">
           <div class="col-md-8"></div>
@@ -46,7 +46,7 @@
               class="btn btn-primary btn-round btn-lg"
             >
               <span>
-                스터디원 목록
+                스터디원 관리
               </span>
             </a>
 
@@ -59,7 +59,7 @@
             <!-- <span v-if="applyCount != 0" class="badge badge-warning badge-pill" style="position: relative; right:45px; bottom:20px">1</span> -->
           </span>
         </div>
-        <component :is="componentLoading()" :gId="gId" :state="state" :groupName="group.groupName"></component>
+        <component :is="componentLoading()" :gId="gId" :state="state" :groupName="group.groupName" @changemember="changeAct"></component>
         <group-board-list v-if="active==4" :gId ="gId"></group-board-list>
       </div>
     </div>
@@ -188,6 +188,21 @@ export default {
     updateGroup: function(gId) {
         this.$router.push({path: './GroupUpdate', query: { gId: gId}})
     },
+    changeAct(num){
+      if(num==3){
+        this.loadMemberList();
+        this.getApplyCount();
+        this.active = 3;
+        this.componentLoading();
+
+      }else if(num == 5){
+        this.getState();
+        this.loadMemberList();
+        this.getApplyCount();
+        this.active = 3;
+        this.componentLoading();
+      }
+    }
   },
 };
 </script>

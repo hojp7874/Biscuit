@@ -24,40 +24,58 @@
     </template>
     <template slot="navbar-menu">
       <router-link class="navbar-brand" to="/grouplist">
-        <i class="now-ui-icons arrows-1_cloud-download-93"> 스터디 찾기</i>
+        <i
+          class="now-ui-icons arrows-1_cloud-download-93"
+          style="font-size: 15px"
+        >
+          스터디 찾기</i
+        >
       </router-link>
       <drop-down
         tag="li"
         title="게시판"
+        style="font-size: 21px"
         icon="now-ui-icons design_app"
         class="nav-item"
       >
-        <nav-link to="/">
+        <nav-link to="/noticeboard">
           <i class="now-ui-icons business_chart-pie-36"></i> 공지사항
         </nav-link>
         <nav-link to="/boardlist">
           <i class="now-ui-icons business_chart-pie-36"></i> All components 자유
           게시판
         </nav-link>
-        <a target="_blank" class="dropdown-item">
+        <nav-link to="/jobboard">
           <i class="now-ui-icons design_bullet-list-67"></i> Documentation 취업
           게시판
-        </a>
-      </drop-down>
-      <drop-down
-        tag="li"
-        title="마이페이지"
-        icon="now-ui-icons design_image"
-        class="nav-item"
-        v-if="this.token !== ''"
-      >
-        <!-- <nav-link to="/landing">
-          <i class="now-ui-icons education_paper"></i> Landing
-        </nav-link> -->
-        <nav-link to="/profile">
-          <i class="now-ui-icons users_single-02"></i> MyPage
         </nav-link>
       </drop-down>
+
+      <div class="d-flex align-items-center">
+        <img
+          v-if="this.token"
+          :src="loginStatus.picture"
+          alt=""
+          class="rounded-circle"
+          style="width:40px; height:40px"
+        />
+
+        <drop-down
+          tag="li"
+          :title="loginStatus.nickname + ' 님'"
+          style="font-size: 21px"
+          class="nav-item"
+          v-if="this.token !== ''"
+        >
+          <!-- icon="now-ui-icons design_image" -->
+          <!-- <nav-link to="/landing">
+            <i class="now-ui-icons education_paper"></i> Landing
+          </nav-link> -->
+          <nav-link to="/profile">
+            <i class="now-ui-icons users_single-02"></i> MyPage
+          </nav-link>
+        </drop-down>
+      </div>
       <!-- <div class="alert-icon">
         <i class="now-ui-icons ui-1_bell-53" style="background-color:white"></i>
       </div> -->
@@ -71,34 +89,58 @@
           @click="readNotification"
         />
 
-      <!-- <a target="_blank" class="dropdown-item">
+        <!-- <a target="_blank" class="dropdown-item">
         댓글이 작성되었습니다~~~
         </a><a target="_blank" class="dropdown-item"> 
           그룹 신청 왔습니다~~~
         </a><a target="_blank" class="dropdown-item">
           그룹 승인 되었습니다~~
         </a> -->
-        
+
         <!-- <button class="dropdown-item" v-for="item in items" v-bind:key="item" @click="goNoti(item)">
           {{item.message}}
         </button><i class="now-ui-icons ui-1_simple-remove" style="margin-left:10px ;margin-top:-3px" @click="deleteNoti(item)"/> -->
         <div v-for="item in items" v-bind:key="item">
           <div class="dropdown-item" v-if="item.isRead == 1" id="readNoti">
-            <button style = "background-color: white; border:0;outline:0;" @click="goNoti(item)">{{item.message}}</button>
-            <i class="now-ui-icons ui-1_simple-remove" style="margin-left:10px ;margin-top:-3px" @click.prevent="deleteNoti(item)"/>
+            <button
+              style="background-color: white; border:0;outline:0; font-size:10px;margin-left:-20px"
+              @click="goNoti(item)"
+            >
+              {{ item.message }}
+            </button>
+            <i
+              class="now-ui-icons ui-1_simple-remove"
+              style="margin-left:5px ;margin-top:-3px"
+              @click.prevent="deleteNoti(item)"
+            />
           </div>
 
           <div class="dropdown-item" v-if="item.isRead == 0" id="notReadNoti">
-            <button style = "background-color:white ; border:0;outline:0;font-weight:bold" @click="goNoti(item)">{{item.message}}</button>
-            <i class="now-ui-icons ui-1_simple-remove" style="margin-left:10px ;margin-top:-3px" @click.prevent="deleteNoti(item)"/>
+            <button
+              style="background-color:white ; border:0;outline:0;font-weight:bold;font-size:10px;;margin-left:-20px"
+              @click="goNoti(item)"
+            >
+              {{ item.message }}
+            </button>
+            <i
+              class="now-ui-icons ui-1_simple-remove"
+              style="margin-left:5px ;margin-top:-3px"
+              @click.prevent="deleteNoti(item)"
+            />
           </div>
         </div>
       </drop-down>
+      <span v-if="notiCnt > 0"
+        class="badge badge-warning badge-pill"
+        style="margin-left:-20px;height:18px;width:17px;margin-right:10px;font-size:8px"
+      >
+        <span style="margin-left:-3px;">{{notiCnt}}</span>
+      </span>
       <!-- <drop-down icon="now-ui-icons ui-1_bell-53"  style="margin-left:-20px"  > </drop-down> -->
 
       <li class="nav-item">
         <a
-          class="nav-link btn btn-neutral"
+          class="nav-link btn btn-primary"
           v-on:click="goToLogin()"
           target="_blank"
           v-if="this.token === ''"
@@ -107,7 +149,7 @@
           <p>로그인</p>
         </a>
         <a
-          class="nav-link btn btn-neutral"
+          class="nav-link btn btn-primary"
           v-on:click="onClickLogout()"
           target="_blank"
           v-else
@@ -164,6 +206,7 @@
 import { DropDown, Navbar, NavLink } from '@/components';
 import { Popover } from 'element-ui';
 import axios from 'axios';
+import { mapState } from 'vuex';
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 export default {
   name: 'main-navbar',
@@ -174,18 +217,39 @@ export default {
       admin: '',
       type: '',
       token: '',
-      items:[],
+      items: [],
+      notiCnt:'0',
     };
   },
   props: {
     transparent: Boolean,
     colorOnScroll: Number,
   },
+  computed: {
+    ...mapState(['loginStatus']),
+  },
   components: {
     DropDown,
     Navbar,
     NavLink,
     [Popover.name]: Popover,
+  },
+  mounted() {
+    console.log("hello");
+    this.form = { receiveEmail: localStorage.getItem('email') };
+      axios
+        .get(`${SERVER_URL}/notification/read`, {
+          params: this.form,
+        })
+        .then((res) => {
+          this.items = res.data.list;
+          for(var i in this.items){
+            console.log("hello" + this.items[i].isRead);
+            if(this.items[i].isRead == 0){
+              this.notiCnt++;
+            }
+          }
+        });
   },
   methods: {
     onClickLogout() {
@@ -201,7 +265,7 @@ export default {
     goToLogin() {
       this.$router.replace(`/login`);
     },
-    readNotification(){
+    readNotification() {
       this.form = { receiveEmail: localStorage.getItem('email') };
       axios
         .get(`${SERVER_URL}/notification/read`, {
@@ -211,10 +275,10 @@ export default {
           this.items = res.data.list;
         });
     },
-    goNoti(item){
-      this.form = {isRead:1 , nId:item.nId};
+    goNoti(item) {
+      this.form = { isRead: 1, nId: item.nId };
       axios
-        .put(`${SERVER_URL}/notification/update`, this.form , {
+        .put(`${SERVER_URL}/notification/update`, this.form, {
           headers: {
             'x-access-token': localStorage.getItem('token'),
           },
@@ -230,7 +294,7 @@ export default {
 
       this.$router.replace(item.notiUrl);
     },
-    deleteNoti(item){
+    deleteNoti(item) {
       this.delForm = { nId: item.nId };
       axios
         .delete(`${SERVER_URL}/notification/delete`, {
@@ -239,11 +303,11 @@ export default {
         .then((res) => {
           if (res.data.success === 'success') {
             console.log('삭제하였습니다.');
-          }else{
+          } else {
             console.log('실패');
           }
         });
-    }
+    },
   },
   created() {
     if (localStorage.getItem('token')) {
@@ -257,7 +321,7 @@ export default {
 </script>
 
 <style>
-#readNoti{
+#readNoti {
   /* background-color: rgb(240, 240, 240); */
   opacity: 0.5;
 }
