@@ -72,4 +72,10 @@ public class LoginServiceImpl implements LoginService {
 		return dao.checkEmail(email);
 	}
 
+	@Override
+	public int checkNickname(String nickname) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.checkNickname(nickname);
+	}
+
 }

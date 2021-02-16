@@ -1,8 +1,9 @@
 <template>
   <div class="container" id="app" v-cloak>
+    <div v-if="mode == 0">
     <div class="row">
       <div>
-        <h2>닉네임 : {{ nickname }}</h2>
+        <h2>{{ nickname }}</h2>
       </div>
       <div class="col-md-12">
         <h3>채팅방 리스트</h3>
@@ -28,14 +29,21 @@
         {{ item.roomName }}
       </li>
     </ul>
+    </div>
+    <div v-else-if="mode == 1">
+      <component :is="componentLoading()"></component>
+    </div>
   </div>
 </template>
 <script>
 import axios from 'axios';
-
+import ChatRoom from './ChatRoom';
 import { mapState } from 'vuex';
 const CHAT_SERVER_URL = process.env.VUE_APP_CHAT_SERVER_URL;
 export default {
+  components:{
+    ChatRoom,
+  },
   data() {
     return {
       room_name: '',
@@ -59,7 +67,11 @@ export default {
       nickname: '',
       searchName: '',
       type: 'title',
+      roomId: '',
     };
+  },
+  props:{
+    mode: Number
   },
   created() {
 
@@ -77,6 +89,9 @@ export default {
     ...mapState(['loginStatus']),
   },
   methods: {
+    componentLoading(){
+      return 'ChatRoom';
+    },
     findAllRoom: function() {
       axios.get(`${CHAT_SERVER_URL}/chat/myroom`,
       {
@@ -91,7 +106,9 @@ export default {
     enterRoom: function(roomId) {
       if (this.nickname != '') {
         localStorage.setItem('wschat.roomId', roomId);
-        this.$router.push({ path: 'chatroom', querey: { roomId: roomId } });
+        this.mode = 1;
+        this.roomId = roomId;
+        // this.$router.push({ path: 'chatroom', querey: { roomId: roomId } });
       }
     },
     

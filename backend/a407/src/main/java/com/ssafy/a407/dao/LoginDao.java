@@ -20,6 +20,7 @@ public interface LoginDao {
 	public UserDto profileUser(String email) throws Exception;
 	public int updateAdmin(Map user) throws Exception;
 	public int checkEmail(String email) throws Exception;
+	public int checkNickname(String nickname) throws Exception;
 	
 	public List<String> profileUserName(String nickname) throws Exception;
 	
