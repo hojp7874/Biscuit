@@ -4,10 +4,10 @@
     <div class="section">
       <div class="container">
         <div class="button-container">
-        <button v-on:click="loadChatRoomList()" class="btn btn-primary" type="button" @click="createRoom">방 목록</button>
-        <button v-on:click="loadChatFriendList()" class="btn btn-primary" type="button" @click="createRoom">멤버 목록</button>
+        <button v-on:click="loadChatRoomList();" class="btn btn-primary" type="button">방 목록</button>
+        <button v-on:click="loadChatFriendList()" class="btn btn-primary" type="button" >멤버 목록</button>
         </div>
-        <component :is="componentLoading()"></component>
+        <component :is="componentLoading()" v-bind:mode="mode"></component>
       </div>
     </div>
 </div>
@@ -17,7 +17,6 @@
 
 import ChatRoomList from './ChatRoomList';
 import ChatFriendList from './ChatFriendList';
-
 import { mapState } from 'vuex';
 export default {
     name: 'chatmain',
@@ -32,6 +31,7 @@ export default {
         phone: '',
       },
       active: 0,
+      mode: 0,
     };
   },
       created() {
@@ -49,6 +49,7 @@ export default {
   },
   methods: {
     componentLoading() {
+      console.log("component change");
       switch (this.active) {
         case 0:
           return 'ChatRoomList';
@@ -58,7 +59,9 @@ export default {
     },
     
     loadChatRoomList() {
+      this.active = 2;
       this.active = 0;
+      this.mode = 0;
     },
     loadChatFriendList() {
       this.active = 1;

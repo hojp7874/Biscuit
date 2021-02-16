@@ -191,11 +191,8 @@ export default new Router({
     {
       path: '/chatroom',
       name: 'chatroom',
-      components: { default: ChatRoom, header: MainNavbar, footer: MainFooter },
-      props: {
-        header: { colorOnScroll: 0 },
-        footer: { backgroundColor: 'black' }
-      }
+      components: { default: ChatRoom },
+      
     },
   ],
   scrollBehavior: to => {
