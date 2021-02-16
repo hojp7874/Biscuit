@@ -10,7 +10,7 @@
       <div class="content-center brand">
         <img class="n-logo" src="img/bisWhite.png" alt="" />
         <h2 class="h2-seo">스터디 그룹 페이지 입니다</h2>
-        <h3>비스킷에서 전국 39291개의 스터디를 찾고 함께 공부하세요</h3>
+        <h3>{{groups.length}}개의 스터디가 검색되었습니다</h3>
         <div class="searchWrap">
           <b-input-group>
             <template #prepend>
@@ -126,8 +126,8 @@
           >
             <!-- hide-header -->
             <div>
-             
-             <div class="bannerImg jumbotron-image clear-filter" filter-color="black" style="position:relative">
+            
+              <div class="bannerImg jumbotron-image clear-filter" filter-color="black" style="position:relative">
               <img :src="group.img" alt="">
                   <div style=" font-size: 1.8em; font-weight: bold; color:white; position: absolute;">
                      {{group.groupName}}

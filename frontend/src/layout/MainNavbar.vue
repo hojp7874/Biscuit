@@ -33,17 +33,17 @@
         icon="now-ui-icons design_app"
         class="nav-item"
       >
-        <nav-link to="/">
+        <nav-link to="/noticeboard">
           <i class="now-ui-icons business_chart-pie-36"></i> 공지사항
         </nav-link>
         <nav-link to="/boardlist">
           <i class="now-ui-icons business_chart-pie-36"></i> All components 자유
           게시판
         </nav-link>
-        <a target="_blank" class="dropdown-item">
+        <nav-link to="/jobboard">
           <i class="now-ui-icons design_bullet-list-67"></i> Documentation 취업
           게시판
-        </a>
+        </nav-link>
       </drop-down>
 
       <div class="d-flex align-items-center">
