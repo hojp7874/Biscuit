@@ -123,7 +123,7 @@ export default {
       type: 'title',
       word: '',
       currentPage: this.$route.query.page ? this.$route.query.page : 1,
-      category: '',
+      noticeFlag: '',
       paginavigation: function() {
         //페이징 처리 for문 커스텀
         var pageNumber = [];
@@ -149,7 +149,7 @@ export default {
         type: this.type,
         word: this.word,
         currentPage: '',
-        category: '',
+        noticeFlag: 0,
       };
 
       axios

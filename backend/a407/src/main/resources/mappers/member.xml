@@ -32,7 +32,7 @@
  	</select>
  	
  	<select id="selectGroupList" parameterType = "String" resultType="GroupMemberDto">
-	 	select member.mId, member.email, a407.group.gId, a407.group.groupName, member.permission, a407.group.img
+	 	select member.*, a407.group.*
 	 	from member, a407.group
 	 	where member.email = #{email} and member.gId = a407.group.gId
 	 	and (a407.member.permission = 1 or a407.member.permission = 2 or a407.member.permission = 3);

@@ -30,7 +30,7 @@
           </div>
 
           <div class="btnWrap d-flex justify-content-center">
-            <b-button @click="fnList" class="btn btnList m-1">목록</b-button>
+            <b-button href="javascript:history.back()" class="btn btnList m-1">목록</b-button>
             <div v-if="loginStatus.email == email">
               <b-button v-if="email" @click="fnUpdate" class="btn-info btnUpdate m-1"
                 >수정</b-button
@@ -126,9 +126,6 @@ export default {
         .catch((err) => {
           console.log(err);
         });
-    },
-    fnList() {
-      this.$router.push({ path: './BoardList' });
     },
     fnUpdate() {
       this.form = {

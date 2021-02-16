@@ -6,13 +6,17 @@ public class GroupMemberDto {
 	private String email;
 	private String groupName;
 	private int permission;
+	private int max;
 	private String img;
+	private String region;
+	private String category;
+	private String edate;
 	
 	public GroupMemberDto() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public GroupMemberDto(int mId, int gId, String email, String groupName, int permission, String img) {
+	public GroupMemberDto(int mId, int gId, String email, String groupName, int permission, String img, String region, int max, String edate) {
 		super();
 		this.mId = mId;
 		this.gId = gId;
@@ -20,6 +24,41 @@ public class GroupMemberDto {
 		this.groupName = groupName;
 		this.permission = permission;
 		this.img = img;
+		this.region = region;
+		this.max= max;
+		this.edate= edate;
+	}
+	
+	public String getEdate() {
+		return edate;
+	}
+	
+	public void setEdate(String edate) {
+		this.edate = edate;
+	}
+	
+	public String getCategory() {
+		return category;
+	}
+	
+	public void setCategory(String category) {
+		this.category = category;
+	}
+	
+	public int getMax() {
+		return max;
+	}
+	
+	public void setMax(int max) {
+		this.max = max;
+	}
+	
+	public String getRegion() {
+		return region;
+	}
+	
+	public void setRegion(String region) {
+		this.region = region;
 	}
 
 	public int getmId() {

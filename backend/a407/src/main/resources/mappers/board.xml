@@ -10,7 +10,7 @@
 	<select id="searchAll" resultType="BoardDto">
 		select *
 		from a407.board
-		where category = #{category}
+		where noticeFlag = #{noticeFlag}
 	</select>
 	
 	<select id="searchBId" parameterType="String" resultType="BoardDto">
@@ -22,19 +22,19 @@
 	<select id="searchTitle" resultType="BoardDto">
 		select *
 		from a407.board
-		where title like CONCAT('%', #{word}, "%") and category = #{category}
+		where title like CONCAT('%', #{word}, "%") and noticeFlag = #{noticeFlag}
 	</select>
 	
 	<select id="searchName" resultType="BoardDto">
 		select *
 		from a407.board
-		where nickname like CONCAT('%', #{word}, "%") and category = #{category}
+		where nickname like CONCAT('%', #{word}, "%") and noticeFlag = #{noticeFlag}
 	</select>
 	
 	<select id="searchContents" resultType="BoardDto">
 		select *
 		from a407.board
-		where contents like CONCAT('%', #{word}, "%") and category = #{category}
+		where contents like CONCAT('%', #{word}, "%") and noticeFlag = #{noticeFlag}
 	</select>
 	
 	<update id="updateBoard" parameterType="map">update a407.board set title = #{title}, contents = #{contents}, noticeFlag = #{noticeFlag}, category= #{category} where bId = #{bId} and email = #{email}</update>
