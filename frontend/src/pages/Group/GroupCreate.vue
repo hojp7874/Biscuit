@@ -7,35 +7,36 @@
         style="background-image:url('img/bg11.jpg')"
       >
       </parallax>
-      <div class="container" style="background-color:#11111133; margin-top:100px; margin-bottom:100px; border-radius:10px">
+      <div class="container" style="background-color:#11111133; margin-top:100px; padding-bottom:100px; margin-bottom:100px; border-radius:10px">
         
         <h2 class="md-4">스터디 생성</h2>
         <b-form @submit.prevent="onSubmit">
 
-          <div class="row">
-            <h4 class="col-4" style="text-align:right">스터디 분류</h4>
-            <b-form-radio-group class="col-6" v-model="form.category" :options="options" name="radio-validation">
-              <b-form-invalid-feedback>Please select one</b-form-invalid-feedback>
-            </b-form-radio-group>
-          </div>
-          <div class="row">
-            <h4 class="col-4" style="text-align:right">스터디 이름</h4>
-            <fg-input
+            <div class="row">
+           <h5 class="col-4" style="text-align:right">스터디 분류</h5>
+              <b-form-radio-group class="col-6" v-model="form.category" :options="options" name="radio-validation">
+                <b-form-invalid-feedback>Please select one</b-form-invalid-feedback>
+              </b-form-radio-group>
+        </div>
+        <div class="row">
+           <h5 class="col-4" style="text-align:right">스터디 이름</h5>
+           <fg-input
               class="no-border input-md col-6"
               id="input-1"
-              style="color:white;"
+               style="background-color:white; border-radius:30px;  margin-left:15px"
               v-model="form.groupName"
               placeholder="스터디그룹 이름을 작성해주세요."
               required
             ></fg-input>
           </div>
 
-          <div class="row">
-            <h4 class="col-4" style="text-align:right">스터디 인원제한</h4>
-            <fg-input
+                <div class="row">
+           <h5 class="col-4" style="text-align:right">스터디 인원</h5>
+              <fg-input
               class="no-border input-md col-6"
               id="input-2"
-              style="color:white"
+              type="number"
+               style="background-color:white; border-radius:30px;  margin-left:15px"
               v-model="form.max"
               placeholder="스터디 인원제한을 설정해주세요."
               required
@@ -43,52 +44,53 @@
             ></fg-input>
           </div>
 
-          <div class="row">
-            <h4 class="col-4" style="text-align:right">스터디 지역</h4>
-            <fg-input
+        <div class="row">
+           <h5 class="col-4" style="text-align:right;">스터디 지역</h5>
+              <fg-input
               class="no-border input-md col-6"
-              id="input-3"
+               id="input-3"
+               style="background-color:white; border-radius:30px;  margin-left:15px"
               v-model="form.region"
               required
             ></fg-input>
-          </div>
+        </div>
 
-          <div class="row">
-            <h4 class="col-4" style="text-align:right">스터디 모집 마감일</h4>
-            <input 
-              class="no-border input col-4" 
-              style="border-radius:30px; margin-left:15px; color:white; background-color:#88888855;" 
-              v-model="form.edate" type="date" name="" id="enddatecal" 
-              :min="today" >
-          </div>
+      
 
-          <div class="row">
-            <h4 class="col-4" style="text-align:right">스터디 이미지</h4>
+           <div class="row">
+           <h5 class="col-4" style="text-align:right">스터디 모집 마감일</h5>
+               <input class="no-border input col-4" style="border-radius:30px; margin-left:15px; color:white; background-color:#88888855;" v-model="form.edate" type="date" name="" id="">
+        </div>
+
+        <div class="row">
+           <h5 class="col-4" style="text-align:right">스터디 이미지</h5>
             <input  type="file" id="img" style="margin-left:30px">
 
+        </div>
+
+
+         <div class="row">
+             <h5 class="col-md-4" style="text-align:right">스터디 설명</h5>
+        
+            <b-form-textarea
+              id="input-6"
+              v-model="form.groupDesc"
+              placeholder="스터디그룹에 대해 설명해주세요."
+              class="col-md-6"
+              style="min-height:250px; margin-left:15px; color:#222222; background-color:white; padding:10px; font-size:110%"
+              
+            ></b-form-textarea>
           </div>
 
+        <div class="row"></div>
 
-          <div class="row">
-              <h4 class="col-md-4" style="text-align:right">스터디 설명</h4>
-
-              <b-form-textarea
-                id="input-6"
-                v-model="form.groupDesc"
-                placeholder="스터디그룹에 대해 설명해주세요."
-                class="col-md-6"
-                style="min-height:250px; margin-left:15px; color:white; background-color:#88888855; font-size:110%"
-              ></b-form-textarea>
-            </div>
-
-
-          <div class="row"></div>
-          <div class="row"></div>
-          <div class="row"></div>
-          <div class="row"></div>
-
-          <b-button type="submit" variant="primary">스터디 만들기</b-button>
+        <b-button type="submit" variant="primary">스터디 만들기</b-button>
         </b-form>
+
+
+
+
+
       </div>
     </div>
   </div>
@@ -208,5 +210,24 @@
     }
   }
 </script>
+
+
+<style scoped>
+.row{
+  margin-top:15px;
+}
+
+h5{
+  margin-top:5px;
+}
+
+input{
+  color:white;
+}
+
+.form-control{
+  color:white;
+}
+</style>
 
 

@@ -4,46 +4,47 @@
    <h2 style="font-weight:bold ; margin-top:30px"> 나의 스터디</h2>
     </center>
 
+     <div class="row">
+
+        
+
+     
 
 
-    
-
-
-
-
-   <b-card-group
-        deck
-        class="d-flex flex-row"
-      >
-        <b-col cols="3"
-          v-for="(group, idx) in myGroups"
-          :key="idx"
-          :group="group"
-        >
-          <!-- @click="goDetail(group)" -->
-            <!-- v-b-modal.group-13 -->
-          <b-card
-            @click="goGroupPage(group)"
-            v-bind:title="group.groupName"
-            :img-src="group.img"
-            img-alt="Image"
-            img-top
+          <b-col class="col-12 col-sm-12 col-md-6 col-lg-4"
+            v-for="(group, idx) in myGroups"
+            :key="idx"
+            :group="group"
           >
-            <b-card-text>
-              {{group.groupDesc}}
-            </b-card-text>
-            <template #footer>
-              <!-- <small class="text-muted">Last updated 3 mins ago</small> -->
-            </template>
-          </b-card>
-          <b-modal
-            :id="'group-'+idx"
-            size="xl"
-            :title="''+group.groupName"
-          >
-          </b-modal>
-        </b-col>
-      </b-card-group>
+            <b-card
+              @click="goGroupPage(group)"
+              class="my-3"
+              style="min-height:400px; max-height:400px; min-width:350px; overflow:hidden"
+            >
+            <div style="max-height:200px; min-height:200px; width:100%; overflow:hidden; ">
+               <b-card-img :src="group.img" alt="Image" style=" z-index:2;" top></b-card-img>
+               
+            </div>
+               <b-card-body>
+                  <b-card-title style="font-size:23px; font-weight:bold; color:#222; margin-right:5px; margin-bottom:10px; white-space: nowrap; overflow: hidden; text-overflow:ellipsis;">{{group.groupName}}</b-card-title>
+      <b-card-sub-title class="mb-2">{{group.groupName}}</b-card-sub-title>
+      <b-card-text style="padding:10px">
+        {{group.nickname}}
+      </b-card-text>
+    </b-card-body>
+            
+              <b-card-text>
+                {{group.groupDesc}}
+              </b-card-text>
+              <template #footer>
+                <small class="text-muted">Last updated 3 mins ago</small>
+              </template>
+               
+            </b-card>
+          </b-col>
+
+      </div>
+
    </div>
 </template>
 

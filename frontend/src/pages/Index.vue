@@ -52,12 +52,10 @@
                 <div class="row">
                   <div class="col-md-6 ml-auto mr-auto text-center">
                
-                    <div class=" d-flex justify-content-center" data-aos="zoom-in"
-                      data-aos-easing="ease-out-cubic"
-                      data-aos-duration="1000"
-                    >
-                      <img  src="img/path225.png" alt="" />
-                    </div>
+                <div class=" d-flex justify-content-center" data-aos="zoom-in"
+     data-aos-easing="ease-out-cubic"
+     data-aos-duration="1000">
+                  <img class="col-md-12 col-sm-4 col-xs-2" src="img/path225.png" alt="" />
                   </div>
                 </div>
               </div>

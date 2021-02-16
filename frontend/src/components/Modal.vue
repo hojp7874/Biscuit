@@ -28,6 +28,8 @@
                   class="close"
                   data-dismiss="modal"
                   :aria-hidden="!show"
+                  style="padding-top:0px; margin-top:0px"
+
                 >
                   <i class="now-ui-icons ui-1_simple-remove"></i>
                 </button>

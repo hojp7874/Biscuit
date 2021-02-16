@@ -40,7 +40,7 @@
               </div>
             </div>
 
-            <button class="snip1535" @click="addSchedule"  style="margin-left:160px">
+            <button class="btn" @click="addSchedule"  style="margin-left:160px">
               추가
             </button>
           </div>
