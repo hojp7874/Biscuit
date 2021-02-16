@@ -90,7 +90,7 @@
                 {{group.groupDesc}}
               </b-card-text>
               <template #footer>
-                <small class="text-muted"></small>
+                               <small class="text-muted"></small>
               </template>
                
             </b-card>
@@ -117,7 +117,7 @@
         <div class="row">
     
         <div class="col-12 col-sm-6 col-md-4 col-lg-4"
-          v-for="(group, idx) in groups.slice().reverse()"
+           v-for="(group, idx) in groups.slice().reverse()"
           :key="idx"
           :group="group"
         >
@@ -148,7 +148,7 @@
               <!-- <b>모임 주기: {{ group.cycle }}</b> -->
             </b-card-text>
             <template #footer>
-              <!-- <small class="text-muted">Last updated 3 mins ago</small> -->
+             <!-- <small class="text-muted">Last updated 3 mins ago</small> -->
             </template>
           </b-card>
           <b-modal
@@ -157,7 +157,7 @@
             size="lg"
             :title="''+group.groupName"
           >
-            <!-- hide-header -->
+                      <!-- hide-header -->
             <div>
              <div class="bannerImg jumbotron-image clear-filter" filter-color="orange" style="position:relative">
                <div class="img">
@@ -242,6 +242,7 @@
 <script>
   import {mapState} from 'vuex'
   import axios from 'axios'
+  import card from '@/components/Cards/Card'
   
   const SERVER_URL = process.env.VUE_APP_SERVER_URL
 
@@ -253,6 +254,7 @@
   export default {
     name: "Group",
     components: {
+      card
     },
     data() {
       return {
@@ -282,11 +284,11 @@
         console.log('searchGroup')
         axios.get(`${SERVER_URL}/group/list/`, {params: this.params})
           .then(res => {
-            for (let i = 0; i < res.data.list.length; i++) {
+                        for (let i = 0; i < res.data.list.length; i++) {
               res.data.list[i].edate = res.data.list[i].edate.split(' ')[0];
             }
             this.groups = res.data.list;
-          })
+         })
           .catch(err => {
             console.log(err)
           })
