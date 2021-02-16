@@ -66,8 +66,11 @@
           </div>
         </li>
       </ul>
+      <form action="" method="post" @submit.prevent="deleteGroup(gId)">
+        <b-button type="submit" pill variant="danger">스터디 삭제하기</b-button>
+      </form>
       </div>
-        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -100,6 +103,24 @@ export default {
     groupName: String,
   },
   methods: {
+    deleteGroup: function(gId) {
+      axios.delete(`${SERVER_URL}/group/delete/`, {headers: {gId: gId}})
+        .then(res => {
+          console.log(res)
+          console.log(this.idx)
+          alert('스터디가 삭제되었습니다.')
+          //임시방편
+          this.$router.push({ path: './grouplist' });
+          // window.location.reload();
+          // // 모달창 닫기
+          // let targetModal = document.querySelector('#group-'+this.idx)
+          // console.log(targetModal)
+          // // 리스트에서 해당 스터디
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
     memberList: function() {
       console.log('gId : ' + this.gId);
       axios

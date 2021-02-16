@@ -4,7 +4,7 @@
       <parallax class="page-header-image" :style="`background-image:url('${group.img}')`"> </parallax>
       <div class="container">
         <div class="photo-container">
-          <img src="img/ryan.jpg" alt="" />
+          <!-- <img src="img/ryan.jpg" alt="" /> -->
         </div>
         <div class="row">
           <div class="col-md-8"></div>
@@ -46,7 +46,7 @@
               class="btn btn-primary btn-round btn-lg"
             >
               <span>
-                스터디원 목록
+                스터디원 관리
               </span>
             </a>
 

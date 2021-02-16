@@ -71,10 +71,9 @@ export default {
     // }
   },
   created() {
-    this.getPicture(this.items.email)
     axios.get(`${SERVER_URL}/user/profile`, {params: {email: this.items.email}})
       .then(res => {
-        console.log(res.data.User.picture)
+        // console.log(res.data.User.picture)
         this.user.picture = res.data.User.picture
       })
       .catch(err => {
@@ -84,9 +83,6 @@ export default {
     // this.items = this.$props.reply;
   },
   methods: {
-    getPicture: function(items) {
-      console.log(items)
-    },
     modifyClick(){
       this.modicontents = this.items.contents;
       this.isView = !this.isView;
