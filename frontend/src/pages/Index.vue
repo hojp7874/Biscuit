@@ -55,7 +55,7 @@
                 <div class=" d-flex justify-content-center" data-aos="zoom-in"
      data-aos-easing="ease-out-cubic"
      data-aos-duration="1000">
-                  <img  src="img/path225.png" alt="" />
+                  <img class="col-md-12 col-sm-4 col-xs-2" src="img/path225.png" alt="" />
                   </div>
                 </div>
                 </div>

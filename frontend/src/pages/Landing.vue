@@ -10,7 +10,7 @@
     margin-bottom: 200px;
 ">
             <div data-aos="zoom-out">
-              <img src="img/path228.png" height=100px>
+              <img class="col-md-6 col-sm-6" src="img/path228.png" >
             <h2 class="title">비스킷은?</h2>
             </div>
             <div data-aos="fade-left">
