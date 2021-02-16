@@ -12,15 +12,15 @@
         <h2 class="md-4">스터디 생성</h2>
         <b-form @submit.prevent="onSubmit">
 
-            <div class="row">
-           <h4 class="col-4" style="text-align:right">스터디 분류</h4>
-              <b-form-radio-group class="col-6" v-model="form.category" :options="options" name="radio-validation">
-                <b-form-invalid-feedback>Please select one</b-form-invalid-feedback>
-              </b-form-radio-group>
-        </div>
-        <div class="row">
-           <h4 class="col-4" style="text-align:right">스터디 이름</h4>
-           <fg-input
+          <div class="row">
+            <h4 class="col-4" style="text-align:right">스터디 분류</h4>
+            <b-form-radio-group class="col-6" v-model="form.category" :options="options" name="radio-validation">
+              <b-form-invalid-feedback>Please select one</b-form-invalid-feedback>
+            </b-form-radio-group>
+          </div>
+          <div class="row">
+            <h4 class="col-4" style="text-align:right">스터디 이름</h4>
+            <fg-input
               class="no-border input-md col-6"
               id="input-1"
               style="color:white;"
@@ -28,11 +28,11 @@
               placeholder="스터디그룹 이름을 작성해주세요."
               required
             ></fg-input>
-        </div>
+          </div>
 
-                <div class="row">
-           <h4 class="col-4" style="text-align:right">스터디 인원제한</h4>
-              <fg-input
+          <div class="row">
+            <h4 class="col-4" style="text-align:right">스터디 인원제한</h4>
+            <fg-input
               class="no-border input-md col-6"
               id="input-2"
               style="color:white"
@@ -41,134 +41,53 @@
               required
               type ='number'
             ></fg-input>
-        </div>
+          </div>
 
-        <div class="row">
-           <h4 class="col-4" style="text-align:right">스터디 지역</h4>
-              <fg-input
+          <div class="row">
+            <h4 class="col-4" style="text-align:right">스터디 지역</h4>
+            <fg-input
               class="no-border input-md col-6"
-               id="input-3"
-              v-model="form.region"
-              required
-            ></fg-input>
-        </div>
-
-      
-
-           <div class="row">
-           <h4 class="col-4" style="text-align:right">스터디 모집 마감일</h4>
-               <input class="no-border input col-4" style="border-radius:30px; margin-left:15px; color:white; background-color:#88888855;" v-model="form.edate" type="date" name="" id="">
-        </div>
-
-        <div class="row">
-           <h4 class="col-4" style="text-align:right">스터디 이미지</h4>
-            <input  type="file" id="img" style="margin-left:30px">
-
-        </div>
-
-
-         <div class="row">
-             <h4 class="col-md-4" style="text-align:right">스터디 설명</h4>
-        
-            <b-form-textarea
-              id="input-6"
-              v-model="form.groupDesc"
-              placeholder="스터디그룹에 대해 설명해주세요."
-              class="col-md-6"
-              style="min-height:250px; margin-left:15px; color:white; background-color:#88888855; font-size:110%"
-              
-            ></b-form-textarea>
-          </div>
-
-
-        <div class="row"></div>
-        <div class="row"></div>
-        <div class="row"></div>
-        <div class="row"></div>
-
-        <b-button type="submit" variant="primary">스터디 만들기</b-button>
-        </b-form>
-
-
-
-
-
-        <b-form @submit.prevent="onSubmit">
-          <div class="d-flex">
-            <p class="col-3">스터디 이름:</p>
-            <fg-input
-              class="no-border input-lg col-9"
-              id="input-1"
-              v-model="form.groupName"
-              placeholder="스터디그룹 이름을 작명해주세요."
-              required
-            ></fg-input>
-          </div>
-
-          <div class="d-flex">
-            <p class="col-3">스터디 인원제한:</p>
-            <fg-input
-              class="no-border input-lg col-9"
-              id="input-2"
-              v-model="form.max"
-              placeholder="스터디 인원제한을 설정해주세요."
-              required
-            ></fg-input>
-          </div>
-
-          <div class="d-flex">
-            <p class="col-3">지역:</p>
-            <fg-input
-              class="no-border input-lg col-9"
               id="input-3"
               v-model="form.region"
               required
             ></fg-input>
-              <!-- :options="region" -->
           </div>
 
-          <div class="d-flex">
-            <p class="col-3">카테고리:</p>
-            <div class="col-9">
-              <b-form-radio-group v-model="form.category" :options="options" name="radio-validation">
-                <b-form-invalid-feedback>Please select one</b-form-invalid-feedback>
-              </b-form-radio-group>
-           
+          <div class="row">
+            <h4 class="col-4" style="text-align:right">스터디 모집 마감일</h4>
+            <input 
+              class="no-border input col-4" 
+              style="border-radius:30px; margin-left:15px; color:white; background-color:#88888855;" 
+              v-model="form.edate" type="date" name="" id="enddatecal" 
+              :min="today" >
+          </div>
+
+          <div class="row">
+            <h4 class="col-4" style="text-align:right">스터디 이미지</h4>
+            <input  type="file" id="img" style="margin-left:30px">
+
+          </div>
+
+
+          <div class="row">
+              <h4 class="col-md-4" style="text-align:right">스터디 설명</h4>
+
+              <b-form-textarea
+                id="input-6"
+                v-model="form.groupDesc"
+                placeholder="스터디그룹에 대해 설명해주세요."
+                class="col-md-6"
+                style="min-height:250px; margin-left:15px; color:white; background-color:#88888855; font-size:110%"
+              ></b-form-textarea>
             </div>
-          </div>
 
-          <div class="d-flex">
-            <p class="col-3">스터디원 모집 종료일:</p>
-            <div class="col-9">
-              <!-- <n-switch
-                v-model="form.onoff"
-                style="width:500px"
-                on-text="ON"
-                off-text="OFF"
-              ></n-switch> -->
-                <input class="col-8 no-border" v-model="form.edate" type="date" name="" id="">
-            </div>
-          </div>
 
-          <div>
-            <p class="col-3">스터디 이미지:</p>
-            <div class="md-col-9">
-              <input type="file" id="img">
-            </div>
-          </div>
+          <div class="row"></div>
+          <div class="row"></div>
+          <div class="row"></div>
+          <div class="row"></div>
 
-          <div class="d-flex">
-            <p class="col-3">스터디 설명:</p>
-            <b-form-textarea
-              id="input-6"
-              v-model="form.groupDesc"
-              placeholder="스터디그룹에 대해 설명해주세요."
-              class="col-9"
-              style="height: 500px"
-            ></b-form-textarea>
-          </div>
-
-          <b-button type="submit" variant="primary">Submit</b-button>
+          <b-button type="submit" variant="primary">스터디 만들기</b-button>
         </b-form>
       </div>
     </div>
@@ -209,6 +128,7 @@
           region: '',
           onoff: ''
         },
+        today : '',
         // region:[{text:'지역을 선택해주세요.',value:null},'온라인','서울','대전','광주','구미'],
         // category:[{text:'카테고리를 선택해주세요.',value:null},'취업','자격증','공무원','','취미','기타']
       }
@@ -219,6 +139,9 @@
       [FormGroupInput.name]: FormGroupInput,
       [Switch.name]: Switch,
       [Option.name]: Option,
+    },
+    created() {
+      this.setToday();
     },
     methods: {
       onSubmit: function() {
@@ -266,6 +189,21 @@
               console.log(err)
             })
         }
+      },
+      setToday(){
+        var date = new Date(); 
+        var year = date.getFullYear(); 
+        var month = new String(date.getMonth()+1); 
+        var day = new String(date.getDate()); 
+
+        // 한자리수일 경우 0을 채워준다. 
+        if(month.length == 1){ 
+          month = "0" + month; 
+        } 
+        if(day.length == 1){ 
+          day = "0" + day; 
+        } 
+        this.today = year + '-' + month + '-' + day;
       }
     }
   }

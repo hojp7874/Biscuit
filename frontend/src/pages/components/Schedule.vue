@@ -8,7 +8,7 @@
         <b-modal ref="create-modal" id="modal-1" title="일정 추가" hide-footer>
           <div class="box">
             <div class="field">
-              <label class="label">Title</label>
+              <label class="label">일정명</label>
               <div class="control">
                 <!-- <input v-model="newItemTitle" class="input" type="text" /> -->
                 <b-form-input v-model="newItemTitle" style="width:50%"></b-form-input>
@@ -16,25 +16,25 @@
             </div>
 
             <div class="field">
-              <label class="label">Start date</label>
+              <label class="label">시작일</label>
               <div class="control">
                 <!-- <input v-model="newItemStartDate" class="input" type="date" /> -->
                 <!-- <b-form-datepicker id="example-datepicker" v-model="newItemStartDate" class="mb-2"></b-form-datepicker> -->
-                <input class="col-8 no-border" v-model="newItemStartDate" type="date" name="" id="">
+                <input class="col-8 no-border" v-model="newItemStartDate" type="date" name="" id="" :max="newItemEndDate">
               </div>
             </div>
 
             <div class="field">
-              <label class="label">End date</label>
+              <label class="label">종료일</label>
               <div class="control">
                 <!-- <input v-model="newItemEndDate" class="input" type="date" /> -->
                 <!-- <b-form-datepicker id="example-datepicker2" v-model="newItemEndDate" class="mb-2"></b-form-datepicker> -->
-                <input class="col-8 no-border" v-model="newItemEndDate" type="date" name="" id="">
+                <input class="col-8 no-border" v-model="newItemEndDate" type="date" name="" id="" :min="newItemStartDate" @input="changeEdate">
               </div>
             </div>
 
             <div class="field">
-              <label class="label">Contents</label>
+              <label class="label">일정 내용</label>
               <div class="control">
                 <b-form-textarea v-model="newItemContents" class="input" />
               </div>
@@ -101,7 +101,7 @@
 
           <div class="box">
             <div class="field">
-              <label class="label"> Title</label>
+              <label class="label">일정명</label>
               <!-- <button @click="deleteSchedule()" style="margin-left:360px border">삭제</button> -->
               <b-button @click="deleteSchedule()" variant="light" style="margin-left:380px;margin-top:-60px;border-radius: 10rem;height:10px;font-size:2px">삭제</b-button>
               <div class="control">
@@ -111,25 +111,25 @@
             </div>
 
             <div class="field">
-              <label class="label">Start date</label>
+              <label class="label">시작일</label>
               <div class="control">
                 <!-- <input v-model="detail.sdate" class="input" type="date" /> -->
                  <!-- <b-form-datepicker id="example-datepicker" v-model="detail.sdate" class="mb-2"></b-form-datepicker> -->
-                 <input class="col-8 no-border" v-model="detail.sdate" type="date" name="" id="">
+                 <input class="col-8 no-border" v-model="detail.sdate" type="date" name="" id="" ><!--:max="detail.edate"-->
               </div>
             </div>
 
             <div class="field">
-              <label class="label">End date</label>
+              <label class="label">종료일</label>
               <div class="control">
                 <!-- <input v-model="detail.edate" class="input" type="date" /> -->
                 <!-- <b-form-datepicker id="example-datepicker" v-model="detail.edate" class="mb-2"></b-form-datepicker> -->
-                <input class="col-8 no-border" v-model="detail.edate" type="date" name="" id="">
+                <input class="col-8 no-border" v-model="detail.edate" type="date" name="" id=""> <!--:min="detail.sdate"-->
               </div>
             </div>
 
             <div class="field">
-              <label class="label">Contents</label>
+              <label class="label">일정 내용</label>
               <div class="control">
                 <b-form-textarea v-model="detail.contents" class="input" />
               </div>
@@ -207,6 +207,9 @@ export default {
       sId: '',
       show_detail: false,
       readOnly: true,
+
+      flagsdate : false,
+      flagedate : false,
     };
   },
   computed: {
@@ -243,7 +246,7 @@ export default {
   },
   mounted() {
     this.newItemStartDate = this.isoYearMonthDay(this.today());
-    this.newItemEndDate = this.isoYearMonthDay(this.today());
+    // this.newItemEndDate = this.isoYearMonthDay(this.today());
     console.log("처음값" + this.newItemStartDate);
     if (this.scheduleType === 'mySchedule') {
       this.getItem();
@@ -255,6 +258,12 @@ export default {
     //console.log("아이템" + this.items);
   },
   methods: {
+    changeSdate(){
+      console.log("sdate  :  "+this.newItemStartDate);
+    },
+    changeEdate(){
+
+    },
     periodChanged() {
       // range, eventSource) {
       // Demo does nothing with this information, just including the method to demonstrate how
