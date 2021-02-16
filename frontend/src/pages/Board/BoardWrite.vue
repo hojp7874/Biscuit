@@ -9,7 +9,7 @@
 
           <div class="AddWrap">
             <form>
-                <table class="tbAdd" width="100%">
+              <table class="tbAdd" width="100%">
                 <colgroup>
                   <col width="20%"/>
                   <col width="80%"/>
@@ -94,6 +94,7 @@ export default {
         nickname: localStorage.getItem("nickname"),
         title: this.title,
         contents: this.contents.length>5000? this.contents.substr(0,5000): this.contents,
+        category: this.category
       };
 
       if(this.form.title=='' || this.form.title.trim()==""){

@@ -1,75 +1,44 @@
 <template>
-      <b-row class="mb-1">
-        <b-col>
-          <div border-variant="info" class="row" no-body style="margin-bottom:10px; box-shadow: 5px 5px 5px #cccccc; min-height:80px; border-radius:5px;">
-            <div class="col-md-1 col-sm-1"> <img src="img/ryan.jpg" class="rounded-circle" style="margin-top:15px; margin-bottom:15px" alt="" /> </div>
-            <div class="col-md-11" style="padding:0px"> 
-                <div class="text-left" 
-                  ><div class="d-flex align-items-center" style="margin-top:10px; padding:0">
-                   
-                    <strong style="margin-right:10px">{{items.nickname}}</strong>
-                    <small>({{items.date}})</small>
-                    <b-col class="text-right" v-show="user.email===items.email" >
-                  <b-button style="margin:0px;" @click="modifyClick" variant="link">수정</b-button>
-                  <b-button style="margin:0px;" @click="deleteReplyConfirm" variant="link">삭제</b-button>
-                </b-col>
-                  </div>
-                </div>
-                
-          
-            <!-- </template> -->
-            <hr style="margin:0px;">
-            <div class="text-left">
-              <div id="viewcomment" v-show="isView" v-html="items.contents.replace(/(?:\r\n|\r|\n)/g, '<br>')" style=" margin-top:10px; margin-right:30px; margin-left:0px; margin-bottom:10px; font-size:10pt">
-                {{items.contents}}
-              </div>
-
-              <div id="modifyinput" v-show="!isView">
-                <b-form @submit="onSubmit">
-                  <b-row class="mb-3 mt-2">
-                    <b-col cols="11">
-                      <b-form-textarea
-                        id="modicontents"
-                        v-model="modicontents"
-                        placeholder="댓글을 입력하세요."
-                        rows="2"
-                      ></b-form-textarea>
-                    </b-col>
-                    <b-col><b-button type="submit" variant="dark">수정</b-button> </b-col> 
-                  </b-row>
-                </b-form>
-              </div>
+  <b-row class="mb-1">
+    <b-col>
+      <div border-variant="info" class="row" no-body
+        style="margin-bottom:10px; box-shadow: 5px 5px 5px #cccccc; min-height:80px; border-radius:5px;">
+        <div class=""> <img :src="user.picture" class="rounded-circle"
+            style="margin-top:15px; margin-right:15px; margin-bottom:15px; width:65px; height:65px" alt="" /> </div>
+        <div class="col" style="padding:0px">
+          <div class="text-left">
+            <div class="d-flex align-items-center" style="margin-top:10px; padding:0">
+              <strong style="margin-right:10px">{{items.nickname}}</strong>
+              <small>({{items.date}})</small>
+              <b-col class="text-right" v-show="user.email===items.email">
+                <b-button style="margin:0px;" @click="modifyClick" variant="link">수정</b-button>
+                <b-button style="margin:0px;" @click="deleteReplyConfirm" variant="link">삭제</b-button>
+              </b-col>
             </div>
           </div>
-          <b-col class="text-right" v-show="user.email===items.email" >
-            <b-button @click="modifyClick" variant="link">수정</b-button>
-            <b-button @click="deleteReplyConfirm" variant="link">삭제</b-button>
-          </b-col>
-      
           <!-- </template> -->
           <hr style="margin:0px;">
           <div class="text-left">
-            <div id="viewcomment" v-show="isView" v-html="items.contents.replace(/(?:\r\n|\r|\n)/g, '<br />')" style=" margin-top:10px; margin-right:30px; margin-bottom:10px; font-size:10pt">
+            <div id="viewcomment" v-show="isView" v-html="items.contents.replace(/(?:\r\n|\r|\n)/g, '<br>')"
+              style=" margin-top:10px; margin-right:30px; margin-left:0px; margin-bottom:10px; font-size:10pt">
               {{items.contents}}
             </div>
-
             <div id="modifyinput" v-show="!isView">
               <b-form @submit="onSubmit">
                 <b-row class="mb-3 mt-2">
                   <b-col cols="11">
-                    <b-form-textarea
-                      id="modicontents"
-                      v-model="modicontents"
-                      placeholder="댓글을 입력하세요."
-                      rows="2"
-                    ></b-form-textarea>
+                    <b-form-textarea id="modicontents" v-model="modicontents" placeholder="댓글을 입력하세요." rows="2">
+                    </b-form-textarea>
                   </b-col>
-                  <b-col><b-button type="submit" variant="dark">수정</b-button> </b-col> 
+                  <b-col class="p-0">
+                    <b-button type="submit" variant="dark">수정</b-button>
+                  </b-col>
                 </b-row>
               </b-form>
             </div>
           </div>
         </div>
+      </div>
     </b-col>
   </b-row>
 </template>

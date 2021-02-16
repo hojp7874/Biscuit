@@ -1,19 +1,26 @@
 <template>
   <div>
-    <div>
+    <div style="height: 760px">
       <div class="content-center brand">
-        <img class="n-logo" src="img/bisWhite.png" alt="" />
-        <div>
-          <br><br>
-          <center>
-          <h1>게시판 수정</h1>
-          <div class="UpdateWrap" style="width: 80%">
+  
+        <div class="container">
+          <h1 class="h1-seo text-center" style="margin-top:150px; font-weight: bold; color: #363636">게시글 수정</h1>
+          <!-- num 값에 따라 제목 변경 -->
+
+          <div class="AddWrap">
             <form>
               <table class="tbAdd" width="100%">
                 <colgroup>
-                  <col width="20%" />
-                  <col width="80%" />
+                  <col width="20%"/>
+                  <col width="80%"/>
                 </colgroup>
+                <tr>
+                  <th>말머리</th>
+                  <td>
+                    <!-- v-model 양뱡향데이터전송으로 상세 데이터 넣어준다 -->
+                    <b-form-radio-group type="radio" v-model="category" :options="options" />
+                  </td>
+                </tr>
                 <tr>
                   <th>제목</th>
                   <td>
@@ -23,7 +30,7 @@
                 </tr>
                 <tr>
                   <th>내용</th>
-                  <td><textarea v-model="contents" ref="contents"  @input="counting()" ></textarea></td>
+                  <td><textarea v-model="contents" ref="contents" @input="counting()"></textarea></td>
                 </tr>
               </table>
               <!-- <div >글자수 : <span>{{count}}</span> / 5000</div> -->
@@ -31,10 +38,9 @@
           </div>
 
           <div class="btnWrap">
-            <b-button @click="fnList" class="btnList m-1">취소</b-button>
-            <b-button @click="fnModProc" class="btnReset m-1">확인</b-button>
+            <b-button href="javascript:history.back()" class="btnList m-1">뒤로</b-button>
+            <b-button v-if="!num" @click="fnAddProc" type="submit" class="btnAdd m-1">등록</b-button>
           </div>
-          </center>
         </div>
       </div>
     </div>
@@ -47,6 +53,13 @@ const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 export default {
   data() {
     return {
+      options: [
+        {text: '자유', value: 0},
+        {text: '질문', value: 2},
+        {text: '꿀팁', value: 3},
+        {text: '취업', value: 4},
+        {text: '시험', value: 5},
+      ],
       temptitle: '',
       bId: this.$route.query.bId,
       email: this.$route.query.email,
@@ -64,23 +77,6 @@ export default {
 
   },
   methods: {
-    fnList() {
-      this.$router.push({ path: './BoardList' });
-    },
-    // fnGetView() {
-    //   console.log(this.$route.query);
-    //   this.$axios
-    //     .get('http://i4a407.p.ssafy.io:8877/a407/board/update')
-    //     .then((res) => {
-    //       this.title = res.data.list[0].title;
-    //       //console.log(this.title);
-    //       this.contents = res.data.list[0].contents;
-    //       //console.log(this.contents);
-    //     })
-    //     .catch((err) => {
-    //       console.log(err);
-    //     });
-    // },
     fnView() {
       this.$router.push({ path: './BoardRead', query: { bId: this.bId } }); //추가한 상세페이지 라우터
     },

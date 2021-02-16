@@ -2,75 +2,48 @@
   <div>
     <div class="">
 
-        <div class="page-header clear-filter" filter-color="orange" style=" min-height:45vh" >
-      <parallax
-        class="page-header-image"
+      <div class="page-header clear-filter" filter-color="orange" style=" min-height:45vh">
+        <parallax class="page-header-image" style="background-image:url('img/bg5.jpg'); height:600px">
+        </parallax>
 
-        style="background-image:url('img/bg5.jpg'); height:600px"
-      >
-      </parallax>
-          
-      <div class="content-center brand">
-        <img class="n-logo" src="img/bisWhite.png" alt="" style="margin-top:100px" />
-        <h2 class="h2-seo" style="font-weight:bold">취업게시판</h2>
+        <div class="content-center brand">
+          <img class="n-logo" src="img/bisWhite.png" alt="" style="margin-top:100px" />
+          <h2 class="h2-seo" style="font-weight:bold">취업게시판</h2>
 
-        <div class="row">
-          <div class="col-md-1"></div>
-          <div class="col-md-10">
-          <b-input-group>
-            <template #prepend>
-              <b-select name="type" style="border-radius:10px" v-model="type">
-                <b-select-option value="title">제목</b-select-option>
-                <b-select-option value="name">작성자</b-select-option>
-                <b-select-option value="contents">내용</b-select-option>
-              </b-select>
-            </template>
-            <b-form-input
-            style="border-radius:10px; color:white; background-color:#11111155"
-              type="text"
-              v-model="word"
-              @keyup.enter="fnSearch"
-            />
-            <b-input-group-append>
-              <b-button
-                @click="fnSearch"
-                text="Button"
-                variant="primary"
-                class="btnSearch mt-0"
-                style="border-radius:10px; font-weight: bold"
-
-                >
-                검색<i class="now-ui-icons ui-1_zoom-bold" style="margin-left:10px"></i></b-button>
-            </b-input-group-append>
-          </b-input-group>
-          </div>
+          <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-10">
+              <b-input-group>
+                <template #prepend>
+                  <b-select name="type" style="border-radius:10px" v-model="type">
+                    <b-select-option value="title">제목</b-select-option>
+                    <b-select-option value="name">작성자</b-select-option>
+                    <b-select-option value="contents">내용</b-select-option>
+                  </b-select>
+                </template>
+                <b-form-input style="border-radius:10px; color:white; background-color:#11111155" type="text"
+                  v-model="word" @keyup.enter="fnSearch" />
+                <b-input-group-append>
+                  <b-button @click="fnSearch" text="Button" variant="primary" class="btnSearch mt-0"
+                    style="border-radius:10px; font-weight: bold">
+                    검색<i class="now-ui-icons ui-1_zoom-bold" style="margin-left:10px"></i></b-button>
+                </b-input-group-append>
+              </b-input-group>
+            </div>
           </div>
         </div>
       </div>
-        <div class="content-center brand">
-          <div class="container">
-            <div class="listWrap" style="height:700px"><br>
-              <b-table
-                id="my-table"
-                :items="list"
-                :per-page="perPage"
-                :fields="column"
-                :current-page="currentPage"
-                @row-clicked="rowClick"
-                hover
-              ></b-table>
-              <div >
-                <b-pagination
-                  v-model="currentPage"
-                  :total-rows="this.list.length"
-                  :per-page="perPage"
-                  aria-controls="my-table"
-                  class="pagination pagination-primary"
-                  align="center"
-                  
-                ></b-pagination>
-                <div class="btnRightWrap">
-                <b-button @click="fnAdd" class="btnAdd m-1" style="border-radius:10px; background-color: #f96332; " v-if="this.loginStatus.nickname">글쓰기</b-button>
+      <div class="content-center brand">
+        <div class="container">
+          <div class="listWrap" style="height:700px"><br>
+            <b-table id="my-table" :items="list" :per-page="perPage" :fields="column" :current-page="currentPage"
+              @row-clicked="rowClick" hover></b-table>
+            <div>
+              <b-pagination v-model="currentPage" :total-rows="this.list.length" :per-page="perPage"
+                aria-controls="my-table" class="pagination pagination-primary" align="center"></b-pagination>
+              <div class="btnRightWrap">
+                <b-button @click="fnAdd" class="btnAdd m-1" style="border-radius:10px; background-color: #f96332; "
+                  v-if="this.loginStatus.nickname">글쓰기</b-button>
               </div>
             </div>
           </div>
@@ -93,6 +66,10 @@ export default {
         {
           key: 'bid',
           label: '순번',
+        },
+        {
+          key: 'category',
+          label: '말머리',
         },
         {
           key: 'title',
@@ -141,7 +118,7 @@ export default {
         type: this.type,
         word: this.word,
         currentPage: '',
-        category: 2,
+        category: 1,
       };
 
       axios
