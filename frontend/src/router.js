@@ -8,6 +8,8 @@ import GroupList from './pages/Group/GroupList.vue';
 import GroupCreate from './pages/Group/GroupCreate.vue';
 import GroupUpdate from './pages/Group/GroupUpdate.vue';
 import GroupPage from './pages/GroupPage/GroupPage.vue';
+import NoticeBoard from './pages/Board/NoticeBoard.vue';
+import JobBoard from './pages/Board/JobBoard.vue';
 import BoardList from './pages/Board/BoardList.vue';
 import BoardRead from './pages/Board/BoardRead.vue';
 import BoardUpdate from './pages/Board/BoardUpdate.vue';
@@ -111,6 +113,24 @@ export default new Router({
       path: '/boardlist',
       name: 'boardlist',
       components: { default: BoardList, header: MainNavbar, footer: MainFooter },
+      props: {
+        header: { colorOnScroll: 0 },
+        footer: { backgroundColor: 'black' }
+      }
+    },
+    {
+      path: '/noticeboard',
+      name: 'noticeboard',
+      components: { default: NoticeBoard, header: MainNavbar, footer: MainFooter },
+      props: {
+        header: { colorOnScroll: 0 },
+        footer: { backgroundColor: 'black' }
+      }
+    },
+    {
+      path: '/jobboard',
+      name: 'jobboard',
+      components: { default: JobBoard, header: MainNavbar, footer: MainFooter },
       props: {
         header: { colorOnScroll: 0 },
         footer: { backgroundColor: 'black' }

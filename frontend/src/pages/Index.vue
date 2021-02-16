@@ -13,7 +13,7 @@
         <div class="content-center brand">
           <img class="n-logo" src="img/bisWhite.png" alt="" />
           <h1 class="h1-seo" style="font-weight:bold">아직까지 혼자 공부하세요?</h1>
-          <h3>비스킷에서 전국 39291개의 스터디를 찾고 함께 공부하세요</h3>
+          <h3>비스킷에서 전국 {{groups.length}}개의 스터디를 찾고 함께 공부하세요</h3>
 
            <router-link class="navbar-brand" to="/grouplist">
         <b-button class="btn-primary btn-round btn-lg" data-aos="flip-left">지금 시작하기</b-button>
@@ -52,12 +52,13 @@
                 <div class="row">
                   <div class="col-md-6 ml-auto mr-auto text-center">
                
-                <div class=" d-flex justify-content-center" data-aos="zoom-in"
-     data-aos-easing="ease-out-cubic"
-     data-aos-duration="1000">
-                  <img  src="img/path225.png" alt="" />
+                    <div class=" d-flex justify-content-center" data-aos="zoom-in"
+                      data-aos-easing="ease-out-cubic"
+                      data-aos-duration="1000"
+                    >
+                      <img  src="img/path225.png" alt="" />
+                    </div>
                   </div>
-                </div>
                 </div>
               </div>
             </div>
@@ -85,8 +86,11 @@
 
 
 <script>
+import axios from 'axios'
 import { Parallax } from '@/components';
 import Landing from './Landing.vue';
+
+const SERVER_URL = process.env.VUE_APP_SERVER_URL
 
 export default {
   name: 'index',
@@ -94,14 +98,33 @@ export default {
   components: {
     Parallax, 
     Landing
+  },
+  data() {
+    return {
+      groups: [],
+    }
+  },
+  created() {
+    this.groupList()
+  },
+  methods: {
+    groupList: function() {
+      axios
+        .get(`${SERVER_URL}/group/list/`, {params: {type: '', word: ''}})
+        .then((res) => {
+          for (let i = 0; i < res.data.list.length; i++) {
+            res.data.list[i].edate = res.data.list[i].edate.split(' ')[0];
+          }
+          this.groups = res.data.list;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   }
-};
-
-
+}
 </script>
 
+<style>
 
-
-
-
-<style></style>
+</style>

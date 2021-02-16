@@ -12,7 +12,7 @@
           
       <div class="content-center brand">
         <img class="n-logo" src="img/bisWhite.png" alt="" style="margin-top:100px" />
-        <h2 class="h2-seo" style="font-weight:bold">자유게시판</h2>
+        <h2 class="h2-seo" style="font-weight:bold">공지사항</h2>
 
         <div class="row">
           <div class="col-md-1"></div>
@@ -45,18 +45,10 @@
           </b-input-group>
           </div>
           </div>
-
-         
         </div>
       </div>
         <div class="content-center brand">
-      
-
-
           <div class="container">
-          
-
-
             <div class="listWrap" style="height:700px"><br>
               <b-table
                 id="my-table"
@@ -77,9 +69,6 @@
                   align="center"
                   
                 ></b-pagination>
-                <div class="btnRightWrap">
-                <b-button @click="fnAdd" class="btnAdd m-1" style="border-radius:10px; background-color: #f96332; " v-if="this.loginStatus.nickname">글쓰기</b-button>
-              </div>
             </div>
           </div>
         </div>
@@ -149,7 +138,7 @@ export default {
         type: this.type,
         word: this.word,
         currentPage: '',
-        category: '',
+        category: 1,
       };
 
       axios
