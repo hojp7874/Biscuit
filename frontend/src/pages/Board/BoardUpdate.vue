@@ -39,7 +39,7 @@
 
           <div class="btnWrap">
             <b-button href="javascript:history.back()" class="btnList m-1">뒤로</b-button>
-            <b-button v-if="!num" @click="fnAddProc" type="submit" class="btnAdd m-1">등록</b-button>
+            <b-button v-if="!num" @click="fnAddProc" type="submit" class="btnAdd m-1">수정</b-button>
           </div>
         </div>
       </div>
@@ -55,10 +55,10 @@ export default {
     return {
       options: [
         {text: '자유', value: 0},
-        {text: '질문', value: 2},
-        {text: '꿀팁', value: 3},
-        {text: '취업', value: 4},
-        {text: '시험', value: 5},
+        {text: '질문', value: 1},
+        {text: '꿀팁', value: 2},
+        {text: '취업', value: 3},
+        {text: '시험', value: 4},
       ],
       temptitle: '',
       bId: this.$route.query.bId,
@@ -81,7 +81,7 @@ export default {
       this.$router.push({ path: './BoardRead', query: { bId: this.bId } }); //추가한 상세페이지 라우터
     },
     fnAddProc() {
-      this.form = {
+      const form = {
         bId: this.bId,
         email: this.email,
         title: this.title,
@@ -90,12 +90,12 @@ export default {
         category: this.category,
       };
 
-        this.$axios
-        .post(`${SERVER_URL}/board/update`, this.form)
+      this.$axios
+        .put(`${SERVER_URL}/board/update`, form)
         .then((res) => {
           if (res.data.success) {
-            alert('등록되었습니다.');
-            this.fnList();
+            alert('수정되었습니다.');
+            history.back()
           } else {
             alert('실행중 실패했습니다.\n다시 이용해 주세요');
           }

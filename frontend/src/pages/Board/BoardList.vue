@@ -8,11 +8,10 @@
 
         <div class="content-center brand">
           <img class="n-logo" src="img/bisWhite.png" alt="" style="margin-top:100px" />
-          <h2 class="h2-seo" style="font-weight:bold">자유게시판</h2>
+          <h2 class="h2-seo" style="font-weight:bold">게시판</h2>
 
-          <div class="row">
-            <div class="col-md-1"></div>
-            <div class="col-md-10">
+          <div class="d-flex flex-column">
+            <div>
               <b-input-group>
                 <template #prepend>
                   <b-select name="type" style="border-radius:10px" v-model="type">
@@ -22,21 +21,30 @@
                   </b-select>
                 </template>
                 <b-form-input style="border-radius:10px; color:white; background-color:#11111155" type="text"
-                  v-model="word" @keyup.enter="fnSearch" />
+                  v-model="word" @keyup.enter="fnGetList" />
                 <b-input-group-append>
-                  <b-button @click="fnSearch" text="Button" variant="primary" class="btnSearch mt-0"
+                  <b-button @click="fnGetList" text="Button" variant="primary" class="btnSearch mt-0"
                     style="border-radius:10px; font-weight: bold">
                     검색<i class="now-ui-icons ui-1_zoom-bold" style="margin-left:10px"></i></b-button>
                 </b-input-group-append>
               </b-input-group>
             </div>
+            <b-form-group>
+              <b-form-radio-group
+                id="btn-radios"
+                v-model="selected"
+                :options="options"
+                name="radios-btn"
+                buttons
+              ></b-form-radio-group>
+            </b-form-group>
           </div>
         </div>
       </div>
       <div class="content-center brand">
         <div class="container">
           <div class="listWrap" style="height:700px"><br>
-            <b-table id="my-table" :items="list" :per-page="perPage" :fields="column" :current-page="currentPage"
+            <b-table id="my-table" :items="showList" :per-page="perPage" :fields="column" :current-page="currentPage"
               @row-clicked="rowClick" hover></b-table>
             <div>
               <b-pagination v-model="currentPage" :total-rows="this.list.length" :per-page="perPage"
@@ -61,6 +69,15 @@ export default {
   data() {
     //변수생성
     return {
+      selected: '',
+      options: [
+        { text: '전체', value: '' },
+        { text: '자유', value: '자유' },
+        { text: '질문', value: '질문' },
+        { text: '꿀팁', value: '꿀팁' },
+        { text: '취업', value: '취업' },
+        { text: '시험', value: '시험' }
+      ],
       column: [
         // 'Bid', 'Title', 'Date'
         {
@@ -88,7 +105,7 @@ export default {
       form: '',
       body: '', //리스트 페이지 데이터전송
       // board_code: 'news', //게시판코드
-      list: '', //리스트 데이터
+      list: [], //리스트 데이터
       type: 'title',
       word: '',
       currentPage: this.$route.query.page ? this.$route.query.page : 1,
@@ -107,6 +124,13 @@ export default {
     ...mapState([
       'loginStatus'
     ]),
+    showList: function() {
+      if(this.selected == '') {
+        return this.list
+      } else {
+        return this.list.filter(x => x.category == this.selected)
+      }
+    }
   },
   created() {
     //페이지 시작하면은 자동 함수 실행
@@ -131,6 +155,18 @@ export default {
           today = year + '-' + month + '-' + day
           for (let i = 0; i < res.data.list.length; i++) {
             const datetime = res.data.list[i].date;
+            let category = res.data.list[i].category
+            if(category == 0) {
+              res.data.list[i].category = '자유'
+            } else if(category == 1) {
+              res.data.list[i].category = '질문'
+            } else if(category == 2) {
+              res.data.list[i].category = '꿀팁'
+            } else if(category == 3) {
+              res.data.list[i].category = '취업'
+            } else if(category == 4) {
+              res.data.list[i].category = '시험'
+            }
             if(datetime.split(' ')[0] == today) {
               res.data.list[i].date = datetime.split(' ')[1].slice(0, 5)
             } else {
@@ -141,7 +177,6 @@ export default {
           this.list = res.data.list.sort((a, b) => {
             return b.bid - a.bid;
           });
-          console.log(this.list.length);
         });
     },
 
@@ -158,12 +193,6 @@ export default {
       // `index` will be the visible row number (available in the v-model 'shownItems')
 
       this.fnView(record.bid);
-    },
-    fnSearch() {
-      //검색
-      console.log(this.type);
-      console.log(this.word);
-      this.fnGetList();
     },
     fnPage(n) {
       //페이징 이

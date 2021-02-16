@@ -55,10 +55,10 @@ export default {
     return {
       options: [
         {text: '자유', value: 0},
-        {text: '질문', value: 2},
-        {text: '꿀팁', value: 3},
-        {text: '취업', value: 4},
-        {text: '시험', value: 5},
+        {text: '질문', value: 1},
+        {text: '꿀팁', value: 2},
+        {text: '취업', value: 3},
+        {text: '시험', value: 4},
       ],
       category: 0,
       temptitle: '',
