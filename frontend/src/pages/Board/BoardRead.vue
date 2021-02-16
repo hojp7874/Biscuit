@@ -150,8 +150,8 @@ export default {
           })
           .then((res) => {
             if (res.data.success === 'success') {
-              // alert('게시글이 삭제 되었습니다.');
-              this.fnList();
+              alert('게시글이 삭제 되었습니다.');
+              history.back();
             } else {
               alert('게시글 삭제에 실패하셨습니다.');
             }
