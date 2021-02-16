@@ -24,7 +24,12 @@
     </template>
     <template slot="navbar-menu">
       <router-link class="navbar-brand" to="/grouplist">
-        <i class="now-ui-icons arrows-1_cloud-download-93" style="font-size: 15px"> 스터디 찾기</i>
+        <i
+          class="now-ui-icons arrows-1_cloud-download-93"
+          style="font-size: 15px"
+        >
+          스터디 찾기</i
+        >
       </router-link>
       <drop-down
         tag="li"
@@ -47,8 +52,14 @@
       </drop-down>
 
       <div class="d-flex align-items-center">
-        <img v-if="this.token" :src="loginStatus.picture" alt="" class="rounded-circle" style="width:40px; height:40px">
-        
+        <img
+          v-if="this.token"
+          :src="loginStatus.picture"
+          alt=""
+          class="rounded-circle"
+          style="width:40px; height:40px"
+        />
+
         <drop-down
           tag="li"
           :title="loginStatus.nickname + ' 님'"
@@ -78,29 +89,53 @@
           @click="readNotification"
         />
 
-      <!-- <a target="_blank" class="dropdown-item">
+        <!-- <a target="_blank" class="dropdown-item">
         댓글이 작성되었습니다~~~
         </a><a target="_blank" class="dropdown-item"> 
           그룹 신청 왔습니다~~~
         </a><a target="_blank" class="dropdown-item">
           그룹 승인 되었습니다~~
         </a> -->
-        
+
         <!-- <button class="dropdown-item" v-for="item in items" v-bind:key="item" @click="goNoti(item)">
           {{item.message}}
         </button><i class="now-ui-icons ui-1_simple-remove" style="margin-left:10px ;margin-top:-3px" @click="deleteNoti(item)"/> -->
         <div v-for="item in items" v-bind:key="item">
           <div class="dropdown-item" v-if="item.isRead == 1" id="readNoti">
-            <button style = "background-color: white; border:0;outline:0; font-size:10px;margin-left:-20px" @click="goNoti(item)">{{item.message}}</button>
-            <i class="now-ui-icons ui-1_simple-remove" style="margin-left:5px ;margin-top:-3px" @click.prevent="deleteNoti(item)"/>
+            <button
+              style="background-color: white; border:0;outline:0; font-size:10px;margin-left:-20px"
+              @click="goNoti(item)"
+            >
+              {{ item.message }}
+            </button>
+            <i
+              class="now-ui-icons ui-1_simple-remove"
+              style="margin-left:5px ;margin-top:-3px"
+              @click.prevent="deleteNoti(item)"
+            />
           </div>
 
           <div class="dropdown-item" v-if="item.isRead == 0" id="notReadNoti">
-            <button style = "background-color:white ; border:0;outline:0;font-weight:bold;font-size:10px;;margin-left:-20px" @click="goNoti(item)">{{item.message}}</button>
-            <i class="now-ui-icons ui-1_simple-remove" style="margin-left:5px ;margin-top:-3px" @click.prevent="deleteNoti(item)"/>
+            <button
+              style="background-color:white ; border:0;outline:0;font-weight:bold;font-size:10px;;margin-left:-20px"
+              @click="goNoti(item)"
+            >
+              {{ item.message }}
+            </button>
+            <i
+              class="now-ui-icons ui-1_simple-remove"
+              style="margin-left:5px ;margin-top:-3px"
+              @click.prevent="deleteNoti(item)"
+            />
           </div>
         </div>
       </drop-down>
+      <span v-if="notiCnt > 0"
+        class="badge badge-warning badge-pill"
+        style="margin-left:-20px;height:18px;width:17px;margin-right:10px;font-size:8px"
+      >
+        <span style="margin-left:-3px;">{{notiCnt}}</span>
+      </span>
       <!-- <drop-down icon="now-ui-icons ui-1_bell-53"  style="margin-left:-20px"  > </drop-down> -->
 
       <li class="nav-item">
@@ -182,7 +217,8 @@ export default {
       admin: '',
       type: '',
       token: '',
-      items:[],
+      items: [],
+      notiCnt:'0',
     };
   },
   props: {
@@ -190,15 +226,30 @@ export default {
     colorOnScroll: Number,
   },
   computed: {
-    ...mapState([
-      'loginStatus'
-    ])
+    ...mapState(['loginStatus']),
   },
   components: {
     DropDown,
     Navbar,
     NavLink,
     [Popover.name]: Popover,
+  },
+  mounted() {
+    console.log("hello");
+    this.form = { receiveEmail: localStorage.getItem('email') };
+      axios
+        .get(`${SERVER_URL}/notification/read`, {
+          params: this.form,
+        })
+        .then((res) => {
+          this.items = res.data.list;
+          for(var i in this.items){
+            console.log("hello" + this.items[i].isRead);
+            if(this.items[i].isRead == 0){
+              this.notiCnt++;
+            }
+          }
+        });
   },
   methods: {
     onClickLogout() {
@@ -214,7 +265,7 @@ export default {
     goToLogin() {
       this.$router.replace(`/login`);
     },
-    readNotification(){
+    readNotification() {
       this.form = { receiveEmail: localStorage.getItem('email') };
       axios
         .get(`${SERVER_URL}/notification/read`, {
@@ -224,10 +275,10 @@ export default {
           this.items = res.data.list;
         });
     },
-    goNoti(item){
-      this.form = {isRead:1 , nId:item.nId};
+    goNoti(item) {
+      this.form = { isRead: 1, nId: item.nId };
       axios
-        .put(`${SERVER_URL}/notification/update`, this.form , {
+        .put(`${SERVER_URL}/notification/update`, this.form, {
           headers: {
             'x-access-token': localStorage.getItem('token'),
           },
@@ -243,7 +294,7 @@ export default {
 
       this.$router.replace(item.notiUrl);
     },
-    deleteNoti(item){
+    deleteNoti(item) {
       this.delForm = { nId: item.nId };
       axios
         .delete(`${SERVER_URL}/notification/delete`, {
@@ -252,11 +303,11 @@ export default {
         .then((res) => {
           if (res.data.success === 'success') {
             console.log('삭제하였습니다.');
-          }else{
+          } else {
             console.log('실패');
           }
         });
-    }
+    },
   },
   created() {
     if (localStorage.getItem('token')) {
@@ -270,7 +321,7 @@ export default {
 </script>
 
 <style>
-#readNoti{
+#readNoti {
   /* background-color: rgb(240, 240, 240); */
   opacity: 0.5;
 }

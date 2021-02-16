@@ -232,7 +232,7 @@ false) { // console.log('gg'); // }
                     style="font-size :x-large ; margin-top:20px"
                   >
                     <div style="margin-top:20px">
-                      <div style="margin-right:330px">닉네임 :</div>
+                      <div style="margin-right:330px">닉네임<span style="color:red">* </span>:</div>
                       <!-- <input
                         type="text"
                         id="user-id"
@@ -262,7 +262,7 @@ false) { // console.log('gg'); // }
                       />
                     </div> -->
                     <div style="margin-top:20px">
-                      <div style="margin-right:355px">전화번호 :</div>
+                      <div style="margin-right:355px">전화번호<span style="color:red">* </span>: </div>
                       <fg-input
                         v-model="user.phone"
                         style="width: 300px ; margin-left : 140px ; margin-top : -40px ;opacity: 2.0;background-color:white;border-radius: 10rem;"
@@ -380,6 +380,11 @@ export default {
     },
     signup() {
       console.log(this.user.email);
+      if(this.user.nickname === ''){
+        alert("닉네임을 입력 해 주세요.");
+      }else if(this.user.phone === ''){
+        alert("전화번호를 입력 해 주세요.");
+      }else{
       axios
         .post(`${SERVER_URL}/user/join`, this.user)
         .then((response) => {
@@ -391,6 +396,7 @@ export default {
         .catch(function(error) {
           console.log(error);
         });
+      }
     },
     back() {
       this.$router.replace('/login');
