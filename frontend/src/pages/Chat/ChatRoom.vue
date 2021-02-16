@@ -3,11 +3,25 @@
     <div>
       <h2>{{ room.roomName }}</h2>
     </div>
-    <ul class="list-group">
-      <li class="list-group-item" v-for="message in messages" v-bind:key="message.id">
-        <a>{{ message.nickname }} - {{ message.message }}</a>
+    
+      <!-- eslint-disable vue/no-use-v-if-with-v-for,vue/no-confusing-v-for-v-if -->
+    <div>
+      <span v-for="member in members" v-bind:key="member.crmId" >
+         <a v-if="member.isJoin==1" style="margin-right:5px" class="btn btn-primary btn-round btn-lg">{{member.nickname}}</a>
+         <a v-else style="background-color:#9b9b9b; margin-right:5px" class="btn btn-primary btn-round btn-lg">{{member.nickname}}</a>
+         </span>
+    </div>
+    <br/>
+    <div id="row">
+      <div class="items" >
+    <ul class="list-group" id="chatList" onscroll>
+      <li class="list-group-item" v-for="message in messages" v-bind:key="message.id"  v-if="message.type=='TALK' || message.type=='JOIN'">
+        <a v-if="message.type=='TALK'">{{ message.nickname }} - {{ message.message }}</a>
+        <a v-if="message.type=='JOIN'">{{message.message}}</a>
       </li>
     </ul>
+      </div>
+    </div>
     <!-- <div class="input-group">
       <input type="text" class="form-control" v-model="message" v-on:keypress.enter="sendMessage" />
       <div class="input-group-append">
@@ -57,6 +71,9 @@ export default {
       message: null,
       reconnect: '',
       nickname: '',
+      members: [],
+      bottom_flag: true,
+      pre_diffHeight : 0,
     };
   },
   created() {
@@ -65,8 +82,15 @@ export default {
     this.email = localStorage.getItem('email');
     this.nickname = localStorage.getItem('nickname');
     this.findRoom();
+    this.loadMember();
     this.loadMessages();
     this.connect();
+  },
+  updated(){
+    var objDiv = document.getElementById("chatList");
+    if(this.bottom_flag){
+      objDiv.scrollTop = objDiv.scrollHeight;
+    }
   },
   methods: {
     loadMessages: function() {
@@ -90,11 +114,11 @@ export default {
         })
         .then((res) => {
           this.room = res.data.data;
-          console.log('###room : ' + res.data.data);
+          // console.log('###room : ' + res.data.data);
         });
     },
     sendMessage: function() {
-      console.log('###sendMsg start');
+      // console.log('###sendMsg start');
       this.ws.send(
         '/pub/chat/message',
         {},
@@ -107,11 +131,11 @@ export default {
         })
       );
 
-      console.log('###sendMsg end');
+      // console.log('###sendMsg end');
       this.message = '';
     },
     recvMessage: function(recv) {
-      console.log('###recv msg : ' + recv.message);
+      // console.log('###recv msg : ' + recv.message);
       // this.messages.unshift({
       //   type: recv.type,
       //   email: recv.type == 'ENTER' ? '[알림]' : recv.email,
@@ -129,32 +153,55 @@ export default {
       this.ws.connect(
         {},
         (frame) => {
-          console.log('###connect start');
+          // console.log('###connect start');
           this.ws.subscribe(
             '/sub/chat/room/' + this.roomId,
             function(message) {
               var recv = JSON.parse(message.body);
-              console.log('###receive start. recv : ' + recv);
-              console.log('###frame : ' + frame);
+              // console.log('###receive start. recv : ' + recv);
+              // console.log('###frame : ' + frame);
               this.recvMessage(recv);
-              console.log('###received.');
+              // console.log('###received.');
             }.bind(this)
           );
-          console.log(
-            '###send start. json msg : ' +
-              JSON.stringify({ type: 'ENTER', roomId: this.roomId, email: this.email, nickname: this.nickname })
-          );
+          // console.log(
+          //   '###send start. json msg : ' +
+          //     JSON.stringify({ type: 'ENTER', roomId: this.roomId, email: this.email, nickname: this.nickname })
+          // );
           this.ws.send(
             '/pub/chat/message',
             {},
             JSON.stringify({ type: 'ENTER', roomId: this.roomId, email: this.email, nickname: this.nickname, message: null })
           );
-          console.log('###send end');
+          //채팅창에 처음 접속했는지 확인
+          // console.log("########join check start")
+          var memberFlag = 0;
+          for(const index in this.members){
+            // console.log("###this.member[index].nickname : " + this.members[index].nickname)
+            if(this.members[index].nickname == this.nickname){
+              // console.log("###isJoin : "+this.members[index].isJoin)
+              if(this.members[index].isJoin == 0){
+                memberFlag = 1;
+                // console.log("###join")
+              }
+              break;
+            }
+          }
+
+          if(memberFlag == 1){
+            this.ws.send(
+              '/pub/chat/message',
+              {},
+              JSON.stringify({type: 'JOIN', roomId: this.roomId, email: this.email, nickname: this.nickname, message:null})
+            )
+          }
+          this.joinRoom();
+          // console.log('###send end');
         },
         function(error) {
           if (this.reconnect++ <= 5) {
             setTimeout(function() {
-              console.log('##connection reconnect' + error);
+              // console.log('##connection reconnect' + error);
               this.sock = new SockJS('/ws-stomp');
               this.ws = Stomp.over(this.sock);
               this.connect();
@@ -162,6 +209,32 @@ export default {
           }
         }
       );
+    },
+    loadMember: function(){
+      axios
+        .get(`${CHAT_SERVER_URL}/chat/member`, 
+        {
+          params:{
+            roomId: this.roomId,
+          }
+        })
+        .then((res) =>{
+          this.members = res.data.data;
+        })
+        .catch((res) =>{
+          console.log("error: " + res);
+        })
+    },
+    joinRoom: function(){
+      this.form = {
+        roomId: this.roomId,
+        nickname: this.nickname,
+      };
+      axios
+        .put(`${CHAT_SERVER_URL}/chat/join`, this.form)
+        .catch((res) =>{
+          console.log(res);
+        })
     },
   },
   mounted() {},
@@ -173,41 +246,43 @@ body {
   width: 600px;
 }
 #row {
-  white-space: nowrap;/* 가로스크롤시 중요한 속성 */
-  overflow-x: auto;
-  overflow-y: hidden;
-  padding: 10px 10px 5px;
+  /* white-space: nowrap; */
+  /* 가로스크롤시 중요한 속성 */
+  /* overflow-x: auto; */
+  /* overflow-y: hidden; */
+  /* padding: 10px 10px 5px; */
   background: #efefef;
-  width: 600px;
+  /* width: 600px; */
 }
 
-#row .items {
+/* #row .items {
   display: inline-block;
   margin-left: 10px;
-  width: 160px;
-}
+  width: 1100px;
+  max-width: 100%;
+} */
 
-#row .items:first-child {
+/* #row .items:first-child {
   margin-left: 0;
-}
+} */
 
-#row .items p {
+/* #row .items p {
   margin-bottom: 8px;
   text-indent: 7px;
-}
+} */
 
 #row .items ul {
   border-radius: 3px;
   border: 1px solid #b5b5b5;
-  height: 135px;
+  height: 500px;
   overflow-y: scroll;
   padding: 3px 3px 8px;
   background: #fff;
 }
 
-#row .items ul li {}
+/* #row .items ul li {} */
 
-#row .items ul li a {
+/* #row .items ul li a {
   display: block;
   overflow: hidden;
   margin-top: 8px;
@@ -226,5 +301,5 @@ body {
   border-radius: 3px;
   font-weight: bold;
   background-color: #efefef;
-}
+} */
 </style>
