@@ -42,13 +42,13 @@
           <i class="now-ui-icons business_chart-pie-36"></i> 공지사항
         </nav-link>
         <nav-link to="/boardlist">
-          <i class="now-ui-icons business_chart-pie-36"></i> All components 자유
+          <i class="now-ui-icons business_chart-pie-36"></i> 
           게시판
         </nav-link>
-        <nav-link to="/jobboard">
+        <!-- <nav-link to="/jobboard">
           <i class="now-ui-icons design_bullet-list-67"></i> Documentation 취업
           게시판
-        </nav-link>
+        </nav-link> -->
       </drop-down>
 
       <div class="d-flex align-items-center">
