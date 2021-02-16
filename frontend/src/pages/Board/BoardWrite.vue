@@ -15,6 +15,13 @@
                   <col width="80%"/>
                 </colgroup>
                 <tr>
+                  <th>말머리</th>
+                  <td>
+                    <!-- v-model 양뱡향데이터전송으로 상세 데이터 넣어준다 -->
+                    <b-form-radio-group type="radio" v-model="category" :options="options" />
+                  </td>
+                </tr>
+                <tr>
                   <th>제목</th>
                   <td>
                     <!-- v-model 양뱡향데이터전송으로 상세 데이터 넣어준다 -->
@@ -46,6 +53,14 @@ const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 export default {
   data() {
     return {
+      options: [
+        {text: '자유', value: 0},
+        {text: '질문', value: 2},
+        {text: '꿀팁', value: 3},
+        {text: '취업', value: 4},
+        {text: '시험', value: 5},
+      ],
+      category: 0,
       temptitle: '',
       board_code: 'news',
       title: '',

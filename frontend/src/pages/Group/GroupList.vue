@@ -385,7 +385,7 @@
             },
           })
           .then((res) => {
-            // console.log(res)
+            console.log(res)
             if (res.data.list.length != 0) {
               this.existMyGroups = true
             }

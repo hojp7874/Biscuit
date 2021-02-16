@@ -59,7 +59,7 @@ public class BoardController {
 	
 	//게시글 보기
 	@GetMapping(value = "/read")
-	private ResponseEntity read(@RequestParam String type, @RequestParam String word, @RequestParam(defaultValue="0") int currentPage, @RequestParam(defaultValue="0") int category) {
+	private ResponseEntity read(@RequestParam String type, @RequestParam String word, @RequestParam(defaultValue="0") int currentPage, @RequestParam(defaultValue="0") int noticeFlag) {
 		ResponseEntity entity = null;
 		Map result = new HashMap();
 		try {
@@ -67,7 +67,7 @@ public class BoardController {
 			currentPage = currentPage * 10;
 			//전체 조회
 			if(type.equals("")) {
-				List<BoardDto> list = board.searchAll(currentPage, category);
+				List<BoardDto> list = board.searchAll(currentPage, noticeFlag);
 //		        System.out.println(list);
 		        if(list != null) {
 		            result.put("list", list);
@@ -94,7 +94,7 @@ public class BoardController {
 			}
 			//title로 검색
 			else if(type.equals("title")) {
-				List<BoardDto> list = board.searchTitle(word, currentPage, category);
+				List<BoardDto> list = board.searchTitle(word, currentPage, noticeFlag);
 //				System.out.println(list);
 				if(list != null) {
 					result.put("list", list);
@@ -108,7 +108,7 @@ public class BoardController {
 			//작성자로 검색
 			else if(type.equals("name")) {
 				List<BoardDto> list = new ArrayList<BoardDto>();
-				list.addAll(board.searchName(word, currentPage, category));
+				list.addAll(board.searchName(word, currentPage, noticeFlag));
 //				System.out.println(list);
 				if(list != null) {
 					result.put("list", list);
@@ -121,7 +121,7 @@ public class BoardController {
 			}
 			//내용으로 검색
 			else if(type.equals("contents")) {
-				List<BoardDto> list = board.searchContents(word, currentPage, category);
+				List<BoardDto> list = board.searchContents(word, currentPage, noticeFlag);
 //				System.out.println(list);
 				if(list != null) {
 					result.put("list", list);
