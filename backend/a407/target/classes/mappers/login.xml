@@ -18,6 +18,7 @@
 	<update id="pwupdateUser2" parameterType="map">update user set password = #{newpassword} where email = #{email} and password = #{password}</update>
 	<select id="profileUser" parameterType="String" resultType="UserDto">select * from user where email = #{email}</select>
 	<select id="checkEmail" parameterType="String" resultType="int">select count(*) from user where email = #{email}</select>
+	<select id="checkNickname" parameterType="String" resultType="int">select count(*) from user where nickname = #{nickname}</select>
 	
 	<update id="updateAdmin" parameterType="map">
 		update user set admin = #{admin}
