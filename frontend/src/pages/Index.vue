@@ -8,6 +8,7 @@
         style="background-image:url('img/header.jpg')"
       >
       </parallax>
+
       <div class="container">
           
         <div class="content-center brand">
@@ -63,6 +64,7 @@
           </div>
         </div>
       </div>
+    </div>
     </div>
 
     

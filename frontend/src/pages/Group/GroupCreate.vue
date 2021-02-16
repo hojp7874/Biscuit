@@ -40,7 +40,6 @@
               v-model="form.max"
               placeholder="스터디 인원제한을 설정해주세요."
               required
-              type ='number'
             ></fg-input>
           </div>
 
