@@ -142,4 +142,31 @@ public class ReplyController {
 		//System.out.println(entity.getBody().toString());
 		return entity;
 	}
+	
+	@GetMapping(value = "/countreply")
+	private ResponseEntity countReply(@RequestParam String email) {
+		ResponseEntity entity = null;
+		//System.out.println("profile ========");
+		Map result = new HashMap();
+		try {
+			int num = service.countReply(email);
+			if (num > -1) {
+				result.put("success", "success");
+				result.put("count", num);
+				entity = new ResponseEntity<>(result, HttpStatus.OK);
+				
+			}
+			else {
+				result.put("success", "fail");
+				entity = new ResponseEntity<>(result, HttpStatus.OK);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.put("success", "error");
+			entity = new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+			
+		}
+		return entity;
+	}
 }

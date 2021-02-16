@@ -9,14 +9,15 @@
         <h3 class="title">{{loginStatus.nickname}}</h3>
         <p class="category">{{loginStatus.phone}}</p>
         <div class="content">
-          <!-- <div class="social-description">
-            <h2>2</h2>
+           <div class="social-description">
+            <h2>{{this.boardCnt}}</h2>
             <p>내 게시글</p>
           </div>
+          
           <div class="social-description">
-            <h2>6</h2>
+            <h2>{{this.replyCnt}}</h2>
             <p>내 댓글</p>
-          </div> -->
+          </div>
           <div class="social-description">
             <h2>{{this.loginStatus.myStudyNum}}</h2>
             <p>가입한 스터디</p>
@@ -46,6 +47,9 @@ import MySchedule from './User/MyPage/MySchedule';
 import UpdateUser from './User/MyPage/UpdateUser';
 import ChatMain from './Chat/ChatMain';
  import {mapState} from 'vuex'
+ import axios from 'axios';
+const SERVER_URL = process.env.VUE_APP_SERVER_URL;
+
 export default {
   name: 'profile',
   bodyClass: 'profile-page',
@@ -60,6 +64,9 @@ export default {
       },
       active:0,
       joinedStudyNum:0,
+      list:[],
+      boardCnt:0,
+      replyCnt:0,
     };
   },
   created() {
@@ -67,6 +74,55 @@ export default {
     this.user.email = localStorage.getItem('email');
     this.user.nickname = localStorage.getItem('nickname');
     this.user.phone = localStorage.getItem('phone');
+
+    // this.form = {
+    //     type: "name",
+    //     word: this.user.nickname,
+    //     currentPage: '',
+    //     category: '',
+    //   };
+
+    //   axios
+    //     .get(`${SERVER_URL}/board/read`, { params: this.form })
+    //     .then((res) => {
+    //       console.log(res)
+    //       this.list = res.data.list.sort((a, b) => {
+    //         return b.bid - a.bid;
+    //       });
+    //       console.log("하위" + this.list.length);
+    //     });
+    this.form = { email: this.user.email };
+    axios
+        .get(`${SERVER_URL}/board/countboard`, {
+          params: this.form,
+        })
+        .then((res) => {
+          if (res.data.success === 'success'){
+            this.boardCnt = res.data.count;
+          }else{
+            console.log("에러뜸");
+          }
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+      
+    axios
+        .get(`${SERVER_URL}/reply/countreply`, {
+          params: this.form,
+        })
+        .then((res) => {
+          if (res.data.success === 'success'){
+            this.replyCnt = res.data.count;
+          }else{
+            console.log("에러뜸");
+          }
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+
+
   },
   computed: {
       ...mapState([

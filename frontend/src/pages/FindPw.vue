@@ -179,15 +179,19 @@ export default {
     verifyValidPw(str) {
       console.log('확인작업');
       var pw = str;
-      //var num = pw.search(/[0-9]/g);
-      // var eng = pw.search(/[a-z]/gi);
-      //var spe = pw.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
-
-      if (pw.length < 8 || pw.length > 20) {
+      var num = pw.search(/[0-9]/g);
+       var eng = pw.search(/[a-z]/gi);
+      var spe = pw.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
+      console.log("영문" + eng);
+      if(eng < 0 || num < 0 || spe < 0){
+        alert('영문,숫자,특수문자 포함 8자리 ~ 20자리 이내로 입력해주세요.');
+        return false;
+      }
+      else if (pw.length < 8 || pw.length > 20) {
         alert('8자리 ~ 20자리 이내로 입력해주세요.');
         return false;
       }
-      if (pw.search(/₩s/) != -1) {
+      else if (pw.search(/₩s/) != -1) {
         alert('비밀번호는 공백업이 입력해주세요.');
         return false;
       }

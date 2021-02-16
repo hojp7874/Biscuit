@@ -53,7 +53,10 @@
           >
             <span>
               <img v-if="item.permission == 3" src="img/crown.png" alt="group master" width="7%" height="7%"/>
-              {{ item.nickname }}              
+              {{ item.nickname }} 
+              <b-button v-if="item.nickname == loginStatus.nickname && item.permission != 3" style="margin-left : 220px" @click="deleteUser">
+                스터디 탈퇴
+              </b-button>             
             </span>            
             <div v-if="item.permission != 3 && state == 3"> 
               <b-button @click="[updateState(item.mId, 3), updateState(mId, 1)]">
@@ -151,7 +154,8 @@ export default {
         })
         .then((res) => {
           if (res.data.success == 'success') {
-               this.$router.go(this.$router.currentRoute);
+            //  this.$router.go(this.$router.currentRoute);
+            this.$emit('changemember',5);
           }
         });
     },
@@ -208,6 +212,7 @@ export default {
           if (res.data.success) {
             console.log('receiveEmail >>> ' + this.email);
             // alert('등록되었습니다.');
+            this.$emit('changemember',3);
           } else {
             console.log('알림 전송 실패');
           }
@@ -248,6 +253,19 @@ export default {
           console.log(err);
         });
     },
+    deleteUser: function(){
+      if(confirm("해당 스터디에서 탈퇴하시겠습니까?")== true){
+      axios.delete(`${SERVER_URL}/group/member/cancel`,
+        {data: {gId: this.gId, nickname: this.loginStatus.nickname}})
+         .then(res => {
+           console.log(res);
+           this.$router.push('/grouplist');
+         })
+         .catch(err => {
+           console.log(err)
+         })
+      }
+    }
   },
 };
 </script>

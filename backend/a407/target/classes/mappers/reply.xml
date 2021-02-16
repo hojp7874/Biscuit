@@ -36,4 +36,6 @@
 		where bId = #{bId}
 	</select>
 	
+	<select id="countReply" parameterType="String" resultType="int">select count(*) from a407.reply where email = #{email}</select>
+	
  </mapper> 
