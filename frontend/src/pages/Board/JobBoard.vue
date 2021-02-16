@@ -118,7 +118,7 @@ export default {
         type: this.type,
         word: this.word,
         currentPage: '',
-        category: 2,
+        category: 1,
       };
 
       axios

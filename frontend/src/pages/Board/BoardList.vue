@@ -68,6 +68,10 @@ export default {
           label: '순번',
         },
         {
+          key: 'category',
+          label: '말머리',
+        },
+        {
           key: 'title',
           label: '제목',
         },
