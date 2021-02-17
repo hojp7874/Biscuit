@@ -3,23 +3,26 @@
     <div>
       <h2>{{ room.roomName }}</h2>
     </div>
-    
-      <!-- eslint-disable vue/no-use-v-if-with-v-for,vue/no-confusing-v-for-v-if -->
+
+    <!-- eslint-disable vue/no-use-v-if-with-v-for,vue/no-confusing-v-for-v-if -->
     <div>
-      <span v-for="member in members" v-bind:key="member.crmId" >
-         <a v-if="member.isJoin==1" style="margin-right:5px" class="btn btn-primary btn-round btn-lg">{{member.nickname}}</a>
-         <a v-else style="background-color:#9b9b9b; margin-right:5px" class="btn btn-primary btn-round btn-lg">{{member.nickname}}</a>
-         </span>
+      <span v-for="member in members" v-bind:key="member.crmId">
+        <a v-if="member.isJoin==1" style="margin-right:5px"
+          class="btn btn-primary btn-round btn-lg">{{member.nickname}}</a>
+        <a v-else style="background-color:#9b9b9b; margin-right:5px"
+          class="btn btn-primary btn-round btn-lg">{{member.nickname}}</a>
+      </span>
     </div>
-    <br/>
+    <br />
     <div id="row">
-      <div class="items" >
-    <ul class="list-group" id="chatList" onscroll>
-      <li class="list-group-item" v-for="message in messages" v-bind:key="message.id"  v-if="message.type=='TALK' || message.type=='JOIN'">
-        <a v-if="message.type=='TALK'">{{ message.nickname }} - {{ message.message }}</a>
-        <a v-if="message.type=='JOIN'">{{message.message}}</a>
-      </li>
-    </ul>
+      <div class="items">
+        <ul class="list-group" id="chatList" onscroll>
+          <li class="list-group-item" v-for="message in messages" v-bind:key="message.id"
+            v-if="message.type=='TALK' || message.type=='JOIN'">
+            <a v-if="message.type=='TALK'">{{ message.nickname }} - {{ message.message }}</a>
+            <a v-if="message.type=='JOIN'">{{message.message}}</a>
+          </li>
+        </ul>
       </div>
     </div>
     <!-- <div class="input-group">
@@ -29,28 +32,19 @@
       </div>
     </div> -->
 
-    <br/><br/>
+    <br /><br />
     <div>
 
       <b-input-group>
-          <b-form-input
-            style="border-radius:10px"
-            type="text"
-            v-model="message"
-            v-on:keyup.enter="sendMessage()"
-          />
-          <b-input-group-append>
-            <b-button
-              text="Button"
-              variant="primary"
-              class="btnSearch mt-0"
-              style="border-radius:10px; font-weight: bold"
-              v-on:click="sendMessage()"
-            >
-              확인
-            </b-button>
-          </b-input-group-append>
-        </b-input-group>
+        <b-form-input style="border-radius:10px" type="text" v-model="message" v-on:keyup.enter="sendMessage()" />
+        <b-input-group-append>
+          <b-button text="Button" variant="primary" class="btnSearch mt-0" style="border-radius:10px; font-weight: bold"
+            v-on:click="sendMessage()">
+            전송
+          </b-button>
+        </b-input-group-append>
+      </b-input-group>
+      <b-button @click="modeZero()">뒤로</b-button>
     </div>
   </div>
 </template>
@@ -93,6 +87,9 @@ export default {
     }
   },
   methods: {
+    modeZero: function() {
+      this.$emit('modeZero')
+    },
     loadMessages: function() {
       axios
         .get(`${CHAT_SERVER_URL}/chat/messages`, {

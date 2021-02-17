@@ -23,7 +23,7 @@
       </el-popover>
     </template>
     <template slot="navbar-menu">
-      <router-link class="navbar-brand" to="/grouplist">
+      <router-link class="navbar-brand ml-3" to="/grouplist">
         <i
           class="now-ui-icons arrows-1_cloud-download-93"
           style="font-size: 15px"
@@ -31,23 +31,26 @@
           스터디 찾기</i
         >
       </router-link>
-      <drop-down
-        tag="li"
-        title="게시판"
-        style="font-size: 21px"
-        icon="now-ui-icons design_app"
-        class="nav-item"
-      >
-        <nav-link to="/noticeboard">
-          <i class="now-ui-icons business_chart-pie-36"></i> 공지사항
-        </nav-link>
-        <nav-link to="/boardlist">
-          <i class="now-ui-icons business_chart-pie-36"></i> 
-          게시판
-        </nav-link>
-      </drop-down>
 
-      <div class="d-flex align-items-center">
+      <router-link class="navbar-brand ml-3" to="/noticeboard">
+        <i
+          class="now-ui-icons design_app"
+          style="font-size: 15px"
+        >
+          공지사항</i
+        >
+      </router-link>
+
+      <router-link class="navbar-brand ml-3" to="/boardlist">
+        <i
+          class="now-ui-icons business_chart-pie-36"
+          style="font-size: 15px"
+        >
+          게시판</i
+        >
+      </router-link>
+
+      <div class="d-flex align-items-center ml-3">
         <img
           v-if="this.token"
           :src="loginStatus.picture"
@@ -56,21 +59,16 @@
           style="width:40px; height:40px"
         />
 
-        <drop-down
-          tag="li"
-          :title="loginStatus.nickname + ' 님'"
-          style="font-size: 21px"
-          class="nav-item"
-          v-if="this.token !== ''"
-        >
+        <router-link class="navbar-brand" to="/profile" v-if="loginStatus.email">
+          <i
+            style="font-size: 15px"
+          >
+            {{loginStatus.nickname}} 님</i
+          >
+        </router-link>
 
-          <nav-link to="/profile">
-            <i class="now-ui-icons users_single-02"></i> MyPage
-          </nav-link>
-        </drop-down>
       </div>
-
-      <drop-down v-if="this.token !== ''">
+      <drop-down class="ml-3" v-if="this.token !== ''">
         <b-icon-bell
           slot="title"
           class="dropdown-toggle"
@@ -142,7 +140,7 @@
 </template>
 
 <script>
-import { DropDown, Navbar, NavLink,} from '@/components';
+import { DropDown, Navbar } from '@/components';
 import { Popover } from 'element-ui';
 import axios from 'axios';
 import { mapState } from 'vuex';
@@ -170,7 +168,6 @@ export default {
   components: {
     DropDown,
     Navbar,
-    NavLink,
     [Popover.name]: Popover,
   },
   mounted() {
