@@ -31,6 +31,21 @@
           스터디 찾기</i
         >
       </router-link>
+      <drop-down
+        tag="li"
+        title="게시판"
+        style="font-size: 21px"
+        icon="now-ui-icons design_app"
+        class="nav-item"
+      >
+        <nav-link to="/noticeboard">
+          <i class="now-ui-icons business_chart-pie-36"></i> 공지사항
+        </nav-link>
+        <nav-link to="/boardlist">
+          <i class="now-ui-icons business_chart-pie-36"></i>
+          게시판
+        </nav-link>
+      </drop-down>
 
       <router-link class="navbar-brand ml-3" to="/noticeboard">
         <i
@@ -78,7 +93,7 @@
           @click="readNotification"
         />
 
-        <div v-for="(item,idx) in items" v-bind:key="idx">
+        <div v-for="(item, idx) in items" v-bind:key="idx">
           <div class="dropdown-item" v-if="item.isRead == 1" id="readNoti">
             <button
               style="background-color: white; border:0;outline:0; font-size:10px;margin-left:-20px"
@@ -108,11 +123,12 @@
           </div>
         </div>
       </drop-down>
-      <span v-if="notiCnt > 0"
+      <span
+        v-if="notiCnt > 0"
         class="badge badge-warning badge-pill"
         style="margin-left:-20px;height:18px;width:17px;margin-right:10px;font-size:8px"
       >
-        <span style="margin-left:-3px;">{{notiCnt}}</span>
+        <span style="margin-left:-3px;">{{ notiCnt }}</span>
       </span>
 
       <li class="nav-item">
@@ -155,7 +171,7 @@ export default {
       type: '',
       token: '',
       items: [],
-      notiCnt:'0',
+      notiCnt: '0',
     };
   },
   props: {
@@ -171,20 +187,20 @@ export default {
     [Popover.name]: Popover,
   },
   mounted() {
-    if(this.loginStatus.email) {
+    if (this.loginStatus.email) {
       this.form = { receiveEmail: localStorage.getItem('email') };
-    axios
-      .get(`${SERVER_URL}/notification/read`, {
-        params: this.form,
-      })
-      .then((res) => {
-        this.items = res.data.list;
-        for(var i in this.items){
-          if(this.items[i].isRead == 0){
-            this.notiCnt++;
+      axios
+        .get(`${SERVER_URL}/notification/read`, {
+          params: this.form,
+        })
+        .then((res) => {
+          this.items = res.data.list;
+          for (var i in this.items) {
+            if (this.items[i].isRead == 0) {
+              this.notiCnt++;
+            }
           }
-        }
-      });
+        });
     }
   },
   methods: {
@@ -222,16 +238,39 @@ export default {
         .then((response) => {
           if (response.data.success === 'success') {
             console.log('정보 수정에 성공하셨습니다.');
+             this.form = { receiveEmail: localStorage.getItem('email') };
+            axios
+              .get(`${SERVER_URL}/notification/read`, {
+                params: this.form,
+              })
+              .then((res) => {
+                if (response.data.success === 'success') {
+                  this.notiCnt = 0;
+                  this.items = res.data.list;
+                  console.log('정보 수정에 성공하셨습니다.2222');
+                  for (var i in this.items) {
+                    if (this.items[i].isRead == 0) {
+                      this.notiCnt++;
+                    }
+                  }
+                } else {
+                  console.log('정보 수정에 실패하셨습니다.zz');
+                }
+              })
+              .catch(function(error) {
+                console.log(error);
+                console.log('정보 수정에 실패하셨습니다.zzzz');
+              });
           } else console.log('정보 수정에 실패하셨습니다.');
         })
         .catch(function(error) {
           console.log(error);
         });
-
       this.$router.replace(item.notiUrl);
     },
     deleteNoti(item) {
       this.delForm = { nId: item.nId };
+       this.form = { receiveEmail: localStorage.getItem('email') };
       axios
         .delete(`${SERVER_URL}/notification/delete`, {
           params: this.delForm,
@@ -239,6 +278,19 @@ export default {
         .then((res) => {
           if (res.data.success === 'success') {
             console.log('삭제하였습니다.');
+            axios
+              .get(`${SERVER_URL}/notification/read`, {
+                params: this.form,
+              })
+              .then((res) => {
+                this.notiCnt = 0;
+                this.items = res.data.list;
+                for (var i in this.items) {
+                  if (this.items[i].isRead == 0) {
+                    this.notiCnt++;
+                  }
+                }
+              });
           } else {
             console.log('실패');
           }
