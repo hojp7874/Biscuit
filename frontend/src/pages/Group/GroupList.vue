@@ -283,7 +283,6 @@
     },
     methods: {
       searchGroup: function() {
-        console.log('searchGroup')
         axios.get(`${SERVER_URL}/group/list/`, {params: this.params})
           .then(res => {
                         for (let i = 0; i < res.data.list.length; i++) {
@@ -296,10 +295,8 @@
           })
       },
       getPermission: function(gId) {
-        console.log({gId: gId, nickname: this.loginStatus.nickname})
         axios.get(`${SERVER_URL}/group/member/apply/state`, {params: {gId: gId, nickname: this.loginStatus.nickname}})
           .then(res => {
-            console.log(`state:${res.data.state}`)
             const none = document.querySelector("#none")
             const wait = document.querySelector("#wait")
             const mine = document.querySelector("#mine")
@@ -364,7 +361,6 @@
         axios.delete(`${SERVER_URL}/group/member/cancel`,
         {data: {gId: gId, nickname: this.loginStatus.nickname}})
          .then(res => {
-           console.log(res)
            const none = document.querySelector("#none")
            const wait = document.querySelector("#wait")
            none.style.display = "block"
@@ -378,7 +374,6 @@
         axios.post(`${SERVER_URL}/group/member/apply`,
         {gId: gId, email: this.loginStatus.email, nickname: this.loginStatus.nickname})
           .then(res => {
-            console.log(res)
             const none = document.querySelector("#none")
             const wait = document.querySelector("#wait")
             none.style.display = "none"
@@ -398,14 +393,14 @@
             message : this.loginStatus.nickname + ' 님이 [' + groupname + ']에 참가 신청을 하였습니다.',
             notiUrl : '/GroupPage?gId=' + gId,
           })
-          .then((res) => {
-            if (res.data.success) {
-              console.log("receiveEmail >>> "+email);
-              // alert('등록되었습니다.');
-            } else {
-              console.log('알림 전송 실패');
-            }
-          })
+          // .then((res) => {
+          //   if (res.data.success) {
+          //     console.log("receiveEmail >>> "+email);
+          //     // alert('등록되었습니다.');
+          //   } else {
+          //     console.log('알림 전송 실패');
+          //   }
+          // })
           .catch((err) => {
             console.log(err);
           });
@@ -423,13 +418,11 @@
       deleteGroup: function(gId) {
         axios.delete(`${SERVER_URL}/group/delete/`, {headers: {gId: gId}})
           .then(res => {
-            console.log(res)
-            console.log(this.idx)
             //임시방편
             window.location.reload();
             // 모달창 닫기
-            let targetModal = document.querySelector('#group-'+this.idx)
-            console.log(targetModal)
+            // let targetModal = document.querySelector('#group-'+this.idx)
+            // console.log(targetModal)
             // 리스트에서 해당 스터디
           })
           .catch(err => {
@@ -446,7 +439,6 @@
             },
           })
           .then((res) => {
-            console.log(res)
             if (res.data.list.length != 0) {
               this.existMyGroups = true
             }

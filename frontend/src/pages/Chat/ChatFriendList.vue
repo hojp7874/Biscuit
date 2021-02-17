@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div>
-      <div>
+    <div style="margin-bottom: 30px">
+      <!-- <div>
         <b-button
           v-if="mode == 0"
           v-on:click="switchAddMode()"
@@ -10,34 +10,32 @@
         >
           방 개설
         </b-button>
+      </div> -->
+      <div v-for="item in addList" v-bind:key="item">
+        <a v-on:click="deleteMember(item)" class="btn btn-primary btn-round">{{
+          item.nickname
+        }}</a>
       </div>
-      <div class="input-group" v-if="mode == 1">
-        <div v-for="item in addList" v-bind:key="item">
-          <a v-on:click="deleteMember(item)" class="btn btn-primary btn-round btn-lg">{{
-            item.nickname
-          }}</a>
-        </div>
-        <b-input-group>
-          <b-form-input
-            style="border-radius:10px"
-            type="text"
-            v-model="roomName"
-            v-on:keyup.enter="createRoom()"
-            placeholder="방 제목을 입력해주세요"
-          />
-          <b-input-group-append>
-            <b-button
-              text="Button"
-              variant="primary"
-              class="btnSearch mt-0"
-              style="border-radius:10px; font-weight: bold"
-              v-on:click="createRoom()"
-            >
-              확인
-            </b-button>
-          </b-input-group-append>
-        </b-input-group>
-      </div>
+      <b-input-group>
+        <b-form-input
+          style="border-radius:10px"
+          type="text"
+          v-model="roomName"
+          v-on:keyup.enter="createRoom()"
+          placeholder="채팅방 이름을 입력해주세요"
+        />
+        <b-input-group-append>
+          <b-button
+            text="Button"
+            variant="primary"
+            class="btnSearch mt-0"
+            style="border-radius:10px; font-weight: bold"
+            v-on:click="createRoom()"
+          >
+            생성
+          </b-button>
+        </b-input-group-append>
+      </b-input-group>
     </div>
     <b-input-group>
       <b-form-input
@@ -60,7 +58,7 @@
             {{ item.nickname }}
           </span>
           <input
-            v-if="mode == 1 && item.nickname != user.nickname"
+            v-if="item.nickname != user.nickname"
             type="checkbox"
             v-model="addList"
             :value="item"
@@ -119,9 +117,9 @@ export default {
           this.friends = res.data.list;
         });
     },
-    switchAddMode: function() {
-      this.mode = 1;
-    },
+    // switchAddMode: function() {
+    //   this.mode = 1;
+    // },
     deleteMember: function(item) {
       this.addList.splice(this.addList.indexOf(item), 1);
     },

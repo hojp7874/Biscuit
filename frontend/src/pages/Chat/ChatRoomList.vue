@@ -1,48 +1,48 @@
 <template>
   <div class="container" id="app" v-cloak>
-    <div v-if="mode == 0">
-    <div class="row">
-      <div>
-        <h2>{{ nickname }}</h2>
-      </div>
-      <div class="col-md-12">
-        <h3>채팅방 리스트</h3>
-      </div>
-    </div>
-    
-    <div class="input-group">
-      <b-input-group>
-      <b-form-input style="border-radius:10px" type="text" v-model="searchName"  placeholder="이름을 검색해주세요"/>
+    <div style="margin-top:107px">
+      <!-- <div class="row">
+        <div>
+          <h2>{{ nickname }}</h2>
+        </div>
+        <div class="col-md-12">
+          <h3>채팅방 리스트</h3>
+        </div>
+      </div> -->
       
-    </b-input-group>
+      <div class="input-group">
+        <b-input-group>
+          <b-form-input style="border-radius:10px" type="text" v-model="searchName"  placeholder="채팅방을 검색해주세요"/>
+          
+        </b-input-group>
+      </div>
+      
+      <!-- eslint-disable vue/no-use-v-if-with-v-for,vue/no-confusing-v-for-v-if -->
+      <ul class="list-group">
+        <li
+          class="list-group-item list-group-item-action"
+          v-for="item in chatrooms"
+          v-if="item.roomName.includes(searchName)"
+          v-bind:key="item.roomId"
+          v-on:click="enterRoom(item.roomId)"
+        >
+          {{ item.roomName }}
+        </li>
+      </ul>
     </div>
-    
-    <!-- eslint-disable vue/no-use-v-if-with-v-for,vue/no-confusing-v-for-v-if -->
-    <ul class="list-group">
-      <li
-        class="list-group-item list-group-item-action"
-        v-for="item in chatrooms"
-        v-if="item.roomName.includes(searchName)"
-        v-bind:key="item.roomId"
-        v-on:click="enterRoom(item.roomId)"
-      >
-        {{ item.roomName }}
-      </li>
-    </ul>
-    </div>
-    <div v-else-if="mode == 1">
+    <!-- <div>
       <component :is="componentLoading()"></component>
-    </div>
+    </div> -->
   </div>
 </template>
 <script>
 import axios from 'axios';
-import ChatRoom from './ChatRoom';
+// import ChatRoom from './ChatRoom';
 import { mapState } from 'vuex';
 const CHAT_SERVER_URL = process.env.VUE_APP_CHAT_SERVER_URL;
 export default {
   components:{
-    ChatRoom,
+    // ChatRoom,
   },
   data() {
     return {
@@ -108,6 +108,7 @@ export default {
         localStorage.setItem('wschat.roomId', roomId);
         this.mode = 1;
         this.roomId = roomId;
+        this.$emit('mode')
         // this.$router.push({ path: 'chatroom', querey: { roomId: roomId } });
       }
     },

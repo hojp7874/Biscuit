@@ -7,25 +7,26 @@
           <!-- <img src="img/ryan.jpg" alt="" /> -->
         </div>
         <div class="row">
-          <div class="col-md-8"></div>
-          <div class="col-md-2" v-if="state == 3">
-            <i
-              v-on:click="updateGroup(group.gId)"
-              style="width:200%; height:200%"
-              class="now-ui-icons ui-1_settings-gear-63"
-            >
-              Edit
-            </i>
+          <div class="col-8"></div>
+          <div class="col-2" v-if="state == 3">
+            <div style="cursor:pointer">
+              <i
+                v-on:click="updateGroup(group.gId)"
+                style="width:200%; height:200%"
+                class="now-ui-icons ui-1_settings-gear-63"
+              >
+                Edit
+              </i>
+            </div>
           </div>
         </div>
         <h3>{{ group.groupName }}</h3>
-        <p class="category">{{ group.category }}</p>
-        <div class="description">{{ group.groupDesc }}</div>
+        <p class="category" style="font:bold">{{ group.category }} 스터디</p>
+        <div v-html="group.groupDesc.replace(/(?:\r\n|\r|\n)/g, '<br />')" class="description"></div>
 
         <br />
         <div v-if="state == 3">
-          <!-- <p style="font-size: 14px; margin-left: 30px">스터디 모집 종료일 : {{ $moment(group.edate).format('YYYY-MM-DD') }}</p> -->
-          <p style="font-size: 14px; margin-left: 30px">스터디 모집 종료일 : {{ group.edate }}</p>
+          <p style="font-size: 14px; margin-left: 30px">스터디 시작일 : {{ group.sdate }}</p>
           <p style="font-size: 14px; margin-left: 30px">스터디 인원 제한 : {{ group.max }}</p>
           <p style="font-size: 14px; margin-left: 30px">지역 : {{ group.region }}</p>
         </div>
@@ -151,6 +152,8 @@ export default {
           },
         })
         .then((res) => {
+          const sdate = res.data.list[0].sdate
+          res.data.list[0].sdate = sdate.slice(0, 4) + '년 ' + sdate.slice(5, 7) + '월 ' + sdate.slice(8, 10) + '일'
           this.group = res.data.list[0];
         })
         .catch((err) => {

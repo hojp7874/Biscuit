@@ -42,10 +42,10 @@
 </template>
 
 <script>
-import MyStudy from './User/MyPage/MyStudy';
-import MySchedule from './User/MyPage/MySchedule';
-import UpdateUser from './User/MyPage/UpdateUser';
-import ChatRoomList from './Chat/ChatRoomList';
+import MyStudy from '@/pages/User/MyPage/MyStudy';
+import MySchedule from '@/pages/User/MyPage/MySchedule';
+import UpdateUser from '@/pages/User/MyPage/UpdateUser';
+import ChatRoomList from '@/pages/Chat/ChatRoomList';
 
 export default {
   data() {
