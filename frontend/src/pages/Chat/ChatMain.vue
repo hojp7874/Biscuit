@@ -6,11 +6,11 @@
         <div class="d-flex justify-content-around" v-if="mode == 0">
           <div class="col" >
             <h3>채팅방 목록</h3>
-            <chat-room-list :mode="mode" @mode="modeOne()"/>
+            <chat-room-list :mode="mode" @modeOne="modeOne()"/>
           </div>
           <div class="col">
             <h3>멤버 목록</h3>
-            <chat-friend-list :mode="mode"/>
+            <chat-friend-list :mode="mode" @modeOne="modeOne()"/>
           </div>
         </div>
         <chat-room v-if="mode == 1" @modeZero="modeZero()"/>
@@ -65,6 +65,11 @@ export default {
       this.mode = 1
     },
     modeZero: function() {
+      this.mode = 0
+    },
+    addRoom: function() {
+      console.log("방 개설")
+      this.mode = 1
       this.mode = 0
     }
     // componentLoading() {

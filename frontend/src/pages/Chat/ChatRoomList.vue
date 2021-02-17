@@ -23,8 +23,8 @@
           class="list-group-item list-group-item-action"
           v-for="item in chatrooms"
           v-if="item.roomName.includes(searchName)"
-          v-bind:key="item.roomId"
-          v-on:click="enterRoom(item.roomId)"
+          :key="item.roomId"
+          @click="enterRoom(item.roomId)"
         >
           {{ item.roomName }}
         </li>
@@ -47,16 +47,7 @@ export default {
   data() {
     return {
       room_name: '',
-      chatrooms: [
-        {
-          key: 'roomId',
-          label: '방 id',
-        },
-        {
-          key: 'roomName',
-          label: '방 이름',
-        },
-      ],
+      chatrooms: [],
       user: {
         email: '',
         nickname: '',
@@ -99,6 +90,9 @@ export default {
           email : this.user.email
         }
       }).then((res) => {
+        // for (let i = 0; i < res.data.data.length; i++) {
+        //   console.log(res.data.data[i].roomName.includes('감자'))
+        // }
         this.chatrooms = res.data.data;
       });
     },
@@ -106,9 +100,9 @@ export default {
     enterRoom: function(roomId) {
       if (this.nickname != '') {
         localStorage.setItem('wschat.roomId', roomId);
-        this.mode = 1;
-        this.roomId = roomId;
-        this.$emit('mode')
+        // this.mode = 1;
+        // this.roomId = roomId;
+        this.$emit('modeOne')
         // this.$router.push({ path: 'chatroom', querey: { roomId: roomId } });
       }
     },

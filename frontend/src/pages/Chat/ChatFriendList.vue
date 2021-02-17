@@ -11,10 +11,13 @@
           방 개설
         </b-button>
       </div> -->
-      <div v-for="item in addList" v-bind:key="item">
-        <a v-on:click="deleteMember(item)" class="btn btn-primary btn-round">{{
-          item.nickname
-        }}</a>
+      <div class="d-flex">
+
+        <div v-for="item in addList" v-bind:key="item">
+          <b-button v-on:click="deleteMember(item)" class="btn btn-round py-1 px-2">{{
+            item.nickname
+          }}</b-button>
+        </div>
       </div>
       <b-input-group>
         <b-form-input
@@ -182,6 +185,9 @@ export default {
             const ret = this.inviteMember(res.data.data.roomId);
             if (ret == 1) {
               alert(res.data.data.roomName + '방 개설에 성공하였습니다.');
+              // this.$emit('addRoom', res.data.data.roomId)
+              localStorage.setItem('wschat.roomId', res.data.data.roomId);
+              this.$emit('modeOne')
               this.room_name = '';
               // this.findAllRoom();
             } else {

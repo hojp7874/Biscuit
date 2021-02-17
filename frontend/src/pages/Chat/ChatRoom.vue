@@ -111,11 +111,9 @@ export default {
         })
         .then((res) => {
           this.room = res.data.data;
-          // console.log('###room : ' + res.data.data);
         });
     },
     sendMessage: function() {
-      // console.log('###sendMsg start');
       this.ws.send(
         '/pub/chat/message',
         {},
@@ -145,7 +143,6 @@ export default {
       this.sock = new SockJS(`${CHAT_SERVER_URL}/ws-stomp`);
       this.ws = Stomp.over(this.sock);
       this.reconnect = 0;
-      console.log('a');
       // pub/sub event
       this.ws.connect(
         {},
@@ -218,8 +215,8 @@ export default {
         .then((res) =>{
           this.members = res.data.data;
         })
-        .catch((res) =>{
-          console.log("error: " + res);
+        .catch((err) =>{
+          console.log(err);
         })
     },
     joinRoom: function(){
