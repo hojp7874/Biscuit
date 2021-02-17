@@ -16,7 +16,7 @@ import BoardWrite from './pages/Board/BoardWrite.vue';
 import MainNavbar from './layout/MainNavbar.vue';
 import MainFooter from './layout/MainFooter.vue';
 import Join from './pages/Join.vue';
-import MyPage from './pages/MyPage.vue';
+import MyPage from './pages/User/MyPage.vue';
 import FindPw from './pages/FindPw.vue';
 import test from './pages/ImageUpload.vue';
 import SignUpForm from './pages/components/SignupForm.vue';

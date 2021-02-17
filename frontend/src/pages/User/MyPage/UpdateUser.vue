@@ -150,14 +150,12 @@ export default {
     },
 
     update() {
-      // console.log('토큰 : ' + localStorage.getItem('token'));
       var img = document.getElementById("img")
       if (img.files.length != 0) {
         const frm = new FormData()
         frm.append('file', img.files[0])
         axios.post(`${SERVER_URL}/file/upload/`, frm)
           .then(res => {
-            console.log(res.data.message)
             this.user.picture = SERVER_URL + "/file/read/" + res.data.message
             axios.put(`${SERVER_URL}/user/update`, this.user, {
                 headers: {
@@ -166,7 +164,6 @@ export default {
               })
               .then((response) => {
                 if (response.data.success === 'success') {
-                  console.log(this.user.region);
                   alert('정보 수정에 성공하셨습니다.');
                   localStorage.setItem('picture', this.user.picture);
                   localStorage.setItem('region', this.user.region);
@@ -196,7 +193,6 @@ export default {
         })
         .then((response) => {
           if (response.data.success === 'success') {
-            console.log(this.user.region);
             alert('정보 수정에 성공하셨습니다.');
             localStorage.setItem('region', this.user.region);
             localStorage.setItem('nickname', this.user.nickname);
@@ -218,13 +214,11 @@ export default {
       this.visible = !this.visible;
     },
     logout() {
-      console.log('로그아웃입니다');
       this.$router.push('/');
       window.location.reload();
     },
     setAddress(data) {
       this.user.region = data;
-      console.log(this.user.region);
       this.hideModal();
     },
     hideModal() {

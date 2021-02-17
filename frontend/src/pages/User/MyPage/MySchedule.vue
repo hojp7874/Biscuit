@@ -88,7 +88,6 @@ mounted() {
 },
   methods: {
     getSchedule() {
-      console.log('받아와');
       this.items = [];
       if (this.personal) {
         
@@ -100,8 +99,6 @@ mounted() {
           .then((res) => {
             this.list = res.data.list;
             this.insertItems();
-            console.log('ㅎㅇ');
-            console.log('아이템' + this.list.length);
           });
       }
 
@@ -116,7 +113,6 @@ mounted() {
 
           for (var i in this.myGroups) {
             if(this.checked[i] === true){
-            console.log('지아디' + this.myGroups[i].gId);
             this.form2 = { gId: this.myGroups[i].gId };
             axios
               .get(`${SERVER_URL}/schedule/grouplist`, {
@@ -125,8 +121,6 @@ mounted() {
               .then((res) => {
                 this.list2 = res.data.list;
                 this.insertGroupItems();
-                console.log('ㅎㅇ');
-                console.log('아이템' + this.list.length);
                 myGroups[i].checked = false;
               });
             }
@@ -137,7 +131,6 @@ mounted() {
         });
     },
     createSchedule(data) {
-      console.log(data);
       axios
         .post(`${SERVER_URL}/schedule/create`, data)
         .then((response) => {
@@ -153,7 +146,6 @@ mounted() {
         });
     },
     insertItems() {
-      console.log('아이템z' + this.list.length);
       for (var i in this.list) {
         // this.items[i].id = 'e' + this.list[i].sId;
         // this.items[i].startDate = this.list[i].sdate;
@@ -192,7 +184,6 @@ mounted() {
     },
 
     insertGroupItems() {
-      console.log('아이템z' + this.list2.length);
       for (var i in this.list2) {
         // this.items[i].id = 'e' + this.list[i].sId;
         // this.items[i].startDate = this.list[i].sdate;

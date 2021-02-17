@@ -1,53 +1,40 @@
 <template>
-  <div>
+  <div class="container mt-5 pt-5">
     <div>
-       
-      <div class="content-center brand">
-        <img class="n-logo" src="img/bisWhite.png" alt="" />
-        <div class="container">
-          <br><br>
-          <div class="AddWrap">
-            <form>
-              <table class="tbAdd" width="100%">
-                <colgroup>
-                  <col width="20%" />
-                  <col width="80%" />
-                </colgroup>
-                <tr>
-                  <th>제목</th>
-                  <td v-bind="title"><h5>{{ title }}</h5></td>
-                </tr>
-                <tr>
-                  <th>작성자</th>
-                  <td v-bind="nickname"><img :src="picture" class="rounded-circle" style="margin-top:15px; width:65px; height:65px" alt="" />{{ nickname }}</td>
-                </tr>
-                <tr>
-                  <th>내용</th>
-                  <td class="txt_cont" v-bind="contents" v-html="contents.replace(/(?:\r\n|\r|\n)/g, '<br />')"></td>
-                </tr>
-              </table>
-            </form>
-          </div>
+      <table class="tbAdd" width="100%">
+        <colgroup>
+          <col width="20%" />
+          <col width="80%" />
+        </colgroup>
+        <tr>
+          <th>제목</th>
+          <td><h5>{{ title }}</h5></td>
+        </tr>
+        <tr>
+          <th>작성자</th>
+          <td><img :src="picture" class="rounded-circle" style="margin-top:15px; width:65px; height:65px" alt="" />{{ nickname }}</td>
+        </tr>
+        <tr>
+          <th>내용</th>
+          <td class="txt_cont" v-html="contents.replace(/(?:\r\n|\r|\n)/g, '<br />')"></td>
+        </tr>
+      </table>
+    </div>
 
-          <div class="btnWrap d-flex justify-content-center">
-            <b-button href="javascript:history.back()" class="btn btnList m-1">목록</b-button>
-            <div v-if="loginStatus.email == email">
-              <b-button v-if="email" @click="fnUpdate" class="btn-info btnUpdate m-1"
-                >수정</b-button
-              >
-              <b-button v-if="email" @click="fnDelete" class="btn-danger btnDelete m-1"
-                >삭제</b-button
-              >
-            </div>
-          </div>
-            <ReplyWrite :bId="bId" :boardEmail="email" v-if="this.loginStatus.nickname"/>
-          <div>
-            <ReplyList v-for="(items,index) in showList" :items="items" :key="index" />
-            <b-pagination class="pagination pagination-primary" v-model="replyPage" :total-rows="pageCnt" per-page="10" align="center" ></b-pagination>
-          </div>
-        </div>
+    <div class="btnWrap d-flex justify-content-center">
+      <b-button href="javascript:history.back()" class="btn btnList m-1">목록</b-button>
+      <div v-if="loginStatus.email == email">
+        <b-button v-if="email" @click="fnUpdate" class="btn-info btnUpdate m-1"
+          >수정</b-button
+        >
+        <b-button v-if="email" @click="fnDelete" class="btn-danger btnDelete m-1"
+          >삭제</b-button
+        >
       </div>
     </div>
+    <ReplyWrite :bId="bId" :boardEmail="email" v-if="this.loginStatus.nickname"/>
+    <ReplyList v-for="(items,index) in showList" :items="items" :key="index" />
+    <b-pagination class="pagination pagination-primary" value="3" v-model="replyPage" :total-rows="pageCnt" per-page="10" align="center" ></b-pagination>
   </div>
 </template>
 
@@ -92,14 +79,8 @@ export default {
   created() {
     this.fnGetView();
     this.getList();
-    // this.getPage();
   },
   methods: {
-    // changePage: function() {
-      //   this.showList = this.list.slice(10*(this.replyPage-1), 10*this.replyPage)
-      // console.log(this.replyPage)
-      // console.log(temporaryList)
-    // },
     fnGetView() {
       this.$axios
         .get(`${SERVER_URL}/board/read`, {
@@ -115,7 +96,6 @@ export default {
           this.category = res.data.list[0].category;
           axios.get(`${SERVER_URL}/user/profile`, {params: {email: this.email}})
             .then(resp => {
-              // console.log(res.data.User.picture)
               this.picture = resp.data.User.picture
             })
             .catch(err => {
@@ -162,14 +142,12 @@ export default {
       }
     },
     getList() {
-      console.log("getList IN : "+this.$route.query.bId);
       this.$axios
         .get(`${SERVER_URL}/reply/list`, {
           params: {page: 1, bId: this.$route.query.bId},
         })
         .then((res) => {
           this.list = res.data["list"];
-          // console.log(res.data["list"]);
           this.pageCnt = this.list.length
         })
         .catch((err) => {
