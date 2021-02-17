@@ -1,20 +1,20 @@
 <template>
   <div 
   class="section section-signup"
-    style="background-image: url('img/bg11.jpg'); background-size: cover; background-position: top center; min-height: 700px;"
+    style="background-image: url('img/bg11.jpg'); background-size: cover; background-position: top center; min-height: 950px;"
   >
     <div id="app">
       <div style="margin-top:0px">
         <h2 class="findpw_title">비밀번호 찾기</h2>
         <center>
           <div class="findpw_cnt">
+            <div>
+              <p style="font-weight:bold">
+                본인인증을 통해 아이디(이메일) 확인 및<br />
+                비밀번호를 변경하실 수 있습니다.
+              </p>
+            </div>
             <form>
-              <div>
-                <p style="font-weight:bold">
-                  본인인증을 통해 아이디(이메일) 확인 및<br />
-                  비밀번호를 변경하실 수 있습니다.
-                </p>
-              </div>
               <div v-if="emailVeify">
                 <div>
                   <b-form-input
@@ -80,6 +80,7 @@
             style="margin-top: px; margin-bottom: px; width: 300px;background-color:white"
             placeholder="새 비밀번호를 한 번 더 입력하세요"
             v-model="verify_newpassword"
+            @keypress.enter="updatePw()"
           />
           
           <br />

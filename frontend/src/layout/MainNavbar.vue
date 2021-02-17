@@ -235,21 +235,21 @@ export default {
     [Popover.name]: Popover,
   },
   mounted() {
-    console.log("hello");
-    this.form = { receiveEmail: localStorage.getItem('email') };
-      axios
-        .get(`${SERVER_URL}/notification/read`, {
-          params: this.form,
-        })
-        .then((res) => {
-          this.items = res.data.list;
-          for(var i in this.items){
-            console.log("hello" + this.items[i].isRead);
-            if(this.items[i].isRead == 0){
-              this.notiCnt++;
-            }
+    if(this.loginStatus.email) {
+      this.form = { receiveEmail: localStorage.getItem('email') };
+    axios
+      .get(`${SERVER_URL}/notification/read`, {
+        params: this.form,
+      })
+      .then((res) => {
+        this.items = res.data.list;
+        for(var i in this.items){
+          if(this.items[i].isRead == 0){
+            this.notiCnt++;
           }
-        });
+        }
+      });
+    }
   },
   methods: {
     onClickLogout() {
