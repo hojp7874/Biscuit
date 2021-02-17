@@ -31,21 +31,6 @@
           스터디 찾기</i
         >
       </router-link>
-      <drop-down
-        tag="li"
-        title="게시판"
-        style="font-size: 21px"
-        icon="now-ui-icons design_app"
-        class="nav-item"
-      >
-        <nav-link to="/noticeboard">
-          <i class="now-ui-icons business_chart-pie-36"></i> 공지사항
-        </nav-link>
-        <nav-link to="/boardlist">
-          <i class="now-ui-icons business_chart-pie-36"></i>
-          게시판
-        </nav-link>
-      </drop-down>
 
       <router-link class="navbar-brand ml-3" to="/noticeboard">
         <i
