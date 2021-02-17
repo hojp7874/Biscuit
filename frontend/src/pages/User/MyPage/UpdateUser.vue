@@ -172,6 +172,8 @@ export default {
                   localStorage.setItem('region', this.user.region);
                   localStorage.setItem('nickname', this.user.nickname);
                   localStorage.setItem('phone', this.user.phone);
+                  this.$router.push('/');
+                  window.location.reload();
                 } else {
                   alert('정보 수정에 실패하셨습니다.');
                 }
@@ -179,8 +181,6 @@ export default {
               .catch(err => {
                 console.log(err);
               });
-            this.$router.push('/');
-            window.location.reload();
           })
           .catch(err => {
             console.log(err)
@@ -201,6 +201,8 @@ export default {
             localStorage.setItem('region', this.user.region);
             localStorage.setItem('nickname', this.user.nickname);
             localStorage.setItem('phone', this.user.phone);
+            this.$router.push('/');
+            window.location.reload();
           } else alert('정보 수정에 실패하셨습니다.');
           this.$router.push('/');
           window.location.reload();
