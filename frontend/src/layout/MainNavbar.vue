@@ -60,7 +60,6 @@
         />
 
         <router-link class="navbar-brand" to="/profile" v-if="loginStatus.email">
-            <!-- class="now-ui-icons users_single-02" -->
           <i
             style="font-size: 15px"
           >
@@ -69,9 +68,6 @@
         </router-link>
 
       </div>
-      <!-- <div class="alert-icon">
-        <i class="now-ui-icons ui-1_bell-53" style="background-color:white"></i>
-      </div> -->
       <drop-down class="ml-3" v-if="this.token !== ''">
         <b-icon-bell
           slot="title"
@@ -82,18 +78,7 @@
           @click="readNotification"
         />
 
-        <!-- <a target="_blank" class="dropdown-item">
-        댓글이 작성되었습니다~~~
-        </a><a target="_blank" class="dropdown-item"> 
-          그룹 신청 왔습니다~~~
-        </a><a target="_blank" class="dropdown-item">
-          그룹 승인 되었습니다~~
-        </a> -->
-
-        <!-- <button class="dropdown-item" v-for="item in items" v-bind:key="item" @click="goNoti(item)">
-          {{item.message}}
-        </button><i class="now-ui-icons ui-1_simple-remove" style="margin-left:10px ;margin-top:-3px" @click="deleteNoti(item)"/> -->
-        <div v-for="item in items" v-bind:key="item">
+        <div v-for="(item,idx) in items" v-bind:key="idx">
           <div class="dropdown-item" v-if="item.isRead == 1" id="readNoti">
             <button
               style="background-color: white; border:0;outline:0; font-size:10px;margin-left:-20px"
@@ -129,7 +114,6 @@
       >
         <span style="margin-left:-3px;">{{notiCnt}}</span>
       </span>
-      <!-- <drop-down icon="now-ui-icons ui-1_bell-53"  style="margin-left:-20px"  > </drop-down> -->
 
       <li class="nav-item">
         <a
