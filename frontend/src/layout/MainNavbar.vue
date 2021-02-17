@@ -45,10 +45,6 @@
           <i class="now-ui-icons business_chart-pie-36"></i> 
           게시판
         </nav-link>
-        <!-- <nav-link to="/jobboard">
-          <i class="now-ui-icons design_bullet-list-67"></i> Documentation 취업
-          게시판
-        </nav-link> -->
       </drop-down>
 
       <div class="d-flex align-items-center">
@@ -67,18 +63,13 @@
           class="nav-item"
           v-if="this.token !== ''"
         >
-          <!-- icon="now-ui-icons design_image" -->
-          <!-- <nav-link to="/landing">
-            <i class="now-ui-icons education_paper"></i> Landing
-          </nav-link> -->
+
           <nav-link to="/profile">
             <i class="now-ui-icons users_single-02"></i> MyPage
           </nav-link>
         </drop-down>
       </div>
-      <!-- <div class="alert-icon">
-        <i class="now-ui-icons ui-1_bell-53" style="background-color:white"></i>
-      </div> -->
+
       <drop-down v-if="this.token !== ''">
         <b-icon-bell
           slot="title"
@@ -89,18 +80,7 @@
           @click="readNotification"
         />
 
-        <!-- <a target="_blank" class="dropdown-item">
-        댓글이 작성되었습니다~~~
-        </a><a target="_blank" class="dropdown-item"> 
-          그룹 신청 왔습니다~~~
-        </a><a target="_blank" class="dropdown-item">
-          그룹 승인 되었습니다~~
-        </a> -->
-
-        <!-- <button class="dropdown-item" v-for="item in items" v-bind:key="item" @click="goNoti(item)">
-          {{item.message}}
-        </button><i class="now-ui-icons ui-1_simple-remove" style="margin-left:10px ;margin-top:-3px" @click="deleteNoti(item)"/> -->
-        <div v-for="item in items" v-bind:key="item">
+        <div v-for="(item,idx) in items" v-bind:key="idx">
           <div class="dropdown-item" v-if="item.isRead == 1" id="readNoti">
             <button
               style="background-color: white; border:0;outline:0; font-size:10px;margin-left:-20px"
@@ -136,7 +116,6 @@
       >
         <span style="margin-left:-3px;">{{notiCnt}}</span>
       </span>
-      <!-- <drop-down icon="now-ui-icons ui-1_bell-53"  style="margin-left:-20px"  > </drop-down> -->
 
       <li class="nav-item">
         <a
@@ -158,46 +137,6 @@
           <p>로그아웃</p>
         </a>
       </li>
-      <!-- 
-      <li class="nav-item">
-        <a
-          class="nav-link"
-          rel="tooltip"
-          title="Follow us on Twitter"
-          data-placement="bottom"
-          href="https://twitter.com/CreativeTim"
-          target="_blank"
-        >
-          <i class="fab fa-twitter"></i>
-          <p class="d-lg-none d-xl-none">Twitter</p>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a
-          class="nav-link"
-          rel="tooltip"
-          title="Like us on Facebook"
-          data-placement="bottom"
-          href="https://www.facebook.com/CreativeTim"
-          target="_blank"
-        >
-          <i class="fab fa-facebook-square"></i>
-          <p class="d-lg-none d-xl-none">Facebook</p>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a
-          class="nav-link"
-          rel="tooltip"
-          title="Follow us on Instagram"
-          data-placement="bottom"
-          href="https://www.instagram.com/CreativeTimOfficial"
-          target="_blank"
-        >
-          <i class="fab fa-instagram"></i>
-          <p class="d-lg-none d-xl-none">Instagram</p>
-        </a>
-      </li> -->
     </template>
   </navbar>
 </template>
