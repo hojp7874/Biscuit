@@ -1,11 +1,7 @@
 <template>
   <div>
     <div class="page-header clear-filter" filter-color="orange">
-      <parallax
-        class="page-header-image"
-        style="background-image:url('img/bg11.jpg')"
-      >
-      </parallax>
+      <parallax class="page-header-image" style="background-image:url('img/bg11.jpg')"> </parallax>
       <div class="container">
         <h1 class="m-5">스터디 수정</h1>
         <b-form @submit.prevent="onEdit">
@@ -45,7 +41,11 @@
           <div class="d-flex">
             <p class="col-3">카테고리:</p>
             <div class="col-9">
-              <b-form-radio-group v-model="form.category" :options="options" name="radio-validation">
+              <b-form-radio-group
+                v-model="form.category"
+                :options="options"
+                name="radio-validation"
+              >
                 <b-form-invalid-feedback>Please select one</b-form-invalid-feedback>
               </b-form-radio-group>
             </div>
@@ -60,14 +60,14 @@
                 on-text="ON"
                 off-text="OFF"
               ></n-switch> -->
-                <input class="col-8 no-border" v-model="edate" type="date">
+              <input class="col-8 no-border" v-model="edate" type="date" />
             </div>
           </div>
 
           <div>
             <p class="col-3">스터디 이미지:</p>
             <div class="col-9">
-              <input type="file" id="img">
+              <input type="file" id="img" />
             </div>
           </div>
 
@@ -89,118 +89,158 @@
 </template>
 
 <script>
-  import axios from 'axios'
-  import {Switch, Button, Radio, FormGroupInput}from '@/components'
-  const SERVER_URL = process.env.VUE_APP_SERVER_URL
-  export default {
-    data() {
-      return {
-        options: [
-          { text: '한국사', value: '한국사' },
-          { text: '프로그래머', value: '프로그래머' },
-          { text: '농부', value: '농부' },
-          { text: '어부', value: '어부' },
-          { text: '광부', value: '광부' }
-        ],
-        params: {
-          type: 'gId',
-          word: this.$route.query.gId,
-        },
-        form: Object,
-        edate: Date,
-        groupPagePath : "/grouppage?gId=" + this.$route.query.gId,
-        region:[{text:'지역을 선택해주세요.',value:null},'온라인','서울','대전','광주','구미'],
-        category:[{text:'카테고리를 선택해주세요.',value:null},'한국사','프로그래머','농부','어부','광부']
-      }
-    },
-    components: {
-      [Button.name]: Button,
-      [Radio.name]: Radio,
-      [FormGroupInput.name]: FormGroupInput,
-      [Switch.name]: Switch,
-      [Option.name]: Option,
-    },
-    created(){
-      this.loadInfo();
-    },
-    updated(){
-      console.log("updated.edate : " + this.edate);
-    },
-    mounted(){
-// this.edate = this.convertDate(this.form.edate)
-      console.log("edate : " + this.edate)
-    },
-    methods: {
-      onEdit: function() {
-        // console.log("===update")
-        const item = {
-          max: this.form.max,
-          edate: this.edate,
-          groupName: this.form.groupName,
-          groupDesc: this.form.groupDesc,
-          img: this.form.img,
-          category: this.form.category,
-          region: this.form.region,
-          onoff: this.form.onoff,
-          groupFlag: this.form.groupFlag,
-          cycle: this.form.cycle,
-          gId: this.form.gId
+import axios from 'axios';
+import { Switch, Button, Radio, FormGroupInput } from '@/components';
+const SERVER_URL = process.env.VUE_APP_SERVER_URL;
+export default {
+  data() {
+    return {
+      options: [
+        { text: '한국사', value: '한국사' },
+        { text: '프로그래머', value: '프로그래머' },
+        { text: '농부', value: '농부' },
+        { text: '어부', value: '어부' },
+        { text: '광부', value: '광부' },
+      ],
+      params: {
+        type: 'gId',
+        word: this.$route.query.gId,
+      },
+      gId: this.$route.query.gId,
+      form: Object,
+      edate: Date,
+      groupPagePath: '/grouppage?gId=' + this.$route.query.gId,
+      region: [
+        { text: '지역을 선택해주세요.', value: null },
+        '온라인',
+        '서울',
+        '대전',
+        '광주',
+        '구미',
+      ],
+      category: [
+        { text: '카테고리를 선택해주세요.', value: null },
+        '한국사',
+        '프로그래머',
+        '농부',
+        '어부',
+        '광부',
+      ],
+      memberCount: Number,
+    };
+  },
+  components: {
+    [Button.name]: Button,
+    [Radio.name]: Radio,
+    [FormGroupInput.name]: FormGroupInput,
+    [Switch.name]: Switch,
+    [Option.name]: Option,
+  },
+  created() {
+    this.loadInfo();
+    this.getMemberCount();
+  },
+  updated() {
+    console.log('updated.edate : ' + this.edate);
+  },
+  mounted() {
+    // this.edate = this.convertDate(this.form.edate)
+    console.log('edate : ' + this.edate);
+  },
+  methods: {
+    onEdit: function() {
+      // console.log("===update")
+      const item = {
+        max: this.form.max,
+        edate: this.edate,
+        groupName: this.form.groupName,
+        groupDesc: this.form.groupDesc,
+        img: this.form.img,
+        category: this.form.category,
+        region: this.form.region,
+        onoff: this.form.onoff,
+        groupFlag: this.form.groupFlag,
+        cycle: this.form.cycle,
+        gId: this.form.gId,
+      };
+      if (this.memberCount > item.max) {
+        console.log("max: " + item.max + " mcount: " +this.memberCount);
+        alert("인원제한은 현재인원보다 많아야합니다")
         }
-        const frm = new FormData()
-        var img = document.getElementById("img")
-        if(img.files.length != 0) {
-          frm.append('file', img.files[0])
-          axios.post(`${SERVER_URL}/file/upload/`, frm)
-            .then(res => {
-              item["img"] = SERVER_URL + "/file/read/" + res.data.message
-              console.log(item)
+      else{
+        const frm = new FormData();
+      var img = document.getElementById('img');
+      if (img.files.length != 0) {
+          frm.append('file', img.files[0]);
+          axios
+            .post(`${SERVER_URL}/file/upload/`, frm)
+            .then((res) => {
+              item['img'] = SERVER_URL + '/file/read/' + res.data.message;
+              console.log(item);
 
               //DB수정 (데이터 용량 관리 차원에서 수정 권유)
-              axios.put(`${SERVER_URL}/group/update/`, item)
-                .then(res => {
-                  console.log(res)
-                  this.$router.push({ path: this.groupPagePath});
+              axios
+                .put(`${SERVER_URL}/group/update/`, item)
+                .then((res) => {
+                  console.log(res);
+                  this.$router.push({ path: this.groupPagePath });
                 })
-                .catch(err => {
-                  console.log(err)
-                })
+                .catch((err) => {
+                  console.log(err);
+                });
             })
-            .catch(err => {
-              console.log(err)
-            })
-        } else {
-          //DB에 저장 (수정권유)
-          axios.put(`${SERVER_URL}/group/update/`, item)
-          .then(res => {
-            console.log(res)
-            this.$router.push({ path: this.groupPagePath});
+            .catch((err) => {
+              console.log(err);
+            });
+        
+      } else {
+        //DB에 저장 (수정권유)
+        axios
+          .put(`${SERVER_URL}/group/update/`, item)
+          .then((res) => {
+            console.log(res);
+            this.$router.push({ path: this.groupPagePath });
           })
-          .catch(err => {
-            console.log(err)
-          })
-        }
-      },
-      convertDate(date){
-        var moment = require('moment');
-        return(moment(date).format('YYYY-MM-DD'));
-      },
-      loadInfo: function () {
-        console.log("loadInfo")
-      axios.get(`${SERVER_URL}/group/list/`, {params: this.params})
-        .then(res => {
-          console.log(res.data.list[0])
-          this.form = res.data.list[0]
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+      }
+    },
+    getMemberCount: function() {
+      axios
+        .get(`${SERVER_URL}/group/member/count`, {
+          params: {
+            gId: this.gId,
+          },
+        })
+        .then((res) => {
+          this.memberCount = res.data.memberCount;
+          console.log('memberCount : ' + this.memberCount);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    convertDate(date) {
+      var moment = require('moment');
+      return moment(date).format('YYYY-MM-DD');
+    },
+    loadInfo: function() {
+      console.log('loadInfo');
+      axios
+        .get(`${SERVER_URL}/group/list/`, { params: this.params })
+        .then((res) => {
+          console.log(res.data.list[0]);
+          this.form = res.data.list[0];
           this.edate = this.convertDate(this.form.edate);
         })
-        .catch(err => {
-          console.log(err)
+        .catch((err) => {
+          console.log(err);
         });
-        
-    }
     },
-    
-  }
+  },
+};
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>
