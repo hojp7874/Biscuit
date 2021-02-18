@@ -36,7 +36,7 @@
         <i
           class="now-ui-icons design_app"
           style="font-size: 15px"
-        >공지사항</i>
+        > 공지사항</i>
       </router-link>
 
       <router-link class="navbar-brand ml-3" to="/boardlist">
@@ -120,7 +120,7 @@
           v-if="this.token === ''"
         >
           <i class="now-ui-icons arrows-1_share-66"></i>
-          <p>로그인</p>
+          &nbsp;<p style="font-size : 120%">로그인</p>
         </a>
         <a
           class="nav-link btn btn-primary"
@@ -129,7 +129,7 @@
           v-else
         >
           <i class="now-ui-icons arrows-1_share-66"></i>
-          <p>로그아웃</p>
+          &nbsp;<p style="font-size : 120%">로그아웃</p>
         </a>
       </li>
     </template>
