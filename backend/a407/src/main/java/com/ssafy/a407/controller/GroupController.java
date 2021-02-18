@@ -163,6 +163,7 @@ public class GroupController {
 	private ResponseEntity update(@ApiParam(value = "필요한 정보 : email, max, ...", required = true) @RequestBody Map mem) {
 		ResponseEntity entity = null;
 		Map result = new HashMap();
+		System.out.println("group update : " + mem);
 		try {
 			if (group.update(mem) == 1) {
 				result.put("success", "success");

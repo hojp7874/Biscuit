@@ -21,7 +21,14 @@
   		select count(*) as applyCount
   		from member
   		where gId = #{gId}
-  		and permission = 0
+  		and permission = 0;
+  	</select>
+  	
+  	<select id="selectMemberCount" parameterType="int" resultType="map">
+  		select count(*) as memberCount
+  		from member
+  		where gId = #{gId}
+  		and (permission = 1 or permission = 3);
   	</select>
   	
  	<select id="selectMemberList" parameterType="int" resultType="UserMemberDto">

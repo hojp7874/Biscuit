@@ -61,6 +61,11 @@ public class MemberServiceImpl implements MemberService{
 //		System.out.println("service.getApplyCount.gId :  " + gId);
 		return dao.selectApplyCount(gId);
 	}
+	
+	@Override
+	public Map getMemberCount(int gId) throws Exception{
+		return dao.selectMemberCount(gId);
+	}
 
 	@Override
 	public List<Map> getGroupId(String email) throws Exception {
