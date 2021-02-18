@@ -22,7 +22,7 @@
         </div>
         <h3>{{ group.groupName }}</h3>
         <p class="category" style="font:bold">{{ group.category }} 스터디</p>
-        <div v-html="group.groupDesc.replace(/(?:\r\n|\r|\n)/g, '<br />')" class="description"></div>
+        <!-- <div v-html="group.groupDesc.replace(/(?:\r\n|\r|\n)/g, '<br />')" class="description"></div> -->
 
         <br />
         <div v-if="state == 3">

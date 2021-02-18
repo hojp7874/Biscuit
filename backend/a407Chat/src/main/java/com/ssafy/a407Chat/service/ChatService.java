@@ -17,4 +17,6 @@ public interface ChatService {
 	public List<ChatMessageDto> loadMessages(String roomId) throws Exception;
 	public int InviteMember(ChatRoomMemberDto dto) throws Exception;
 	public List<ChatRoomDto> findMyRoom(String email) throws Exception;
+	public List<ChatRoomMemberDto> findAllRoomMember(String roomId) throws Exception;
+	public int joinRoom(Map map) throws Exception;
 }

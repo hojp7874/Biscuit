@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <router-view name="header" v-on:logout="logout"/>
+    <router-view name="header" v-on:logout="logout;" v-on:clickNotify="clickNotify"/>
     <div class="wrapper">
       <router-view />
     </div>
@@ -34,6 +34,10 @@ export default {
         this.$router.push('/');
         window.location.reload();
     },
+    clickNotify(){
+      console.log("공지클릭테스트");
+      window.location.reload();
+    }
   },
 };
 </script>

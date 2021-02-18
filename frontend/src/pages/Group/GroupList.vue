@@ -6,7 +6,7 @@
       <div class="content-center brand">
         <img class="n-logo" src="img/bisWhite.png" alt="" />
         <h2 class="h2-seo">스터디 그룹 페이지 입니다</h2>
-        <h3>{{groups.length}}개의 스터디가 검색되었습니다</h3>
+        <h3>참여 가능한 {{groups.length}}개의 스터디가 검색되었습니다</h3>
         <div class="searchWrap">
           <b-input-group>
             <template #prepend>
@@ -62,29 +62,37 @@
           </div> -->
         </div>
         <div class="row">
-          <b-col class="col-12 col-sm-12 col-md-6 col-lg-4" v-for="(group, idx) in myGroups" :key="idx" :group="group">
+          <b-col class="col-12 col-sm-12 col-md-6 col-lg-4" v-for="(group, idx) in myGroups.slice().reverse()" :key="idx" :group="group">
             <b-card @click="goGroupPage(group)" class="my-3"
               style="min-height:400px; max-height:400px; min-width:350px; overflow:hidden">
               <div style="max-height:200px; min-height:200px; width:100%; overflow:hidden; ">
-                <b-card-img :src="group.img" alt="Image" style=" z-index:2;" top></b-card-img>
+              <b-card-img :src="group.img" alt="Image" top></b-card-img>
+            </div>
+            <b-card-text style="padding:10px; overflow:hidden">
 
-              </div>
-              <b-card-body>
-                <b-card-title
+              <div>
+                <div
                   style="font-size:23px; font-weight:bold; color:#222; margin-right:5px; margin-bottom:10px; white-space: nowrap; overflow: hidden; text-overflow:ellipsis;">
-                  {{group.groupName}}</b-card-title>
-                <b-card-sub-title class="mb-2">{{group.groupName}}</b-card-sub-title>
-                <b-card-text style="padding:10px">
-                  {{group.nickname}}
-                </b-card-text>
-              </b-card-body>
-
-              <b-card-text>
-                {{group.groupDesc}}
-              </b-card-text>
-              <template #footer>
-                <small class="text-muted"></small>
-              </template>
+                  {{group.groupName}}</div>
+              </div>
+              <h5 style="font-size:14px;  color:#000000; margin-right:5px"><i style="margin-right:5px"
+                  class="now-ui-icons business_badge"></i> {{group.nickname}}</h5>
+              <span class="badge badge-info"
+                style="font-size:12px; font-weight:bold; color:#FFFFFF; margin-right:5px"><i
+                  class="now-ui-icons users_single-02"></i> {{ group.max }}</span>
+              <!-- <b>온라인 여부: {{ group.onoff }}</b><br> -->
+              <!-- <b>모집기간: {{ group.edate }}</b><br> group.nickname-->
+              <span class="badge badge-success" style="font-size:12px; color:#FFFFFF; margin-right:5px"><i
+                  class="now-ui-icons location_pin"></i> {{ group.region }}</span>
+              <span class="badge badge-primary" style="font-size:12px; color:#FFFFFF; margin-right:5px"><i
+                  class="now-ui-icons location_bookmark"></i> {{ group.category }}</span>
+              <span class="badge badge-danger" style="font-size:12px; color:#FFFFFF; margin-right:5px"><i
+                  class="now-ui-icons ui-1_calendar-60" id="dday"></i> ~{{ group.edate }}</span>
+              <!-- <b>모임 주기: {{ group.cycle }}</b> -->
+            </b-card-text>
+            <template #footer>
+              <!-- <small class="text-muted">Last updated 3 mins ago</small> -->
+            </template>
 
             </b-card>
           </b-col>
@@ -186,7 +194,7 @@
                     <div class="col-md-4">
                       <div class="photo-container rounded-circle"
                         style="height:200px; width:200px; overflow:hidden; margin:auto">
-                        <img class="" :src="picture" alt="" id="pic" style="min-height:300px;">
+                        <img class="" :src="picture" alt="" id="pic" style="min-height:200px;">
                       </div>
                     </div>
                     <div class="col-md-8">
@@ -441,6 +449,9 @@
           .then((res) => {
             if (res.data.list.length != 0) {
               this.existMyGroups = true
+            }
+            for (let i = 0; i < res.data.list.length; i++) {
+              res.data.list[i].edate = res.data.list[i].edate.split(' ')[0];
             }
             this.myGroups = res.data.list;
           })

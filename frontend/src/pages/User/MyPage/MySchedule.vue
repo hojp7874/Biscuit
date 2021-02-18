@@ -1,9 +1,9 @@
 <template>
   <div>
     <center>
-      <div style="font-size: 30px; margin-top:30px;font-weight:bold">
-        나의 일정
-      </div>
+      <!-- <div style="font-size: 30px; margin-top:30px;font-weight:bold"> -->
+        <h2 style="margin-top:30px;">나의 일정</h2>
+      <!-- </div> -->
     </center>
     <div>
       <!-- <n-checkbox  v-model="personal" style="margin-left: 180px ; color:#F96332"  @change="getSchedule">개인 일정</n-checkbox> -->
@@ -17,14 +17,22 @@
       /></div>
       <drop-down
         tag="div"
-        title="그룹 일정"
+        title="스터디 일정"
         style="margin-left: 80px; margin-top:-30px;"
       >
-
+      <div class="dropdown-item" style="border-bottom :solid">
+        <span style="font-weight:bold; font-size:13px">전체 스터디</span>
+        <input
+        type="checkbox"
+        @change.prevent="allGroupChange"
+        v-model = allGroupChecked
+        style="margin-left:10px"
+      />
+      </div>
       <div class="dropdown-item" v-for="(item , idx) in myGroups" v-bind:item="item" v-bind:key="idx">
         {{item.groupName}}<input
         type="checkbox"
-        @change.prevent="getSchedule"
+        @change.prevent="groupChange"
         v-model = checked[idx]
         style="margin-left:10px"
       /></div>
@@ -37,6 +45,7 @@
         v-on:getSchedule="getSchedule"
         :scheduleType="mySchedule"
         :items="items"
+        :GroupInfo="myGroups"
       />
     </center>
   </div>
@@ -58,6 +67,7 @@ export default {
       myGroups: Object,
       personal: true,
       checked:[],
+      allGroupChecked:true,
     };
   },
   components: {
@@ -79,8 +89,11 @@ mounted() {
           this.myGroups = res.data.list;
 
           for (var i in this.myGroups) {
-            checked[i] = false;
+            this.checked[i] = true;
+            console.log("ㅎㅇㄹ" +this.checked[i]);
           }
+          
+          this.getSchedule();
         })
         .catch((err) => {
           console.log(err);
@@ -121,7 +134,7 @@ mounted() {
               .then((res) => {
                 this.list2 = res.data.list;
                 this.insertGroupItems();
-                myGroups[i].checked = false;
+                //this.myGroups[i].checked = true;
               });
             }
           }
@@ -144,6 +157,33 @@ mounted() {
         .catch(function(error) {
           console.log(error);
         });
+    },
+    allGroupChange(){
+      if(this.allGroupChecked == true){
+        for (var i in this.myGroups) {
+            this.checked[i] = true;
+        }
+      }else{
+        for (var i in this.myGroups) {
+            this.checked[i] = false;
+        }
+      }
+      this.getSchedule();
+    },
+    groupChange(){
+      var cnt = 0;
+      for (var i in this.myGroups) {
+        //console.log("하이ㅋㅋ" + i);
+        if(this.checked[i] == false){
+          this.allGroupChecked = false;
+          cnt++;
+          break;
+        }
+      }
+      if(cnt == 0){
+        this.allGroupChecked = true;
+      }
+      this.getSchedule();
     },
     insertItems() {
       for (var i in this.list) {

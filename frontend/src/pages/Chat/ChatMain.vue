@@ -4,12 +4,12 @@
     <div class="container">
       <div class="button-container ">
         <div class="d-flex justify-content-around" v-if="mode == 0">
-          <div class="col" >
-            <h3>채팅방 목록</h3>
+          <div class="col" style="font-weight : bold;">
+            <h2 style="margin-top:30px;">채팅방 목록</h2>
             <chat-room-list :mode="mode" @modeOne="modeOne()"/>
           </div>
           <div class="col">
-            <h3>멤버 목록</h3>
+            <h2 style="margin-top:30px;">멤버 목록</h2>
             <chat-friend-list :mode="mode" @modeOne="modeOne()"/>
           </div>
         </div>

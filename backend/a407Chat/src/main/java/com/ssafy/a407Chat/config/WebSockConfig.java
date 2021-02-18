@@ -28,7 +28,8 @@ public class WebSockConfig implements WebSocketMessageBrokerConfigurer{
 				"http://localhost:8081",
 				"http://localhost:8082",
 				"http://localhost:8083",
-				"http://localhost:8084")
+				"http://localhost:8084",
+				"https://i4a407.p.ssafy.io")
 			.withSockJS();
 	}
 	

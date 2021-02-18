@@ -13,4 +13,6 @@ public interface ChatRoomMemberDao {
 	
 	public int insertChatMember(ChatRoomMemberDto dto) throws Exception;
 	public List<ChatRoomDto> selectMyRoom(String email) throws Exception;
+	public List<ChatRoomMemberDto> selectRoomMember(String roomId) throws Exception;
+	public int updateIsJoin(Map map) throws Exception;
 }

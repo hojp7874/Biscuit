@@ -74,7 +74,7 @@ public class ChatServiceImpl implements ChatService{
 	public <T> void sendMessage(WebSocketSession session, T message) throws Exception{
 		try {
 			session.sendMessage(new TextMessage(ObjectMapper.writeValueAsString(message)));
-			System.out.println("message : " + message);
+			System.out.println("send message : " + message);
 		} catch (IOException e) {
 			log.error(e.getMessage(), e);
 
@@ -96,6 +96,18 @@ public class ChatServiceImpl implements ChatService{
 	public List<ChatRoomDto> findMyRoom(String email) throws Exception {
 		// TODO Auto-generated method stub
 		return roomMemberDao.selectMyRoom(email);
+	}
+
+	@Override
+	public List<ChatRoomMemberDto> findAllRoomMember(String roomId) throws Exception {
+		// TODO Auto-generated method stub
+		return roomMemberDao.selectRoomMember(roomId);
+	}
+
+	@Override
+	public int joinRoom(Map map) throws Exception {
+		// TODO Auto-generated method stub
+		return roomMemberDao.updateIsJoin(map);
 	}
 	
 	
