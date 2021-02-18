@@ -256,19 +256,19 @@ export default {
   mounted() {
     this.newItemStartDate = this.isoYearMonthDay(this.today());
     // this.newItemEndDate = this.isoYearMonthDay(this.today());
-    console.log("처음값" + this.newItemStartDate);
+    // // console.log("처음값" + this.newItemStartDate);
     if (this.scheduleType === 'mySchedule') {
       this.getItem();
     }else if (this.scheduleType === 'groupSchedule'){
       this.getGroupItem();
     }
-    //console.log("아디디" + this.gId);
+    //// console.log("아디디" + this.gId);
     // this.schedule.email = localStorage.getItem('email');
-    //console.log("아이템" + this.items);
+    //// console.log("아이템" + this.items);
   },
   methods: {
     changeSdate(){
-      console.log("sdate  :  "+this.newItemStartDate);
+      // // console.log("sdate  :  "+this.newItemStartDate);
     },
     changeEdate(){
 
@@ -277,8 +277,8 @@ export default {
       // range, eventSource) {
       // Demo does nothing with this information, just including the method to demonstrate how
       // you can listen for changes to the displayed range and react to them (by loading items, etc.)
-      //console.log(eventSource)
-      //console.log(range)
+      //// console.log(eventSource)
+      //// console.log(range)
     },
     thisMonth(d, h, m) {
       const t = new Date();
@@ -291,7 +291,7 @@ export default {
       // this.message = ` ${d.toLocaleDateString()}`;
     },
     onClickItem(e) {
-      //this.message = `You clicked: ${e.title}`;console.log("dff  " + this.detail.sid);
+      //this.message = `You clicked: ${e.title}`;// console.log("dff  " + this.detail.sid);
       this.sId = e.id.substr(1);
       // this.detail.sdate = e.startDate;
       // this.detail.edate = e.endDate;
@@ -309,7 +309,7 @@ export default {
           this.$refs['detail-modal'].show();
           this.detail.sdate = this.detail.sdate.substr(0,10);
           this.detail.edate = this.detail.edate.substr(0,10);
-          console.log("다음값" + this.detail.sdate);
+          // console.log("다음값" + this.detail.sdate);
         });
       
     },
@@ -356,7 +356,7 @@ export default {
       }
     },
     groupAddItem(){
-      console.log("df" + this.gId);
+      // console.log("df" + this.gId);
       this.schedule.sdate = this.newItemStartDate;
       this.schedule.edate = this.newItemEndDate;
       this.schedule.title = this.newItemTitle;
@@ -424,7 +424,7 @@ export default {
           }
         });   
     }else{
-      console.log("d");
+      // console.log("d");
     }
     },
     // hoverItem(){

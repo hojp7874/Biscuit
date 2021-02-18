@@ -90,7 +90,7 @@ mounted() {
 
           for (var i in this.myGroups) {
             this.checked[i] = true;
-            console.log("ㅎㅇㄹ" +this.checked[i]);
+            // console.log("ㅎㅇㄹ" +this.checked[i]);
           }
           
           this.getSchedule();
@@ -173,7 +173,7 @@ mounted() {
     groupChange(){
       var cnt = 0;
       for (var i in this.myGroups) {
-        //console.log("하이ㅋㅋ" + i);
+        //// console.log("하이ㅋㅋ" + i);
         if(this.checked[i] == false){
           this.allGroupChecked = false;
           cnt++;

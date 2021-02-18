@@ -60,7 +60,7 @@ export default {
         })
         .then((res) => {
           if (res.data.success) {
-            console.log("bId >>> "+this.bId);
+            // console.log("bId >>> "+this.bId);
             // alert('등록되었습니다.');
             this.$router.go(this.$router.currentRoute);
           } else {
@@ -83,10 +83,10 @@ export default {
         })
         .then((res) => {
           if (res.data.success) {
-            console.log("receiveEmail >>> "+this.boardEmail);
+            // console.log("receiveEmail >>> "+this.boardEmail);
             // alert('등록되었습니다.');
           } else {
-            console.log('알림 전송 실패');
+            // console.log('알림 전송 실패');
           }
         })
         .catch((err) => {

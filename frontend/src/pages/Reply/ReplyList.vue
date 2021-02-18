@@ -71,13 +71,13 @@ export default {
   created() {
     axios.get(`${SERVER_URL}/user/profile`, {params: {email: this.items.email}})
       .then(res => {
-        // console.log(res.data.User.picture)
+        // // console.log(res.data.User.picture)
         this.user.picture = res.data.User.picture
       })
       .catch(err => {
         console.log(err)
       })
-    // console.log(this.$props.reply)
+    // // console.log(this.$props.reply)
     // this.items = this.$props.reply;
   },
   methods: {
@@ -87,7 +87,7 @@ export default {
     },
     onSubmit(event) {
       event.preventDefault();
-      console.log("수정 : "+this.user.email +" / "+this.modicontents+" / "+this.rId);
+      // console.log("수정 : "+this.user.email +" / "+this.modicontents+" / "+this.rId);
 
       if(this.modicontents == '' || this.modicontents.trim() ==""){
          alert('작성된 댓글 내용이 존재하지 않습니다.');
@@ -117,7 +117,7 @@ export default {
       }
     },
     deleteReply(){
-      console.log("삭제 메소드");
+      // console.log("삭제 메소드");
       this.$axios
       .delete(`${SERVER_URL}/reply/delete`, {params: {rId : this.items.rId}})
       .then((res) => {

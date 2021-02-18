@@ -141,15 +141,15 @@ export default {
     this.getMemberCount();
   },
   updated() {
-    console.log('updated.edate : ' + this.edate);
+    // console.log('updated.edate : ' + this.edate);
   },
   mounted() {
     // this.edate = this.convertDate(this.form.edate)
-    console.log('edate : ' + this.edate);
+    // console.log('edate : ' + this.edate);
   },
   methods: {
     onEdit: function() {
-      // console.log("===update")
+      // // console.log("===update")
       const item = {
         max: this.form.max,
         edate: this.edate,
@@ -164,7 +164,7 @@ export default {
         gId: this.form.gId,
       };
       if (this.memberCount > item.max) {
-        console.log("max: " + item.max + " mcount: " +this.memberCount);
+        // console.log("max: " + item.max + " mcount: " +this.memberCount);
         alert("인원제한은 현재인원보다 많아야합니다")
         }
       else{
@@ -176,13 +176,13 @@ export default {
             .post(`${SERVER_URL}/file/upload/`, frm)
             .then((res) => {
               item['img'] = SERVER_URL + '/file/read/' + res.data.message;
-              console.log(item);
+              // console.log(item);
 
               //DB수정 (데이터 용량 관리 차원에서 수정 권유)
               axios
                 .put(`${SERVER_URL}/group/update/`, item)
                 .then((res) => {
-                  console.log(res);
+                  // console.log(res);
                   this.$router.push({ path: this.groupPagePath });
                 })
                 .catch((err) => {
@@ -198,7 +198,7 @@ export default {
         axios
           .put(`${SERVER_URL}/group/update/`, item)
           .then((res) => {
-            console.log(res);
+            // console.log(res);
             this.$router.push({ path: this.groupPagePath });
           })
           .catch((err) => {
@@ -216,7 +216,7 @@ export default {
         })
         .then((res) => {
           this.memberCount = res.data.memberCount;
-          console.log('memberCount : ' + this.memberCount);
+          // console.log('memberCount : ' + this.memberCount);
         })
         .catch((err) => {
           console.log(err);
@@ -227,11 +227,11 @@ export default {
       return moment(date).format('YYYY-MM-DD');
     },
     loadInfo: function() {
-      console.log('loadInfo');
+      // console.log('loadInfo');
       axios
         .get(`${SERVER_URL}/group/list/`, { params: this.params })
         .then((res) => {
-          console.log(res.data.list[0]);
+          // console.log(res.data.list[0]);
           this.form = res.data.list[0];
           this.edate = this.convertDate(this.form.edate);
         })

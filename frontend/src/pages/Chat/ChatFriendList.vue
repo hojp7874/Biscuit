@@ -191,7 +191,7 @@ export default {
               this.room_name = '';
               // this.findAllRoom();
             } else {
-              console.log('실패');
+              // console.log('실패');
               return;
             }
           })

@@ -102,7 +102,7 @@
         // const data = [item]
         axios.put(`${SERVER_URL}/group/update/`, item)
           .then(res => {
-            console.log(res)
+            // console.log(res)
             this.$router.push({ path: './' });
           })
           .catch(err => {
@@ -113,7 +113,7 @@
     created: function () {
       axios.get(`${SERVER_URL}/group/list/`, {params: this.params})
         .then(res => {
-          console.log(res.data.list[0])
+          // console.log(res.data.list[0])
           this.form = res.data.list[0]
         })
         .catch(err => {

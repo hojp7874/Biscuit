@@ -68,12 +68,12 @@ export default {
       this.mode = 0
     },
     addRoom: function() {
-      console.log("방 개설")
+      // console.log("방 개설")
       this.mode = 1
       this.mode = 0
     }
     // componentLoading() {
-    //   console.log("component change");
+    //   // console.log("component change");
     //   switch (this.active) {
     //     case 0:
     //       return 'ChatRoomList';

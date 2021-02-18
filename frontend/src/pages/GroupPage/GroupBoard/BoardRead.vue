@@ -111,7 +111,7 @@ export default {
   },
   methods: {
     changeMode(num){
-      // console.log("IN CHANGE MODE");
+      // // console.log("IN CHANGE MODE");
       this.fnGetView();
       this.getList();
       this.pageCnt = 1;
@@ -120,8 +120,8 @@ export default {
     },
     // changePage: function() {
     //   this.showList = this.list.slice(10*(this.replyPage-1), 10*this.replyPage)
-    //   // console.log(this.replyPage)
-    //   // console.log(temporaryList)
+    //   // // console.log(this.replyPage)
+    //   // // console.log(temporaryList)
     // },
     fnGetView() {
       this.$axios
@@ -133,7 +133,7 @@ export default {
           },
         })
         .then((res) => {
-          console.log(res.data);
+          // console.log(res.data);
           this.title = res.data.list[0].title;
           this.contents = res.data.list[0].contents;
           this.email = res.data.list[0].email;
@@ -187,7 +187,7 @@ export default {
       }
     },
     getList() {
-      // console.log("REPLY GET LIST");
+      // // console.log("REPLY GET LIST");
       this.$axios
         .get(`${SERVER_URL}/greply/list`, {
           params: {

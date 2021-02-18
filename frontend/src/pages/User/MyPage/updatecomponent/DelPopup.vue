@@ -68,7 +68,7 @@ export default {
       this.$refs['my-modal'].hide();
     },
     deleteUser() {
-      console.log('delete token : ' + localStorage.getItem('token'));
+      // console.log('delete token : ' + localStorage.getItem('token'));
       axios
         .post(`${SERVER_URL}/user/delete`,this.mem, {
           headers: {

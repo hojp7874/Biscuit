@@ -1,7 +1,7 @@
 <template>
   <div>
       <div class="content-center brand">
-        <center v-if="active==1" style="font-size: 30px; margin-top:30px;margin-bottom:10px;font-weight:bold;">스터디 게시판</center>
+        <h2 style="margin-top:30px;" class="text-center" v-if="active==1">스터디 게시판</h2>
 
         <div class="container" v-if="active==1">
           <b-input-group>
@@ -155,7 +155,6 @@ export default {
       axios
         .get(`${SERVER_URL}/gboard/read`, { params: this.form })
         .then((res) => {
-          console.log("List");
           let today = new Date();
           let year = today.getFullYear();
           let month = ("0" + (today.getMonth()+1)).slice(-2);
@@ -174,7 +173,7 @@ export default {
           this.list = res.data.list.sort((a, b) => {
             return b.bId - a.bId;
           });
-          // console.log(this.list.length);
+          // // console.log(this.list.length);
         });
     },
 
@@ -192,13 +191,13 @@ export default {
     rowClick(record) {
       // 'record' will be the row data from items
       // `index` will be the visible row number (available in the v-model 'shownItems')
-      // console.log(record.bId);
+      // // console.log(record.bId);
       this.fnView(record.bId);
     },
     fnSearch() {
       //검색
-      // console.log(this.type);
-      // console.log(this.word);
+      // // console.log(this.type);
+      // // console.log(this.word);
       this.fnGetList();
     },
     fnPage(n) {

@@ -1,8 +1,8 @@
 <template>
   <div>
-    <center style="font-size: 30px; margin-top:30px;font-weight:bold ">
+    <h2 style="margin-top:30px;" class="text-center">
       그룹 일정
-    </center>
+    </h2>
     <center>
       <Schedule
         v-on:createSchedule="createSchedule"
@@ -37,7 +37,6 @@ export default {
   props: ['gId'],
   methods: {
     getSchedule() {
-      console.log('지아이디 : ' + this.gId);
       this.form = { gId: this.gId };
       axios
         .get(`${SERVER_URL}/schedule/grouplist`, {
@@ -47,12 +46,9 @@ export default {
           this.list = res.data.list;
           this.items = [];
           this.insertItems();
-          console.log('ㅎㅇ');
-          console.log('아이템' + this.list.length);
         });
     },
     createSchedule(data) {
-      console.log(data);
       axios
         .post(`${SERVER_URL}/schedule/create`, data)
         .then((response) => {
@@ -71,10 +67,10 @@ export default {
             //   })
             //   .then((res) => {
             //     if (res.data.success) {
-            //       console.log('receiveEmail >>> ' + this.email);
+            //       // console.log('receiveEmail >>> ' + this.email);
             //       // alert('등록되었습니다.');
             //     } else {
-            //       console.log('알림 전송 실패');
+            //       // console.log('알림 전송 실패');
             //     }
             //   })
             //   .catch((err) => {
@@ -90,7 +86,6 @@ export default {
         });
     },
     insertItems() {
-      console.log('아이템z' + this.list.length);
       for (var i in this.list) {
         // this.items[i].id = 'e' + this.list[i].sId;
         // this.items[i].startDate = this.list[i].sdate;

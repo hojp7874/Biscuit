@@ -161,7 +161,7 @@ export default {
           this.list = res.data.list.sort((a, b) => {
             return b.bid - a.bid;
           });
-          console.log(this.list.length);
+          // console.log(this.list.length);
         });
     },
 
@@ -181,8 +181,8 @@ export default {
     },
     fnSearch() {
       //검색
-      console.log(this.type);
-      console.log(this.word);
+      // console.log(this.type);
+      // console.log(this.word);
       this.fnGetList();
     },
     fnPage(n) {

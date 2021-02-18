@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <router-view name="header" v-on:logout="logout;" v-on:clickNotify="clickNotify"/>
+    <router-view name="header" v-on:logout="logout" v-on:clickNotify="clickNotify"/>
     <div class="wrapper">
       <router-view />
     </div>
@@ -11,7 +11,7 @@
 export default {
   methods: {
     logout() {
-      console.log("로그아웃 테스트");
+      // // console.log("로그아웃 테스트");
         if (localStorage.getItem('token') !== null) {
           localStorage.removeItem('token');
           localStorage.removeItem('id');
@@ -22,7 +22,7 @@ export default {
         window.location.reload();
     },
     clickNotify(){
-      console.log("공지클릭테스트");
+      // console.log("공지클릭테스트");
       window.location.reload();
     }
   },

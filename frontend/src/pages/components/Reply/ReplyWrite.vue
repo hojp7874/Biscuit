@@ -55,7 +55,7 @@ export default {
         })
         .then((res) => {
           if (res.data.success) {
-            console.log("bId >>> "+this.bId);
+            // console.log("bId >>> "+this.bId);
             // alert('등록되었습니다.');
             this.$router.go(this.$router.currentRoute);
           } else {
