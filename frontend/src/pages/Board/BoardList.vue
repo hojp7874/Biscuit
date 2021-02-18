@@ -83,22 +83,27 @@ export default {
         {
           key: 'bid',
           label: '순번',
+          thStyle: {width: '75px'},
         },
         {
           key: 'category',
           label: '말머리',
+          thStyle: {width: '120px'},
         },
         {
           key: 'title',
           label: '제목',
+          thStyle: {width: '640px'},
         },
         {
           key: 'nickname',
           label: '작성자',
+          // thStyle: {width: '270px'},
         },
         {
           key: 'date',
           label: '작성일',
+          thStyle: {width: '130px'},
         },
       ],
       perPage: 10,
@@ -261,5 +266,8 @@ export default {
   display: inline-blcok;
   padding: 0 5px;
   color: #666;
+}
+.bidSize {
+  width: 1000px;
 }
 </style>
