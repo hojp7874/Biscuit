@@ -91,7 +91,16 @@
 
       <b-modal id="modal-2" title="일정" ref="detail-modal" hide-footer>
         <div v-if="readOnly">
-        <b-icon icon="pencil" style="margin-left:430px" @click="changeReadOnly()"></b-icon><br/>
+          <div>
+            <!-- eslint-disable vue/no-use-v-if-with-v-for,vue/no-confusing-v-for-v-if -->
+            <center v-for="(item , idx) in GroupInfo" v-bind:item="item" v-bind:key="idx"
+             v-if="item.gId == detail.gId && detail.gId != ''"
+             
+            >
+             <h5> [ {{item.groupName}} ]</h5>
+            </center>
+          </div>
+        <b-icon icon="pencil" style="margin-left:430px;margin-top:-90px" @click="changeReadOnly()"></b-icon><br/>
         <h2 style="text-align:center">{{detail.title}}</h2>
         {{detail.sdate}} ~ {{detail.edate}}<br/>
 
@@ -170,7 +179,7 @@ export default {
     [FormGroupInput.name]: FormGroupInput,
   },
   mixins: [CalendarMathMixin],
-  props: ['scheduleType', 'items','gId'],
+  props: ['scheduleType', 'items','gId','GroupInfo'],
   data() {
     return {
       /* Show the current month, and give it some fake items to show */
@@ -253,7 +262,7 @@ export default {
     }else if (this.scheduleType === 'groupSchedule'){
       this.getGroupItem();
     }
-    console.log("아디디" + this.gId);
+    //console.log("아디디" + this.gId);
     // this.schedule.email = localStorage.getItem('email');
     //console.log("아이템" + this.items);
   },
@@ -365,7 +374,7 @@ export default {
       }
     },
     getItem() {
-      this.$emit('getSchedule');
+      //this.$emit('getSchedule');
       //  this.insertItems();
     },
     getGroupItem(){
