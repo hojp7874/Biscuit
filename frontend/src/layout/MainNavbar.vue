@@ -36,9 +36,7 @@
         <i
           class="now-ui-icons design_app"
           style="font-size: 15px"
-        >
-          공지사항</i
-        >
+        > 공지사항</i>
       </router-link>
 
       <router-link class="navbar-brand ml-3" to="/boardlist">
@@ -50,21 +48,19 @@
         >
       </router-link>
 
-      <div class="d-flex align-items-center ml-3">
+      <div class="ml-3" style="position:relative; bottom:6px;">
+        <router-link class="navbar-brand" to="/profile" v-if="loginStatus.email">
         <img
           v-if="this.token"
           :src="loginStatus.picture"
           alt=""
           class="rounded-circle"
           style="width:40px; height:40px"
-        />
+          />
 
-        <router-link class="navbar-brand" to="/profile" v-if="loginStatus.email">
-          <i
-            style="font-size: 15px"
-          >
-            {{loginStatus.nickname}} 님</i
-          >
+          <span
+            style="font-size: 15px; "
+          > {{loginStatus.nickname}}</span>
         </router-link>
 
       </div>
@@ -124,7 +120,7 @@
           v-if="this.token === ''"
         >
           <i class="now-ui-icons arrows-1_share-66"></i>
-          <p>로그인</p>
+          &nbsp;<p style="font-size : 120%">로그인</p>
         </a>
         <a
           class="nav-link btn btn-primary"
@@ -133,7 +129,7 @@
           v-else
         >
           <i class="now-ui-icons arrows-1_share-66"></i>
-          <p>로그아웃</p>
+          &nbsp;<p style="font-size : 120%">로그아웃</p>
         </a>
       </li>
     </template>
@@ -145,6 +141,7 @@ import { DropDown, Navbar } from '@/components';
 import { Popover } from 'element-ui';
 import axios from 'axios';
 import { mapState } from 'vuex';
+import Button from '../components/Button.vue';
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 export default {
   name: 'main-navbar',
@@ -169,6 +166,7 @@ export default {
   components: {
     DropDown,
     Navbar,
+    // Button,
     [Popover.name]: Popover,
   },
   mounted() {
@@ -297,5 +295,17 @@ export default {
 #readNoti {
   /* background-color: rgb(240, 240, 240); */
   opacity: 0.5;
+}
+span{
+  font-family: NanumSquare;
+}
+@font-face {
+  font-family: 'NanumSquare';
+  font-weight: 700;
+  src: url('https://cdn.rawgit.com/moonspam/NanumSquare/master/NanumSquareR.eot');
+  src: url('https://cdn.rawgit.com/moonspam/NanumSquare/master/NanumSquareR.eot?#iefix')
+      format('embedded-opentype'),
+    url('https://cdn.rawgit.com/moonspam/NanumSquare/master/NanumSquareR.woff') format('woff'),
+    url('https://cdn.rawgit.com/moonspam/NanumSquare/master/NanumSquareR.ttf') format('truetype');
 }
 </style>
