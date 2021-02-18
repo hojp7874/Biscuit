@@ -1,9 +1,9 @@
 <template>
   <div>
     <center>
-      <div style="font-size: 30px; margin-top:30px;font-weight:bold">
-        나의 일정
-      </div>
+      <!-- <div style="font-size: 30px; margin-top:30px;font-weight:bold"> -->
+        <h2 style="margin-top:30px;">나의 일정</h2>
+      <!-- </div> -->
     </center>
     <div>
       <!-- <n-checkbox  v-model="personal" style="margin-left: 180px ; color:#F96332"  @change="getSchedule">개인 일정</n-checkbox> -->

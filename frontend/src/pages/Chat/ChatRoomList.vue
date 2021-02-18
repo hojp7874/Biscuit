@@ -9,8 +9,8 @@
           <h3>채팅방 리스트</h3>
         </div>
       </div> -->
-      
-      <div class="input-group">
+      <p v-if="chatrooms.length==0">참여중인 채팅방이 없습니다.</p>
+      <div class="input-group" v-if="chatrooms.length>0">
         <b-input-group>
           <b-form-input style="border-radius:10px" type="text" v-model="searchName"  placeholder="채팅방을 검색해주세요"/>
           
@@ -18,7 +18,8 @@
       </div>
       
       <!-- eslint-disable vue/no-use-v-if-with-v-for,vue/no-confusing-v-for-v-if -->
-      <ul class="list-group">
+      
+      <ul class="list-group" v-if="chatrooms.length>0">
         <li
           class="list-group-item list-group-item-action"
           v-for="item in chatrooms"
