@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-      <center style="font-size: 30px; margin-top:30px;font-weight:bold">개인 정보 수정</center>
+      <h2 class="text-center" style=" margin-top:30px;font-weight:bold">개인 정보 수정</h2>
       <!-- <del-popup style="margin-left:950px ; margin-top:20px" v-on:logout="logout()" /> -->
     </div>
     <div id="all_info" style="margin-left:80px">
@@ -42,6 +42,7 @@
             placeholder="닉네임"
             style="margin-left : 370px ; margin-top:-44px;width : 300px"
             v-model="user.nickname"
+            @input="changeNickname()"
           />
           <br />
 
@@ -141,6 +142,9 @@ export default {
   //   FgInput
   // },
   methods: {
+    changeNickname(){
+      this.user.nickname = this.user.nickname.length>10? this.user.nickname.substr(0,10):this.user.nickname; 
+    },
     show_update_pw() {
       this.show = true;
     },
@@ -150,6 +154,7 @@ export default {
     },
 
     update() {
+      this.user.nickname = this.user.nickname.length>10? this.user.nickname.substr(0,10):this.user.nickname; 
       var img = document.getElementById("img")
       if (img.files.length != 0) {
         const frm = new FormData()
