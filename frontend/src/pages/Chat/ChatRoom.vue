@@ -6,11 +6,12 @@
 
     <!-- eslint-disable vue/no-use-v-if-with-v-for,vue/no-confusing-v-for-v-if -->
     <div >
-      <drop-down  :title="`참여 인원 :` + notJoinMembers  + `/` +members.length  " class="d-flex">
+      <drop-down  :title="`참여 인원 : ` +members.length  " class="d-flex">
         <div v-for="member in members" v-bind:key="member.crmId">
 
-        <div v-if="member.isJoin==1" class="dropdown-item" style="margin-right:5px">{{member.nickname}}</div>
-        <div v-else class="dropdown-item" style="background:#9b9b9b; margin-right:5px">{{member.nickname}}</div>
+        <div class="dropdown-item" style="margin-right:5px">{{member.nickname}}</div>
+        <!-- <div v-if="member.isJoin==1" class="dropdown-item" style="margin-right:5px">{{member.nickname}}</div>
+        <div v-else class="dropdown-item" style="background:#9b9b9b; margin-right:5px">{{member.nickname}}</div> -->
       </div>
       </drop-down>
       
@@ -84,6 +85,7 @@ export default {
       bottom_flag: true,
       pre_diffHeight : 0,
       notJoinMembers: 0,
+      
     };
   },
   created() {
