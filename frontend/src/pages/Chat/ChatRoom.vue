@@ -5,26 +5,28 @@
     </div>
 
     <!-- eslint-disable vue/no-use-v-if-with-v-for,vue/no-confusing-v-for-v-if -->
-    <div>
-      <span v-for="member in members" v-bind:key="member.crmId">
-        <a v-if="member.isJoin==1" style="margin-right:5px"
-          class="btn btn-primary btn-round btn-lg">{{member.nickname}}</a>
-        <a v-else style="background-color:#9b9b9b; margin-right:5px"
-          class="btn btn-primary btn-round btn-lg">{{member.nickname}}</a>
-      </span>
+    <div >
+      <drop-down  :title="`참여 인원 :` + notJoinMembers  + `/` +members.length  " class="d-flex">
+        <div v-for="member in members" v-bind:key="member.crmId">
+
+        <div v-if="member.isJoin==1" class="dropdown-item" style="margin-right:5px">{{member.nickname}}</div>
+        <div v-else class="dropdown-item" style="background:#9b9b9b; margin-right:5px">{{member.nickname}}</div>
+      </div>
+      </drop-down>
+      
     </div>
     <br />
     <div id="row">
       <div class="items" >
     <ul class="list-group" id="chatList" onscroll>
       <li class="list-group-item" v-for="message in messages" v-bind:key="message.id"  v-if="message.type=='TALK' || message.type=='JOIN'">
-        <div v-if="message.type=='TALK'">
-          <inner v-if="message.nickname==nickname" style="display:block; width: 100%; text-align:right">
-            <c style="background:white; border-radius: 10px 10px 10px 10px; padding: 10px;">{{ message.nickname }} - {{ message.message }}</c>
+        <div v-if="message.type=='TALK'" class="d-flex flex-column">
+          <inner v-if="message.nickname==nickname" style="display:block; width: fit-content; text-align:right; max-width:80%;" class="align-self-end">
+            <div style="background:white; border-radius: 10px 10px 10px 10px; padding: 10px; text-align:left">{{ message.nickname }} - {{ message.message }}</div>
           </inner>
-          <inner v-else style="display:block; width: 100%; text-align:left">
-            <c style="background:white; border-radius: 10px 10px 10px 10px; padding: 10px;">{{ message.nickname }} - {{ message.message }}
-            </c>
+          <inner v-else style="display:block; width: fit-content; text-align:left; max-width:80%;">
+            <div style="background:white; border-radius: 10px 10px 10px 10px; padding: 10px; text-align:left" >{{ message.nickname }} - {{ message.message }}
+            </div>
             </inner>
           </div>
         <div v-if="message.type=='JOIN'" style="background:grey; font-weight:600 ;opacity:0.9;">
@@ -63,9 +65,12 @@
 import axios from 'axios';
 import SockJS from 'sockjs-client';
 import Stomp from 'stomp-websocket';
-
+import { DropDown } from '@/components';
 const CHAT_SERVER_URL = process.env.VUE_APP_CHAT_SERVER_URL;
 export default {
+  components:{
+    DropDown
+  },
   data() {
     return {
       roomId: '',
@@ -78,6 +83,7 @@ export default {
       members: [],
       bottom_flag: true,
       pre_diffHeight : 0,
+      notJoinMembers: 0,
     };
   },
   created() {
@@ -111,6 +117,17 @@ export default {
           this.messages = res.data.data;
         });
 
+    },
+    calNotJoin: function(){
+      this.notJoinMembers = this.members.length;
+      console.log(this.members.length);
+      for(const index in this.members){
+        console.log("isJoin" + this.members[index].isJoin)
+
+        if(this.members[index].isJoin == '0'){
+          this.notJoinMembers--;
+        }
+      }
     },
     findRoom: function() {
       axios
@@ -224,6 +241,7 @@ export default {
         })
         .then((res) =>{
           this.members = res.data.data;
+          this.calNotJoin();
         })
         .catch((err) =>{
           console.log(err);
@@ -291,7 +309,7 @@ body {
   /* padding: 0px; */
 }
 
- #row .items ul li a {}
+ /* #row .items ul li a {} */
 
 /*
 #row .items ul li:first-child a {

@@ -186,7 +186,7 @@
                     <div class="col-md-4">
                       <div class="photo-container rounded-circle"
                         style="height:200px; width:200px; overflow:hidden; margin:auto">
-                        <img class="" :src="picture" alt="" id="pic" style="min-height:300px;">
+                        <img class="" :src="picture" alt="" id="pic" style="min-height:200px;">
                       </div>
                     </div>
                     <div class="col-md-8">
