@@ -46,6 +46,14 @@ export default {
     return {
       year: new Date().getFullYear()
     };
+  },
+  created() {
+    // document.addEventListener('beforeUnload', this.deleteUnload());
+  },
+  methods: {
+    deleteUnload(){
+      alert('정말 나가시겠습니까?')
+    },
   }
 };
 </script>
