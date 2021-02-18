@@ -1,13 +1,14 @@
 <template>
   <navbar
+    class="pb-0"
     position="fixed"
     type="primary"
     :transparent="transparent"
     :color-on-scroll="colorOnScroll"
     menu-classes="ml-auto"
   >
-    <template>
-      <router-link v-popover:popover1 class="navbar-brand" to="/">
+    <div style="position:relative; bottom:10px">
+      <router-link v-popover:popover1 class="navbar-brand pb-0 mb-0" to="/">
         <img class="n-logo" src="img/bisWhite.png" height="30px" alt="" />
       </router-link>
       <el-popover
@@ -21,7 +22,7 @@
           서울 4반 7팀
         </div>
       </el-popover>
-    </template>
+    </div>
     <template slot="navbar-menu">
       <router-link class="navbar-brand ml-3" to="/grouplist">
         <i
