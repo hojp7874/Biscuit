@@ -221,7 +221,7 @@ export default {
         })
         .then((response) => {
           if (response.data.success === 'success') {
-            console.log('정보 수정에 성공하셨습니다.');
+            //console.log('정보 수정에 성공하셨습니다.');
              this.form = { receiveEmail: localStorage.getItem('email') };
             axios
               .get(`${SERVER_URL}/notification/read`, {
@@ -231,19 +231,19 @@ export default {
                 if (response.data.success === 'success') {
                   this.notiCnt = 0;
                   this.items = res.data.list;
-                  console.log('정보 수정에 성공하셨습니다.2222');
+                  //console.log('정보 수정에 성공하셨습니다.2222');
                   for (var i in this.items) {
                     if (this.items[i].isRead == 0) {
                       this.notiCnt++;
                     }
                   }
                 } else {
-                  console.log('정보 수정에 실패하셨습니다.zz');
+                 // console.log('정보 수정에 실패하셨습니다.zz');
                 }
               })
               .catch(function(error) {
                 console.log(error);
-                console.log('정보 수정에 실패하셨습니다.zzzz');
+                //console.log('정보 수정에 실패하셨습니다.zzzz');
               });
           } else console.log('정보 수정에 실패하셨습니다.');
         })
@@ -251,6 +251,8 @@ export default {
           console.log(error);
         });
       this.$router.replace(item.notiUrl);
+      this.$emit('clickNotify');
+      //window.location.reload();
     },
     deleteNoti(item) {
       this.delForm = { nId: item.nId };
@@ -261,7 +263,7 @@ export default {
         })
         .then((res) => {
           if (res.data.success === 'success') {
-            console.log('삭제하였습니다.');
+            //console.log('삭제하였습니다.');
             axios
               .get(`${SERVER_URL}/notification/read`, {
                 params: this.form,
