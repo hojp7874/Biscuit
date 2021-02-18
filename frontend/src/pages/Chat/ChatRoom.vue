@@ -15,14 +15,24 @@
     </div>
     <br />
     <div id="row">
-      <div class="items">
-        <ul class="list-group" id="chatList" onscroll>
-          <li class="list-group-item" v-for="message in messages" v-bind:key="message.id"
-            v-if="message.type=='TALK' || message.type=='JOIN'">
-            <a v-if="message.type=='TALK'">{{ message.nickname }} - {{ message.message }}</a>
-            <a v-if="message.type=='JOIN'">{{message.message}}</a>
-          </li>
-        </ul>
+      <div class="items" >
+    <ul class="list-group" id="chatList" onscroll>
+      <li class="list-group-item" v-for="message in messages" v-bind:key="message.id"  v-if="message.type=='TALK' || message.type=='JOIN'">
+        <div v-if="message.type=='TALK'">
+          <inner v-if="message.nickname==nickname" style="display:block; width: 100%; text-align:right">
+            <c style="background:white; border-radius: 10px 10px 10px 10px; padding: 10px;">{{ message.nickname }} - {{ message.message }}</c>
+          </inner>
+          <inner v-else style="display:block; width: 100%; text-align:left">
+            <c style="background:white; border-radius: 10px 10px 10px 10px; padding: 10px;">{{ message.nickname }} - {{ message.message }}
+            </c>
+            </inner>
+          </div>
+        <div v-if="message.type=='JOIN'" style="background:grey; font-weight:600 ;opacity:0.9;">
+          <inner > [알림] {{message.message}}</inner>
+
+          </div>
+      </li>
+    </ul>
       </div>
     </div>
     <!-- <div class="input-group">
@@ -245,7 +255,7 @@ body {
   /* overflow-x: auto; */
   /* overflow-y: hidden; */
   /* padding: 10px 10px 5px; */
-  background: #efefef;
+  background: #f7be98;
   /* width: 600px; */
 }
 
@@ -271,21 +281,19 @@ body {
   height: 500px;
   overflow-y: scroll;
   padding: 3px 3px 8px;
-  background: #fff;
+  background: #f7be98;
+  /* text-align: left; */
 }
 
-/* #row .items ul li {} */
-
-/* #row .items ul li a {
-  display: block;
-  overflow: hidden;
-  margin-top: 8px;
-  padding: 3px;
-  color:black;
-  font-size:12px;
-  text-decoration:none;
+#row .items ul li {
+  border: 0px;
+  background: #f7be98;
+  /* padding: 0px; */
 }
 
+ #row .items ul li a {}
+
+/*
 #row .items ul li:first-child a {
   margin-top: 3px;
 }

@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -80,4 +81,54 @@ public class ChatRoomMemberController {
 		return entity;
 	}
 	
+	@GetMapping(value = "/member")
+	public ResponseEntity memberList(@RequestParam String roomId){
+		
+		Map result = new HashMap();
+        ResponseEntity entity = null;
+        List<ChatRoomMemberDto> data;
+		try {
+			data = chatService.findAllRoomMember(roomId);
+			if(data != null) {
+
+				result.put("data", data);
+				result.put("success", "success");
+				entity = new ResponseEntity<>(result, HttpStatus.OK);
+			}
+			else {
+
+				result.put("success", "fail");
+				entity = new ResponseEntity<>(result, HttpStatus.OK);
+				
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			result.put("success", "error");
+			entity = new ResponseEntity<>(result, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return entity;
+	}
+	
+	@PutMapping(value = "/join")
+	public ResponseEntity join(@RequestBody Map map) {
+
+
+		Map result = new HashMap();
+        ResponseEntity entity = null;
+		try {
+			chatService.joinRoom(map);
+			result.put("success", "success");
+			entity = new ResponseEntity<>(result, HttpStatus.OK);
+		} catch (Exception e) {
+
+
+			result.put("success", "error");
+			entity = new ResponseEntity<>(result, HttpStatus.INTERNAL_SERVER_ERROR);
+			e.printStackTrace();
+		}
+
+			
+		return entity;
+	}
 }
