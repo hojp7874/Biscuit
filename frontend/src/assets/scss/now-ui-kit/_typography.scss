@@ -1,6 +1,31 @@
 table {
-  //  font-family: NanumSquare;
+  font-family: NanumSquare;
   font-size: large;
+}
+
+input,
+optgroup,
+select,
+textarea {
+  font-family: $sans-serif-family;
+  // font-family: NanumSquare;
+}
+
+span,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  font-weight: $font-weight-normal;
+  font-family: NanumSquare;
+}
+
+button {
+  font-family: NanumSquare;
+  font-weight: bold;
 }
 
 @font-face {
@@ -11,24 +36,6 @@ table {
       format('embedded-opentype'),
     url('https://cdn.rawgit.com/moonspam/NanumSquare/master/NanumSquareR.woff') format('woff'),
     url('https://cdn.rawgit.com/moonspam/NanumSquare/master/NanumSquareR.ttf') format('truetype');
-}
-
-button,
-input,
-optgroup,
-select,
-textarea {
-  font-family: $sans-serif-family;
-}
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p {
-  font-weight: $font-weight-normal;
-  font-family: NEXON Lv2 Gothic Bold;
 }
 @font-face {
   font-family: 'GongGothicMedium';
