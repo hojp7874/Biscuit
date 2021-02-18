@@ -89,12 +89,14 @@ export default {
       applys: Object,
       members: Object,
        groupPagePath : "/grouppage?gId=" + this.gId,
-       mId: Number
+       mId: Number,
+       memberCount: Number,
     };
   },
   created() {
     this.applyList();
     this.memberList();
+    this.getMemberCount();
   },
   
   computed: {
@@ -123,6 +125,21 @@ export default {
         .catch(err => {
           console.log(err)
         })
+    },
+    getMemberCount: function() {
+      axios
+        .get(`${SERVER_URL}/group/member/count`, {
+          params: {
+            gId: this.gId,
+          },
+        })
+        .then((res) => {
+          this.memberCount = res.data.memberCount;
+          console.log("memberCount : " + this.memberCount)
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
     memberList: function() {
       console.log('gId : ' + this.gId);
@@ -187,6 +204,10 @@ export default {
       this.isLoading = true;
     },
     accept: function(mid, email,index) {
+      if(this.memberCount >= this.members.length){
+        alert('모집 제한 인원을 초과했습니다.')
+      }
+      else{
       axios
         .put(`${SERVER_URL}/group/member/accept`, {
           mId: mid,
@@ -197,6 +218,7 @@ export default {
             this.applys.splice(index,1);
           }
         });
+      
 
       axios
         .post(`${SERVER_URL}/notification/create`, {
@@ -220,6 +242,7 @@ export default {
         .catch((err) => {
           console.log(err);
         });
+      }
     },
     deny: function(mid, email, index) {
       axios

@@ -29,7 +29,7 @@
             </div>
             </inner>
           </div>
-        <div v-if="message.type=='JOIN'" style="background:grey; font-weight:600 ;opacity:0.9;">
+        <div v-if="message.type=='JOIN'" style="background:white; font-weight:600;  border-radius: 10px 10px 10px 10px; padding: 5px">
           <inner > [알림] {{message.message}}</inner>
 
           </div>

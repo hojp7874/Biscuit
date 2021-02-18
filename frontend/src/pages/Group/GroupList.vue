@@ -125,7 +125,7 @@
           <!-- v-b-modal.group-13 -->
 
           <b-card data-aos="flip-left"
-            @click="$bvModal.show(`group-${idx}`), getPermission(group.gId), getPicture(group.email)" class="my-3"
+            @click="$bvModal.show(`group-${idx}`), getMemberCount(group.gId), getPermission(group.gId), getPicture(group.email)" class="my-3"
             style="min-height:400px; min-width:300px; max-height:400px;">
             <div style="max-height:200px; min-height:200px; width:100%; overflow:hidden; ">
               <b-card-img :src="group.img" alt="Image" top></b-card-img>
@@ -197,7 +197,7 @@
 
 
                         <h4>스터디장: {{group.nickname}}</h4>
-                        <h5>모집인원: {{ group.max }}명</h5>
+                        <h5>모집인원: {{memberCount}} / {{ group.max }}명</h5>
                         <p>온라인 여부: {{ group.onoff }}</p>
                         <p>모집기간: {{ group.edate }}</p>
                         <p>지역: {{ group.region }}</p>
@@ -269,6 +269,7 @@
         myGroups: [],
         permission: '',
         existMyGroups: false,
+        memberCount: Number,
       }
     },
     created() {
@@ -294,6 +295,22 @@
             console.log(err)
           })
       },
+      getMemberCount: function(gId) {
+        console.log("getMemberCount. gId : " + gId)
+      axios
+        .get(`${SERVER_URL}/group/member/count`, {
+          params: {
+            gId: gId,
+          },
+        })
+        .then((res) => {
+          this.memberCount = res.data.memberCount;
+          console.log("memberCount : " + this.memberCount)
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
       getPermission: function(gId) {
         axios.get(`${SERVER_URL}/group/member/apply/state`, {params: {gId: gId, nickname: this.loginStatus.nickname}})
           .then(res => {
