@@ -7,15 +7,15 @@
           <col width="80%" />
         </colgroup>
         <tr>
-          <th>제목</th>
-          <td><h5>{{ title }}</h5></td>
+
+          <td><h5 style="font-weight : 1200;">{{ title }}</h5></td>
         </tr>
         <tr>
-          <th>작성자</th>
+
           <td><img :src="picture" class="rounded-circle" style="margin-top:15px; width:65px; height:65px" alt="" />{{ nickname }}</td>
         </tr>
         <tr>
-          <th>내용</th>
+
           <td class="txt_cont" v-html="contents.replace(/(?:\r\n|\r|\n)/g, '<br />')"></td>
         </tr>
       </table>
