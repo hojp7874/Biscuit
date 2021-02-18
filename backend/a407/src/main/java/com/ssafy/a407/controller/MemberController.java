@@ -307,6 +307,35 @@ public class MemberController {
 		
 	}
 	
+	@GetMapping(value = "/count")
+	private ResponseEntity memberCount(@RequestParam int gId) {
+		ResponseEntity entity = null;
+		Map result = new HashMap();
+//		System.out.println("MemberController. apply/group/count. gId : " + gId);
+		try {
+			Map applyCount = member.getMemberCount(gId);
+			Long count = null;
+			if(applyCount != null) {
+				count = (Long) applyCount.get("memberCount");		
+				result.put("success", "success");
+				result.put("memberCount", count);
+				entity = new ResponseEntity<>(result, HttpStatus.OK);	
+			}
+			else {
+				result.put("success", "fail");
+				entity = new ResponseEntity<>(result, HttpStatus.OK);
+			
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.put("success", "error");
+			entity = new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+		
+		}
+		return entity;
+		
+	}
+	
 	//권한 변경
 	@PutMapping(value = "/permission")
 	private ResponseEntity permission(@RequestBody Map map)

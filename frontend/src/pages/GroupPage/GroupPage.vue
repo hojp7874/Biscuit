@@ -60,7 +60,7 @@
             <!-- <span v-if="applyCount != 0" class="badge badge-warning badge-pill" style="position: relative; right:45px; bottom:20px">1</span> -->
           </span>
         </div>
-        <component :is="componentLoading()" :gId="gId" :state="state" :groupName="group.groupName" @changemember="changeAct"></component>
+        <component :is="componentLoading()" :gId="gId" :state="state" :groupName="group.groupName" :max="group.max" @changemember="changeAct"></component>
         <group-board-list v-if="active==4" :gId ="gId"></group-board-list>
       </div>
     </div>

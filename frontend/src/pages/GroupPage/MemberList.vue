@@ -90,13 +90,11 @@ export default {
       members: Object,
        groupPagePath : "/grouppage?gId=" + this.gId,
        mId: Number,
-       memberCount: Number,
     };
   },
   created() {
     this.applyList();
     this.memberList();
-    this.getMemberCount();
   },
   
   computed: {
@@ -106,6 +104,7 @@ export default {
     gId: String,
     state: Number,
     groupName: String,
+    max: Number,
   },
   methods: {
     deleteGroup: function(gId) {
@@ -123,20 +122,6 @@ export default {
         .catch(err => {
           console.log(err)
         })
-    },
-    getMemberCount: function() {
-      axios
-        .get(`${SERVER_URL}/group/member/count`, {
-          params: {
-            gId: this.gId,
-          },
-        })
-        .then((res) => {
-          this.memberCount = res.data.memberCount;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
     },
     memberList: function() {
       axios
@@ -198,7 +183,7 @@ export default {
       this.isLoading = true;
     },
     accept: function(mid, email,index) {
-      if(this.memberCount >= this.members.length){
+      if(this.members.length >= this.max){
         alert('모집 제한 인원을 초과했습니다.')
       }
       else{
