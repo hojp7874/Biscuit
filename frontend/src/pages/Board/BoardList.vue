@@ -43,11 +43,11 @@
       </div>
       <div class="content-center brand">
         <div class="container">
-          <div class="listWrap" style="height:700px"><br>
+          <div class="listWrap" style="min-height:700px"><br>
             <b-table id="my-table" :items="showList" :per-page="perPage" :fields="column" :current-page="currentPage"
               @row-clicked="rowClick" hover></b-table>
             <div>
-              <b-pagination v-model="currentPage" :total-rows="this.list.length" :per-page="perPage"
+              <b-pagination v-model="currentPage" :total-rows="this.showList.length" :per-page="perPage"
                 aria-controls="my-table" class="pagination pagination-primary" align="center"></b-pagination>
               <div class="btnRightWrap">
                 <b-button @click="fnAdd" class="btnAdd m-1" style="border-radius:10px; background-color: #f96332; "
