@@ -16,4 +16,15 @@
 		where email = #{email}
 		);
 	</select>
+	
+	<select id="selectRoomMember" parameterType="string" resultType="ChatRoomMemberDto">
+		select * from a407.chatRoomMember
+		where roomId = #{roomId}
+	</select>
+	
+	<update id="updateIsJoin" parameterType="Map">
+		update a407.chatRoomMember
+		set isJoin = 1
+		where roomId = #{roomId} and nickname = #{nickname}
+	</update>
 </mapper> 
