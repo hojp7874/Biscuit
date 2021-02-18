@@ -92,7 +92,7 @@ export default {
         }
       }).then((res) => {
         // for (let i = 0; i < res.data.data.length; i++) {
-        //   console.log(res.data.data[i].roomName.includes('감자'))
+        //   // console.log(res.data.data[i].roomName.includes('감자'))
         // }
         this.chatrooms = res.data.data;
       });

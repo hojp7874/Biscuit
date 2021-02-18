@@ -11,12 +11,13 @@ public class GroupMemberDto {
 	private String region;
 	private String category;
 	private String edate;
+	private String nickname;
 	
 	public GroupMemberDto() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public GroupMemberDto(int mId, int gId, String email, String groupName, int permission, String img, String region, int max, String edate) {
+	public GroupMemberDto(int mId, int gId, String email, String groupName, int permission, String img, String region, int max, String edate, String nickname) {
 		super();
 		this.mId = mId;
 		this.gId = gId;
@@ -27,6 +28,15 @@ public class GroupMemberDto {
 		this.region = region;
 		this.max= max;
 		this.edate= edate;
+		this.nickname= nickname;
+	}
+	
+	public String getNickname() {
+		return nickname;
+	}
+	
+	public void setNickname(String nickname) {
+		this.nickname= nickname;
 	}
 	
 	public String getEdate() {

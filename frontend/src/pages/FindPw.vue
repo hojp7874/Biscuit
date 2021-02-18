@@ -115,18 +115,18 @@ export default {
   },
   methods: {
     sendEmail() {
-      console.log(this.email);
+      // console.log(this.email);
       axios
         .post(`${SERVER_URL}/service/mail`, this.mem.email)
         .then((response) => {
           if (response.data.success === 'success') {
             alert('이메일로 코드를 전송하였습니다');
-            console.log('성공');
+            // console.log('성공');
           } else if (response.data.success === 'error') {
             alert('이메일 형식에 맞추어 다시 입력 해 주세요.');
-            console.log('실패');
+            // console.log('실패');
           } else {
-            console.log('실패2');
+            // console.log('실패2');
           }
         })
         .catch(function(error) {
@@ -136,7 +136,7 @@ export default {
     },
 
     checkCode() {
-      console.log(this.code + '  gd');
+      // console.log(this.code + '  gd');
       axios
         .post(`${SERVER_URL}/service/verifyCode`, this.code)
         .then((response) => {
@@ -178,12 +178,12 @@ export default {
     },
 
     verifyValidPw(str) {
-      console.log('확인작업');
+      // console.log('확인작업');
       var pw = str;
       var num = pw.search(/[0-9]/g);
        var eng = pw.search(/[a-z]/gi);
       var spe = pw.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
-      console.log("영문" + eng);
+      // console.log("영문" + eng);
       if(eng < 0 || num < 0 || spe < 0){
         alert('영문,숫자,특수문자 포함 8자리 ~ 20자리 이내로 입력해주세요.');
         return false;

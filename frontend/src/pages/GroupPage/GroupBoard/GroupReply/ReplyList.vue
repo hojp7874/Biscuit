@@ -64,7 +64,7 @@ export default {
   created() {
     axios.get(`${SERVER_URL}/user/profile`, {params: {email: this.items.email}})
       .then(res => {
-        console.log(res);
+        // console.log(res);
         this.user.picture = res.data.User.picture;
       })
       .catch(err => {

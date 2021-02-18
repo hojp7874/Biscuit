@@ -129,8 +129,8 @@ export default {
         .put(`${SERVER_URL}/board/update`, this.form)
         .then((res) => {
           if (res.data.success) {
-            // console.log("########################")
-            console.log(res)
+            // // console.log("########################")
+            // // console.log(res)
             alert('수정되었습니다.');
             this.fnView();
           } else {

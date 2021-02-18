@@ -85,11 +85,11 @@ export default {
     //   axios
     //     .get(`${SERVER_URL}/board/read`, { params: this.form })
     //     .then((res) => {
-    //       console.log(res)
+    //       // console.log(res)
     //       this.list = res.data.list.sort((a, b) => {
     //         return b.bid - a.bid;
     //       });
-    //       console.log("하위" + this.list.length);
+    //       // console.log("하위" + this.list.length);
     //     });
     this.form = { email: this.user.email };
     axios
@@ -100,7 +100,7 @@ export default {
           if (res.data.success === 'success'){
             this.boardCnt = res.data.count;
           }else{
-            console.log("에러뜸");
+            // console.log("에러뜸");
           }
         })
         .catch(function(error) {
@@ -115,7 +115,7 @@ export default {
           if (res.data.success === 'success'){
             this.replyCnt = res.data.count;
           }else{
-            console.log("에러뜸");
+            // console.log("에러뜸");
           }
         })
         .catch(function(error) {
@@ -162,7 +162,7 @@ export default {
         this.active = 3;
       },
       studyNum(data){
-        console.log("데이터들들" + data);
+        // console.log("데이터들들" + data);
         this.joinedStudyNum = data;
       }
   }

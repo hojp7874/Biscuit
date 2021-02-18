@@ -47,7 +47,7 @@
               class="btn btn-primary btn-round btn-lg"
             >
               <span>
-                스터디원 관리
+                스터디 관리
               </span>
             </a>
 

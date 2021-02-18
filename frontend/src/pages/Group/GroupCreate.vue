@@ -122,14 +122,14 @@
           frm.append('file', img.files[0])
           axios.post(`${SERVER_URL}/file/upload/`, frm)
             .then(res => {
-              console.log(res.data.message)
+              // console.log(res.data.message)
               // item.push({img: SERVER_URL + "/file/read/" + res.data.message})
               item["img"] = SERVER_URL + "/file/read/" + res.data.message
               
               // DB에 저장
               axios.post(`${SERVER_URL}/group/create/`, item)
                 .then(res => {
-                  console.log(res)
+                  // console.log(res)
                   this.$router.push({ path: './grouplist'});
                 })
                 .catch(err => {
@@ -143,7 +143,7 @@
           // DB에 저장
           axios.post(`${SERVER_URL}/group/create/`, item)
             .then(res => {
-              console.log(res)
+              // console.log(res)
               this.$router.push({ path: './grouplist'});
             })
             .catch(err => {

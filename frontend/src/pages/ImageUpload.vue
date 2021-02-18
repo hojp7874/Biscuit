@@ -30,9 +30,9 @@ export default {
     upload: function() {
       const frm = new FormData()
       var file = document.getElementById("file")
-      // console.log(file.files[0])
+      // // console.log(file.files[0])
       frm.append('file', file.files[0])
-      // console.log(frm)
+      // // console.log(frm)
 
       axios.post(`${SERVER_URL}/file/upload/`, frm 
       // {
@@ -42,7 +42,7 @@ export default {
       // }
       )
         .then(res => {
-          console.log(res)
+          // // console.log(res)
         })
         .catch(err => {
           console.log(err)
@@ -51,7 +51,7 @@ export default {
       getImg: function() {
         axios.get(`${SERVER_URL}/file/read/`)
           .then(res => {
-            console.log(res)
+            // // console.log(res)
             this.imgs = res.data
           })
           .catch(err => {

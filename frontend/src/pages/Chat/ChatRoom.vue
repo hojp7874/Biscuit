@@ -120,9 +120,9 @@ export default {
     },
     calNotJoin: function(){
       this.notJoinMembers = this.members.length;
-      console.log(this.members.length);
+      // console.log(this.members.length);
       for(const index in this.members){
-        console.log("isJoin" + this.members[index].isJoin)
+        // console.log("isJoin" + this.members[index].isJoin)
 
         if(this.members[index].isJoin == '0'){
           this.notJoinMembers--;
@@ -153,11 +153,11 @@ export default {
         })
       );
 
-      // console.log('###sendMsg end');
+      // // console.log('###sendMsg end');
       this.message = '';
     },
     recvMessage: function(recv) {
-      // console.log('###recv msg : ' + recv.message);
+      // // console.log('###recv msg : ' + recv.message);
       // this.messages.unshift({
       //   type: recv.type,
       //   email: recv.type == 'ENTER' ? '[알림]' : recv.email,
@@ -174,18 +174,18 @@ export default {
       this.ws.connect(
         {},
         (frame) => {
-          // console.log('###connect start');
+          // // console.log('###connect start');
           this.ws.subscribe(
             '/sub/chat/room/' + this.roomId,
             function(message) {
               var recv = JSON.parse(message.body);
-              // console.log('###receive start. recv : ' + recv);
-              // console.log('###frame : ' + frame);
+              // // console.log('###receive start. recv : ' + recv);
+              // // console.log('###frame : ' + frame);
               this.recvMessage(recv);
-              // console.log('###received.');
+              // // console.log('###received.');
             }.bind(this)
           );
-          // console.log(
+          // // console.log(
           //   '###send start. json msg : ' +
           //     JSON.stringify({ type: 'ENTER', roomId: this.roomId, email: this.email, nickname: this.nickname })
           // );
@@ -195,15 +195,15 @@ export default {
             JSON.stringify({ type: 'ENTER', roomId: this.roomId, email: this.email, nickname: this.nickname, message: null })
           );
           //채팅창에 처음 접속했는지 확인
-          // console.log("########join check start")
+          // // console.log("########join check start")
           var memberFlag = 0;
           for(const index in this.members){
-            // console.log("###this.member[index].nickname : " + this.members[index].nickname)
+            // // console.log("###this.member[index].nickname : " + this.members[index].nickname)
             if(this.members[index].nickname == this.nickname){
-              // console.log("###isJoin : "+this.members[index].isJoin)
+              // // console.log("###isJoin : "+this.members[index].isJoin)
               if(this.members[index].isJoin == 0){
                 memberFlag = 1;
-                // console.log("###join")
+                // // console.log("###join")
               }
               break;
             }
@@ -217,12 +217,12 @@ export default {
             )
           }
           this.joinRoom();
-          // console.log('###send end');
+          // // console.log('###send end');
         },
         function(error) {
           if (this.reconnect++ <= 5) {
             setTimeout(function() {
-              // console.log('##connection reconnect' + error);
+              // // console.log('##connection reconnect' + error);
               this.sock = new SockJS('/ws-stomp');
               this.ws = Stomp.over(this.sock);
               this.connect();
@@ -254,8 +254,8 @@ export default {
       };
       axios
         .put(`${CHAT_SERVER_URL}/chat/join`, this.form)
-        .catch((res) =>{
-          console.log(res);
+        .catch((err) =>{
+          console.log(err);
         })
     },
   },

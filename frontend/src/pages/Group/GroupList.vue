@@ -304,7 +304,7 @@
           })
       },
       getMemberCount: function(gId) {
-        console.log("getMemberCount. gId : " + gId)
+        // console.log("getMemberCount. gId : " + gId)
       axios
         .get(`${SERVER_URL}/group/member/count`, {
           params: {
@@ -313,7 +313,7 @@
         })
         .then((res) => {
           this.memberCount = res.data.memberCount;
-          console.log("memberCount : " + this.memberCount)
+          // console.log("memberCount : " + this.memberCount)
         })
         .catch((err) => {
           console.log(err);
@@ -420,10 +420,10 @@
           })
           // .then((res) => {
           //   if (res.data.success) {
-          //     console.log("receiveEmail >>> "+email);
+          //     // console.log("receiveEmail >>> "+email);
           //     // alert('등록되었습니다.');
           //   } else {
-          //     console.log('알림 전송 실패');
+          //     // console.log('알림 전송 실패');
           //   }
           // })
           .catch((err) => {
@@ -447,7 +447,7 @@
             window.location.reload();
             // 모달창 닫기
             // let targetModal = document.querySelector('#group-'+this.idx)
-            // console.log(targetModal)
+            // // console.log(targetModal)
             // 리스트에서 해당 스터디
           })
           .catch(err => {

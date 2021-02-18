@@ -60,7 +60,7 @@ export default {
     updatePw() {
       if (this.mem.newpassword === this.verify_newpassword) {
         if (this.verifyValidPw(this.mem.newpassword) === false) {
-        console.log('gg');
+        // console.log('gg');
       }else {
           axios
             .put(`${SERVER_URL}/user/pwupdate2`, this.mem, {
@@ -88,12 +88,12 @@ export default {
     },
 
     verifyValidPw(str) {
-      console.log('확인작업');
+      // console.log('확인작업');
       var pw = str;
       var num = pw.search(/[0-9]/g);
       var eng = pw.search(/[a-z]/gi);
       var spe = pw.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
-      console.log('영문' + eng);
+      // console.log('영문' + eng);
       if (eng < 0 || num < 0 || spe < 0) {
         alert('영문,숫자,특수문자 포함 8자리 ~ 20자리 이내로 입력해주세요.');
         return false;

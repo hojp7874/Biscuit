@@ -29,7 +29,7 @@
           class="now-ui-icons arrows-1_cloud-download-93"
           style="font-size: 15px"
         >
-          스터디 찾기</i
+          스터디</i
         >
       </router-link>
 
@@ -189,7 +189,7 @@ export default {
   },
   methods: {
     onClickLogout() {
-      console.log('onclicklogout확인' + this.token + 'gd');
+      // // console.log('onclicklogout확인' + this.token + 'gd');
       localStorage.removeItem('token');
       localStorage.removeItem('email');
       localStorage.removeItem('nickname');
@@ -221,7 +221,7 @@ export default {
         })
         .then((response) => {
           if (response.data.success === 'success') {
-            //console.log('정보 수정에 성공하셨습니다.');
+            //// console.log('정보 수정에 성공하셨습니다.');
              this.form = { receiveEmail: localStorage.getItem('email') };
             axios
               .get(`${SERVER_URL}/notification/read`, {
@@ -231,25 +231,22 @@ export default {
                 if (response.data.success === 'success') {
                   this.notiCnt = 0;
                   this.items = res.data.list;
-                  //console.log('정보 수정에 성공하셨습니다.2222');
+                  //// console.log('정보 수정에 성공하셨습니다.2222');
                   for (var i in this.items) {
                     if (this.items[i].isRead == 0) {
                       this.notiCnt++;
                     }
                   }
-                } else {
-                 // console.log('정보 수정에 실패하셨습니다.zz');
                 }
               })
               .catch(function(error) {
                 console.log(error);
-                //console.log('정보 수정에 실패하셨습니다.zzzz');
+                //// console.log('정보 수정에 실패하셨습니다.zzzz');
               });
-          } else console.log('정보 수정에 실패하셨습니다.');
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
+          }})
+          .catch(function(error) {
+            console.log(error);
+          });
       this.$router.replace(item.notiUrl);
       this.$emit('clickNotify');
       //window.location.reload();
@@ -263,7 +260,7 @@ export default {
         })
         .then((res) => {
           if (res.data.success === 'success') {
-            //console.log('삭제하였습니다.');
+            //// console.log('삭제하였습니다.');
             axios
               .get(`${SERVER_URL}/notification/read`, {
                 params: this.form,
@@ -278,7 +275,7 @@ export default {
                 }
               });
           } else {
-            console.log('실패');
+            // console.log('실패');
           }
         });
     },

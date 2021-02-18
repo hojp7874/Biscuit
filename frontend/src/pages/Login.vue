@@ -92,7 +92,7 @@ export default {
       // let err = true;
       // let msg = '';
 
-      // console.log("로그인체크");
+      // // console.log("로그인체크");
       // !this.user.email &&
       //   ((msg = '아이디를 입력해주세요'), (err = false), this.$refs.id.focus());
       // err &&
