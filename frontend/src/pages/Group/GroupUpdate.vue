@@ -60,7 +60,7 @@
                 on-text="ON"
                 off-text="OFF"
               ></n-switch> -->
-                <input class="col-8 no-border" v-model="this.edate" type="date">
+                <input class="col-8 no-border" v-model="edate" type="date">
             </div>
           </div>
 
@@ -120,8 +120,14 @@
       [Switch.name]: Switch,
       [Option.name]: Option,
     },
+    created(){
+      this.loadInfo();
+    },
+    updated(){
+      console.log("updated.edate : " + this.edate);
+    },
     mounted(){
-      this.edate = this.convertDate(this.form.edate)
+// this.edate = this.convertDate(this.form.edate)
       console.log("edate : " + this.edate)
     },
     methods: {
@@ -177,18 +183,22 @@
       convertDate(date){
         var moment = require('moment');
         return(moment(date).format('YYYY-MM-DD'));
-      }
-    },
-    created: function () {
+      },
+      loadInfo: function () {
+        console.log("loadInfo")
       axios.get(`${SERVER_URL}/group/list/`, {params: this.params})
         .then(res => {
           console.log(res.data.list[0])
           this.form = res.data.list[0]
+          this.edate = this.convertDate(this.form.edate);
         })
         .catch(err => {
           console.log(err)
-        })
+        });
+        
     }
+    },
+    
   }
 </script>
 
