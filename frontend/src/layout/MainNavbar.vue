@@ -113,7 +113,7 @@
         <span style="margin-left:-3px;">{{ notiCnt }}</span>
       </span>
 
-      <li class="nav-item">
+      <li class="nav-item mb-2">
         <a
           class="nav-link btn btn-primary"
           v-on:click="goToLogin()"
