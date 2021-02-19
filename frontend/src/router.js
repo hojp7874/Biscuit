@@ -8,6 +8,7 @@ import GroupList from './pages/Group/GroupList.vue';
 import GroupCreate from './pages/Group/GroupCreate.vue';
 import GroupUpdate from './pages/Group/GroupUpdate.vue';
 import GroupPage from './pages/GroupPage/GroupPage.vue';
+import NoticeBoard from './pages/Board/NoticeBoard.vue';
 import BoardList from './pages/Board/BoardList.vue';
 import BoardRead from './pages/Board/BoardRead.vue';
 import BoardUpdate from './pages/Board/BoardUpdate.vue';
@@ -15,9 +16,12 @@ import BoardWrite from './pages/Board/BoardWrite.vue';
 import MainNavbar from './layout/MainNavbar.vue';
 import MainFooter from './layout/MainFooter.vue';
 import Join from './pages/Join.vue';
-import MyPage from './pages/MyPage.vue';
+import MyPage from './pages/User/MyPage.vue';
 import FindPw from './pages/FindPw.vue';
 import test from './pages/ImageUpload.vue';
+import SignUpForm from './pages/components/SignupForm.vue';
+import ChatRoomList from './pages/Chat/ChatRoomList.vue';
+import ChatRoom from './pages/Chat/ChatRoom.vue';
 
 Vue.use(Router);
 
@@ -114,6 +118,15 @@ export default new Router({
       }
     },
     {
+      path: '/noticeboard',
+      name: 'noticeboard',
+      components: { default: NoticeBoard, header: MainNavbar, footer: MainFooter },
+      props: {
+        header: { colorOnScroll: 0 },
+        footer: { backgroundColor: 'black' }
+      }
+    },
+    {
       path: '/boardread',
       name: 'boardread',
       components: { default: BoardRead, header: MainNavbar, footer: MainFooter },
@@ -166,6 +179,30 @@ export default new Router({
         header: { colorOnScroll: 0 },
         footer: { backgroundColor: 'black' }
       }
+    },
+    {
+      path: '/signup',
+      name: 'signup',
+      components: { default: SignUpForm, header: MainNavbar, footer: MainFooter },
+      props: {
+        header: { colorOnScroll: 0 },
+        footer: { backgroundColor: 'black' }
+      }
+    },
+    {
+      path: '/chatroomlist',
+      name: 'chatroomlist',
+      components: { default: ChatRoomList, header: MainNavbar, footer: MainFooter },
+      props: {
+        header: { colorOnScroll: 0 },
+        footer: { backgroundColor: 'black' }
+      }
+    },
+    {
+      path: '/chatroom',
+      name: 'chatroom',
+      components: { default: ChatRoom },
+      
     },
   ],
   scrollBehavior: to => {

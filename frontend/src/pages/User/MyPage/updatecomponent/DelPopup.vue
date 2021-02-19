@@ -68,7 +68,7 @@ export default {
       this.$refs['my-modal'].hide();
     },
     deleteUser() {
-      console.log('delete token : ' + localStorage.getItem('token'));
+      // console.log('delete token : ' + localStorage.getItem('token'));
       axios
         .post(`${SERVER_URL}/user/delete`,this.mem, {
           headers: {
@@ -80,10 +80,11 @@ export default {
             alert('회원탈퇴에 성공하셨습니다.');
             this.logout();
           } else {
-            alert('회원탈퇴에 실패하셨습니다.');
+            alert('비밀번호를 정확히 입력해주세요.');
           }
         })
         .catch(function(error) {
+          alert("그룹장인 경우 탈퇴가 불가능합니다.");
           console.log(error);
         });
     },

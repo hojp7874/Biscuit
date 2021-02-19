@@ -29,9 +29,11 @@ public class FilesStorageServiceImpl implements FilesStorageService {
   public void init() {
     try {
       File d = new File(System.getProperty("user.dir") + "/uploads");
+      System.out.println(d);
       if (d.isDirectory()) {
     	  System.out.println("폴더가 이미 있습니다.");
       } else {
+    	  System.out.println("폴더를 생성합니다.");
     	  Files.createDirectory(root);
       }
     } catch (IOException e) {
@@ -60,7 +62,7 @@ public class FilesStorageServiceImpl implements FilesStorageService {
 //  }
   
   public Resource load(String filename) {
-	  System.out.println("load");
+//	  System.out.println("load");
     try {
       Path file = root.resolve(filename);
       Resource resource = new UrlResource(file.toUri());
@@ -77,13 +79,13 @@ public class FilesStorageServiceImpl implements FilesStorageService {
 
   @Override
   public void deleteAll() {
-	  System.out.println("deleteAll");
+//	  System.out.println("deleteAll");
     FileSystemUtils.deleteRecursively(root.toFile());
   }
 
   @Override
   public Stream<Path> loadAll() {
-	  System.out.println("loadAll");
+//	  System.out.println("loadAll");
     try {
       return Files.walk(this.root, 1).filter(path -> !path.equals(this.root)).map(this.root::relativize);
     } catch (IOException e) {

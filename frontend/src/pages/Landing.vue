@@ -10,7 +10,7 @@
     margin-bottom: 200px;
 ">
             <div data-aos="zoom-out">
-              <img src="img/path228.png" height=100px>
+              <img class="col-md-6 col-sm-6" src="img/path228.png" >
             <h2 class="title">비스킷은?</h2>
             </div>
             <div data-aos="fade-left">
@@ -116,14 +116,8 @@
                 <p class="description">
                   백엔드, devOps를 맡고 있는 하태민입니다 반갑습니다!!!!                  
                 </p>
-                <a href="#pablo" class="btn btn-primary btn-icon btn-round"
-                  ><i class="fab fa-twitter"></i
-                ></a>
-                <a href="#pablo" class="btn btn-primary btn-icon btn-round"
-                  ><i class="fab fa-instagram"></i
-                ></a>
-                <a href="#pablo" class="btn btn-primary btn-icon btn-round"
-                  ><i class="fab fa-facebook-square"></i
+                <a href="https://github.com/Taemin11" class="btn btn-primary btn-icon btn-round"
+                  ><i class="fab fa-github"></i
                 ></a>
               </div>
             </div>
@@ -140,12 +134,8 @@
                   다른 조 새벽 2시까지 프로젝트 진행한다고  하네요?
                   저희도 질 수 없습니다. 팀원들 사랑합니다.
                 </p>
-            
-                <a href="#pablo" class="btn btn-primary btn-icon btn-round"
-                  ><i class="fab fa-twitter"></i
-                ></a>
-                <a href="#pablo" class="btn btn-primary btn-icon btn-round"
-                  ><i class="fab fa-linkedin"></i
+                <a href="https://github.com/sy9612" class="btn btn-primary btn-icon btn-round"
+                  ><i class="fab fa-github"></i
                 ></a>
               </div>
             </div>
@@ -162,14 +152,8 @@
                   기업 면접 보고왔습니다. 좋은 결과가 있었으면 좋겠어요.
                   면접 후기는 취업 게시판에서 차후 공유할게요.
                 </p>
-                <a href="#pablo" class="btn btn-primary btn-icon btn-round"
-                  ><i class="fab fa-google-plus"></i
-                ></a>
-                <a href="#pablo" class="btn btn-primary btn-icon btn-round"
-                  ><i class="fab fa-youtube"></i
-                ></a>
-                <a href="#pablo" class="btn btn-primary btn-icon btn-round"
-                  ><i class="fab fa-twitter"></i
+                <a href="https://github.com/hjmwoo1208" class="btn btn-primary btn-icon btn-round"
+                  ><i class="fab fa-github"></i
                 ></a>
               </div>
             </div>
@@ -191,14 +175,8 @@
                   과묵하지만 할 일은 다 하고 있습니다.
                   이상입니다.
                 </p>
-                <a href="#pablo" class="btn btn-primary btn-icon btn-round"
-                  ><i class="fab fa-twitter"></i
-                ></a>
-                <a href="#pablo" class="btn btn-primary btn-icon btn-round"
-                  ><i class="fab fa-instagram"></i
-                ></a>
-                <a href="#pablo" class="btn btn-primary btn-icon btn-round"
-                  ><i class="fab fa-facebook-square"></i
+                <a href="https://github.com/seokhhho" class="btn btn-primary btn-icon btn-round"
+                  ><i class="fab fa-github"></i
                 ></a>
               </div>
             </div>
@@ -212,13 +190,12 @@
                 <h4 class="title">홍진표</h4>
                 <p class="category text-primary">DB</p>
                 <p class="description">
-                  이젠 죄송합니다 라는 말은 안하게 된 비전공자 청일점입니다. 특화 프로젝트가 너무 기대됩니다. 
+                  프론트의 황태자입니다. 
+                  이 이상 말이 더 필요한가요?
+                  <!-- 이젠 죄송합니다 라는 말은 안하게 된 비전공자 청일점입니다. 특화 프로젝트가 너무 기대됩니다.  -->
                 </p>
                 <a href="#pablo" class="btn btn-primary btn-icon btn-round"
-                  ><i class="fab fa-twitter"></i
-                ></a>
-                <a href="#pablo" class="btn btn-primary btn-icon btn-round"
-                  ><i class="fab fa-linkedin"></i
+                  ><i class="fab fa-github"></i
                 ></a>
               </div>
             </div>
@@ -234,14 +211,8 @@
                 <p class="description">
                   발표가 제일 쉬웠어요. 다른건 다 어렵다는 이야기입니다.
                 </p>
-                <a href="#pablo" class="btn btn-primary btn-icon btn-round"
-                  ><i class="fab fa-google-plus"></i
-                ></a>
-                <a href="#pablo" class="btn btn-primary btn-icon btn-round"
-                  ><i class="fab fa-youtube"></i
-                ></a>
-                <a href="#pablo" class="btn btn-primary btn-icon btn-round"
-                  ><i class="fab fa-twitter"></i
+                <a href="https://github.com/chany219" class="btn btn-primary btn-icon btn-round"
+                  ><i class="fab fa-github"></i
                 ></a>
               </div>
             </div>

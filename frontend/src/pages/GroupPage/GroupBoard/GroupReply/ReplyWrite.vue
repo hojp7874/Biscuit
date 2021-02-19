@@ -9,6 +9,7 @@
               placeholder="댓글을 입력하세요."
               rows="3"
               max-rows="6"
+              @input="counting()"
               ></b-form-textarea>
         </b-col>
         <b-col class="p-0">
@@ -36,6 +37,7 @@ export default {
           nickname: localStorage.getItem("nickname"),
           email : localStorage.getItem("email")//"a@a.com" //작성자 이메일(현재 로그인 되어있는 유저 이메일로 바꿔야됨)
         },
+        count : 0,
         // list : [],
         // rpage : "1",
         // pagination : [],
@@ -56,7 +58,7 @@ export default {
         .post(`${SERVER_URL}/greply/create`, {
           email : this.comments.email,
           nickname : this.comments.nickname,
-          contents : this.comments.contents,
+          contents : this.comments.contents.length>300?this.comments.contents.substr(0,300):this.comments.contents,
           bId : this.bId
         })
         .then((res) => {
@@ -73,6 +75,12 @@ export default {
         .catch((err) => {
           console.log(err);
         });
+      }
+    },
+    counting(){
+      this.count = this.comments.contents.length;
+      if(this.count >300){
+        this.comments.contents = this.comments.contents.substr(0,300);
       }
     },
   },

@@ -43,7 +43,6 @@ public class GroupController {
 	@DeleteMapping(value = "/delete")
 	private ResponseEntity delete(@RequestHeader int gId) {
 		ResponseEntity entity = null;
-		System.out.println("delete =========");
 		Map result = new HashMap();
 		try {
 			if (group.remove(gId) == 1) {
@@ -79,10 +78,10 @@ public class GroupController {
 		ResponseEntity entity = null;
 		Map result = new HashMap();
 		try {
-			System.out.println("controller. type : " + type + " word : " + word);
+//			System.out.println("controller. type : " + type + " word : " + word);
 			if(type.equals("")) {
 				List<GroupDto> list = group.searchList();
-		        System.out.println(list);
+//		        System.out.println(list);
 		        if(list != null) {
 		            result.put("list", list);
 		            result.put("success", "success");
@@ -94,7 +93,7 @@ public class GroupController {
 			}
 			else if(type.equals("groupName")) {
 				List<GroupDto> list = group.searchGroupName(word);
-				System.out.println(list);
+//				System.out.println(list);
 				if(list != null) {
 					result.put("list", list);
 					result.put("success", "success");
@@ -106,7 +105,7 @@ public class GroupController {
 			}
 			else if(type.equals("groupDesc")) {
 				List<GroupDto> list = group.searchGroupDesc(word);
-				System.out.println(list);
+//				System.out.println(list);
 				if(list != null) {
 					result.put("list", list);
 					result.put("success", "success");
@@ -118,7 +117,7 @@ public class GroupController {
 			}
 			else if(type.equals("category")) {
 				List<GroupDto> list = group.searchCategory(word);
-				System.out.println(list);
+//				System.out.println(list);
 				if(list != null) {
 					result.put("list", list);
 					result.put("success", "success");
@@ -130,7 +129,7 @@ public class GroupController {
 			}
 			else if(type.equals("region")) {
 				List<GroupDto> list = group.searchRegion(word);
-				System.out.println(list);
+//				System.out.println(list);
 				if(list != null) {
 					result.put("list", list);
 					result.put("success", "success");
@@ -163,8 +162,8 @@ public class GroupController {
 	@PutMapping(value = "/update")
 	private ResponseEntity update(@ApiParam(value = "필요한 정보 : email, max, ...", required = true) @RequestBody Map mem) {
 		ResponseEntity entity = null;
-		System.out.println("update ========");
 		Map result = new HashMap();
+		System.out.println("group update : " + mem);
 		try {
 			if (group.update(mem) == 1) {
 				result.put("success", "success");
@@ -194,23 +193,24 @@ public class GroupController {
 	//group 생성할 때 member에도 추가해야됨
 	@PostMapping(value = "/create")
     private ResponseEntity register(@RequestBody GroupDto groupDto) {
-		System.out.println("controller >> " + groupDto.toString());
+//		System.out.println("controller >> " + groupDto.toString());
 		ResponseEntity entity = null;
 		Map result = new HashMap();
 		String ctg = groupDto.getCategory();
 		if (groupDto.getImg() == null) {
-			
-			if (ctg.equals("한국사")) {
-				groupDto.setImg("https://images.unsplash.com/photo-1594373607112-5628b9cf8e05?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80");
-			} else if (ctg.equals("프로그래머")) {
-				groupDto.setImg("https://images.unsplash.com/photo-1537111261224-6fa49cecda2f?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80");
-			} else if (ctg.equals("농부")) {
-				groupDto.setImg("https://images.unsplash.com/photo-1526390593784-bb19335737b4?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1349&q=80");
-			} else if (ctg.equals("어부")) {
-				groupDto.setImg("https://images.unsplash.com/photo-1515676724626-c0290fe4cf6f?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTZ8fGZpc2hlcm1hbnxlbnwwfDB8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60");
-			} else if (ctg.equals("광부")) {
-				groupDto.setImg("https://images.unsplash.com/photo-1562167055-1afdc7ac7bca?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1355&q=80");
-		}
+			if (ctg.equals("취업")) {
+				groupDto.setImg("https://images.unsplash.com/photo-1507679799987-c73779587ccf?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1351&q=80");
+			} else if (ctg.equals("수능")) {
+				groupDto.setImg("https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80");
+			} else if (ctg.equals("자격증")) {
+				groupDto.setImg("https://images.unsplash.com/photo-1568741049635-59b0c30bf2de?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80");
+			} else if (ctg.equals("공무원")) {
+				groupDto.setImg("https://images.unsplash.com/photo-1605647434635-ddd0227349be?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1225&q=80");
+			} else if (ctg.equals("취미")) {
+				groupDto.setImg("https://images.unsplash.com/photo-1522410818928-5522dacd5066?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80");
+			} else if (ctg.equals("기타")) {
+				groupDto.setImg("https://images.unsplash.com/photo-1489533119213-66a5cd877091?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1351&q=80");
+			}
 		}
 		try {
 			if( group.createGroup(groupDto)==1) {

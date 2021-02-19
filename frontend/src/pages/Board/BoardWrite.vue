@@ -9,11 +9,18 @@
 
           <div class="AddWrap">
             <form>
-                <table class="tbAdd" width="100%">
+              <table class="tbAdd" width="100%">
                 <colgroup>
                   <col width="20%"/>
                   <col width="80%"/>
                 </colgroup>
+                <tr>
+                  <th>말머리</th>
+                  <td>
+                    <!-- v-model 양뱡향데이터전송으로 상세 데이터 넣어준다 -->
+                    <b-form-radio-group type="radio" v-model="category" :options="options" />
+                  </td>
+                </tr>
                 <tr>
                   <th>제목</th>
                   <td>
@@ -26,7 +33,7 @@
                   <td><textarea v-model="contents" ref="contents" @input="counting()"></textarea></td>
                 </tr>
               </table>
-              <div >글자수 : <span>{{count}}</span> / 5000</div>
+              <!-- <div >글자수 : <span>{{count}}</span> / 5000</div> -->
             </form>
           </div>
 
@@ -46,6 +53,14 @@ const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 export default {
   data() {
     return {
+      options: [
+        {text: '자유', value: 0},
+        {text: '질문', value: 1},
+        {text: '꿀팁', value: 2},
+        {text: '취업', value: 3},
+        {text: '시험', value: 4},
+      ],
+      category: 0,
       temptitle: '',
       board_code: 'news',
       title: '',
@@ -78,8 +93,10 @@ export default {
         email: localStorage.getItem("email"),
         nickname: localStorage.getItem("nickname"),
         title: this.title,
-        contents: this.contents,
+        contents: this.contents.length>5000? this.contents.substr(0,5000): this.contents,
+        category: this.category
       };
+
       if(this.form.title=='' || this.form.title.trim()==""){
         alert('작성된 게시글의 제목이 존재하지 않습니다.');
       }else if(this.form.contents==''|| this.form.contents.trim()==""){
@@ -102,7 +119,9 @@ export default {
     },
     counting(){
       this.count = this.contents.length;
-      console.log(this.count);
+      if(this.count >5000){
+        this.contents = this.contents.substr(0,5000);
+      }
     }
 
   },

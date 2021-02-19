@@ -57,7 +57,7 @@ export default {
   },
   methods: {
     applyList: function() {
-      console.log('gId : ' + this.gId);
+      // console.log('gId : ' + this.gId);
       axios
         .get(`${SERVER_URL}/group/member/apply/group/list`, {
           params: {

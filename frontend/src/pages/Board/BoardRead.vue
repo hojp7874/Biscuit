@@ -1,53 +1,40 @@
 <template>
-  <div>
+  <div class="container mt-5 pt-5">
     <div>
-       
-      <div class="content-center brand">
-        <img class="n-logo" src="img/bisWhite.png" alt="" />
-        <div class="container">
-          <br><br>
-          <div class="AddWrap">
-            <form>
-              <table class="tbAdd" width="100%">
-                <colgroup>
-                  <col width="20%" />
-                  <col width="80%" />
-                </colgroup>
-                <tr>
-                  <th>제목</th>
-                  <td v-bind="title">{{ title }}</td>
-                </tr>
-                <tr>
-                  <th>작성자</th>
-                  <td v-bind="nickname">{{ nickname }}</td>
-                </tr>
-                <tr>
-                  <th>내용</th>
-                  <td class="txt_cont" v-bind="contents">{{ contents }}</td>
-                </tr>
-              </table>
-            </form>
-          </div>
+      <table class="tbAdd" width="100%">
+        <colgroup>
+          <col width="20%" />
+          <col width="80%" />
+        </colgroup>
+        <tr>
 
-          <div class="btnWrap d-flex justify-content-center">
-            <b-button @click="fnList" class="btn btnList m-1">목록</b-button>
-            <div v-if="loginStatus.nickname == nickname">
-              <b-button v-if="email" @click="fnUpdate" class="btn-info btnUpdate m-1"
-                >수정</b-button
-              >
-              <b-button v-if="email" @click="fnDelete" class="btn-danger btnDelete m-1"
-                >삭제</b-button
-              >
-            </div>
-          </div>
-            <ReplyWrite :bId="bId" :boardEmail="email" v-if="this.loginStatus.nickname"/>
-          <div>
-            <ReplyList v-for="(items,index) in showList" :items="items" :key="index" />
-            <b-pagination v-model="replyPage" pills :total-rows="pageCnt" per-page="10" align="center" ></b-pagination>
-          </div>
-        </div>
+          <td><h5 style="font-weight : 1200;">{{ title }}</h5></td>
+        </tr>
+        <tr>
+
+          <td><img :src="picture" class="rounded-circle" style="margin-top:15px; width:65px; height:65px" alt="" />{{ nickname }}</td>
+        </tr>
+        <tr>
+
+          <td class="txt_cont" v-html="contents.replace(/(?:\r\n|\r|\n)/g, '<br />')"></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="btnWrap d-flex justify-content-center">
+      <b-button href="javascript:history.back()" class="btn btnList m-1">목록</b-button>
+      <div v-if="loginStatus.email == email">
+        <b-button v-if="email" @click="fnUpdate" class="btn-info btnUpdate m-1"
+          >수정</b-button
+        >
+        <b-button v-if="email" @click="fnDelete" class="btn-danger btnDelete m-1"
+          >삭제</b-button
+        >
       </div>
     </div>
+    <ReplyWrite :bId="bId" :boardEmail="email" v-if="this.loginStatus.nickname"/>
+    <ReplyList v-for="(items,index) in showList" :items="items" :key="index" />
+    <b-pagination class="pagination pagination-primary" value="3" v-model="replyPage" :total-rows="pageCnt" per-page="10" align="center" ></b-pagination>
   </div>
 </template>
 
@@ -65,6 +52,7 @@ export default {
   },
   data() {
     return {
+      picture: '',
       form: '',
       bId: this.$route.query.bId,
       email: '',
@@ -89,18 +77,10 @@ export default {
     },
   },
   created() {
-    this.getList();
-    // this.getPage();
-  },
-  mounted() {
     this.fnGetView();
+    this.getList();
   },
   methods: {
-    // changePage: function() {
-    //   this.showList = this.list.slice(10*(this.replyPage-1), 10*this.replyPage)
-      // console.log(this.replyPage)
-      // console.log(temporaryList)
-    // },
     fnGetView() {
       this.$axios
         .get(`${SERVER_URL}/board/read`, {
@@ -114,13 +94,18 @@ export default {
           this.noticeFlag = res.data.list[0].noticeFlag;
           this.date = res.data.list[0].date;
           this.category = res.data.list[0].category;
+          axios.get(`${SERVER_URL}/user/profile`, {params: {email: this.email}})
+            .then(resp => {
+              this.picture = resp.data.User.picture
+            })
+            .catch(err => {
+              console.log(err)
+            })
+
         })
         .catch((err) => {
           console.log(err);
         });
-    },
-    fnList() {
-      this.$router.push({ path: './BoardList' });
     },
     fnUpdate() {
       this.form = {
@@ -145,8 +130,8 @@ export default {
           })
           .then((res) => {
             if (res.data.success === 'success') {
-              // alert('게시글이 삭제 되었습니다.');
-              this.fnList();
+              alert('게시글이 삭제 되었습니다.');
+              history.back();
             } else {
               alert('게시글 삭제에 실패하셨습니다.');
             }
@@ -157,16 +142,12 @@ export default {
       }
     },
     getList() {
-      console.log("getList IN : "+this.$route.query.bId);
       this.$axios
         .get(`${SERVER_URL}/reply/list`, {
           params: {page: 1, bId: this.$route.query.bId},
         })
         .then((res) => {
-          console.log('######')
-          console.log(res.data);
           this.list = res.data["list"];
-          // console.log(res.data["list"]);
           this.pageCnt = this.list.length
         })
         .catch((err) => {

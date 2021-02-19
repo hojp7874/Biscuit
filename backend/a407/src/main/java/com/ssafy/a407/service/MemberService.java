@@ -22,4 +22,8 @@ public interface MemberService {
 	public Map applyState(Map map) throws Exception;
 	
 	public Map getApplyCount(int gId) throws Exception;
+	public Map getMemberCount(int gId) throws Exception;
+	
+	public List<Map> getGroupId(String email) throws Exception;
+	public List<Map> getFriends(String email) throws Exception;
 }

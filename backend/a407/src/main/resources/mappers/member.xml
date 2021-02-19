@@ -11,7 +11,7 @@
  	</select>
   	
   	<select id="selectApplyList" parameterType="int" resultType="UserMemberDto">
- 		select member.mId, user.nickname, user.picture, member.permission
+ 		select member.mId, user.nickname, user.email, user.picture, member.permission
  		from member, user
  		where gId = #{gId} and user.email = member.email
  		and permission = 0
@@ -21,7 +21,14 @@
   		select count(*) as applyCount
   		from member
   		where gId = #{gId}
-  		and permission = 0
+  		and permission = 0;
+  	</select>
+  	
+  	<select id="selectMemberCount" parameterType="int" resultType="map">
+  		select count(*) as memberCount
+  		from member
+  		where gId = #{gId}
+  		and (permission = 1 or permission = 3);
   	</select>
   	
  	<select id="selectMemberList" parameterType="int" resultType="UserMemberDto">
@@ -32,11 +39,23 @@
  	</select>
  	
  	<select id="selectGroupList" parameterType = "String" resultType="GroupMemberDto">
-	 	select member.mId, member.email, a407.group.gId, a407.group.groupName, member.permission, a407.group.img
+	 	select a407.group.*, member.*
 	 	from member, a407.group
 	 	where member.email = #{email} and member.gId = a407.group.gId
 	 	and (a407.member.permission = 1 or a407.member.permission = 2 or a407.member.permission = 3);
  	</select>
+ 	
+ 	<select id="selectGroupId" parameterType = "String" resultType="Map">
+		select gId from member
+		where email = #{email};
+	</select>
+	
+	<select id="selectFriends" parameterType = "String" resultType="Map">
+		select distinct email, nickname from member
+		where gId = ANY(
+		select gId from member
+		where email = #{email});
+	</select>
  	
  	<insert id="insertMember" parameterType="MemberDto">
  		insert into a407.member (gId, email, nickname, permission) values (#{gId}, #{email}, #{nickname}, #{permission})

@@ -14,7 +14,7 @@
               </b-row>
             <!-- </template> -->
             <b-card-body class="text-left">
-              <div id="viewcomment" v-show="isView">
+              <div id="viewcomment" style="margin-left:30px" v-show="isView">
                 {{items.contents}}
               </div>
 
@@ -25,7 +25,7 @@
                       <b-form-textarea
                         id="modicontents"
                         v-model="modicontents"
-                        placeholder="댓글 입력을 입력하세요."
+                        placeholder="댓글을 입력하세요."
                         rows="2"
                       ></b-form-textarea>
                     </b-col>
@@ -58,7 +58,7 @@ export default {
   },
   computed: {
     items: function() {
-      // console.log('props가 바꼈어요!')
+      // // console.log('props가 바꼈어요!')
       const dummyItems = Object
       dummyItems.rId = this.$props.reply.rId;
       dummyItems.bId = this.$props.reply.bId;
@@ -78,7 +78,7 @@ export default {
     },
     onSubmit(event) {
       event.preventDefault();
-      console.log("수정 : "+this.user.email +" / "+this.modicontents+" / "+this.rId);
+      // console.log("수정 : "+this.user.email +" / "+this.modicontents+" / "+this.rId);
       this.$axios
       .put(`${SERVER_URL}/reply/update`, {
         email : this.user.email,
@@ -103,7 +103,7 @@ export default {
       }
     },
     deleteReply(){
-      console.log("삭제 메소드");
+      // console.log("삭제 메소드");
       this.$axios
       .delete(`${SERVER_URL}/reply/delete`, {params: {rId : this.items.rId}})
       .then((res) => {

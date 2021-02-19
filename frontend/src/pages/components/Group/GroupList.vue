@@ -113,7 +113,7 @@
     },
     methods: {
       searchGroup: function() {
-        console.log('searchGroup')
+        // console.log('searchGroup')
         axios.get(`${SERVER_URL}/group/list/`, {params: this.params})
           .then(res => {
             this.groups = res.data.list
@@ -123,10 +123,10 @@
           })
       },
       getPermission: function(gId) {
-        console.log({gId: gId, nickname: this.loginStatus.nickname})
+        // console.log({gId: gId, nickname: this.loginStatus.nickname})
         axios.get(`${SERVER_URL}/group/member/apply/state`, {params: {gId: gId, nickname: this.loginStatus.nickname}})
           .then(res => {
-            console.log(`state:${res.data.state}`)
+            // console.log(`state:${res.data.state}`)
             const none = document.querySelector("#none")
             const wait = document.querySelector("#wait")
             const mine = document.querySelector("#mine")
@@ -170,7 +170,7 @@
         axios.post(`${SERVER_URL}/group/member/apply`,
         {gId: gId, email: this.loginStatus.email, nickname: this.loginStatus.nickname})
           .then(res => {
-            console.log(res)
+            // // console.log(res)
           })
           .catch(err => {
             console.log(err)
@@ -189,11 +189,11 @@
       deleteGroup: function(gId) {
         axios.delete(`${SERVER_URL}/group/delete/`, {headers: {gId: gId}})
           .then(res => {
-            console.log(res)
-            console.log(this.idx)
+            // console.log(res)
+            // console.log(this.idx)
             // 모달창 닫기
             let targetModal = document.querySelector('#group-'+this.idx)
-            console.log(targetModal)
+            // console.log(targetModal)
             // 리스트에서 해당 스터디
           })
           .catch(err => {

@@ -8,7 +8,7 @@
         <b-modal ref="create-modal" id="modal-1" title="일정 추가" hide-footer>
           <div class="box">
             <div class="field">
-              <label class="label">Title</label>
+              <label class="label">일정명</label>
               <div class="control">
                 <!-- <input v-model="newItemTitle" class="input" type="text" /> -->
                 <b-form-input v-model="newItemTitle" style="width:50%"></b-form-input>
@@ -16,31 +16,31 @@
             </div>
 
             <div class="field">
-              <label class="label">Start date</label>
+              <label class="label">시작일</label>
               <div class="control">
                 <!-- <input v-model="newItemStartDate" class="input" type="date" /> -->
                 <!-- <b-form-datepicker id="example-datepicker" v-model="newItemStartDate" class="mb-2"></b-form-datepicker> -->
-                <input class="col-8 no-border" v-model="newItemStartDate" type="date" name="" id="">
+                <input class="col-8 no-border" v-model="newItemStartDate" type="date" name="" id="" :max="newItemEndDate">
               </div>
             </div>
 
             <div class="field">
-              <label class="label">End date</label>
+              <label class="label">종료일</label>
               <div class="control">
                 <!-- <input v-model="newItemEndDate" class="input" type="date" /> -->
                 <!-- <b-form-datepicker id="example-datepicker2" v-model="newItemEndDate" class="mb-2"></b-form-datepicker> -->
-                <input class="col-8 no-border" v-model="newItemEndDate" type="date" name="" id="">
+                <input class="col-8 no-border" v-model="newItemEndDate" type="date" name="" id="" :min="newItemStartDate" @input="changeEdate">
               </div>
             </div>
 
             <div class="field">
-              <label class="label">Contents</label>
+              <label class="label">일정 내용</label>
               <div class="control">
                 <b-form-textarea v-model="newItemContents" class="input" />
               </div>
             </div>
 
-            <button class="snip1535" @click="addSchedule"  style="margin-left:160px">
+            <button class="btn" @click="addSchedule"  style="margin-left:199px">
               추가
             </button>
           </div>
@@ -80,6 +80,8 @@
           slot-scope="{ headerProps }"
           :header-props="headerProps"
           @input="setShowDate"
+          style="background-color:black; border-radius:15px 15px 0px 0px; color:white"
+
         />
       </calendar-view>
     </div>
@@ -89,7 +91,16 @@
 
       <b-modal id="modal-2" title="일정" ref="detail-modal" hide-footer>
         <div v-if="readOnly">
-        <b-icon icon="pencil" style="margin-left:430px" @click="changeReadOnly()"></b-icon><br/>
+          <div>
+            <!-- eslint-disable vue/no-use-v-if-with-v-for,vue/no-confusing-v-for-v-if -->
+            <center v-for="(item , idx) in GroupInfo" v-bind:item="item" v-bind:key="idx"
+             v-if="item.gId == detail.gId && detail.gId != ''"
+             
+            >
+             <h5> [ {{item.groupName}} ]</h5>
+            </center>
+          </div>
+        <b-icon icon="pencil" style="margin-left:430px;margin-top:-90px" @click="changeReadOnly()"></b-icon><br/>
         <h2 style="text-align:center">{{detail.title}}</h2>
         {{detail.sdate}} ~ {{detail.edate}}<br/>
 
@@ -99,7 +110,7 @@
 
           <div class="box">
             <div class="field">
-              <label class="label"> Title</label>
+              <label class="label">일정명</label>
               <!-- <button @click="deleteSchedule()" style="margin-left:360px border">삭제</button> -->
               <b-button @click="deleteSchedule()" variant="light" style="margin-left:380px;margin-top:-60px;border-radius: 10rem;height:10px;font-size:2px">삭제</b-button>
               <div class="control">
@@ -109,25 +120,25 @@
             </div>
 
             <div class="field">
-              <label class="label">Start date</label>
+              <label class="label">시작일</label>
               <div class="control">
                 <!-- <input v-model="detail.sdate" class="input" type="date" /> -->
                  <!-- <b-form-datepicker id="example-datepicker" v-model="detail.sdate" class="mb-2"></b-form-datepicker> -->
-                 <input class="col-8 no-border" v-model="detail.sdate" type="date" name="" id="">
+                 <input class="col-8 no-border" v-model="detail.sdate" type="date" name="" id="" ><!--:max="detail.edate"-->
               </div>
             </div>
 
             <div class="field">
-              <label class="label">End date</label>
+              <label class="label">종료일</label>
               <div class="control">
                 <!-- <input v-model="detail.edate" class="input" type="date" /> -->
                 <!-- <b-form-datepicker id="example-datepicker" v-model="detail.edate" class="mb-2"></b-form-datepicker> -->
-                <input class="col-8 no-border" v-model="detail.edate" type="date" name="" id="">
+                <input class="col-8 no-border" v-model="detail.edate" type="date" name="" id=""> <!--:min="detail.sdate"-->
               </div>
             </div>
 
             <div class="field">
-              <label class="label">Contents</label>
+              <label class="label">일정 내용</label>
               <div class="control">
                 <b-form-textarea v-model="detail.contents" class="input" />
               </div>
@@ -168,7 +179,7 @@ export default {
     [FormGroupInput.name]: FormGroupInput,
   },
   mixins: [CalendarMathMixin],
-  props: ['scheduleType', 'items','gId'],
+  props: ['scheduleType', 'items','gId','GroupInfo'],
   data() {
     return {
       /* Show the current month, and give it some fake items to show */
@@ -205,6 +216,9 @@ export default {
       sId: '',
       show_detail: false,
       readOnly: true,
+
+      flagsdate : false,
+      flagedate : false,
     };
   },
   computed: {
@@ -241,24 +255,30 @@ export default {
   },
   mounted() {
     this.newItemStartDate = this.isoYearMonthDay(this.today());
-    this.newItemEndDate = this.isoYearMonthDay(this.today());
-    console.log("처음값" + this.newItemStartDate);
+    // this.newItemEndDate = this.isoYearMonthDay(this.today());
+    // // console.log("처음값" + this.newItemStartDate);
     if (this.scheduleType === 'mySchedule') {
       this.getItem();
     }else if (this.scheduleType === 'groupSchedule'){
       this.getGroupItem();
     }
-    console.log("아디디" + this.gId);
+    //// console.log("아디디" + this.gId);
     // this.schedule.email = localStorage.getItem('email');
-    //console.log("아이템" + this.items);
+    //// console.log("아이템" + this.items);
   },
   methods: {
+    changeSdate(){
+      // // console.log("sdate  :  "+this.newItemStartDate);
+    },
+    changeEdate(){
+
+    },
     periodChanged() {
       // range, eventSource) {
       // Demo does nothing with this information, just including the method to demonstrate how
       // you can listen for changes to the displayed range and react to them (by loading items, etc.)
-      //console.log(eventSource)
-      //console.log(range)
+      //// console.log(eventSource)
+      //// console.log(range)
     },
     thisMonth(d, h, m) {
       const t = new Date();
@@ -271,7 +291,7 @@ export default {
       // this.message = ` ${d.toLocaleDateString()}`;
     },
     onClickItem(e) {
-      //this.message = `You clicked: ${e.title}`;console.log("dff  " + this.detail.sid);
+      //this.message = `You clicked: ${e.title}`;// console.log("dff  " + this.detail.sid);
       this.sId = e.id.substr(1);
       // this.detail.sdate = e.startDate;
       // this.detail.edate = e.endDate;
@@ -289,7 +309,7 @@ export default {
           this.$refs['detail-modal'].show();
           this.detail.sdate = this.detail.sdate.substr(0,10);
           this.detail.edate = this.detail.edate.substr(0,10);
-          console.log("다음값" + this.detail.sdate);
+          // console.log("다음값" + this.detail.sdate);
         });
       
     },
@@ -336,7 +356,7 @@ export default {
       }
     },
     groupAddItem(){
-      console.log("df" + this.gId);
+      // console.log("df" + this.gId);
       this.schedule.sdate = this.newItemStartDate;
       this.schedule.edate = this.newItemEndDate;
       this.schedule.title = this.newItemTitle;
@@ -354,7 +374,7 @@ export default {
       }
     },
     getItem() {
-      this.$emit('getSchedule');
+      //this.$emit('getSchedule');
       //  this.insertItems();
     },
     getGroupItem(){
@@ -404,7 +424,7 @@ export default {
           }
         });   
     }else{
-      console.log("d");
+      // console.log("d");
     }
     },
     // hoverItem(){
@@ -416,6 +436,13 @@ export default {
 
 <style>
 @import url(https://fonts.googleapis.com/css?family=BenchNine:700);
+
+.cv-day-number{
+  background-color: "orange";
+  border-radius: 10px;
+  font-size: 20px;
+}
+
 
 .snip1535 {
   background-color: #c47135;
@@ -518,4 +545,6 @@ export default {
 	background-color: #2b838f;
 	border-color: #2b838f;
 }
+
+
 </style>

@@ -1,33 +1,32 @@
 <template>
   <div>
     <div class="page-header clear-filter" filter-color="orange">
-      <parallax class="page-header-image" style="background-image:url('img/bg5.jpg')"> </parallax>
+      <parallax class="page-header-image" :style="`background-image:url('${group.img}')`"> </parallax>
       <div class="container">
-        <div class="photo-container">
-          <img src="img/ryan.jpg" alt="" />
-        </div>
+
         <div class="row">
-          <div class="col-md-8"></div>
-          <div class="col-md-2" v-if="state == 3">
-            <i
-              v-on:click="updateGroup(group.gId)"
-              style="width:200%; height:200%"
-              class="now-ui-icons ui-1_settings-gear-63"
-            >
-              Edit
-            </i>
+          <div class="col-8"></div>
+          <div class="col-2" v-if="state == 3" style="margin-bottom:-10px">
+            <div style="cursor:pointer;position:relative;top:70px;left: 50px">
+              <i
+                v-on:click="updateGroup(group.gId)"
+                style="width:200%; height:300%;margin-left:-120px;margin-bottom:-100px;padding-left:-100px"
+                class="now-ui-icons ui-1_settings-gear-63"
+              >
+                스터디 수정
+              </i>
+            </div>
           </div>
         </div>
-        <h3>{{ group.groupName }}</h3>
-        <p class="category">{{ group.category }}</p>
-        <div class="description">{{ group.groupDesc }}</div>
+        <h3 style="margin-top:50px">{{ group.groupName }}</h3>
+        <p class="category" style="font:bold">{{ group.category }} 스터디</p>
+        <!-- <div v-html="group.groupDesc.replace(/(?:\r\n|\r|\n)/g, '<br />')" class="description"></div> -->
 
         <br />
-        <div v-if="state == 3">
-          <!-- <p style="font-size: 14px; margin-left: 30px">스터디 모집 종료일 : {{ $moment(group.edate).format('YYYY-MM-DD') }}</p> -->
-          <p style="font-size: 14px; margin-left: 30px">스터디 모집 종료일 : {{ group.edate }}</p>
-          <p style="font-size: 14px; margin-left: 30px">스터디 인원 제한 : {{ group.max }}</p>
-          <p style="font-size: 14px; margin-left: 30px">지역 : {{ group.region }}</p>
+        <div>
+          <p style="font-size: 14px;margin-top:10px">스터디 시작일 : {{ group.sdate }}</p>
+          <p style="font-size: 14px;">스터디 인원 제한 : {{ group.max }}</p>
+          <p style="font-size: 14px;">지역 : {{ group.region }}</p>
         </div>
       </div>
     </div>
@@ -46,7 +45,7 @@
               class="btn btn-primary btn-round btn-lg"
             >
               <span>
-                스터디원 목록
+                스터디 관리
               </span>
             </a>
 
@@ -59,7 +58,7 @@
             <!-- <span v-if="applyCount != 0" class="badge badge-warning badge-pill" style="position: relative; right:45px; bottom:20px">1</span> -->
           </span>
         </div>
-        <component :is="componentLoading()" :gId="gId" :state="state"></component>
+        <component :is="componentLoading()" :gId="gId" :state="state" :groupName="group.groupName" :max="group.max" @changemember="changeAct"></component>
         <group-board-list v-if="active==4" :gId ="gId"></group-board-list>
       </div>
     </div>
@@ -151,6 +150,8 @@ export default {
           },
         })
         .then((res) => {
+          const sdate = res.data.list[0].sdate
+          res.data.list[0].sdate = sdate.slice(0, 4) + '년 ' + sdate.slice(5, 7) + '월 ' + sdate.slice(8, 10) + '일'
           this.group = res.data.list[0];
         })
         .catch((err) => {
@@ -188,6 +189,21 @@ export default {
     updateGroup: function(gId) {
         this.$router.push({path: './GroupUpdate', query: { gId: gId}})
     },
+    changeAct(num){
+      if(num==3){
+        this.loadMemberList();
+        this.getApplyCount();
+        this.active = 3;
+        this.componentLoading();
+
+      }else if(num == 5){
+        this.getState();
+        this.loadMemberList();
+        this.getApplyCount();
+        this.active = 3;
+        this.componentLoading();
+      }
+    }
   },
 };
 </script>

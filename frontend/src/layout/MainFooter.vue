@@ -5,25 +5,6 @@
     :data-background-color="backgroundColor"
   >
     <div class="container">
-      <nav>
-        <ul>
-          <li>
-            <a href="https://www.ssafy.com/ksp/jsp/swp/swpMain.jsp">
-              SSAFY 4th
-            </a>
-          </li>
-          <li>
-            <a href="https:///presentation.creative-tim.com">
-              About Us
-            </a>
-          </li>
-          <li>
-            <a href="https:///blog.creative-tim.com">
-              Blog
-            </a>
-          </li>
-        </ul>
-      </nav>
       <div class="copyright">
         &copy; {{ year }}, Designed by
         <a href="https:///www.invisionapp.com" target="_blank" rel="noopener"

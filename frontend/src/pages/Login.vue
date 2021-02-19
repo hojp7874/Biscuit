@@ -33,7 +33,7 @@
               >
               </fg-input>
               <!-- <template slot="raw-content" id="function_button"> -->
-                <div class="card-footer text-center">
+                <div class="card-footer " style="margin-right:px;margin-top:0px;margin-left:-2px">
                   <a
                     class="btn btn-primary btn-round btn-lg btn-block"
                     v-on:click="checkLogin"
@@ -92,7 +92,7 @@ export default {
       // let err = true;
       // let msg = '';
 
-      // console.log("로그인체크");
+      // // console.log("로그인체크");
       // !this.user.email &&
       //   ((msg = '아이디를 입력해주세요'), (err = false), this.$refs.id.focus());
       // err &&
@@ -117,6 +117,7 @@ export default {
           localStorage.setItem('admin', response.data.user.admin);
           localStorage.setItem('phone', response.data.user.phone);
           localStorage.setItem('region', response.data.user.region);
+          localStorage.setItem('picture', response.data.user.picture);
           // localStorage.setItem('admin', response.data.admin);
           // this.$store.dispatch('login', true);
           this.$router.replace(`/`);

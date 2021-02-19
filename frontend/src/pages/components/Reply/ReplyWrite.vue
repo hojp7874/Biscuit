@@ -12,7 +12,7 @@
               ></b-form-textarea>
         </b-col>
         <b-col>
-          <b-button type="submit" class="btnAdd m-1">등록</b-button>
+          <b-button type="submit" class="btnAdd col-md-2 col-sm-4">등록</b-button>
         </b-col> 
       </b-row>
     </b-form>
@@ -55,7 +55,7 @@ export default {
         })
         .then((res) => {
           if (res.data.success) {
-            console.log("bId >>> "+this.bId);
+            // console.log("bId >>> "+this.bId);
             // alert('등록되었습니다.');
             this.$router.go(this.$router.currentRoute);
           } else {

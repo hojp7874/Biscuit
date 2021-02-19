@@ -15,16 +15,16 @@
                   <col width="80%" />
                 </colgroup>
                 <tr>
-                  <th>제목</th>
+                  <!-- <th>제목</th> -->
                   <td v-bind="title">{{ title }}</td>
                 </tr>
                 <tr>
-                  <th>작성자</th>
-                  <td v-bind="nickname">{{ nickname }}</td>
+                  <!-- <th>작성자</th> -->
+                  <td><img :src="picture" class="rounded-circle" style="margin-top:15px; width:65px; height:65px" alt="" />{{ nickname }}</td>
                 </tr>
                 <tr>
-                  <th>내용</th>
-                  <td class="txt_cont" v-bind="contents">{{ contents }}</td>
+                  <!-- <th>내용</th> -->
+                  <td class="txt_cont" v-bind="contents" v-html="contents.replace(/(?:\r\n|\r|\n)/g, '<br />')"></td>
                 </tr>
               </table>
             </form>
@@ -32,7 +32,7 @@
 
           <div class="btnWrap d-flex justify-content-center">
             <b-button @click="fnList" class="btn btnList m-1">목록</b-button>
-            <div v-if="loginStatus.nickname == nickname">
+            <div v-if="loginStatus.email == email">
               <b-button v-if="email" @click="fnUpdate" class="btn-info btnUpdate m-1">수정</b-button>
               <b-button v-if="email" @click="fnDelete" class="btn-danger btnDelete m-1">삭제</b-button>
             </div>
@@ -41,8 +41,8 @@
           <group-reply-write :info="info" @wirtereply="changeMode" v-if="this.loginStatus.nickname" />
           <div>
             <!-- <ReplyList v-for="(reply,index) in showList" :reply="reply" :key="index" /> -->
-            <group-reply-list v-for="(reply,index) in list" :reply="reply" :key="index"></group-reply-list>
-            <b-pagination-nav v-model="currentPage" pills :total-rows="pageCnt" per-page="10" align="center" @page-click="getList(page)" ></b-pagination-nav>
+            <group-reply-list v-for="(items,index) in showList" :items="items" :key="index" @listbtn="changeMode" ></group-reply-list>
+            <b-pagination  class="pagination pagination-primary" v-model="replyPage" pills :total-rows="pageCnt" per-page="10" align="center" @page-click="getList(page)"></b-pagination>
           </div>
         </div>
         <div class="container" v-if="mode==1">
@@ -59,6 +59,7 @@ import axios from 'axios';
 import GroupReplyWrite from './GroupReply/ReplyWrite.vue';
 import GroupReplyList from './GroupReply/ReplyList.vue';
 import GroupBoardUpdate from './BoardUpdate.vue';
+
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
 export default {
@@ -68,10 +69,11 @@ export default {
   components: {
     GroupReplyWrite,
     GroupReplyList,
-    GroupBoardUpdate
+    GroupBoardUpdate,
   },
   data() {
     return {
+      picture: '',
       form: '',
       bId: '',
       email: '',
@@ -96,9 +98,9 @@ export default {
     ...mapState([
       'loginStatus'
     ]),
-    // showList: function() {
-    //   return this.list.slice(10*(this.replyPage-1), 10*this.replyPage)
-    // },
+    showList: function() {
+      return this.list.slice(10*(this.replyPage-1), 10*this.replyPage)
+    },
   },
   created() {
     this.bId = this.$props['info'].bId;
@@ -106,20 +108,21 @@ export default {
   },
   mounted() {
     this.fnGetView();
-    this.getList(1);
+    this.getList();
   },
   methods: {
     changeMode(num){
-      console.log("IN CHANGE MODE");
+      // // console.log("IN CHANGE MODE");
       this.fnGetView();
-      this.getList(1);
+      this.getList();
+      this.pageCnt = 1;
       // this.mode = 5;
       this.mode = num;
     },
     // changePage: function() {
     //   this.showList = this.list.slice(10*(this.replyPage-1), 10*this.replyPage)
-    //   // console.log(this.replyPage)
-    //   // console.log(temporaryList)
+    //   // // console.log(this.replyPage)
+    //   // // console.log(temporaryList)
     // },
     fnGetView() {
       this.$axios
@@ -131,7 +134,7 @@ export default {
           },
         })
         .then((res) => {
-          console.log(res.data);
+          // console.log(res.data);
           this.title = res.data.list[0].title;
           this.contents = res.data.list[0].contents;
           this.email = res.data.list[0].email;
@@ -139,10 +142,17 @@ export default {
           this.noticeFlag = res.data.list[0].noticeFlag;
           this.date = res.data.list[0].date;
           this.category = res.data.list[0].category;
+          axios.get(`${SERVER_URL}/user/profile`, {params: {email: this.email}})
+          .then(resp => {
+            this.picture = resp.data.User.picture;
+          })
+          .catch(err => {
+            console.log(err);
+          })
         })
         .catch((err) => {
           console.log(err);
-        });
+      });
     },
     fnList() {
       this.$emit('readbtn',1);
@@ -184,23 +194,18 @@ export default {
           });
       }
     },
-    getList(num) {
-      console.log("REPLY GET LIST");
+    getList() {
+      // // console.log("REPLY GET LIST");
       this.$axios
         .get(`${SERVER_URL}/greply/list`, {
           params: {
-            page: num, 
+            page: 1, 
             bId: this.bId,
           },
         })
         .then((res) => {
-          console.log(res);
-          this.list = null;
-          // this.pageCnt = 0;
-          this.list = res.data["list"];
-          this.currentPage = res.data["pagination"].curPage;          
-          this.pageCnt = res.data["pagination"].pageCnt;
-          console.log("cnt " +res.data["pagination"].pageCnt);
+          this.list = res.data["list"];     
+          this.pageCnt = this.list.length;
         })
         .catch((err) => {
           console.log(err);
@@ -232,4 +237,36 @@ export default {
   text-align: center;
   margin: 20px 0 0 0;
 }
+
+
+.pagination {
+  margin: 20px 0 0 0;
+  text-align: center;
+}
+.first,
+.prev,
+.next,
+.last {
+  border: 1px solid #666;
+  margin: 0 5px;
+}
+.pagination span {
+  display: inline-block;
+  padding: 0 5px;
+  color: #333;
+}
+.pagination a {
+  text-decoration: none;
+  display: inline-blcok;
+  padding: 0 5px;
+  color: #666;
+}
+.pagination .page-item.active>.page-link{
+  background-color: #f96332 !important;
+}
+/* 
+.pagination .page-item.active > .page-link, .pagination .page-item.active > .page-link:focus, .pagination .page-item.active > .page-link:hover{
+  background-color:#f96332;
+} */
+
 </style>

@@ -18,8 +18,10 @@ import org.springframework.web.socket.WebSocketSession;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.a407Chat.dao.ChatMessageDao;
 import com.ssafy.a407Chat.dao.ChatRoomDao;
+import com.ssafy.a407Chat.dao.ChatRoomMemberDao;
 import com.ssafy.a407Chat.dto.ChatMessageDto;
 import com.ssafy.a407Chat.dto.ChatRoomDto;
+import com.ssafy.a407Chat.dto.ChatRoomMemberDto;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -37,6 +39,9 @@ public class ChatServiceImpl implements ChatService{
 	@Autowired
 	private ChatMessageDao messageDao;
 	
+	@Autowired
+	private ChatRoomMemberDao roomMemberDao;
+	
 	@Override
 	public List<ChatRoomDto> findAllRoom() throws Exception {
 	
@@ -53,8 +58,7 @@ public class ChatServiceImpl implements ChatService{
 	@Override
 	public ChatRoomDto createRoom(ChatRoomDto dto) throws Exception{
 		String roomName = dto.getRoomName();
-		int gId = dto.getGId();
-		ChatRoomDto chatRoom = ChatRoomDto.create(roomName, gId);
+		ChatRoomDto chatRoom = ChatRoomDto.create(roomName);
 		try {
 			roomDao.insertRoom(chatRoom);
 			return chatRoom;
@@ -70,7 +74,7 @@ public class ChatServiceImpl implements ChatService{
 	public <T> void sendMessage(WebSocketSession session, T message) throws Exception{
 		try {
 			session.sendMessage(new TextMessage(ObjectMapper.writeValueAsString(message)));
-			System.out.println("message : " + message);
+			System.out.println("send message : " + message);
 		} catch (IOException e) {
 			log.error(e.getMessage(), e);
 
@@ -80,6 +84,30 @@ public class ChatServiceImpl implements ChatService{
 	@Override
 	public List<ChatMessageDto> loadMessages(String roomId) throws Exception {
 		return messageDao.listMessage(roomId);
+	}
+
+	@Override
+	public int InviteMember(ChatRoomMemberDto dto) throws Exception {
+		// TODO Auto-generated method stub
+		return roomMemberDao.insertChatMember(dto);
+	}
+
+	@Override
+	public List<ChatRoomDto> findMyRoom(String email) throws Exception {
+		// TODO Auto-generated method stub
+		return roomMemberDao.selectMyRoom(email);
+	}
+
+	@Override
+	public List<ChatRoomMemberDto> findAllRoomMember(String roomId) throws Exception {
+		// TODO Auto-generated method stub
+		return roomMemberDao.selectRoomMember(roomId);
+	}
+
+	@Override
+	public int joinRoom(Map map) throws Exception {
+		// TODO Auto-generated method stub
+		return roomMemberDao.updateIsJoin(map);
 	}
 	
 	
