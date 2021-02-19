@@ -15,15 +15,15 @@
                   <col width="80%" />
                 </colgroup>
                 <tr>
-                  <th>제목</th>
+                  <!-- <th>제목</th> -->
                   <td v-bind="title">{{ title }}</td>
                 </tr>
                 <tr>
-                  <th>작성자</th>
-                  <td v-bind="nickname">{{ nickname }}</td>
+                  <!-- <th>작성자</th> -->
+                  <td><img :src="picture" class="rounded-circle" style="margin-top:15px; width:65px; height:65px" alt="" />{{ nickname }}</td>
                 </tr>
                 <tr>
-                  <th>내용</th>
+                  <!-- <th>내용</th> -->
                   <td class="txt_cont" v-bind="contents" v-html="contents.replace(/(?:\r\n|\r|\n)/g, '<br />')"></td>
                 </tr>
               </table>
@@ -73,6 +73,7 @@ export default {
   },
   data() {
     return {
+      picture: '',
       form: '',
       bId: '',
       email: '',
@@ -141,10 +142,17 @@ export default {
           this.noticeFlag = res.data.list[0].noticeFlag;
           this.date = res.data.list[0].date;
           this.category = res.data.list[0].category;
+          axios.get(`${SERVER_URL}/user/profile`, {params: {email: this.email}})
+          .then(resp => {
+            this.picture = resp.data.User.picture;
+          })
+          .catch(err => {
+            console.log(err);
+          })
         })
         .catch((err) => {
           console.log(err);
-        });
+      });
     },
     fnList() {
       this.$emit('readbtn',1);
