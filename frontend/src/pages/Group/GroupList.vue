@@ -76,7 +76,7 @@
                   {{group.groupName}}</div>
               </div>
               <h5 style="font-size:14px;  color:#000000; margin-right:5px"><i style="margin-right:5px"
-                  class="now-ui-icons business_badge"></i> {{group.nickname}}</h5>
+                  class="now-ui-icons business_badge"></i> {{group.nickname}} <img v-if="group.nickname == loginStatus.nickname" src="./crown-solid.svg" style="width:15px;" alt=""></h5>
               <span class="badge badge-info"
                 style="font-size:12px; font-weight:bold; color:#FFFFFF; margin-right:5px"><i
                   class="now-ui-icons users_single-02"></i> {{ group.max }}</span>
@@ -146,7 +146,7 @@
                   {{group.groupName}}</div>
               </div>
               <h5 style="font-size:14px;  color:#000000; margin-right:5px"><i style="margin-right:5px"
-                  class="now-ui-icons business_badge"></i> {{group.nickname}}</h5>
+                  class="now-ui-icons business_badge"></i> {{group.nickname}}<img v-if="group.nickname == loginStatus.nickname" src="./crown-solid.svg" style="width:15px;" alt=""></h5>
               <span class="badge badge-info"
                 style="font-size:12px; font-weight:bold; color:#FFFFFF; margin-right:5px"><i
                   class="now-ui-icons users_single-02"></i> {{ group.max }}</span>
@@ -593,5 +593,17 @@ div.card-body{
   }
 
   .filter1{filter:brightness(0.4);}
+
+.crown{
+  color: orange;
+  width: 30px;
+  height: 30px;
+  font-size: 15px;
+}
+
+.crown:after{
+  content: "\f521";
+  font-family: "Font Awesome\ 5 Free";
+}
 
 </style>
