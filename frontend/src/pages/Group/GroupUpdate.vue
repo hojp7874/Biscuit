@@ -96,11 +96,12 @@ export default {
   data() {
     return {
       options: [
-        { text: '한국사', value: '한국사' },
-        { text: '프로그래머', value: '프로그래머' },
-        { text: '농부', value: '농부' },
-        { text: '어부', value: '어부' },
-        { text: '광부', value: '광부' },
+          { text: '취업', value: '취업' },
+          { text: '수능', value: '수능' },
+          { text: '자격증', value: '자격증' },
+          { text: '공무원', value: '공무원' },
+          { text: '취미', value: '취미' },
+          { text: '기타', value: '기타' },
       ],
       params: {
         type: 'gId',
